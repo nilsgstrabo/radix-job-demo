@@ -17,7 +17,7 @@ spec:
     - name: "server"
       src: "./frontend"
       variables:
-        DOTNET_URLS: "http://*:5005"
+        ASPNETCORE_URLS: "http://*:5005"
       ports:
         - name: http
           port: 5005
