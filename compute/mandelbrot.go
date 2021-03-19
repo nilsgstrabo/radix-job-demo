@@ -48,7 +48,7 @@ func (m *Mandelbrot) pixel(x, y int) uint8 {
 		i++
 	}
 
-	color := 255 - uint8(i)
+	color := uint8(i)
 	return color
 }
 
