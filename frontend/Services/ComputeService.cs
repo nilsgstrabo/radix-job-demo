@@ -24,8 +24,16 @@ public class ComputeService : IComputeService
 
     public async Task GetJobs()
     {
-        var result=await _httpClient.GetAsync("/api/v1/jobs");
-        _logger.LogInformation(0, result.StatusCode.ToString());
+        try
+        {
+            var result = await _httpClient.GetAsync("/api/v1/jobs");
+            _logger.LogInformation(0, result.StatusCode.ToString());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(0, ex, ex.Message);
+        }
+
     }
 
 }
