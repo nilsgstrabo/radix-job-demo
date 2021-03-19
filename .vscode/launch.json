@@ -11,9 +11,42 @@
             "mode": "debug",
             "program": "${workspaceFolder}/compute",
             "env": {
-                "COMPUTE_CONFIG":"test/config.yaml",
-                "COMPUTE_OUT_PATH":"test/out"
+                "COMPUTE_CONFIG": "test/config.yaml",
+                "COMPUTE_OUT_PATH": "test/out"
             }
+        },
+        {
+            "OS-COMMENT1": "Use IntelliSense to find out which attributes exist for C# debugging",
+            "OS-COMMENT2": "Use hover for the description of the existing attributes",
+            "OS-COMMENT3": "For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md",
+            "name": ".NET Core Launch (web)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "OS-COMMENT4": "If you have changed target frameworks, make sure to update the program path.",
+            "program": "${workspaceFolder}/frontend/bin/Debug/net5.0/frontend.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/frontend",
+            "stopAtEntry": false,
+            "OS-COMMENT5": "Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\\\bNow listening on:\\\\s+(https?://\\\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5000",
+                "JOB_SCHEDULER": "http://compute:8080",
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
         }
     ]
 }
