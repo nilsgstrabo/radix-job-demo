@@ -1,0 +1,24 @@
+apiVersion: radix.equinor.com/v1
+kind: RadixApplication
+metadata:
+  name: radix-job-demo
+spec:
+  environments:
+    - name: qa
+      build:
+        from: main
+  jobs:
+    - name: "compute"
+      src: "./compute"
+      schedulerPort: 8080
+      payload:
+        path: "/tmp/config.yaml"
+  components:
+    - name: "server"
+      src: "./frontend"
+      variables:
+        DOTNET_URLS: "http://*:5005"
+      ports:
+        - name: http
+          port: 5005
+      public: false
