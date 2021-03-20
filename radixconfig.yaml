@@ -13,7 +13,8 @@ spec:
       schedulerPort: 8080
       payload:
         path: "/tmp/config.yaml"
-      - environment: qa
+      environmentConfig:
+        - environment: qa
           volumeMounts:
             - type: blob
               name: storage
@@ -25,6 +26,7 @@ spec:
       variables:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
+        COMPUTE_IMAGE_PATH: "/app/computeimages"
       ports:
         - name: http
           port: 5005
