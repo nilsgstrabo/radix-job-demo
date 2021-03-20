@@ -12,9 +12,9 @@ spec:
       src: "./compute"
       schedulerPort: 8080
       payload:
-        path: "/tmp/config.yaml"
+        path: "/compute/payload"
       variables:
-        COMPUTE_CONFIG: "/tmp/config.yaml"
+        COMPUTE_CONFIG: "/compute/payload/payload"
         COMPUTE_OUT_PATH: "/dist/computeimages"
       environmentConfig:
         - environment: qa

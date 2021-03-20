@@ -51,22 +51,27 @@ export class HomeComponent {
   }
 
   resetImage() {
-
-    this.sendImageRequest({
+    const mwin: MandelbrotWindow = {
       top: {
         x: -2.5,
         y: -1
       },
-      bottom:{
+      bottom: {
         x: 1,
         y: 1
       }
-    }).then(r=>console.log(r)).catch(e=>console.error(e));
+    };
+    this.sendImageRequest(mwin).then(r => this.addJobToList(r)).catch(e => console.error(e));
 
   }
 
+  private addJobToList(job: any) {
+    console.log('new job', job)
+    this.jobs.push(job);
+  }
+
   async onAreaSelected(event: MandelbrotCoord) {
-    console.log(event);
+    
     const top: MandelbrotCoord = {
       x: ((this.windowCoord.bottom.x - this.windowCoord.top.x) / this.imageWidth * event.x) + this.windowCoord.top.x,
       y: ((this.windowCoord.bottom.y - this.windowCoord.top.y) / this.imageHeight * event.y) + this.windowCoord.top.y,
@@ -78,6 +83,7 @@ export class HomeComponent {
 
     try {
       const response = await this.sendImageRequest({ top: top, bottom: bottom });
+      this.addJobToList(response);
     } catch (error) {
       console.error(error);
     }
