@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, HostListener } from '@angular/core';
-
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Subscription, timer } from 'rxjs';
+import { switchMap, exhaustMap, tap } from 'rxjs/operators';
 const getJsonOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -24,11 +25,12 @@ interface ComputeRequest {
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
   private imageWidth = 1050;
   private imageHeight = 600;
   private boxWidth = 175;
   private boxHeight = 100;
+  private jobListSubscription: Subscription;
   jobs: any[] = [];
   imageId = 1;
   nextImageId = 2;
@@ -42,8 +44,19 @@ export class HomeComponent {
       y: 1
     }
   }
-  constructor(private http: HttpClient) {
 
+  constructor(private http: HttpClient) { }
+
+  ngOnInit() {
+    this.jobListSubscription = timer(1000, 2000).pipe(
+      exhaustMap(() => this.getJobList())
+    ).subscribe(v => this.setJobList(v), err => console.error(err));
+  }
+
+  ngOnDestroy() {
+    if (this.jobListSubscription) {
+      this.jobListSubscription.unsubscribe();
+    }
   }
 
   private getNextImageId() {
@@ -65,13 +78,21 @@ export class HomeComponent {
 
   }
 
+  private getJobList() {
+    return this.http.get<any[]>('/api/compute/jobs', getJsonOptions);
+  }
+
+  private setJobList(jobs: any[]) {
+    this.jobs = jobs.sort((a, b) => a.started > b.started ? 1 : -1);
+  }
+
   private addJobToList(job: any) {
     console.log('new job', job)
-    this.jobs.push(job);
+    this.jobs.unshift(job);
   }
 
   async onAreaSelected(event: MandelbrotCoord) {
-    
+
     const top: MandelbrotCoord = {
       x: ((this.windowCoord.bottom.x - this.windowCoord.top.x) / this.imageWidth * event.x) + this.windowCoord.top.x,
       y: ((this.windowCoord.bottom.y - this.windowCoord.top.y) / this.imageHeight * event.y) + this.windowCoord.top.y,

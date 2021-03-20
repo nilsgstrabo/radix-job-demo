@@ -2,11 +2,14 @@
 <div>
   <button class="btn btn-primary" (click)="resetImage()">Start Over</button>
 </div>
-<div class="p-0 position-relative">
+
+  <div class="p-0 position-relative">
   
-  <img class="position-absolute" src="/api/image/{{imageId}}" appSelectAndClick [selectorItem]="selector" (areaSelected)="onAreaSelected($event)"> 
-  <div #selector class="position-absolute border border-primary border-3" style="width: 175px; height: 100px; background-color: transparent; "></div>
-</div>
+    <img class="" src="/api/image/{{imageId}}" appSelectAndClick [selectorItem]="selector" (areaSelected)="onAreaSelected($event)"> 
+    <div #selector class="position-absolute border border-primary border-3" style="top:0px; width: 175px; height: 100px; background-color: transparent; "></div>
+  </div>
+
+
 <h4>List of jobs</h4>
 <table class="table">
   <thead>

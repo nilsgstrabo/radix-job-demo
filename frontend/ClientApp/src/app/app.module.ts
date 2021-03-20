@@ -7,8 +7,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { SelectAndClickDirective } from './directives/select-and-click.directive';
 
 @NgModule({
@@ -16,8 +14,6 @@ import { SelectAndClickDirective } from './directives/select-and-click.directive
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     SelectAndClickDirective,
   ],
   imports: [
