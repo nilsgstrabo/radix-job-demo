@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 )
 
@@ -44,22 +45,24 @@ func main() {
 	outPath := os.Getenv("COMPUTE_OUT_PATH")
 	cfgBytes, err := ioutil.ReadFile(cfgFile)
 	if err != nil {
-		panic(err)
+		logrus.Panic(err)
 	}
 
 	var config Config
 
-	yaml.Unmarshal(cfgBytes, &config)
+	if err := yaml.Unmarshal(cfgBytes, &config); err != nil {
+		logrus.Panic(err)
+	}
 
-	fmt.Printf("Config file: %s\n", cfgFile)
-	fmt.Printf("Output directory: %s\n", outPath)
-	fmt.Printf("Config: %v", config)
+	logrus.Infof("Config file: %s\n", cfgFile)
+	logrus.Infof("Output directory: %s\n", outPath)
+	logrus.Infof("Config: %v", config)
 
 	mandelbrot := Mandelbrot{
 		Height:      config.Height,
 		Width:       config.Width,
-		TopLeft:     config.TopLeft,
-		BottomRight: config.BottomRight,
+		TopLeft:     config.Top,
+		BottomRight: config.Bottom,
 	}
 	m_bitmap := mandelbrot.Bitmap()
 	img := image.NewRGBA(image.Rect(0, 0, mandelbrot.Width, mandelbrot.Height))
@@ -70,10 +73,11 @@ func main() {
 			img.Set(x, y, getcolor(m_bitmap[y][x]))
 		}
 	}
-	outFile := filepath.Join(outPath, "mandelbrot.png")
+	outFile := filepath.Join(outPath, fmt.Sprintf("%v.png", config.ImageId))
+	logrus.Infof("Writing new image to %v", outFile)
 	f, err := os.Create(outFile)
 	if err != nil {
-		panic(err)
+		logrus.Panic(err)
 	}
 
 	png.Encode(f, img)

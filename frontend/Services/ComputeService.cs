@@ -4,10 +4,21 @@ using System;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using frontend.Controllers;
+using System.Net.Http.Json;
+using Microsoft.AspNetCore.Mvc;
+
+public class JobStatus {
+    public string Name {get;set;}
+    public string Started {get;set;}
+    public string Ended {get;set;}
+    public string Status {get;set;}
+}
 
 public interface IComputeService
 {
     Task GetJobs();
+    Task<JobStatus> CreateJob(ComputeRequest request);
 
 }
 
@@ -32,6 +43,24 @@ public class ComputeService : IComputeService
         catch (Exception ex)
         {
             _logger.LogError(0, ex, ex.Message);
+        }
+
+    }
+
+    public async Task<JobStatus> CreateJob(ComputeRequest request)
+    {
+        try
+        {
+            var result = await _httpClient.PostAsJsonAsync("/api/v1/jobs", request);
+            result.EnsureSuccessStatusCode();
+            _logger.LogInformation(0, result.StatusCode.ToString());
+            var job=await result.Content.ReadFromJsonAsync<JobStatus>();
+            return job;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(0, ex, ex.Message);
+            throw;
         }
 
     }

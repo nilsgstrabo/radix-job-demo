@@ -1,8 +1,9 @@
 package main
 
 type Config struct {
-	Height      int                  `yaml:"height"`
-	Width       int                  `yaml:"width"`
-	TopLeft     MandelbrotCoordinate `yaml:"topLeft"`
-	BottomRight MandelbrotCoordinate `yaml:"bottomRight"`
+	ImageId int                  `yaml:"imageId"`
+	Height  int                  `yaml:"height"`
+	Width   int                  `yaml:"width"`
+	Top     MandelbrotCoordinate `yaml:"top"`
+	Bottom  MandelbrotCoordinate `yaml:"bottom"`
 }

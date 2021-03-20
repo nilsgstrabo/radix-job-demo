@@ -37,6 +37,7 @@
                 "ASPNETCORE_ENVIRONMENT": "Development",
                 "ASPNETCORE_URLS": "http://localhost:5000",
                 "JOB_SCHEDULER": "http://compute:8080",
+                "COMPUTE_IMAGE_PATH": "testdata"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
