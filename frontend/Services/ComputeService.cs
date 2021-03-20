@@ -22,7 +22,7 @@ public class JobStatus
 
 public interface IComputeService
 {
-    Task GetJobs();
+    Task<JobStatus[]> GetJobs();
     Task<JobStatus> CreateJob(JobRequest request);
 
 }
@@ -53,9 +53,10 @@ public class ComputeService : IComputeService
         _logger = logger;
     }
 
-    public async Task GetJobs()
+    public async Task<JobStatus[]> GetJobs()
     {
         var result = await _httpClient.GetFromJsonAsync<JobStatus[]>("/api/v1/jobs");
+        return result;
     }
 
     public async Task<JobStatus> CreateJob(JobRequest request)

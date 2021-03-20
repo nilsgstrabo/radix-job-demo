@@ -1,16 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, timer } from 'rxjs';
-import { switchMap, exhaustMap, tap } from 'rxjs/operators';
+import { of, Subscription, timer } from 'rxjs';
+import { switchMap, exhaustMap, tap, catchError } from 'rxjs/operators';
+import { ImageChanged } from '../models/image-changed';
+import { MandelbrotCoord } from '../models/mandelbrot-coord';
 import { NotificationHubService } from '../services/notification-hub.service';
 const getJsonOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-interface MandelbrotCoord {
-  x: number;
-  y: number;
-}
+
 
 interface MandelbrotWindow {
   top: MandelbrotCoord
@@ -51,7 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.jobListSubscription = timer(1000, 2000).pipe(
-      exhaustMap(() => this.getJobList())
+      exhaustMap(() => this.getJobList().pipe(catchError(e => of([]))))
     ).subscribe(v => this.setJobList(v), err => console.error(err));
 
     this.imageChangedSubscription = this.hub.imageChanged.subscribe(v => this.imageChanged(v), e => console.error(e));
@@ -63,8 +62,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private imageChanged(img: any) {
-    console.log('imageChanged',img);
+  private imageChanged(img: ImageChanged) {
+    console.log('imageChanged', img);
+    this.imageId = img.imageId;
+    this.windowCoord = img;
   }
 
   private getNextImageId() {
@@ -97,7 +98,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private addJobToList(job: any) {
-    console.log('new job', job)
     this.jobs.unshift(job);
   }
 
@@ -125,8 +125,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       imageId: this.getNextImageId(),
       mandelbrotWindow: mandelbrot
     };
-
-    console.log(request);
 
     const response = await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
     return response
