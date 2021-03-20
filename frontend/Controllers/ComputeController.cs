@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace frontend.Controllers
 {
 
-    public class ComputeRequest
+    public class JobRequest
     {
         public int ImageId { get; set; }
         public MandelbrotWindow MandelbrotWindow { get; set; }
@@ -49,7 +49,7 @@ namespace frontend.Controllers
         }
 
         [HttpPost("jobs")]
-        public async Task<ActionResult<JobStatus>> CreateJob([FromBody] ComputeRequest request)
+        public async Task<ActionResult<JobStatus>> CreateJob([FromBody] JobRequest request)
         {
             try
             {

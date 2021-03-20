@@ -29,6 +29,7 @@ export class HomeComponent {
   private imageHeight = 600;
   private boxWidth = 175;
   private boxHeight = 100;
+  jobs:any[]=[];
   imageId = 1;
   nextImageId = 2;
   windowCoord: MandelbrotWindow = {
