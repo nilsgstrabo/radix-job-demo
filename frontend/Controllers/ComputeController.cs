@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AFP.Web.Hubs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
@@ -40,8 +41,6 @@ namespace frontend.Controllers
             _computeService = computeService;
         }
 
-
-
         [HttpGet("jobs")]
         public async Task GetJobs()
         {
@@ -53,7 +52,7 @@ namespace frontend.Controllers
         {
             try
             {
-                var job=await _computeService.CreateJob(request);
+                var job = await _computeService.CreateJob(request);
                 return job;
             }
             catch (System.Exception)

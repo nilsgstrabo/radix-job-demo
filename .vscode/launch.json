@@ -12,7 +12,8 @@
             "program": "${workspaceFolder}/compute",
             "env": {
                 "COMPUTE_CONFIG": "test/config.yaml",
-                "COMPUTE_OUT_PATH": "test/out"
+                "COMPUTE_OUT_PATH": "test/out",
+                "CALLBACK_ON_COMPLETE_URL": ""
             }
         },
         {

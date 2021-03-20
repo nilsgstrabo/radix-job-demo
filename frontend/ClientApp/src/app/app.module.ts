@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { SelectAndClickDirective } from './directives/select-and-click.directive';
+import { NotificationHubService } from './services/notification-hub.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { SelectAndClickDirective } from './directives/select-and-click.directive
       { path: '', component: HomeComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [],
+  providers: [
+    NotificationHubService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

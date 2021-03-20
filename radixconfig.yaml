@@ -16,6 +16,7 @@ spec:
       variables:
         COMPUTE_CONFIG: "/compute/payload/payload"
         COMPUTE_OUT_PATH: "/dist/computeimages"
+        CALLBACK_ON_COMPLETE_URL: "http://server:5005"
       environmentConfig:
         - environment: qa
           volumeMounts:

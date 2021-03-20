@@ -1,4 +1,5 @@
 using System;
+using AFP.Web.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
 
 namespace frontend
 {
@@ -25,7 +27,7 @@ namespace frontend
         public void ConfigureServices(IServiceCollection services)
         {
 
-
+            services.AddSignalR();
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -38,6 +40,7 @@ namespace frontend
                 var uri = new Uri(Configuration["JOB_SCHEDULER"]);
                 c.BaseAddress = uri;
             });
+            services.AddSingleton<INotificationHubService, NotificationHubService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,11 +60,12 @@ namespace frontend
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-            });
+           {
+               endpoints.MapHub<NotificationHub>("/notificationhub");
+               endpoints.MapControllerRoute(
+                   name: "default",
+                   pattern: "{controller}/{action=Index}/{id?}");
+           });
 
             app.UseSpa(spa =>
             {

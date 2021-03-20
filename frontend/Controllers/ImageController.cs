@@ -8,36 +8,44 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.StaticFiles;
+using AFP.Web.Hubs;
 
 namespace frontend.Controllers
 {
+    public class ImageChangedRequest
+    {
+        public MandelbrotCoord Top { get; set; }
+        public MandelbrotCoord Bottom { get; set; }
+    }
+
     [ApiController]
     [Route("api/[controller]")]
     public class ImageController : ControllerBase
     {
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
-
-        public ImageController(IConfiguration configuration, ILogger<ImageController> logger)
+        private readonly INotificationHubService _hub;
+        public ImageController(IConfiguration configuration, ILogger<ImageController> logger, INotificationHubService hub)
         {
             _logger = logger;
             _configuration = configuration;
+            _hub = hub;
         }
 
         [HttpGet("{imageId}")]
-        public IActionResult GetTask(int imageId)
+        public IActionResult GetImage(int imageId)
         {
             try
             {
                 var path = _configuration["COMPUTE_IMAGE_PATH"];
                 string fileName = imageId.ToString() + ".png";
                 string imgPath = Path.Join(path, fileName);
-                
+
                 if (!System.IO.File.Exists(imgPath))
                 {
                     return NotFound();
                 }
-                
+
                 string mimeType;
                 if (new FileExtensionContentTypeProvider().TryGetContentType(fileName, out mimeType) == false)
                 {
@@ -51,7 +59,21 @@ namespace frontend.Controllers
                 _logger.LogError(ex, ex.Message);
                 return StatusCode(500);
             }
-
         }
+
+        [HttpPost("{imageId}")]
+        public async Task<IActionResult> ImageChanged([FromRoute] int imageId, [FromBody] ImageChangedRequest request)
+        {
+            try
+            {
+                await _hub?.NotifyImageChanged(new ImageChanged { ImageId = imageId, Top = request.Top, Bottom = request.Bottom });
+                return Ok();
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
     }
 }

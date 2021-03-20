@@ -1,13 +1,18 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"image"
 	"image/color"
 	"image/png"
 	"io/ioutil"
+	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
@@ -39,13 +44,20 @@ func getcolor(i uint8) color.RGBA {
 	return color.RGBA{0, 0, 0, 255}
 }
 
+type CallbackRequest struct {
+	Top    MandelbrotCoordinate `json:"top"`
+	Bottom MandelbrotCoordinate `json:"bottom"`
+}
+
 func main() {
 
 	cfgFile := os.Getenv("COMPUTE_CONFIG")
 	outPath := os.Getenv("COMPUTE_OUT_PATH")
+	callbackCompleteUrl := os.Getenv("CALLBACK_ON_COMPLETE_URL")
 
 	logrus.Infof("Config file: %s\n", cfgFile)
 	logrus.Infof("Output directory: %s\n", outPath)
+	logrus.Infof("CALLBACK_ON_COMPLETE_URL: %s\n", callbackCompleteUrl)
 
 	cfgBytes, err := ioutil.ReadFile(cfgFile)
 	if err != nil {
@@ -84,4 +96,23 @@ func main() {
 
 	png.Encode(f, img)
 
+	if strings.TrimSpace(callbackCompleteUrl) != "" {
+
+		adr, err := url.Parse(callbackCompleteUrl)
+		if err != nil {
+			logrus.Panicf("unable to parse CALLBACK_ON_COMPLETE_URL: %v", err)
+		}
+		adr.Path = fmt.Sprintf("%s/%v", "api/image", config.ImageId)
+		adrStr := adr.String()
+		callbackBody, err := json.Marshal(CallbackRequest{Top: config.Top, Bottom: config.Bottom})
+		if err != nil {
+			logrus.Panicf("error unmarshalling callbackBody: %v", err)
+		}
+		resp, err := http.Post(adrStr, "application/json", bytes.NewBuffer(callbackBody))
+		if err != nil {
+			logrus.Panicf("error posting result: %v", err)
+		}
+
+		resp.Body.Close()
+	}
 }

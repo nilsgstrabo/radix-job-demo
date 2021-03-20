@@ -32,13 +32,14 @@ public class ComputeRequest
     public string Payload { get; set; }
 }
 
-public class ComputePayload {
-    public int ImageId {get;set;}
-    public int Height {get;set;}
-    public int Width {get;set;}
-    public MandelbrotCoord Top {get;set;}
-    public MandelbrotCoord Bottom {get;set;}
-    
+public class ComputePayload
+{
+    public int ImageId { get; set; }
+    public int Height { get; set; }
+    public int Width { get; set; }
+    public MandelbrotCoord Top { get; set; }
+    public MandelbrotCoord Bottom { get; set; }
+
 }
 
 public class ComputeService : IComputeService
@@ -54,46 +55,30 @@ public class ComputeService : IComputeService
 
     public async Task GetJobs()
     {
-        try
-        {
-            var result = await _httpClient.GetAsync("/api/v1/jobs");
-            _logger.LogInformation(0, result.StatusCode.ToString());
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(0, ex, ex.Message);
-        }
-
+        var result = await _httpClient.GetFromJsonAsync<JobStatus[]>("/api/v1/jobs");
     }
 
     public async Task<JobStatus> CreateJob(JobRequest request)
     {
-        try
+        ComputePayload payloadObj = new ComputePayload
         {
-            ComputePayload payloadObj=new ComputePayload {
-                ImageId=request.ImageId,
-                Width=1050,
-                Height=600,
-                Top=request.MandelbrotWindow.Top,
-                Bottom=request.MandelbrotWindow.Bottom
-            };
+            ImageId = request.ImageId,
+            Width = 1050,
+            Height = 600,
+            Top = request.MandelbrotWindow.Top,
+            Bottom = request.MandelbrotWindow.Bottom
+        };
 
-            var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj,new JsonSerializerOptions{
-                PropertyNamingPolicy=JsonNamingPolicy.CamelCase
-            });
-            ComputeRequest computePayload = new ComputeRequest { Payload = payload };
-            var result = await _httpClient.PostAsJsonAsync("/api/v1/jobs", computePayload);
-            result.EnsureSuccessStatusCode();
-            _logger.LogInformation(0, result.StatusCode.ToString());
-            var job = await result.Content.ReadFromJsonAsync<JobStatus>();
-            return job;
-        }
-        catch (Exception ex)
+        var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions
         {
-            _logger.LogError(0, ex, ex.Message);
-            throw;
-        }
-
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        ComputeRequest computePayload = new ComputeRequest { Payload = payload };
+        var result = await _httpClient.PostAsJsonAsync("/api/v1/jobs", computePayload);
+        result.EnsureSuccessStatusCode();
+        _logger.LogInformation(0, result.StatusCode.ToString());
+        var job = await result.Content.ReadFromJsonAsync<JobStatus>();
+        return job;
     }
 
 }

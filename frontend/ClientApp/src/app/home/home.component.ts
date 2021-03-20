@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { switchMap, exhaustMap, tap } from 'rxjs/operators';
+import { NotificationHubService } from '../services/notification-hub.service';
 const getJsonOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private boxWidth = 175;
   private boxHeight = 100;
   private jobListSubscription: Subscription;
+  private imageChangedSubscription: Subscription;
   jobs: any[] = [];
   imageId = 1;
   nextImageId = 2;
@@ -45,18 +47,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private hub: NotificationHubService) { }
 
   ngOnInit() {
     this.jobListSubscription = timer(1000, 2000).pipe(
       exhaustMap(() => this.getJobList())
     ).subscribe(v => this.setJobList(v), err => console.error(err));
+
+    this.imageChangedSubscription = this.hub.imageChanged.subscribe(v => this.imageChanged(v), e => console.error(e));
   }
 
   ngOnDestroy() {
     if (this.jobListSubscription) {
       this.jobListSubscription.unsubscribe();
     }
+  }
+
+  private imageChanged(img: any) {
+    console.log('imageChanged',img);
   }
 
   private getNextImageId() {
@@ -83,6 +91,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private setJobList(jobs: any[]) {
+    console.log('setJobList', jobs);
+    console.log(this.jobs);
     this.jobs = jobs.sort((a, b) => a.started > b.started ? 1 : -1);
   }
 
