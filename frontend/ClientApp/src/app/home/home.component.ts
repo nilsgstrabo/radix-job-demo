@@ -30,7 +30,7 @@ export class HomeComponent {
   private boxWidth = 175;
   private boxHeight = 100;
   imageId = 1;
-  nextImageId = 1;
+  nextImageId = 2;
   windowCoord: MandelbrotWindow = {
     top: {
       x: -2.5,
