@@ -29,7 +29,7 @@ export class HomeComponent {
   private imageHeight = 600;
   private boxWidth = 175;
   private boxHeight = 100;
-  jobs:any[]=[];
+  jobs: any[] = [];
   imageId = 1;
   nextImageId = 2;
   windowCoord: MandelbrotWindow = {
@@ -51,18 +51,18 @@ export class HomeComponent {
   }
 
   resetImage() {
-    this.nextImageId = 2;
-    this.imageId = 1;
-    this.windowCoord = {
+
+    this.sendImageRequest({
       top: {
         x: -2.5,
         y: -1
       },
-      bottom: {
+      bottom:{
         x: 1,
         y: 1
       }
-    };
+    }).then(r=>console.log(r)).catch(e=>console.error(e));
+
   }
 
   async onAreaSelected(event: MandelbrotCoord) {
@@ -76,23 +76,22 @@ export class HomeComponent {
       y: ((this.windowCoord.bottom.y - this.windowCoord.top.y) / this.imageHeight * (event.y + this.boxHeight)) + this.windowCoord.top.y,
     };
 
+    try {
+      const response = await this.sendImageRequest({ top: top, bottom: bottom });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
+  async sendImageRequest(mandelbrot: MandelbrotWindow) {
     const request: ComputeRequest = {
       imageId: this.getNextImageId(),
-      mandelbrotWindow: {
-        top: top,
-        bottom: bottom,
-      }
+      mandelbrotWindow: mandelbrot
     };
 
     console.log(request);
 
-    try {
-      const response = await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
-    } catch (error) {
-      console.log(error);
-    }
-
-
+    const response = await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
+    return response
   }
 }

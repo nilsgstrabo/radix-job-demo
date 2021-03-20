@@ -13,6 +13,9 @@ spec:
       schedulerPort: 8080
       payload:
         path: "/tmp/config.yaml"
+      variables:
+        COMPUTE_CONFIG: "/tmp/config.yaml"
+        COMPUTE_OUT_PATH: "/dist/computeimages"
       environmentConfig:
         - environment: qa
           volumeMounts:
