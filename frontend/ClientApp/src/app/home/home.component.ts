@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { of, Subscription, timer } from 'rxjs';
-import { switchMap, exhaustMap, tap, catchError } from 'rxjs/operators';
+import { switchMap, exhaustMap, tap, catchError, retryWhen, retry, map, delayWhen, delay, take } from 'rxjs/operators';
 import { ImageChanged } from '../models/image-changed';
 import { MandelbrotCoord } from '../models/mandelbrot-coord';
 import { NotificationHubService } from '../services/notification-hub.service';
@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private jobListSubscription: Subscription;
   private imageChangedSubscription: Subscription;
   jobs: any[] = [];
+  imageReceivedMessage = '';
   imageId = 1;
   nextImageId = 2;
   windowCoord: MandelbrotWindow = {
@@ -63,9 +64,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private imageChanged(img: ImageChanged) {
-    console.log('imageChanged', img);
-    this.imageId = img.imageId;
-    this.windowCoord = img;
+    this.imageReceivedMessage=`Image with id ${img.imageId} received. Wait for blob storage sync`;
+    this.checkImageExist(img.imageId).pipe(take(1)).toPromise().then(() => {
+      this.imageReceivedMessage=`Image with id ${img.imageId} successfully synced`;
+      this.imageId = img.imageId;
+      this.windowCoord = img;
+    });
+  }
+
+  private checkImageExist(imageId: number) {
+    return this.http.get(`/image/${imageId}/_exists`).pipe(
+      retryWhen(e => e.pipe(
+        tap(()=>this.imageReceivedMessage=`Image with id ${imageId} not synced yet`),
+        delay(1000),
+        take(20)
+      ))
+    )
   }
 
   private getNextImageId() {

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.StaticFiles;
 using AFP.Web.Hubs;
+using System.Security.Cryptography;
 
 namespace frontend.Controllers
 {
@@ -53,6 +54,29 @@ namespace frontend.Controllers
                 }
 
                 return File(new System.IO.FileStream(imgPath, FileMode.Open, FileAccess.Read), mimeType);
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet("{imageId}/_exists")]
+        public IActionResult GetImageExists(int imageId)
+        {
+            try
+            {
+                var path = _configuration["COMPUTE_IMAGE_PATH"];
+                string fileName = imageId.ToString() + ".png";
+                string imgPath = Path.Join(path, fileName);
+
+                if (!System.IO.File.Exists(imgPath))
+                {
+                    return NotFound();
+                }
+
+                return Ok();
             }
             catch (System.Exception ex)
             {
