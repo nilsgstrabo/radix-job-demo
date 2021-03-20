@@ -1,3 +1,4 @@
+using System.Net.Cache;
 using System.IO;
 using System.Net.Http;
 using System;
@@ -20,6 +21,10 @@ public interface IComputeService
     Task GetJobs();
     Task<JobStatus> CreateJob(ComputeRequest request);
 
+}
+
+public class ComputePayload {
+    public ComputeRequest Payload {get;set;}
 }
 
 public class ComputeService : IComputeService
@@ -51,7 +56,8 @@ public class ComputeService : IComputeService
     {
         try
         {
-            var result = await _httpClient.PostAsJsonAsync("/api/v1/jobs", request);
+            ComputePayload payload=new ComputePayload {Payload=request};
+            var result = await _httpClient.PostAsJsonAsync("/api/v1/jobs", payload);
             result.EnsureSuccessStatusCode();
             _logger.LogInformation(0, result.StatusCode.ToString());
             var job=await result.Content.ReadFromJsonAsync<JobStatus>();
