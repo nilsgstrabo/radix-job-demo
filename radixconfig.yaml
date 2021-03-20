@@ -13,6 +13,12 @@ spec:
       schedulerPort: 8080
       payload:
         path: "/tmp/config.yaml"
+      - environment: qa
+          volumeMounts:
+            - type: blob
+              name: storage
+              container: blobfusevolumetestdata3
+              path: /dist/computeimages
   components:
     - name: "server"
       src: "./frontend"
