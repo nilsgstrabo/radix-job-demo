@@ -55,8 +55,20 @@ public class ComputeService : IComputeService
 
     public async Task<JobStatus[]> GetJobs()
     {
-        var result = await _httpClient.GetFromJsonAsync<JobStatus[]>("/api/v1/jobs");
-        return result;
+        try
+        {
+        var result = await _httpClient.GetFromJsonAsync<JobStatus[]>("/api/v1/jobs",new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return result;    
+        }
+        catch (System.Exception ex)
+        {
+            
+            throw;
+        }
+        
     }
 
     public async Task<JobStatus> CreateJob(JobRequest request)

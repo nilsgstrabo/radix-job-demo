@@ -92,9 +92,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private setJobList(jobs: any[]) {
-    console.log('setJobList', jobs);
-    console.log(this.jobs);
-    this.jobs = jobs.sort((a, b) => a.started > b.started ? 1 : -1);
+    this.jobs = jobs.sort((a, b) => a.started > b.started ? -1 : 1);
   }
 
   private addJobToList(job: any) {

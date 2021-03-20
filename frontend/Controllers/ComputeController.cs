@@ -42,9 +42,10 @@ namespace frontend.Controllers
         }
 
         [HttpGet("jobs")]
-        public async Task GetJobs()
+        public async Task<ActionResult<JobStatus[]>> GetJobs()
         {
-            await _computeService.GetJobs();
+            
+            return await _computeService.GetJobs();
         }
 
         [HttpPost("jobs")]
