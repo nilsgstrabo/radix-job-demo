@@ -94,7 +94,9 @@ func main() {
 		logrus.Panicf("error writing image to out path: %v", err)
 	}
 
-	png.Encode(f, img)
+	if err = png.Encode(f, img); err != nil {
+		logrus.Panicf("error encoding png: %v", err)
+	}
 
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
 
