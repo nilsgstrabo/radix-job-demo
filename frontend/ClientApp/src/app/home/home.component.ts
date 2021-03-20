@@ -49,6 +49,21 @@ export class HomeComponent {
     return this.nextImageId++;
   }
 
+  resetImage() {
+    this.nextImageId = 2;
+    this.imageId = 1;
+    this.windowCoord = {
+      top: {
+        x: -2.5,
+        y: -1
+      },
+      bottom: {
+        x: 1,
+        y: 1
+      }
+    };
+  }
+
   async onAreaSelected(event: MandelbrotCoord) {
     console.log(event);
     const top: MandelbrotCoord = {

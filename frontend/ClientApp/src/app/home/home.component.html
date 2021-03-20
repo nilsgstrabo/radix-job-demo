@@ -1,5 +1,7 @@
 <h1>Radix Job Demo</h1>
-
+<div>
+  <button class="btn btn-primary" (click)="resetImage()">Start Over</button>
+</div>
 <div class="p-0 position-relative">
   
   <img class="position-absolute" src="/api/image/{{imageId}}" appSelectAndClick [selectorItem]="selector" (areaSelected)="onAreaSelected($event)"> 
