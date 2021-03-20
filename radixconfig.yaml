@@ -23,3 +23,10 @@ spec:
         - name: http
           port: 5005
       public: false
+      environmentConfig:
+        - environment: qa
+          volumeMounts:
+            - type: blob
+              name: storage
+              container: blobfusevolumetestdata3
+              path: /app/computeimages
