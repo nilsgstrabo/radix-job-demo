@@ -18,16 +18,27 @@ public class JobStatus
     public string Status { get; set; }
 }
 
+
+
 public interface IComputeService
 {
     Task GetJobs();
-    Task<JobStatus> CreateJob(ComputeRequest request);
+    Task<JobStatus> CreateJob(JobRequest request);
 
 }
 
-public class ComputePayload
+public class ComputeRequest
 {
     public string Payload { get; set; }
+}
+
+public class ComputePayload {
+    public int ImageId {get;set;}
+    public int Height {get;set;}
+    public int Width {get;set;}
+    public MandelbrotCoord Top {get;set;}
+    public MandelbrotCoord Bottom {get;set;}
+    
 }
 
 public class ComputeService : IComputeService
@@ -55,12 +66,22 @@ public class ComputeService : IComputeService
 
     }
 
-    public async Task<JobStatus> CreateJob(ComputeRequest request)
+    public async Task<JobStatus> CreateJob(JobRequest request)
     {
         try
         {
-            var payload = JsonSerializer.Serialize<ComputeRequest>(request);
-            ComputePayload computePayload = new ComputePayload { Payload = payload };
+            ComputePayload payloadObj=new ComputePayload {
+                ImageId=request.ImageId,
+                Width=1050,
+                Height=600,
+                Top=request.MandelbrotWindow.Top,
+                Bottom=request.MandelbrotWindow.Bottom
+            };
+
+            var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj,new JsonSerializerOptions{
+                PropertyNamingPolicy=JsonNamingPolicy.CamelCase
+            });
+            ComputeRequest computePayload = new ComputeRequest { Payload = payload };
             var result = await _httpClient.PostAsJsonAsync("/api/v1/jobs", computePayload);
             result.EnsureSuccessStatusCode();
             _logger.LogInformation(0, result.StatusCode.ToString());

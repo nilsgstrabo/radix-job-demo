@@ -43,19 +43,21 @@ func main() {
 
 	cfgFile := os.Getenv("COMPUTE_CONFIG")
 	outPath := os.Getenv("COMPUTE_OUT_PATH")
+
+	logrus.Infof("Config file: %s\n", cfgFile)
+	logrus.Infof("Output directory: %s\n", outPath)
+
 	cfgBytes, err := ioutil.ReadFile(cfgFile)
 	if err != nil {
-		logrus.Panic(err)
+		logrus.Panicf("error reading config file: %v", err)
 	}
 
 	var config Config
 
 	if err := yaml.Unmarshal(cfgBytes, &config); err != nil {
-		logrus.Panic(err)
+		logrus.Panicf("error unmarshalling config file: %v", err)
 	}
 
-	logrus.Infof("Config file: %s\n", cfgFile)
-	logrus.Infof("Output directory: %s\n", outPath)
 	logrus.Infof("Config: %v", config)
 
 	mandelbrot := Mandelbrot{
@@ -77,7 +79,7 @@ func main() {
 	logrus.Infof("Writing new image to %v", outFile)
 	f, err := os.Create(outFile)
 	if err != nil {
-		logrus.Panic(err)
+		logrus.Panicf("error writing image to out path: %v", err)
 	}
 
 	png.Encode(f, img)
