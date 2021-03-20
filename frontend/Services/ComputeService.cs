@@ -8,12 +8,14 @@ using System.Runtime.CompilerServices;
 using frontend.Controllers;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
-public class JobStatus {
-    public string Name {get;set;}
-    public string Started {get;set;}
-    public string Ended {get;set;}
-    public string Status {get;set;}
+public class JobStatus
+{
+    public string Name { get; set; }
+    public string Started { get; set; }
+    public string Ended { get; set; }
+    public string Status { get; set; }
 }
 
 public interface IComputeService
@@ -23,8 +25,9 @@ public interface IComputeService
 
 }
 
-public class ComputePayload {
-    public ComputeRequest Payload {get;set;}
+public class ComputePayload
+{
+    public string Payload { get; set; }
 }
 
 public class ComputeService : IComputeService
@@ -56,11 +59,12 @@ public class ComputeService : IComputeService
     {
         try
         {
-            ComputePayload payload=new ComputePayload {Payload=request};
-            var result = await _httpClient.PostAsJsonAsync("/api/v1/jobs", payload);
+            var payload = JsonSerializer.Serialize<ComputeRequest>(request);
+            ComputePayload computePayload = new ComputePayload { Payload = payload };
+            var result = await _httpClient.PostAsJsonAsync("/api/v1/jobs", computePayload);
             result.EnsureSuccessStatusCode();
             _logger.LogInformation(0, result.StatusCode.ToString());
-            var job=await result.Content.ReadFromJsonAsync<JobStatus>();
+            var job = await result.Content.ReadFromJsonAsync<JobStatus>();
             return job;
         }
         catch (Exception ex)
