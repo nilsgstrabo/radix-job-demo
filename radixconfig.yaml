@@ -42,3 +42,37 @@ spec:
               name: storage
               container: blobfusevolumetestdata3
               path: /computeimages
+    - name: auth-proxy
+      image: quay.io/pusher/oauth2_proxy:v6.1.1
+      publicPort: http
+      secrets:
+        - OAUTH2_PROXY_CLIENT_ID
+        - OAUTH2_PROXY_CLIENT_SECRET
+        - OAUTH2_PROXY_COOKIE_SECRET
+        - OAUTH2_PROXY_REDIRECT_URL
+      ports:
+        - name: http
+          port: 8000
+      environmentConfig:
+        - environment: qa
+          variables:
+            OAUTH2_PROXY_PROVIDER: "oidc"
+            OAUTH2_PROXY_OIDC_ISSUER_URL: "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0"
+            #OAUTH2_PROXY_SCOPE: "openid email offline_access" # Simplified scope - If api is not public, and you only want to authenticate the client
+            #"openid email offline_access xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/user_impersonation" # UID is resource client id for API. Application exist under Azure Active Directory -> App registration
+            OAUTH2_PROXY_UPSTREAMS: "http://frontend:5005"
+            OAUTH2_PROXY_HTTP_ADDRESS: "http://:8000"
+            OAUTH2_PROXY_SESSION_STORE_TYPE: "redis"
+            OAUTH2_PROXY_REDIS_CONNECTION_URL: "redis://auth-state:6379"
+            OAUTH2_PROXY_COOKIE_REFRESH: "60m"
+            OAUTH2_PROXY_EMAIL_DOMAINS: "*"
+            OAUTH2_PROXY_PASS_ACCESS_TOKEN: "true"
+            OAUTH2_PROXY_PASS_USER_HEADERS: "false"
+            OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
+    - name: auth-state
+      image: bitnami/redis:latest
+      ports:
+        - name: redis
+          port: 6379
+      variables:
+        ALLOW_EMPTY_PASSWORD: "yes"              

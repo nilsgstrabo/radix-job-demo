@@ -18,7 +18,12 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var colors []color.RGBA = []color.RGBA{
+type CallbackRequest struct {
+	Top    MandelbrotCoordinate `json:"top"`
+	Bottom MandelbrotCoordinate `json:"bottom"`
+}
+
+var basecolors []color.RGBA = []color.RGBA{
 	{66, 30, 15, 255},
 	{25, 7, 26, 255},
 	{9, 1, 47, 255},
@@ -35,18 +40,6 @@ var colors []color.RGBA = []color.RGBA{
 	{204, 128, 0, 255},
 	{153, 87, 0, 255},
 	{106, 52, 3, 255},
-}
-
-func getcolor(i uint8) color.RGBA {
-	if i < 255 && i > 0 {
-		return colors[i%16]
-	}
-	return color.RGBA{0, 0, 0, 255}
-}
-
-type CallbackRequest struct {
-	Top    MandelbrotCoordinate `json:"top"`
-	Bottom MandelbrotCoordinate `json:"bottom"`
 }
 
 func main() {
@@ -80,11 +73,12 @@ func main() {
 	}
 	m_bitmap := mandelbrot.Bitmap()
 	img := image.NewRGBA(image.Rect(0, 0, mandelbrot.Width, mandelbrot.Height))
+	colorer := NewColorer(basecolors)
 
 	for x := 0; x < mandelbrot.Width; x++ {
 		for y := 0; y < mandelbrot.Height; y++ {
 
-			img.Set(x, y, getcolor(m_bitmap[y][x]))
+			img.Set(x, y, colorer.Color(m_bitmap[y][x]))
 		}
 	}
 	outFile := filepath.Join(outPath, fmt.Sprintf("%v.png", config.ImageId))
