@@ -64,20 +64,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private imageChanged(img: ImageChanged) {
-    this.imageReceivedMessage=`Image with id ${img.imageId} received. Wait for blob storage sync`;
+    this.imageReceivedMessage = `Image with id ${img.imageId} received. Wait for blob storage sync`;
     this.checkImageExist(img.imageId).pipe(take(1)).toPromise().then(() => {
-      this.imageReceivedMessage=`Image with id ${img.imageId} successfully synced`;
+      this.imageReceivedMessage = `Image with id ${img.imageId} successfully synced`;
       this.imageId = img.imageId;
       this.windowCoord = img;
     });
   }
 
   private checkImageExist(imageId: number) {
-    return this.http.get(`/image/${imageId}/_exists`).pipe(
+    return this.http.get(`/api/image/${imageId}/_exists`).pipe(
       retryWhen(e => e.pipe(
-        tap(()=>this.imageReceivedMessage=`Image with id ${imageId} not synced yet`),
+        tap(() => {
+          this.imageReceivedMessage = `Image with id ${imageId} not synced yet`;
+          console.log('image not synced yet', imageId)
+        }),
         delay(1000),
-        take(1000*300)
+        take(1000 * 300)
       ))
     )
   }
