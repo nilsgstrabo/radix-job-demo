@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       retryWhen(e => e.pipe(
         tap(()=>this.imageReceivedMessage=`Image with id ${imageId} not synced yet`),
         delay(1000),
-        take(20)
+        take(1000*300)
       ))
     )
   }

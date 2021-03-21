@@ -22,7 +22,7 @@ spec:
           volumeMounts:
             - type: blob
               name: storage
-              container: blobfusevolumetestdata2
+              container: blobfusevolumetestdata3
               path: /computeimages
   components:
     - name: "server"
