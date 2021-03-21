@@ -15,7 +15,7 @@ spec:
         path: "/compute/payload"
       variables:
         COMPUTE_CONFIG: "/compute/payload/payload"
-        COMPUTE_OUT_PATH: "/dist/computeimages"
+        COMPUTE_OUT_PATH: "/computeimages"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
       environmentConfig:
         - environment: qa
@@ -23,7 +23,7 @@ spec:
             - type: blob
               name: storage
               container: blobfusevolumetestdata3
-              path: /dist/computeimages
+              path: /computeimages
   components:
     - name: "server"
       src: "./frontend"
