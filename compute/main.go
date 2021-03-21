@@ -13,6 +13,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
@@ -91,7 +92,8 @@ func main() {
 	if err = png.Encode(f, img); err != nil {
 		logrus.Panicf("error encoding png: %v", err)
 	}
-
+	f.Close()
+	time.Sleep(time.Second * 5)
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
 
 		adr, err := url.Parse(callbackCompleteUrl)
@@ -109,6 +111,6 @@ func main() {
 			logrus.Panicf("error posting result: %v", err)
 		}
 
-		resp.Body.Close()
+		defer resp.Body.Close()
 	}
 }
