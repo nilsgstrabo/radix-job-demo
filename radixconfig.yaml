@@ -22,7 +22,7 @@ spec:
           volumeMounts:
             - type: blob
               name: storage
-              container: blobfusevolumetestdata3
+              container: blobfusevolumetestdata2
               path: /computeimages
   components:
     - name: "server"
@@ -40,7 +40,7 @@ spec:
           volumeMounts:
             - type: blob
               name: storage
-              container: blobfusevolumetestdata3
+              container: blobfusevolumetestdata2
               path: /computeimages
     - name: auth-proxy
       image: quay.io/pusher/oauth2_proxy:v6.1.1
