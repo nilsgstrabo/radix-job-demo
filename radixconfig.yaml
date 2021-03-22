@@ -22,7 +22,7 @@ spec:
           volumeMounts:
             - type: blob
               name: storage
-              container: jobdemocompute
+              container: jobdemoserver
               path: /computeimages
   components:
     - name: "server"

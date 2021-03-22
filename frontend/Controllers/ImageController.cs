@@ -99,5 +99,31 @@ namespace frontend.Controllers
             }
         }
 
+        [HttpPost("{imageId}/data")]
+        public IActionResult ImageData([FromRoute] int imageId, [FromBody] string imageData)
+        {
+            try
+            {
+                var path = _configuration["COMPUTE_IMAGE_PATH"];
+                var imageBytes = System.Convert.FromBase64String(imageData);
+                using (var ms = new MemoryStream(imageBytes))
+                {
+                    string fileName = imageId.ToString() + ".png";
+                    string imgPath = Path.Join(path, fileName);
+                    using (var fs = new System.IO.FileStream(imgPath, FileMode.Create, FileAccess.ReadWrite))
+                    {
+                        ms.CopyTo(fs);
+                    }
+
+                }
+
+                return Ok();
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
     }
 }

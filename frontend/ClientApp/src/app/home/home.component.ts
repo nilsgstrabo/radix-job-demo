@@ -141,6 +141,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       mandelbrotWindow: mandelbrot
     };
 
+    console.log(request);
+
     const response = await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
     return response
   }
