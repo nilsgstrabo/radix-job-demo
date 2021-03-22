@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"image"
@@ -95,9 +96,21 @@ func main() {
 	f.Close()
 	time.Sleep(time.Second * 5)
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
-		// postAdr, err := url.Parse(callbackCompleteUrl)
-		// postAdr.Path = fmt.Sprintf("%s/%v/data", "api/image", config.ImageId)
-		// postAdrStr := adr.String()
+		postAdr, err := url.Parse(callbackCompleteUrl)
+		postAdr.Path = fmt.Sprintf("%s/%v/data", "api/image", config.ImageId)
+		postAdrStr := postAdr.String()
+
+		imgBuf := new(bytes.Buffer)
+		err = png.Encode(imgBuf, img)
+		if err != nil {
+			logrus.Panicf("unable to encode png: %v", err)
+		}
+		imgBytes := imgBuf.Bytes()
+		sEnc := base64.StdEncoding.EncodeToString(imgBytes)
+		resp, err := http.Post(postAdrStr, "text/plain", bytes.NewBuffer([]byte(sEnc)))
+		if err != nil {
+			logrus.Panicf("error posting image: %v", err)
+		}
 
 		adr, err := url.Parse(callbackCompleteUrl)
 		if err != nil {
@@ -109,7 +122,7 @@ func main() {
 		if err != nil {
 			logrus.Panicf("error unmarshalling callbackBody: %v", err)
 		}
-		resp, err := http.Post(adrStr, "application/json", bytes.NewBuffer(callbackBody))
+		resp, err = http.Post(adrStr, "application/json", bytes.NewBuffer(callbackBody))
 		if err != nil {
 			logrus.Panicf("error posting result: %v", err)
 		}
