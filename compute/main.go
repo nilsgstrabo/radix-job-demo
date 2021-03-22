@@ -94,7 +94,7 @@ func main() {
 		logrus.Panicf("error encoding png: %v", err)
 	}
 	f.Close()
-	time.Sleep(time.Second * 5)
+	// time.Sleep(time.Second * 5)
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
 		postAdr, err := url.Parse(callbackCompleteUrl)
 		postAdr.Path = fmt.Sprintf("%s/%v/data", "api/image", config.ImageId)
