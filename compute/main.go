@@ -14,6 +14,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
+
 	// "time"
 
 	"github.com/sirupsen/logrus"
@@ -94,7 +96,7 @@ func main() {
 		logrus.Panicf("error encoding png: %v", err)
 	}
 	f.Close()
-	// time.Sleep(time.Second * 5)
+	time.Sleep(time.Minute * 15)
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
 		postAdr, err := url.Parse(callbackCompleteUrl)
 		postAdr.Path = fmt.Sprintf("%s/%v/data", "api/image", config.ImageId)
