@@ -33,9 +33,17 @@ namespace frontend.Controllers
             _hub = hub;
         }
 
+
         [HttpGet("{imageId}")]
         public IActionResult GetImage(int imageId)
         {
+            _logger.LogInformation(0, "********* Logging Headers **********");
+            foreach (var item in this.Request.Headers.ToList())
+            {
+                _logger.LogInformation(0, "{0}:{1}", item.Key, item.Value);
+            }
+            _logger.LogInformation(0, "********* Done **********");
+
             try
             {
                 var path = _configuration["COMPUTE_IMAGE_PATH"];
