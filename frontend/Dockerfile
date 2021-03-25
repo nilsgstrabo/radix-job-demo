@@ -16,6 +16,9 @@ RUN dotnet publish -c release -o /app
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
 COPY --from=build /app ./
-
+RUN addgroup --gid 1001 radix-non-root-group
+# Add a new user "radix-non-root-user" with user id 1001 and include in group
+RUN adduser --uid 1001 --gid 1001 radix-non-root-user
+USER 1001
 
 ENTRYPOINT ["dotnet", "frontend.dll"]

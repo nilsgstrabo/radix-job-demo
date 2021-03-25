@@ -23,6 +23,7 @@ spec:
         PORT: "8000"
       environmentConfig:
         - environment: qa
+          runAsNonRoot: true
           volumeMounts:
             - type: blob
               name: storage
@@ -41,6 +42,7 @@ spec:
       public: false
       environmentConfig:
         - environment: qa
+          runAsNonRoot: true
           volumeMounts:
             - type: blob
               name: storage
@@ -59,6 +61,7 @@ spec:
           port: 8000
       environmentConfig:
         - environment: qa
+          runAsNonRoot: true
           variables:
             OAUTH2_PROXY_PROVIDER: "oidc"
             OAUTH2_PROXY_OIDC_ISSUER_URL: "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0"
@@ -78,5 +81,8 @@ spec:
       ports:
         - name: redis
           port: 6379
+      environmentConfig:
+        - environment: qa
+          runAsNonRoot: true
       variables:
         ALLOW_EMPTY_PASSWORD: "yes"              

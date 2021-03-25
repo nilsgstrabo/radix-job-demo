@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/prometheus/common/log"
+	"github.com/sirupsen/logrus"
 )
 
 func startServer(responseBody []byte) *http.Server {
@@ -17,9 +17,9 @@ func startServer(responseBody []byte) *http.Server {
 		if err := srv.ListenAndServe(); err != nil {
 			switch err {
 			case http.ErrServerClosed:
-				log.Info(err)
+				logrus.Info(err)
 			default:
-				log.Fatal(err)
+				logrus.Fatal(err)
 			}
 
 		}
@@ -30,7 +30,7 @@ func startServer(responseBody []byte) *http.Server {
 
 func serve(body []byte) http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
-		log.Infof("recevied request %v", r.RequestURI)
+		logrus.Infof("recevied request %v", r.RequestURI)
 		rw.Write(body)
 	}
 

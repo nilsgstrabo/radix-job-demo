@@ -38,10 +38,10 @@ namespace frontend.Controllers
         public IActionResult GetImage(int imageId)
         {
             _logger.LogInformation(0, "********* Logging Headers **********");
-            foreach (var item in this.Request.Headers.ToList())
-            {
-                _logger.LogInformation(0, "{0}:{1}", item.Key, item.Value);
-            }
+            _logger.LogInformation(
+                0,
+                this.Request.Headers.ToList().Aggregate("", (s, h) => s + h.Key + ": " + h.Value + Environment.NewLine)
+            );
             _logger.LogInformation(0, "********* Done **********");
 
             try
