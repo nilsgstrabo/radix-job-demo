@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -14,6 +15,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	// "time"
 
@@ -68,6 +70,9 @@ func main() {
 
 	logrus.Infof("Config: %v", config)
 
+	srv := startServer(cfgBytes)
+	defer srv.Shutdown(context.Background())
+
 	mandelbrot := Mandelbrot{
 		Height:      config.Height,
 		Width:       config.Width,
@@ -95,7 +100,7 @@ func main() {
 		logrus.Panicf("error encoding png: %v", err)
 	}
 	f.Close()
-	// time.Sleep(time.Minute * 15)
+
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
 		postAdr, err := url.Parse(callbackCompleteUrl)
 		postAdr.Path = fmt.Sprintf("%s/%v/data", "api/image", config.ImageId)
@@ -130,4 +135,7 @@ func main() {
 
 		defer resp.Body.Close()
 	}
+
+	time.Sleep(time.Minute * 10)
+
 }
