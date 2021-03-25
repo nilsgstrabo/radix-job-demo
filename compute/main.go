@@ -15,7 +15,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	// "time"
 
@@ -135,7 +134,5 @@ func main() {
 
 		defer resp.Body.Close()
 	}
-
-	time.Sleep(time.Minute * 10)
 
 }
