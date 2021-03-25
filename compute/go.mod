@@ -1,6 +1,6 @@
 module github.com/nilsgstrabo/radix-job-demo/compute
 
-go 1.13
+go 1.16
 
 require (
 	github.com/kr/pretty v0.2.0 // indirect

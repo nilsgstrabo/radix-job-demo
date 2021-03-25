@@ -21,7 +21,7 @@ FROM scratch
 
 WORKDIR /dist
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=builder /etc/passwd /etc/passwd
+COPY --from=build /etc/passwd /etc/passwd
 COPY --from=build /build/app .
 USER 1001
 CMD ["/dist/app"]
