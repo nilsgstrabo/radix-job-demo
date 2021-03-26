@@ -24,11 +24,6 @@ spec:
       environmentConfig:
         - environment: qa
           runAsNonRoot: true
-          volumeMounts:
-            - type: blob
-              name: storage
-              container: jobdemoserver
-              path: /computeimages
   components:
     - name: "server"
       src: "./frontend"
@@ -43,11 +38,6 @@ spec:
       environmentConfig:
         - environment: qa
           runAsNonRoot: true
-          volumeMounts:
-            - type: blob
-              name: storage
-              container: jobdemoserver
-              path: /computeimages
     - name: auth-proxy
       image: quay.io/pusher/oauth2_proxy:v6.1.1
       publicPort: http
