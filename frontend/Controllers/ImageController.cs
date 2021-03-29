@@ -19,6 +19,11 @@ namespace frontend.Controllers
         public MandelbrotCoord Bottom { get; set; }
     }
 
+    public class ImagePostData
+    {
+        public string Data { get; set; }
+    }
+
     [ApiController]
     [Route("api/[controller]")]
     public class ImageController : ControllerBase
@@ -108,13 +113,13 @@ namespace frontend.Controllers
         }
 
         [HttpPost("{imageId}/data")]
-        public IActionResult ImageData([FromRoute] int imageId, [FromBody] string imageData)
+        public IActionResult ImageData([FromRoute] int imageId, [FromBody] ImagePostData imageData)
         {
             try
             {
-                _logger.LogInformation("Received request for new image with data length {0}", imageData.Length);
+                _logger.LogInformation("Received request for new image with data length {0}", imageData.Data.Length);
                 var path = _configuration["COMPUTE_IMAGE_PATH"];
-                var imageBytes = System.Convert.FromBase64String(imageData);
+                var imageBytes = System.Convert.FromBase64String(imageData.Data);
                 using (var ms = new MemoryStream(imageBytes))
                 {
                     string fileName = imageId.ToString() + ".png";

@@ -22,6 +22,10 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+type ImagePostData struct {
+	Data string `json:"data"`
+}
+
 type CallbackRequest struct {
 	Top    MandelbrotCoordinate `json:"top"`
 	Bottom MandelbrotCoordinate `json:"bottom"`
@@ -116,7 +120,12 @@ func main() {
 		imgBytes := imgBuf.Bytes()
 		sEnc := base64.StdEncoding.EncodeToString(imgBytes)
 		logrus.Infof("Posting image (%v bytes) to %s", len(sEnc), postAdrStr)
-		resp, err := http.Post(postAdrStr, "text/plain", bytes.NewBuffer([]byte(sEnc)))
+		imgData := ImagePostData{Data: sEnc}
+		imgPostBytes, err := json.Marshal(imgData)
+		if err != nil {
+			logrus.Panicf("error marshalling image post data: %v", err)
+		}
+		resp, err := http.Post(postAdrStr, "text/plain", bytes.NewBuffer(imgPostBytes))
 		if err != nil {
 			logrus.Panicf("error posting image: %v", err)
 		}

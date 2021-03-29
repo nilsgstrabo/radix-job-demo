@@ -19,6 +19,8 @@ COPY --from=build /app ./
 RUN addgroup --gid 1001 radix-non-root-group
 # Add a new user "radix-non-root-user" with user id 1001 and include in group
 RUN adduser --uid 1001 --gid 1001 radix-non-root-user
+RUN mkdir /app/computeimages
+RUN chown 1001:1001 /app/computeimages
 USER 1001
 
 ENTRYPOINT ["dotnet", "frontend.dll"]
