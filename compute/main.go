@@ -15,7 +15,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	// "time"
 
@@ -83,26 +82,26 @@ func main() {
 	img := image.NewRGBA(image.Rect(0, 0, mandelbrot.Width, mandelbrot.Height))
 	colorer := NewColorer(basecolors)
 
-	logrus.Info("sleeping for 5 mins")
-	time.Sleep(5 * time.Minute)
-
 	for x := 0; x < mandelbrot.Width; x++ {
 		for y := 0; y < mandelbrot.Height; y++ {
 
 			img.Set(x, y, colorer.Color(m_bitmap[y][x]))
 		}
 	}
-	outFile := filepath.Join(outPath, fmt.Sprintf("%v.png", config.ImageId))
-	logrus.Infof("Writing new image to %v", outFile)
-	f, err := os.Create(outFile)
-	if err != nil {
-		logrus.Panicf("error writing image to out path: %v", err)
-	}
 
-	if err = png.Encode(f, img); err != nil {
-		logrus.Panicf("error encoding png: %v", err)
+	if strings.TrimSpace(outPath) != "" {
+		outFile := filepath.Join(outPath, fmt.Sprintf("%v.png", config.ImageId))
+		logrus.Infof("Writing new image to %v", outFile)
+		f, err := os.Create(outFile)
+		if err != nil {
+			logrus.Panicf("error writing image to out path: %v", err)
+		}
+
+		if err = png.Encode(f, img); err != nil {
+			logrus.Panicf("error encoding png: %v", err)
+		}
+		f.Close()
 	}
-	f.Close()
 
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
 		postAdr, err := url.Parse(callbackCompleteUrl)
