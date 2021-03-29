@@ -115,10 +115,12 @@ func main() {
 		}
 		imgBytes := imgBuf.Bytes()
 		sEnc := base64.StdEncoding.EncodeToString(imgBytes)
+		logrus.Infof("Posting image (%v bytes) to %s", len(sEnc), postAdrStr)
 		resp, err := http.Post(postAdrStr, "text/plain", bytes.NewBuffer([]byte(sEnc)))
 		if err != nil {
 			logrus.Panicf("error posting image: %v", err)
 		}
+		logrus.Infof("Response on POST image: code %v", resp.Status)
 
 		adr, err := url.Parse(callbackCompleteUrl)
 		if err != nil {
@@ -134,6 +136,7 @@ func main() {
 		if err != nil {
 			logrus.Panicf("error posting result: %v", err)
 		}
+		logrus.Infof("Response on POST to complete URL %s: code %v", adrStr, resp.Status)
 
 		defer resp.Body.Close()
 	}

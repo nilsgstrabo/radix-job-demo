@@ -112,6 +112,7 @@ namespace frontend.Controllers
         {
             try
             {
+                _logger.LogInformation("Received request for new image with data length {0}", imageData.Length);
                 var path = _configuration["COMPUTE_IMAGE_PATH"];
                 var imageBytes = System.Convert.FromBase64String(imageData);
                 using (var ms = new MemoryStream(imageBytes))
