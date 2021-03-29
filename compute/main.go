@@ -15,6 +15,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	// "time"
 
@@ -81,6 +82,9 @@ func main() {
 	m_bitmap := mandelbrot.Bitmap()
 	img := image.NewRGBA(image.Rect(0, 0, mandelbrot.Width, mandelbrot.Height))
 	colorer := NewColorer(basecolors)
+
+	logrus.Info("sleeping for 5 mins")
+	time.Sleep(5 * time.Minute)
 
 	for x := 0; x < mandelbrot.Width; x++ {
 		for y := 0; y < mandelbrot.Height; y++ {
