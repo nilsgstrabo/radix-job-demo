@@ -125,7 +125,7 @@ func main() {
 		if err != nil {
 			logrus.Panicf("error marshalling image post data: %v", err)
 		}
-		resp, err := http.Post(postAdrStr, "text/plain", bytes.NewBuffer(imgPostBytes))
+		resp, err := http.Post(postAdrStr, "application/json", bytes.NewBuffer(imgPostBytes))
 		if err != nil {
 			logrus.Panicf("error posting image: %v", err)
 		}
