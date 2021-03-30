@@ -37,10 +37,10 @@ spec:
       public: false
       resources:
         requests:
-          memory: "10M"
+          memory: "30M"
           cpu: "50m"
         limits:
-          memory: "10M"
+          memory: "35M"
           cpu: "50m"
       environmentConfig:
         - environment: qa
