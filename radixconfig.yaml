@@ -35,6 +35,13 @@ spec:
         - name: http
           port: 5005
       public: false
+      resources:
+        requests:
+          memory: "10M"
+          cpu: "50m"
+        limits:
+          memory: "10M"
+          cpu: "50m"
       environmentConfig:
         - environment: qa
           runAsNonRoot: true
