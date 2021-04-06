@@ -87,7 +87,7 @@ public class ComputeService : IComputeService
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
         ComputeRequest computePayload = new ComputeRequest { Payload = payload };
-        _logger.LogInformation("Payload: {0}", computePayload);
+        _logger.LogInformation("Payload: {0}", payload);
         var result = await _httpClient.PostAsJsonAsync("/api/v1/jobs", computePayload);
         result.EnsureSuccessStatusCode();
         _logger.LogInformation(0, result.StatusCode.ToString());
