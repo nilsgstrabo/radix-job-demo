@@ -24,6 +24,13 @@ spec:
       environmentConfig:
         - environment: qa
           runAsNonRoot: true
+          resources:
+            requests:
+              memory: "111M"
+              cpu: "77m"
+            limits:
+              memory: "199M"
+              cpu: "123m"
   components:
     - name: "server"
       src: "./frontend"
