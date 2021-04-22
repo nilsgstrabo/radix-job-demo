@@ -80,6 +80,7 @@ spec:
             OAUTH2_PROXY_PASS_ACCESS_TOKEN: "true"
             OAUTH2_PROXY_PASS_USER_HEADERS: "false"
             OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
+            OAUTH2_PROXY_SHOW_DEBUG_ON_ERROR: "true"
     - name: auth-state
       #image: bitnami/redis:latest
       src: "./redis"
