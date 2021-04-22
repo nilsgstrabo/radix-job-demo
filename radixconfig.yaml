@@ -80,8 +80,8 @@ spec:
             OAUTH2_PROXY_PASS_USER_HEADERS: "false"
             OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
     - name: auth-state
-      image: bitnami/redis:latest
-      #src: "./redis"
+      #image: bitnami/redis:latest
+      src: "./redis"
       alwaysPullImageOnDeploy: true
       ports:
         - name: redis
