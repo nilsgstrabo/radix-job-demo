@@ -41,7 +41,7 @@ spec:
       ports:
         - name: http
           port: 5005
-      public: false
+      publicPort: http
       resources:
         requests:
           memory: "50M"
