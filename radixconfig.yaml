@@ -43,10 +43,10 @@ spec:
           port: 5005
       resources:
         requests:
-          memory: "10M"
+          memory: "20M"
           cpu: "50m"
         limits:
-          memory: "10M"
+          memory: "50M"
           cpu: "50m"
       environmentConfig:
         - environment: qa
