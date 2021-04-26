@@ -69,7 +69,7 @@ namespace frontend.Controllers
 
                 var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
                 var me = await graph.Me.Request().GetAsync();
-                _logger.LogInformation(0, "DisplayName: " + me.DisplayName);
+                _logger.LogInformation(0, "Graph DisplayName: " + me.DisplayName);
             }
             catch (Exception ex)
             {
@@ -77,14 +77,14 @@ namespace frontend.Controllers
             }
 
 
-            _logger.LogInformation(0, "IsAuthenticated: " + Request.HttpContext.User.Identity.IsAuthenticated.ToString());
+            _logger.LogInformation(0, "User name: " + Request.HttpContext.User.Identity.Name);
             _logger.LogInformation(0, "********* Logging Headers **********");
             _logger.LogInformation(
                 0,
                 this.Request.Headers.ToList().Aggregate("", (s, h) =>
                 {
-                    //var startVal= h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));
-                    var startVal = h.Value.ToString();
+                    var startVal= h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));
+                    //var startVal = h.Value.ToString();
                     return s + h.Key + ": " + startVal + Environment.NewLine;
                 })
             );
