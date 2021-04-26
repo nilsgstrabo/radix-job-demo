@@ -42,13 +42,14 @@ namespace frontend.Controllers
         [HttpGet("{imageId}")]
         public IActionResult GetImage(int imageId)
         {
+            _logger.LogInformation(0, Request.HttpContext.User.Identity.Name);
             _logger.LogInformation(0, "********* Logging Headers **********");
             _logger.LogInformation(
                 0,
                 this.Request.Headers.ToList().Aggregate("", (s, h) =>
                 {
-                    var startVal= h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));
-                    //var startVal = h.Value.ToString();
+                    //var startVal= h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));
+                    var startVal = h.Value.ToString();
                     return s + h.Key + ": " + startVal + Environment.NewLine;
                 })
             );
