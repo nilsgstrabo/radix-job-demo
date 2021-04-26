@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.StaticFiles;
 using AFP.Web.Hubs;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Graph;
 
 namespace frontend.Controllers
 {
@@ -23,6 +25,7 @@ namespace frontend.Controllers
     {
         public string Data { get; set; }
     }
+
 
     [ApiController]
     [Route("api/[controller]")]
@@ -39,9 +42,11 @@ namespace frontend.Controllers
         }
 
 
+        [Authorize]
         [HttpGet("{imageId}")]
         public IActionResult GetImage(int imageId)
         {
+            
             _logger.LogInformation(0, Request.HttpContext.User.Identity.Name);
             _logger.LogInformation(0, "********* Logging Headers **********");
             _logger.LogInformation(
