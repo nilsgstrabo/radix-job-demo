@@ -45,7 +45,12 @@ namespace frontend.Controllers
             _logger.LogInformation(0, "********* Logging Headers **********");
             _logger.LogInformation(
                 0,
-                this.Request.Headers.ToList().Aggregate("", (s, h) => s + h.Key + ": " + h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length)) + Environment.NewLine)
+                this.Request.Headers.ToList().Aggregate("", (s, h) =>
+                {
+                    //var startVal= h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));
+                    var startVal = h.Value.ToString();
+                    return s + h.Key + ": " + startVal + Environment.NewLine;
+                })
             );
             _logger.LogInformation(0, "********* Done **********");
 

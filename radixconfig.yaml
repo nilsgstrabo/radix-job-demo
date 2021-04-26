@@ -54,8 +54,8 @@ spec:
         - environment: qa
           runAsNonRoot: true
     - name: auth-proxy
-      #image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.1
-      image: quay.io/pusher/oauth2_proxy:v6.1.1
+      image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.1
+      #image: quay.io/pusher/oauth2_proxy:v6.1.1
       publicPort: http
       secrets:
         - OAUTH2_PROXY_CLIENT_ID
@@ -82,6 +82,8 @@ spec:
             OAUTH2_PROXY_PASS_ACCESS_TOKEN: "true"
             OAUTH2_PROXY_PASS_USER_HEADERS: "false"
             OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
+            OAUTH2_PROXY_PASS_BASIC_AUTH: "false"
+            OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: "true"
     - name: auth-state
       #image: bitnami/redis:latest
       src: "./redis"
