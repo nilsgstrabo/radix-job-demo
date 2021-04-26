@@ -61,20 +61,20 @@ namespace frontend.Controllers
 
         [Authorize]
         [HttpGet("{imageId}")]
-        public async Task<IActionResult> GetImage(int imageId)
+        public IActionResult GetImage(int imageId)
         {
-            try
-            {
-                var accessToken = this.Request.Headers["X-Forwarded-Access-Token"].First();
+            // try
+            // {
+            //     var accessToken = this.Request.Headers["X-Forwarded-Access-Token"].First();
 
-                var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
-                var me = await graph.Me.Request().GetAsync();
-                _logger.LogInformation(0, "Graph DisplayName: " + me.DisplayName);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(0, ex, ex.Message);
-            }
+            //     var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
+            //     var me = await graph.Me.Request().GetAsync();
+            //     _logger.LogInformation(0, "Graph DisplayName: " + me.DisplayName);
+            // }
+            // catch (Exception ex)
+            // {
+            //     _logger.LogError(0, ex, ex.Message);
+            // }
 
 
             _logger.LogInformation(0, "User name: " + Request.HttpContext.User.Identity.Name);
