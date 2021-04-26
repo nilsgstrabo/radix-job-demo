@@ -70,6 +70,7 @@ namespace frontend.Controllers
 
                 var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
                 var me = await graph.Me.Request().GetAsync();
+                _logger.LogInformation(0, "DisplayName: " + me.DisplayName);
             }
             catch (Exception ex)
             {
