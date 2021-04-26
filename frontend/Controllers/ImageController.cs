@@ -66,7 +66,7 @@ namespace frontend.Controllers
         {
             try
             {
-                var accessToken = this.Request.Headers["X-Auth-Request-Access-Token"].First();
+                var accessToken = this.Request.Headers["X-Forwarded-Access-Token"].First();
 
                 var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
                 var me = await graph.Me.Request().GetAsync();
@@ -77,7 +77,7 @@ namespace frontend.Controllers
             }
 
 
-            _logger.LogInformation(0, Request.HttpContext.User.Identity.Name);
+            _logger.LogInformation(0, "IsAuthenticated: " + Request.HttpContext.User.Identity.IsAuthenticated.ToString());
             _logger.LogInformation(0, "********* Logging Headers **********");
             _logger.LogInformation(
                 0,
