@@ -28,7 +28,10 @@ namespace frontend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer();
+            .AddJwtBearer(o =>
+            {
+                o.MetadataAddress = "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0/.well-known/openid-configuration";
+            });
 
             services.AddSignalR();
             services.AddControllersWithViews();
