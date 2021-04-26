@@ -7,6 +7,8 @@ spec:
     - name: qa
       build:
         from: main
+    - name: prod
+    - name: demo
   jobs:
     - name: "compute"
       src: "./compute"
