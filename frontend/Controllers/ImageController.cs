@@ -44,7 +44,6 @@ namespace frontend.Controllers
         }
     }
 
-    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class ImageController : ControllerBase

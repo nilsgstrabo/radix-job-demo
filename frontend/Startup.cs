@@ -31,6 +31,18 @@ namespace frontend
             .AddJwtBearer(o =>
             {
                 o.MetadataAddress = "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0/.well-known/openid-configuration";
+                o.TokenValidationParameters.ValidAudience = "fc082d3c-f792-4190-99f6-b63c1b270ea9";
+                o.TokenValidationParameters.ValidIssuer = "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0";
+            });
+
+            services.AddAuthorization(o =>
+            {
+                o.AddPolicy("JWT", b =>
+                    {
+                        b.RequireAuthenticatedUser();
+                    });
+
+                o.DefaultPolicy = o.GetPolicy("JWT");
             });
 
             services.AddSignalR();

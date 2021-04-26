@@ -29,7 +29,6 @@ namespace frontend.Controllers
         public MandelbrotCoord Bottom { get; set; }
     }
 
-    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class ComputeController : ControllerBase
