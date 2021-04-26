@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AFP.Web.Hubs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
@@ -28,6 +29,7 @@ namespace frontend.Controllers
         public MandelbrotCoord Bottom { get; set; }
     }
 
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class ComputeController : ControllerBase

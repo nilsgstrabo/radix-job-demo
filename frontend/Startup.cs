@@ -63,7 +63,7 @@ namespace frontend
             app.UseRouting();
 
             app.UseAuthentication();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
            {
                endpoints.MapHub<NotificationHub>("/notificationhub");

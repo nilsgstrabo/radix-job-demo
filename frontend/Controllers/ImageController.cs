@@ -12,6 +12,8 @@ using AFP.Web.Hubs;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Graph;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace frontend.Controllers
 {
@@ -26,7 +28,23 @@ namespace frontend.Controllers
         public string Data { get; set; }
     }
 
+    public class AccessTokenAuthenticationProvider : IAuthenticationProvider
+    {
+        private string accessToken;
 
+        public AccessTokenAuthenticationProvider(string accessToken)
+        {
+            this.accessToken = accessToken;
+        }
+
+        public Task AuthenticateRequestAsync(HttpRequestMessage request)
+        {
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            return Task.FromResult(0);
+        }
+    }
+
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class ImageController : ControllerBase
@@ -44,9 +62,21 @@ namespace frontend.Controllers
 
         [Authorize]
         [HttpGet("{imageId}")]
-        public IActionResult GetImage(int imageId)
+        public async Task<IActionResult> GetImage(int imageId)
         {
-            
+            try
+            {
+                var accessToken = this.Request.Headers["X-Auth-Request-Access-Token"].First();
+
+                var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
+                var me = await graph.Me.Request().GetAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, ex.Message);
+            }
+
+
             _logger.LogInformation(0, Request.HttpContext.User.Identity.Name);
             _logger.LogInformation(0, "********* Logging Headers **********");
             _logger.LogInformation(
