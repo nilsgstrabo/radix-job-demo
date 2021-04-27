@@ -28,21 +28,21 @@ namespace frontend.Controllers
         public string Data { get; set; }
     }
 
-    public class AccessTokenAuthenticationProvider : IAuthenticationProvider
-    {
-        private string accessToken;
+    // public class AccessTokenAuthenticationProvider : IAuthenticationProvider
+    // {
+    //     private string accessToken;
 
-        public AccessTokenAuthenticationProvider(string accessToken)
-        {
-            this.accessToken = accessToken;
-        }
+    //     public AccessTokenAuthenticationProvider(string accessToken)
+    //     {
+    //         this.accessToken = accessToken;
+    //     }
 
-        public Task AuthenticateRequestAsync(HttpRequestMessage request)
-        {
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            return Task.FromResult(0);
-        }
-    }
+    //     public Task AuthenticateRequestAsync(HttpRequestMessage request)
+    //     {
+    //         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+    //         return Task.FromResult(0);
+    //     }
+    // }
 
     [ApiController]
     [Route("api/[controller]")]
@@ -59,7 +59,6 @@ namespace frontend.Controllers
         }
 
 
-        [Authorize]
         [HttpGet("{imageId}")]
         public IActionResult GetImage(int imageId)
         {
@@ -77,7 +76,7 @@ namespace frontend.Controllers
             // }
 
 
-            _logger.LogInformation(0, "User name: " + Request.HttpContext.User.Identity.Name);
+            // _logger.LogInformation(0, "User name: " + Request.HttpContext.User.Identity.Name);
             _logger.LogInformation(0, "********* Logging Headers **********");
             _logger.LogInformation(
                 0,
