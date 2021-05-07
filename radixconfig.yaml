@@ -40,6 +40,8 @@ spec:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
+      secret:
+        - DB_PASSWORD
       authentication:
         clientCertificate:
           verification: on
@@ -80,6 +82,10 @@ spec:
     - name: auth-proxy
       image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.1
       #image: quay.io/pusher/oauth2_proxy:v6.1.1
+      authentication:
+        clientCertificate:
+          verification: on
+          passCertificateToUpstream: true
       publicPort: http
       secrets:
         - OAUTH2_PROXY_CLIENT_ID
