@@ -28,21 +28,21 @@ namespace frontend.Controllers
         public string Data { get; set; }
     }
 
-    // public class AccessTokenAuthenticationProvider : IAuthenticationProvider
-    // {
-    //     private string accessToken;
+    public class AccessTokenAuthenticationProvider : IAuthenticationProvider
+    {
+        private string accessToken;
 
-    //     public AccessTokenAuthenticationProvider(string accessToken)
-    //     {
-    //         this.accessToken = accessToken;
-    //     }
+        public AccessTokenAuthenticationProvider(string accessToken)
+        {
+            this.accessToken = accessToken;
+        }
 
-    //     public Task AuthenticateRequestAsync(HttpRequestMessage request)
-    //     {
-    //         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-    //         return Task.FromResult(0);
-    //     }
-    // }
+        public Task AuthenticateRequestAsync(HttpRequestMessage request)
+        {
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            return Task.FromResult(0);
+        }
+    }
 
     [ApiController]
     [Route("api/[controller]")]
@@ -60,20 +60,21 @@ namespace frontend.Controllers
 
 
         [HttpGet("{imageId}")]
-        public IActionResult GetImage(int imageId)
+        public async Task<IActionResult> GetImage(int imageId)
         {
-            // try
-            // {
-            //     var accessToken = this.Request.Headers["X-Forwarded-Access-Token"].First();
+            try
+            {
+                var accessToken = this.Request.Headers["X-Forwarded-Access-Token"].First();
 
-            //     var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
-            //     var me = await graph.Me.Request().GetAsync();
-            //     _logger.LogInformation(0, "Graph DisplayName: " + me.DisplayName);
-            // }
-            // catch (Exception ex)
-            // {
-            //     _logger.LogError(0, ex, ex.Message);
-            // }
+                var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
+                var me = await graph.Me.Request().GetAsync();
+                
+                _logger.LogInformation(0, "Graph DisplayName: " + me.DisplayName);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(0, ex, ex.Message);
+            }
 
 
             // _logger.LogInformation(0, "User name: " + Request.HttpContext.User.Identity.Name);
