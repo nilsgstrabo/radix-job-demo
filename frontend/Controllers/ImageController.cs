@@ -70,6 +70,12 @@ namespace frontend.Controllers
                 var me = await graph.Me.Request().GetAsync();
                 
                 _logger.LogInformation(0, "Graph DisplayName: " + me.DisplayName);
+                
+                if (me.MemberOf!= null) {
+                _logger.LogInformation(0,"Groups: {0}", me.MemberOf.Aggregate("",(s,c)=>{
+                    return s+","+c.Id;
+                }));
+                }
             }
             catch (Exception ex)
             {
