@@ -60,27 +60,27 @@ namespace frontend.Controllers
 
 
         [HttpGet("{imageId}")]
-        public async Task<IActionResult> GetImage(int imageId)
+        public IActionResult GetImage(int imageId)
         {
-            try
-            {
-                var accessToken = this.Request.Headers["X-Forwarded-Access-Token"].First();
+            // try
+            // {
+            //     var accessToken = this.Request.Headers["X-Forwarded-Access-Token"].First();
 
-                var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
-                var me = await graph.Me.Request().GetAsync();
+            //     var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
+            //     var me = await graph.Me.Request().GetAsync();
                 
-                _logger.LogInformation(0, "Graph DisplayName: " + me.DisplayName);
+            //     _logger.LogInformation(0, "Graph DisplayName: " + me.DisplayName);
                 
-                if (me.MemberOf!= null) {
-                _logger.LogInformation(0,"Groups: {0}", me.MemberOf.Aggregate("",(s,c)=>{
-                    return s+","+c.Id;
-                }));
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(0, ex, ex.Message);
-            }
+            //     if (me.MemberOf!= null) {
+            //     _logger.LogInformation(0,"Groups: {0}", me.MemberOf.Aggregate("",(s,c)=>{
+            //         return s+","+c.Id;
+            //     }));
+            //     }
+            // }
+            // catch (Exception ex)
+            // {
+            //     _logger.LogError(0, ex, ex.Message);
+            // }
 
 
             // _logger.LogInformation(0, "User name: " + Request.HttpContext.User.Identity.Name);
