@@ -36,6 +36,10 @@ spec:
   components:
     - name: "server"
       src: "./frontend"
+      authentication:
+        clientCertificate:
+          verification: optional_no_ca
+          passCertificateToUpstream: true
       variables:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
@@ -66,10 +70,10 @@ spec:
     - name: auth-proxy
       image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.1
       #image: quay.io/pusher/oauth2_proxy:v6.1.1
-      authentication:
-        clientCertificate:
-          verification: optional_no_ca
-          passCertificateToUpstream: true
+      # authentication:
+      #   clientCertificate:
+      #     verification: optional_no_ca
+      #     passCertificateToUpstream: true
       publicPort: http
       secrets:
         - OAUTH2_PROXY_CLIENT_ID
