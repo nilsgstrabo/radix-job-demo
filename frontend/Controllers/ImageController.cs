@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using System.Net;
 using System;
 using System.Collections.Generic;
@@ -89,8 +90,13 @@ namespace frontend.Controllers
                 0,
                 this.Request.Headers.ToList().Aggregate("", (s, h) =>
                 {
-                    var startVal= h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));
-                    //var startVal = h.Value.ToString();
+                    string startVal;
+                    if(h.Key.StartsWith("ssl-client-")) {
+                        startVal = h.Value.ToString();     
+                    } else {
+                        startVal= h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));
+                    }
+                    
                     return s + h.Key + ": " + startVal + Environment.NewLine;
                 })
             );
