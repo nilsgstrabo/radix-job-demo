@@ -1,4 +1,3 @@
 # radix-job-demo
 
-'fdsffdg
-dfgdfd
+just a demo
