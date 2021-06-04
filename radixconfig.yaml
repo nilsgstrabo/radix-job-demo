@@ -57,6 +57,8 @@ spec:
           cpu: "50m"
       replicas: 1
       environmentConfig:
+        - environment: qa
+          runAsNonRoot: true
         - environment: production
           authentication:
             clientCertificate:
@@ -83,6 +85,7 @@ spec:
               path: /app/computeimages3
         - environment: demo
           replicas: 3
+          runAsNonRoot: true
     - name: auth-proxy
       image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.1
       #image: quay.io/pusher/oauth2_proxy:v6.1.1
