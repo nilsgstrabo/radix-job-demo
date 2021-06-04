@@ -8,6 +8,7 @@ spec:
       build:
         from: main
     - name: production
+    - name: demo
   jobs:
     - name: "compute"
       src: "./compute"
@@ -80,6 +81,8 @@ spec:
               name: image-files
               container: images
               path: /app/computeimages3
+        - environment: demo
+          replicas: 3
     - name: auth-proxy
       image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.1
       #image: quay.io/pusher/oauth2_proxy:v6.1.1
