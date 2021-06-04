@@ -7,6 +7,7 @@ spec:
     - name: qa
       build:
         from: main
+    - name: production
   jobs:
     - name: "compute"
       src: "./compute"
@@ -53,11 +54,32 @@ spec:
         limits:
           memory: "150M"
           cpu: "50m"
+      replicas: 1
       environmentConfig:
-        - environment: qa
+        - environment: production
+          authentication:
+            clientCertificate:
+              verification: on
           runAsNonRoot: true
           variables:
-            JOB_SCHEDULER: "http://compute:8080"
+            ENV: production
+            COMPUTE_IMAGE_PATH: "/app/computeimages2"
+          resources:
+            requests:
+              memory: "151M"
+              cpu: "51m"
+            limits:
+              memory: "152M"
+              cpu: "52m"
+          replicas: 2
+          horizontalScaling:
+            minReplicas: 2
+            maxReplicas: 3
+          volumeMounts:
+            - type: blob
+              name: image-files
+              container: images
+              path: /app/computeimages3
     - name: auth-proxy
       image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.1
       #image: quay.io/pusher/oauth2_proxy:v6.1.1
