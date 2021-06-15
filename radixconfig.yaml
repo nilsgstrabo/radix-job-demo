@@ -8,6 +8,8 @@ spec:
       build:
         from: main
     - name: production
+      build:
+        from: release
     - name: demo
   jobs:
     - name: "compute"
