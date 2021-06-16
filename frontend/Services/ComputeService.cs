@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using frontend.Controllers;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
+using System.Text.Json
 
 public class JobStatus
 {
