@@ -19,12 +19,12 @@ spec:
         path: "/compute/payload"
       ports:
         - name: http
-          port: 8000
+          port: 8080
       variables:
         COMPUTE_CONFIG: "/compute/payload/payload"
         # COMPUTE_OUT_PATH: "/computeimages"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
-        PORT: "8000"
+        PORT: "8080"
       environmentConfig:
         - environment: qa
           runAsNonRoot: true
