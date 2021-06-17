@@ -10,8 +10,10 @@ import (
 
 func startServer(responseBody []byte) *http.Server {
 	port := os.Getenv("PORT")
+	adr := fmt.Sprintf(":%s", port)
+	srv := &http.Server{Addr: adr}
 
-	srv := &http.Server{Addr: fmt.Sprintf(":%s", port)}
+	logrus.Infof("Listening at: %s", adr)
 	http.Handle("/", http.HandlerFunc(serve(responseBody)))
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
