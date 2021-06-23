@@ -35,6 +35,29 @@ spec:
             limits:
               memory: "199M"
               cpu: "123m"
+    - name: "compute2"
+      src: "./compute"
+      schedulerPort: 8080
+      payload:
+        path: "/compute/payload"
+      ports:
+        - name: http
+          port: 8080
+      variables:
+        COMPUTE_CONFIG: "/compute/payload/payload"
+        # COMPUTE_OUT_PATH: "/computeimages"
+        CALLBACK_ON_COMPLETE_URL: "http://server:5005"
+        PORT: "8080"
+      environmentConfig:
+        - environment: qa
+          runAsNonRoot: true
+          resources:
+            requests:
+              memory: "111M"
+              cpu: "77m"
+            limits:
+              memory: "199M"
+              cpu: "123m"
   components:
     - name: "server"
       src: "./frontend"
