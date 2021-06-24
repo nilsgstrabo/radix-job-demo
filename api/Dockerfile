@@ -1,7 +1,5 @@
 # https://hub.docker.com/_/microsoft-dotnet
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
-RUN apt-get install nodejs -q -y
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
