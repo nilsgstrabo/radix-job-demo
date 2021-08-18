@@ -13,6 +13,7 @@ namespace api
     {
         public static void Main(string[] args)
         {
+            throw new Exception();
             CreateHostBuilder(args).Build().Run();
         }
 

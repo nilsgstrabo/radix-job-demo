@@ -63,8 +63,8 @@ spec:
       src: "./api"
       ports:
         - name: http
-          port: 5006
-      publicPort: http
+          port: 5005
+      # publicPort: http
       variables:
         ASPNETCORE_URLS: "http://*:5005"
       environmentConfig:
