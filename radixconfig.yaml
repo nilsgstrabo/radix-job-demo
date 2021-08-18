@@ -170,3 +170,10 @@ spec:
           runAsNonRoot: true
       variables:
         ALLOW_EMPTY_PASSWORD: "yes"              
+  privateImageHubs:
+    privaterepodeleteme.azurecr.io:
+      username: 23452345-3d71-44a7-8476-50e8b281abbc
+      email: radix@statoilsrm.onmicrosoft.com
+    privaterepodeleteme2.azurecr.io:
+      username: 23423424-3d71-44a7-8476-50e8b281abb2
+      email: radix@statoilsrm.onmicrosoft.com
