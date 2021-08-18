@@ -170,6 +170,10 @@ spec:
           runAsNonRoot: true
       variables:
         ALLOW_EMPTY_PASSWORD: "yes"              
+  build:
+    secrets:
+      - SECRET_1
+      - SECRET_2
   privateImageHubs:
     privaterepodeleteme.azurecr.io:
       username: 23452345-3d71-44a7-8476-50e8b281abbc
