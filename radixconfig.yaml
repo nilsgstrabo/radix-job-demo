@@ -10,7 +10,6 @@ spec:
     - name: production
       build:
         from: release
-    - name: demo
   jobs:
     - name: "compute"
       src: "./compute"
