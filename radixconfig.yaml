@@ -25,7 +25,7 @@ spec:
         PORT: "8080"
       environmentConfig:
         - environment: qa
-          runAsNonRoot: true
+          runAsNonRoot: false
           resources:
             requests:
               memory: "100M"
