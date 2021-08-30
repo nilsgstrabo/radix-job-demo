@@ -47,7 +47,7 @@ spec:
       ports:
         - name: http
           port: 5005
-      publicPort: http
+      # publicPort: http
       resources:
         requests:
           memory: "150M"
@@ -58,26 +58,9 @@ spec:
       replicas: 1
       environmentConfig:
         - environment: qa
-          runAsNonRoot: true
+          runAsNonRoot: false
         - environment: production
-          authentication:
-            clientCertificate:
-              verification: on
-          runAsNonRoot: true
-          variables:
-            ENV: production
-            COMPUTE_IMAGE_PATH: "/app/computeimages2"
-          resources:
-            requests:
-              memory: "151M"
-              cpu: "51m"
-            limits:
-              memory: "152M"
-              cpu: "52m"
-          replicas: 1
-          horizontalScaling:
-            minReplicas: 1
-            maxReplicas: 2
+          runAsNonRoot: false
     - name: auth-proxy
       image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.1
       publicPort: http
