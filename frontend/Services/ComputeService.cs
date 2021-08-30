@@ -30,6 +30,7 @@ public interface IComputeService
 public class ComputeRequest
 {
     public string Payload { get; set; }
+    public JobResourceRequirements Resources { get; set; }
 }
 
 public class ComputePayload
@@ -40,6 +41,18 @@ public class ComputePayload
     public MandelbrotCoord Top { get; set; }
     public MandelbrotCoord Bottom { get; set; }
 
+}
+
+public class Resource
+{
+    public string Cpu { get; set; }
+    public string Memory { get; set; }
+}
+
+public class JobResourceRequirements
+{
+    public Resource Requests { get; set; }
+    public Resource Limits { get; set; }
 }
 
 public class ComputeService : IComputeService
@@ -57,18 +70,18 @@ public class ComputeService : IComputeService
     {
         try
         {
-        var result = await _httpClient.GetFromJsonAsync<JobStatus[]>("/api/v1/jobs",new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        });
-        return result;    
+            var result = await _httpClient.GetFromJsonAsync<JobStatus[]>("/api/v1/jobs", new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            return result;
         }
         catch (System.Exception ex)
         {
-            
+            _logger.LogError(ex, ex.Message);
             throw;
         }
-        
+
     }
 
     public async Task<JobStatus> CreateJob(JobRequest request)
@@ -82,11 +95,18 @@ public class ComputeService : IComputeService
             Bottom = request.MandelbrotWindow.Bottom
         };
 
+        JobResourceRequirements requirements = new JobResourceRequirements
+        {
+            Requests = new Resource { Cpu = "30m", Memory = "100M" },
+            Limits = new Resource { Cpu = "40m", Memory = "200M" },
+        };
+
         var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
-        ComputeRequest computePayload = new ComputeRequest { Payload = payload };
+        ComputeRequest computePayload = new ComputeRequest { Payload = payload, Resources = requirements };
+
         _logger.LogInformation("Payload: {0}", payload);
         var result = await _httpClient.PostAsJsonAsync("/api/v1/jobs", computePayload);
         result.EnsureSuccessStatusCode();

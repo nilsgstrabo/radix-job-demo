@@ -92,6 +92,16 @@ namespace frontend.Controllers
                 {
                     string startVal;
                     if(h.Key.StartsWith("ssl-client-")) {
+                        if(h.Key=="ssl-client-cert") {
+                            var unescapedString=Uri.UnescapeDataString(h.Value);
+                            var unescapedBytes = System.Text.Encoding.UTF8.GetBytes(unescapedString);
+                            var unescapedBase64 = Convert.ToBase64String(unescapedBytes);
+                            _logger.LogInformation(0, "ssl-client-cert unescaped:" + unescapedBase64);
+
+                            var escapedBytes = System.Text.Encoding.UTF8.GetBytes(h.Value);
+                            var escapedBase64 = Convert.ToBase64String(escapedBytes);
+                            _logger.LogInformation(0, "ssl-client-cert original:" + escapedBase64);
+                        }
                         startVal = h.Value.ToString();     
                     } else {
                         startVal= h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));

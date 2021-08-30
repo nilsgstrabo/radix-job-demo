@@ -1,6 +1,6 @@
 # radix-job-demo
 
-just a demo
+A simple demo app to show how jobs can be used in Radix.
 
 
 

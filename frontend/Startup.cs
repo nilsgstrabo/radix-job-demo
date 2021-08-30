@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Graph;
+using Microsoft.OpenApi.Models;
 
 namespace frontend
 {
@@ -59,6 +60,11 @@ namespace frontend
                 c.BaseAddress = uri;
             });
             services.AddSingleton<INotificationHubService, NotificationHubService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "apicert", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +74,9 @@ namespace frontend
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "apicert v1"));
 
             app.UseStaticFiles();
             if (!env.IsDevelopment())
