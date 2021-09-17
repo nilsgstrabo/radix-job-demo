@@ -1,7 +1,7 @@
 # https://hub.docker.com/_/microsoft-dotnet
 FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
 
-RUN apk update && apk add nodejs && apk add nodejs-npm
+RUN apk add --update nodejs npm
 
 WORKDIR /source
 
