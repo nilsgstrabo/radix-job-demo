@@ -23,6 +23,8 @@ spec:
         COMPUTE_CONFIG: "/compute/payload/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
         PORT: "8080"
+      secrets:
+        - SECRET
       environmentConfig:
         - environment: qa
           runAsNonRoot: false
