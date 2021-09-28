@@ -6,7 +6,7 @@ spec:
   environments:
     - name: qa
       build:
-        from: main
+        from: main2
     - name: production
       build:
         from: release
