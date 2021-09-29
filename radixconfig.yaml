@@ -6,7 +6,7 @@ spec:
   environments:
     - name: qa
       build:
-        from: main2
+        from: main
     - name: production
       build:
         from: release
@@ -25,6 +25,7 @@ spec:
         PORT: "8080"
       secrets:
         - SECRET
+        - ANTOHER
       environmentConfig:
         - environment: qa
           runAsNonRoot: false
