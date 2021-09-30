@@ -26,6 +26,7 @@ spec:
       secrets:
         - SECRET
         - ANTOHER
+        - ANOTHER2
       environmentConfig:
         - environment: qa
           runAsNonRoot: false
