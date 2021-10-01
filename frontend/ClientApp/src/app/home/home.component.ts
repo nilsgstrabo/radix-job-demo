@@ -88,6 +88,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   private getNextImageId() {
     return this.nextImageId++;
   }
+  stopApp() {
+    this.http.post('/api/image/stop', null).toPromise().then(()=>console.log('app stopped')).catch((e)=>console.error(e));
+  }
 
   resetImage() {
     const mwin: MandelbrotWindow = {

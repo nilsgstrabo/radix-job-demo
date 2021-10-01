@@ -25,8 +25,7 @@ spec:
         PORT: "8080"
       secrets:
         - SECRET
-        - ANTOHER
-        - ANOTHER2
+        - VERYSECRET
       environmentConfig:
         - environment: qa
           runAsNonRoot: false
@@ -51,7 +50,7 @@ spec:
       ports:
         - name: http
           port: 5005
-      # publicPort: http
+      publicPort: http
       resources:
         requests:
           memory: "150M"

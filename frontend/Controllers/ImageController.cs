@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Graph;
 using System.Net.Http;
 using System.Net.Http.Headers;
+// using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.Hosting;
 
 namespace frontend.Controllers
 {
@@ -52,13 +55,21 @@ namespace frontend.Controllers
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
         private readonly INotificationHubService _hub;
-        public ImageController(IConfiguration configuration, ILogger<ImageController> logger, INotificationHubService hub)
+        private readonly IHostApplicationLifetime _applicationLifetime;
+        public ImageController(IConfiguration configuration, ILogger<ImageController> logger, INotificationHubService hub, IHostApplicationLifetime applicationLifetime)
         {
             _logger = logger;
             _configuration = configuration;
             _hub = hub;
+            _applicationLifetime = applicationLifetime;
         }
 
+        [HttpPost("stop")]
+        public IActionResult StopApp()
+        {
+            _applicationLifetime.StopApplication();
+            return StatusCode(200);
+        }
 
         [HttpGet("{imageId}")]
         public IActionResult GetImage(int imageId)
@@ -69,9 +80,9 @@ namespace frontend.Controllers
 
             //     var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
             //     var me = await graph.Me.Request().GetAsync();
-                
+
             //     _logger.LogInformation(0, "Graph DisplayName: " + me.DisplayName);
-                
+
             //     if (me.MemberOf!= null) {
             //     _logger.LogInformation(0,"Groups: {0}", me.MemberOf.Aggregate("",(s,c)=>{
             //         return s+","+c.Id;
@@ -91,9 +102,11 @@ namespace frontend.Controllers
                 this.Request.Headers.ToList().Aggregate("", (s, h) =>
                 {
                     string startVal;
-                    if(h.Key.StartsWith("ssl-client-")) {
-                        if(h.Key=="ssl-client-cert") {
-                            var unescapedString=Uri.UnescapeDataString(h.Value);
+                    if (h.Key.StartsWith("ssl-client-"))
+                    {
+                        if (h.Key == "ssl-client-cert")
+                        {
+                            var unescapedString = Uri.UnescapeDataString(h.Value);
                             var unescapedBytes = System.Text.Encoding.UTF8.GetBytes(unescapedString);
                             var unescapedBase64 = Convert.ToBase64String(unescapedBytes);
                             _logger.LogInformation(0, "ssl-client-cert unescaped:" + unescapedBase64);
@@ -102,11 +115,13 @@ namespace frontend.Controllers
                             var escapedBase64 = Convert.ToBase64String(escapedBytes);
                             _logger.LogInformation(0, "ssl-client-cert original:" + escapedBase64);
                         }
-                        startVal = h.Value.ToString();     
-                    } else {
-                        startVal= h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));
+                        startVal = h.Value.ToString();
                     }
-                    
+                    else
+                    {
+                        startVal = h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));
+                    }
+
                     return s + h.Key + ": " + startVal + Environment.NewLine;
                 })
             );
