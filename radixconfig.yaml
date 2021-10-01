@@ -39,10 +39,10 @@ spec:
   components:
     - name: "server"
       src: "./frontend"
-      authentication:
-        clientCertificate:
-          verification: optional_no_ca
-          passCertificateToUpstream: true
+      # authentication:
+      #   clientCertificate:
+      #     verification: optional_no_ca
+      #     passCertificateToUpstream: true
       variables:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
