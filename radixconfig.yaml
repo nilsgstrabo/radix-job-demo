@@ -3,6 +3,9 @@ kind: RadixApplication
 metadata:
   name: radix-job-demo
 spec:
+  build:
+    secrets:
+      - SECRET1
   environments:
     - name: qa
       build:
