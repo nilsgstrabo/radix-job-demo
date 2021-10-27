@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using System;
 using AFP.Web.Hubs;
 using Microsoft.AspNetCore.Builder;
@@ -74,6 +75,8 @@ namespace frontend
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseHttpsRedirection();
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "apicert v1"));
