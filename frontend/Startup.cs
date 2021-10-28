@@ -1,18 +1,10 @@
-using System.Net.Mime;
-using System;
 using AFP.Web.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Server.HttpSys;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Graph;
-using Microsoft.OpenApi.Models;
 using RadixJobClient.Api;
 
 namespace frontend
@@ -39,6 +31,7 @@ namespace frontend
             });
 
             services.AddSingleton<INotificationHubService, NotificationHubService>();
+            services.AddScoped<IComputeService, ComputeService>();
             services.AddScoped<IJobApi>(sp => {
                 return new JobApi(Configuration["JOB_SCHEDULER"]+ "/api/v1/");
             });

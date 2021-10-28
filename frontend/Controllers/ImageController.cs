@@ -1,22 +1,13 @@
-using System.Reflection.Metadata;
-using System.Net;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.StaticFiles;
 using AFP.Web.Hubs;
-using System.Security.Cryptography;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Graph;
 using System.Net.Http;
 using System.Net.Http.Headers;
-// using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Hosting;
 
 namespace frontend.Controllers
@@ -30,22 +21,6 @@ namespace frontend.Controllers
     public class ImagePostData
     {
         public string Data { get; set; }
-    }
-
-    public class AccessTokenAuthenticationProvider : IAuthenticationProvider
-    {
-        private string accessToken;
-
-        public AccessTokenAuthenticationProvider(string accessToken)
-        {
-            this.accessToken = accessToken;
-        }
-
-        public Task AuthenticateRequestAsync(HttpRequestMessage request)
-        {
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            return Task.FromResult(0);
-        }
     }
 
     [ApiController]
