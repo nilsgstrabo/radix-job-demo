@@ -33,8 +33,6 @@ spec:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
-      secrets:
-        - MYSECRET
       ports:
         - name: http
           port: 5005
