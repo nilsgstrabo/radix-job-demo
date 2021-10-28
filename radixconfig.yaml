@@ -3,35 +3,22 @@ kind: RadixApplication
 metadata:
   name: radix-job-demo
 spec:
-  build:
-    secrets:
-      - SECRET1
   environments:
     - name: qa
       build:
         from: main
-    - name: production
-      build:
-        from: release
   jobs:
     - name: "compute"
       src: "compute"
       schedulerPort: 8080
       payload:
-        path: "/compute/payload"
-      ports:
-        - name: http
-          port: 8080
+        path: "/compute/args"
       variables:
-        COMPUTE_CONFIG: "/compute/payload/payload"
+        COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
         PORT: "8080"
-      secrets:
-        - SECRET
-        - VERYSECRET
       environmentConfig:
         - environment: qa
-          runAsNonRoot: false
           resources:
             requests:
               memory: "100M"
@@ -42,12 +29,6 @@ spec:
   components:
     - name: "server"
       dockerfileName: Dockerfile.frontend
-      # src: "./frontend"
-      #
-      # authentication:
-      #   clientCertificate:
-      #     verification: optional_no_ca
-      #     passCertificateToUpstream: true
       variables:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
@@ -66,11 +47,6 @@ spec:
           memory: "500M"
           cpu: "50m"
       replicas: 1
-      environmentConfig:
-        - environment: qa
-          runAsNonRoot: false
-        - environment: production
-          runAsNonRoot: false
     - name: auth-proxy
       image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.1
       publicPort: http
@@ -84,7 +60,6 @@ spec:
           port: 8000
       environmentConfig:
         - environment: qa
-          runAsNonRoot: true
           variables:
             OAUTH2_PROXY_PROVIDER: "oidc"
             OAUTH2_PROXY_OIDC_ISSUER_URL: "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0"
@@ -108,8 +83,5 @@ spec:
       ports:
         - name: redis
           port: 6379
-      environmentConfig:
-        - environment: qa
-          runAsNonRoot: true
       variables:
         ALLOW_EMPTY_PASSWORD: "yes"              

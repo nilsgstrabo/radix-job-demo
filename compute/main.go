@@ -72,9 +72,6 @@ func main() {
 
 	logrus.Infof("Config: %v", config)
 
-	// srv := startServer(cfgBytes)
-	// defer srv.Shutdown(context.Background())
-
 	mandelbrot := Mandelbrot{
 		Height:      config.Height,
 		Width:       config.Width,
