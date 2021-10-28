@@ -15,7 +15,7 @@ spec:
         from: release
   jobs:
     - name: "compute"
-      src: "./compute"
+      src: "compute"
       schedulerPort: 8080
       payload:
         path: "/compute/payload"
@@ -41,7 +41,9 @@ spec:
               cpu: "50m"
   components:
     - name: "server"
-      src: "./frontend"
+      dockerfileName: Dockerfile.frontend
+      # src: "./frontend"
+      #
       # authentication:
       #   clientCertificate:
       #     verification: optional_no_ca
