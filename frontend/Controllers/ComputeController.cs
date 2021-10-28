@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
+using RadixJobClient.Model;
 
 namespace frontend.Controllers
 {
@@ -43,10 +44,18 @@ namespace frontend.Controllers
         }
 
         [HttpGet("jobs")]
-        public async Task<ActionResult<JobStatus[]>> GetJobs()
+        public async Task<ActionResult<List<JobStatus>>> GetJobs()
         {
+            try
+            {
+                return await _computeService.GetJobs();
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500);
+            }
             
-            return await _computeService.GetJobs();
         }
 
         [HttpPost("jobs")]
@@ -57,8 +66,9 @@ namespace frontend.Controllers
                 var job = await _computeService.CreateJob(request);
                 return job;
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500);
             }
         }

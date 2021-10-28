@@ -1,39 +1,35 @@
-using System.Net.Cache;
-using System.IO;
 using System.Net.Http;
-using System;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
 using frontend.Controllers;
 using System.Net.Http.Json;
-using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
-using RadixJobClient.Client;
 using RadixJobClient.Api;
+using RadixJobClient.Model;
+using System.Collections.Generic;
 
-public class JobStatus
-{
-    public string Name { get; set; }
-    public string Started { get; set; }
-    public string Ended { get; set; }
-    public string Status { get; set; }
-}
+// public class JobStatus
+// {
+//     public string Name { get; set; }
+//     public string Started { get; set; }
+//     public string Ended { get; set; }
+//     public string Status { get; set; }
+// }
 
 
 
 public interface IComputeService
 {
-    Task<JobStatus[]> GetJobs();
+    Task<List<JobStatus>> GetJobs();
     Task<JobStatus> CreateJob(JobRequest request);
 
 }
 
-public class ComputeRequest
-{
-    public string Payload { get; set; }
-    public JobResourceRequirements Resources { get; set; }
-}
+// public class ComputeRequest
+// {
+//     public string Payload { get; set; }
+//     public JobResourceRequirements Resources { get; set; }
+// }
 
 public class ComputePayload
 {
@@ -45,53 +41,35 @@ public class ComputePayload
 
 }
 
-public class Resource
-{
-    public string Cpu { get; set; }
-    public string Memory { get; set; }
-}
+// public class Resource
+// {
+//     public string Cpu { get; set; }
+//     public string Memory { get; set; }
+// }
 
-public class JobResourceRequirements
-{
-    public Resource Requests { get; set; }
-    public Resource Limits { get; set; }
-}
+// public class JobResourceRequirements
+// {
+//     public Resource Requests { get; set; }
+//     public Resource Limits { get; set; }
+// }
 
 public class ComputeService : IComputeService
 {
-    private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
     private readonly IJobApi _jobApi;
 
-    public ComputeService(HttpClient httpClient, IJobApi jobApi, ILogger<ComputeService> logger)
+    public ComputeService(IJobApi jobApi, ILogger<ComputeService> logger)
     {
-        _httpClient = httpClient;
         _logger = logger;
         _jobApi = jobApi;
     }
 
-    public async Task<JobStatus[]> GetJobs()
+    public async Task<List<JobStatus>> GetJobs()
     {
-        try
-        {
-            var jobs = await _jobApi.GetJobsAsync();
-            _logger.LogInformation("got {0} jobs from generated client", jobs.Count);
-
-            var result = await _httpClient.GetFromJsonAsync<JobStatus[]>("/api/v1/jobs", new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-            return result;
-        }
-        catch (System.Exception ex)
-        {
-            _logger.LogError(ex, ex.Message);
-            throw;
-        }
-
+        return await _jobApi.GetJobsAsync();
     }
 
-    public async Task<JobStatus> CreateJob(JobRequest request)
+    public async Task<RadixJobClient.Model.JobStatus> CreateJob(JobRequest request)
     {
         ComputePayload payloadObj = new ComputePayload
         {
@@ -102,24 +80,19 @@ public class ComputeService : IComputeService
             Bottom = request.MandelbrotWindow.Bottom
         };
 
-        JobResourceRequirements requirements = new JobResourceRequirements
+        RadixJobClient.Model.ResourceRequirements requirements = new RadixJobClient.Model.ResourceRequirements
         {
-            Requests = new Resource { Cpu = "1", Memory = "100M" },
-            Limits = new Resource { Cpu = "2", Memory = "200M" },
+            Requests = new Dictionary<string, string>(){{"cpu", "1"}, {"memory", "100M"}},
+            Limits = new Dictionary<string, string>(){{"cpu", "1"}, {"memory", "100M"}},
         };
 
         var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
-        ComputeRequest computePayload = new ComputeRequest { Payload = payload, Resources = requirements };
+        JobScheduleDescription computePayload = new JobScheduleDescription(){ Payload = payload, Resources = requirements };
 
         _logger.LogInformation("Payload: {0}", payload);
-        var result = await _httpClient.PostAsJsonAsync("/api/v1/jobs", computePayload);
-        result.EnsureSuccessStatusCode();
-        _logger.LogInformation(0, result.StatusCode.ToString());
-        var job = await result.Content.ReadFromJsonAsync<JobStatus>();
-        return job;
+        return await _jobApi.CreateJobAsync(computePayload);
     }
-
 }

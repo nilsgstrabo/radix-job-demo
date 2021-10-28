@@ -38,11 +38,6 @@ namespace frontend
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddHttpClient<IComputeService, ComputeService>(c =>
-            {
-                var uri = new Uri(Configuration["JOB_SCHEDULER"]);
-                c.BaseAddress = uri;
-            });
             services.AddSingleton<INotificationHubService, NotificationHubService>();
             services.AddScoped<IJobApi>(sp => {
                 return new JobApi(Configuration["JOB_SCHEDULER"]+ "/api/v1/");
