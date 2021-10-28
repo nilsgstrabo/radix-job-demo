@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Graph;
 using Microsoft.OpenApi.Models;
+using RadixJobClient.Api;
 
 namespace frontend
 {
@@ -43,10 +44,8 @@ namespace frontend
                 c.BaseAddress = uri;
             });
             services.AddSingleton<INotificationHubService, NotificationHubService>();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "apicert", Version = "v1" });
+            services.AddScoped<IJobApi>(sp => {
+                return new JobApi(Configuration["JOB_SCHEDULER"]+ "/api/v1/");
             });
         }
 

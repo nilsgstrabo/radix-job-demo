@@ -9,6 +9,8 @@ using frontend.Controllers;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using RadixJobClient.Client;
+using RadixJobClient.Api;
 
 public class JobStatus
 {
@@ -59,17 +61,22 @@ public class ComputeService : IComputeService
 {
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
+    private readonly IJobApi _jobApi;
 
-    public ComputeService(HttpClient httpClient, ILogger<ComputeService> logger)
+    public ComputeService(HttpClient httpClient, IJobApi jobApi, ILogger<ComputeService> logger)
     {
         _httpClient = httpClient;
         _logger = logger;
+        _jobApi = jobApi;
     }
 
     public async Task<JobStatus[]> GetJobs()
     {
         try
         {
+            var jobs = await _jobApi.GetJobsAsync();
+            _logger.LogInformation("got {0} jobs from generated client", jobs.Count);
+
             var result = await _httpClient.GetFromJsonAsync<JobStatus[]>("/api/v1/jobs", new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
