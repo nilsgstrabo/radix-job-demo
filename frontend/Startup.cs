@@ -29,24 +29,6 @@ namespace frontend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            /*services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(o =>
-            {
-                o.MetadataAddress = "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0/.well-known/openid-configuration";
-                o.TokenValidationParameters.ValidAudience = "fc082d3c-f792-4190-99f6-b63c1b270ea9";
-                o.TokenValidationParameters.ValidIssuer = "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0";
-            });
-
-            services.AddAuthorization(o =>
-            {
-                o.AddPolicy("JWT", b =>
-                    {
-                        b.RequireAuthenticatedUser();
-                    });
-
-                o.DefaultPolicy = o.GetPolicy("JWT");
-            });*/
-
             services.AddSignalR();
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
@@ -76,11 +58,6 @@ namespace frontend
                 app.UseDeveloperExceptionPage();
             }
 
-            // app.UseHttpsRedirection();
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "apicert v1"));
-
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
@@ -89,15 +66,13 @@ namespace frontend
 
             app.UseRouting();
 
-            //app.UseAuthentication();
-            //app.UseAuthorization();
             app.UseEndpoints(endpoints =>
-           {
+            {
                endpoints.MapHub<NotificationHub>("/notificationhub");
                endpoints.MapControllerRoute(
                    name: "default",
                    pattern: "{controller}/{action=Index}/{id?}");
-           });
+            });
 
             app.UseSpa(spa =>
             {

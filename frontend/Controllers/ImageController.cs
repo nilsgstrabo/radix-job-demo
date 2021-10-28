@@ -64,69 +64,9 @@ namespace frontend.Controllers
             _applicationLifetime = applicationLifetime;
         }
 
-        [HttpPost("stop")]
-        public IActionResult StopApp()
-        {
-            _applicationLifetime.StopApplication();
-            return StatusCode(200);
-        }
-
         [HttpGet("{imageId}")]
         public IActionResult GetImage(int imageId)
         {
-            // try
-            // {
-            //     var accessToken = this.Request.Headers["X-Forwarded-Access-Token"].First();
-
-            //     var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
-            //     var me = await graph.Me.Request().GetAsync();
-
-            //     _logger.LogInformation(0, "Graph DisplayName: " + me.DisplayName);
-
-            //     if (me.MemberOf!= null) {
-            //     _logger.LogInformation(0,"Groups: {0}", me.MemberOf.Aggregate("",(s,c)=>{
-            //         return s+","+c.Id;
-            //     }));
-            //     }
-            // }
-            // catch (Exception ex)
-            // {
-            //     _logger.LogError(0, ex, ex.Message);
-            // }
-
-
-            // _logger.LogInformation(0, "User name: " + Request.HttpContext.User.Identity.Name);
-            _logger.LogInformation(0, "********* Logging Headers **********");
-            _logger.LogInformation(
-                0,
-                this.Request.Headers.ToList().Aggregate("", (s, h) =>
-                {
-                    string startVal;
-                    if (h.Key.StartsWith("ssl-client-"))
-                    {
-                        if (h.Key == "ssl-client-cert")
-                        {
-                            var unescapedString = Uri.UnescapeDataString(h.Value);
-                            var unescapedBytes = System.Text.Encoding.UTF8.GetBytes(unescapedString);
-                            var unescapedBase64 = Convert.ToBase64String(unescapedBytes);
-                            _logger.LogInformation(0, "ssl-client-cert unescaped:" + unescapedBase64);
-
-                            var escapedBytes = System.Text.Encoding.UTF8.GetBytes(h.Value);
-                            var escapedBase64 = Convert.ToBase64String(escapedBytes);
-                            _logger.LogInformation(0, "ssl-client-cert original:" + escapedBase64);
-                        }
-                        startVal = h.Value.ToString();
-                    }
-                    else
-                    {
-                        startVal = h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));
-                    }
-
-                    return s + h.Key + ": " + startVal + Environment.NewLine;
-                })
-            );
-            _logger.LogInformation(0, "********* Done **********");
-
             try
             {
                 var path = _configuration["COMPUTE_IMAGE_PATH"];

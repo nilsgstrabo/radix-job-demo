@@ -97,8 +97,8 @@ public class ComputeService : IComputeService
 
         JobResourceRequirements requirements = new JobResourceRequirements
         {
-            Requests = new Resource { Cpu = "30m", Memory = "100M" },
-            Limits = new Resource { Cpu = "40m", Memory = "200M" },
+            Requests = new Resource { Cpu = "1", Memory = "100M" },
+            Limits = new Resource { Cpu = "2", Memory = "200M" },
         };
 
         var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions

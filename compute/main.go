@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -15,7 +14,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	// "time"
 
@@ -74,8 +72,8 @@ func main() {
 
 	logrus.Infof("Config: %v", config)
 
-	srv := startServer(cfgBytes)
-	defer srv.Shutdown(context.Background())
+	// srv := startServer(cfgBytes)
+	// defer srv.Shutdown(context.Background())
 
 	mandelbrot := Mandelbrot{
 		Height:      config.Height,
@@ -109,7 +107,7 @@ func main() {
 	}
 
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
-		postAdr, err := url.Parse(callbackCompleteUrl)
+		postAdr, _ := url.Parse(callbackCompleteUrl)
 		postAdr.Path = fmt.Sprintf("%s/%v/data", "api/image", config.ImageId)
 		postAdrStr := postAdr.String()
 
@@ -150,5 +148,4 @@ func main() {
 
 		defer resp.Body.Close()
 	}
-	time.Sleep(2 * time.Minute)
 }
