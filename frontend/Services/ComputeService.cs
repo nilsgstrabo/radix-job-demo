@@ -102,13 +102,13 @@ public class ComputeService : IComputeService
 
         switch(memory) {
             case JobResourceEnum.High:
-                memResource="1000M";
+                memResource="1000Mi";
                 break;
             case JobResourceEnum.Medium:
-                memResource="500M";
+                memResource="500Mi";
                 break;
             case JobResourceEnum.Low:
-                memResource="100M";
+                memResource="100Mi";
                 break;
         }
 
@@ -117,10 +117,10 @@ public class ComputeService : IComputeService
                 cpuResource="1";
                 break;
             case JobResourceEnum.Medium:
-                cpuResource="500Mi";
+                cpuResource="500m";
                 break;
             case JobResourceEnum.Low:
-                cpuResource="100Mi";
+                cpuResource="100m";
                 break;
         }
 
