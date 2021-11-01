@@ -80,11 +80,13 @@ public class ComputeService : IComputeService
             Bottom = request.MandelbrotWindow.Bottom
         };
 
-        RadixJobClient.Model.ResourceRequirements requirements = new RadixJobClient.Model.ResourceRequirements
-        {
-            Requests = new Dictionary<string, string>(){{"cpu", "1"}, {"memory", "100M"}},
-            Limits = new Dictionary<string, string>(){{"cpu", "1"}, {"memory", "100M"}},
-        };
+        // RadixJobClient.Model.ResourceRequirements requirements = new RadixJobClient.Model.ResourceRequirements
+        // {
+        //     Requests = new Dictionary<string, string>(){{"cpu", "1"}, {"memory", "100M"}},
+        //     Limits = new Dictionary<string, string>(){{"cpu", "1"}, {"memory", "100M"}},
+        // };
+
+        var requirements=GetResources(request.Memory, request.Cpu);
 
         var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions
         {
@@ -94,5 +96,48 @@ public class ComputeService : IComputeService
 
         _logger.LogInformation("Payload: {0}", payload);
         return await _jobApi.CreateJobAsync(computePayload);
+    }
+
+    private RadixJobClient.Model.ResourceRequirements GetResources(JobResourceEnum memory, JobResourceEnum cpu) {
+        string memResource="";
+        string cpuResource="";
+
+        switch(memory) {
+            case JobResourceEnum.High:
+                memResource="1000Mi";
+                break;
+            case JobResourceEnum.Medium:
+                memResource="500Mi";
+                break;
+            case JobResourceEnum.Low:
+                memResource="100Mi";
+                break;
+        }
+
+        switch(cpu) {
+            case JobResourceEnum.High:
+                memResource="2";
+                break;
+            case JobResourceEnum.Medium:
+                memResource="1";
+                break;
+            case JobResourceEnum.Low:
+                memResource="200M";
+                break;
+        }
+
+        RadixJobClient.Model.ResourceRequirements requirements = new RadixJobClient.Model.ResourceRequirements() {
+            Requests=new Dictionary<string, string>()
+        };
+        
+        if(memResource!="") {
+            requirements.Requests.Add("memory", memResource);
+        }
+
+        if(cpuResource!="") {
+            requirements.Requests.Add("cpu", cpuResource);
+        }
+
+        return requirements;
     }
 }

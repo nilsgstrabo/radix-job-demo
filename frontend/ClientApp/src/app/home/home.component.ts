@@ -19,6 +19,8 @@ interface MandelbrotWindow {
 interface ComputeRequest {
   imageId: number;
   mandelbrotWindow: MandelbrotWindow;
+  memory: number,
+  cpu: number,
 }
 
 @Component({
@@ -32,6 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   private boxHeight = 100;
   private jobListSubscription: Subscription;
   private imageChangedSubscription: Subscription;
+  private memory=0;
+  private cpu=0;
   jobs: any[] = [];
   imageReceivedMessage = '';
   imageId = 1;
@@ -138,10 +142,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   async sendImageRequest(mandelbrot: MandelbrotWindow) {
     const request: ComputeRequest = {
       imageId: this.getNextImageId(),
-      mandelbrotWindow: mandelbrot
+      mandelbrotWindow: mandelbrot,
+      memory: Number(this.memory),
+      cpu: Number(this.cpu)
     };
-
-    console.log(request);
 
     const response = await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
     return response

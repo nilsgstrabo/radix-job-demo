@@ -1,17 +1,28 @@
-﻿using System;
+﻿using System.Net.WebSockets;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RadixJobClient.Model;
+using System.Runtime.Versioning;
 
 namespace frontend.Controllers
 {
+
+public enum JobResourceEnum {
+    Default=0,
+    Low=1,
+    Medium=2,
+    High=3,
+}
 
     public class JobRequest
     {
         public int ImageId { get; set; }
         public MandelbrotWindow MandelbrotWindow { get; set; }
+        public JobResourceEnum Memory { get; set; }
+        public JobResourceEnum Cpu { get; set; }
     }
 
     public class MandelbrotCoord
