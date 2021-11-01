@@ -14,8 +14,7 @@ public enum JobResourceEnum {
     Default=0,
     Low=1,
     Medium=2,
-    High=3,
-    VeryLow=4,
+    High=3,   
 }
 
     public class JobRequest
