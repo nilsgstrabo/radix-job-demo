@@ -125,9 +125,6 @@ public class ComputeService : IComputeService
             case JobResourceEnum.Low:
                 cpuResource="100m";
                 break;
-            case JobResourceEnum.VeryLow:
-                cpuResource="1m";
-                break;
         }
 
         var resource = new Dictionary<string, string>();
