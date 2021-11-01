@@ -80,22 +80,19 @@ public class ComputeService : IComputeService
             Bottom = request.MandelbrotWindow.Bottom
         };
 
-        // RadixJobClient.Model.ResourceRequirements requirements = new RadixJobClient.Model.ResourceRequirements
-        // {
-        //     Requests = new Dictionary<string, string>(){{"cpu", "1"}, {"memory", "100M"}},
-        //     Limits = new Dictionary<string, string>(){{"cpu", "1"}, {"memory", "100M"}},
-        // };
-
-        var requirements=GetResources(request.Memory, request.Cpu);
-
         var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
-        JobScheduleDescription computePayload = new JobScheduleDescription(){ Payload = payload, Resources = requirements };
+        
+        JobScheduleDescription jobRequest = new JobScheduleDescription(){ Payload = payload };
+        
+        if (request.Cpu!=JobResourceEnum.Default || request.Memory!=JobResourceEnum.Default) {
+            jobRequest.Resources=GetResources(request.Memory, request.Cpu);
+        }
 
         _logger.LogInformation("Payload: {0}", payload);
-        return await _jobApi.CreateJobAsync(computePayload);
+        return await _jobApi.CreateJobAsync(jobRequest);
     }
 
     private RadixJobClient.Model.ResourceRequirements GetResources(JobResourceEnum memory, JobResourceEnum cpu) {
