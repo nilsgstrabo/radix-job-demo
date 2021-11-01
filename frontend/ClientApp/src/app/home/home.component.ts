@@ -34,8 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   private boxHeight = 100;
   private jobListSubscription: Subscription;
   private imageChangedSubscription: Subscription;
-  private memory=0;
-  private cpu=0;
+  memory=0;
+  cpu=0;
   jobs: any[] = [];
   imageReceivedMessage = '';
   imageId = 1;
@@ -64,6 +64,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.jobListSubscription) {
       this.jobListSubscription.unsubscribe();
+    }
+    if (this.imageChangedSubscription) {
+      this.imageChangedSubscription.unsubscribe();
     }
   }
 

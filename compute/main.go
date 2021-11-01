@@ -12,7 +12,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"path/filepath"
 	"strings"
 
 	// "time"
@@ -52,11 +51,11 @@ var basecolors []color.RGBA = []color.RGBA{
 func main() {
 
 	cfgFile := os.Getenv("COMPUTE_CONFIG")
-	outPath := os.Getenv("COMPUTE_OUT_PATH")
+	// outPath := os.Getenv("COMPUTE_OUT_PATH")
 	callbackCompleteUrl := os.Getenv("CALLBACK_ON_COMPLETE_URL")
 
 	logrus.Infof("Config file: %s\n", cfgFile)
-	logrus.Infof("Output directory: %s\n", outPath)
+	// logrus.Infof("Output directory: %s\n", outPath)
 	logrus.Infof("CALLBACK_ON_COMPLETE_URL: %s\n", callbackCompleteUrl)
 
 	cfgBytes, err := ioutil.ReadFile(cfgFile)
@@ -84,24 +83,23 @@ func main() {
 
 	for x := 0; x < mandelbrot.Width; x++ {
 		for y := 0; y < mandelbrot.Height; y++ {
-
 			img.Set(x, y, colorer.Color(m_bitmap[y][x]))
 		}
 	}
 
-	if strings.TrimSpace(outPath) != "" {
-		outFile := filepath.Join(outPath, fmt.Sprintf("%v.png", config.ImageId))
-		logrus.Infof("Writing new image to %v", outFile)
-		f, err := os.Create(outFile)
-		if err != nil {
-			logrus.Panicf("error writing image to out path: %v", err)
-		}
+	// if strings.TrimSpace(outPath) != "" {
+	// 	outFile := filepath.Join(outPath, fmt.Sprintf("%v.png", config.ImageId))
+	// 	logrus.Infof("Writing new image to %v", outFile)
+	// 	f, err := os.Create(outFile)
+	// 	if err != nil {
+	// 		logrus.Panicf("error writing image to out path: %v", err)
+	// 	}
 
-		if err = png.Encode(f, img); err != nil {
-			logrus.Panicf("error encoding png: %v", err)
-		}
-		f.Close()
-	}
+	// 	if err = png.Encode(f, img); err != nil {
+	// 		logrus.Panicf("error encoding png: %v", err)
+	// 	}
+	// 	f.Close()
+	// }
 
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
 		postAdr, _ := url.Parse(callbackCompleteUrl)
