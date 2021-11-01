@@ -9,7 +9,14 @@ const getJsonOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-
+enum JobStatus {
+  Waiting = 1,
+  Running = 2,
+  Succeeded = 3,
+  Stopping = 4,
+  Stopped = 5,
+  Failed = 6
+}
 
 interface MandelbrotWindow {
   top: MandelbrotCoord
@@ -68,6 +75,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.imageChangedSubscription) {
       this.imageChangedSubscription.unsubscribe();
     }
+  }
+
+  public getStatus(status: JobStatus) {
+    return JobStatus[status];
   }
 
   private imageChanged(img: ImageChanged) {
