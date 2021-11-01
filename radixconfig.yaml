@@ -16,7 +16,6 @@ spec:
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
-        PORT: "8080"
       environmentConfig:
         - environment: qa
           resources:
