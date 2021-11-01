@@ -7,6 +7,7 @@ using System.Text.Json;
 using RadixJobClient.Api;
 using RadixJobClient.Model;
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 
 // public class JobStatus
 // {
@@ -113,28 +114,29 @@ public class ComputeService : IComputeService
 
         switch(cpu) {
             case JobResourceEnum.High:
-                memResource="2";
+                cpuResource="2";
                 break;
             case JobResourceEnum.Medium:
-                memResource="1";
+                cpuResource="1";
                 break;
             case JobResourceEnum.Low:
-                memResource="200M";
+                cpuResource="200M";
                 break;
         }
 
-        RadixJobClient.Model.ResourceRequirements requirements = new RadixJobClient.Model.ResourceRequirements() {
-            Requests=new Dictionary<string, string>()
-        };
-        
+        var resource = new Dictionary<string, string>();
+       
         if(memResource!="") {
-            requirements.Requests.Add("memory", memResource);
+            resource.Add("memory", memResource);
         }
 
         if(cpuResource!="") {
-            requirements.Requests.Add("cpu", cpuResource);
+            resource.Add("cpu", cpuResource);
         }
 
-        return requirements;
+        return new RadixJobClient.Model.ResourceRequirements() {
+            Requests=resource,
+            Limits=resource
+        };
     }
 }
