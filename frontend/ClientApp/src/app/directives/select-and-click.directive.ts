@@ -4,23 +4,9 @@ import { Directive, ElementRef, HostListener, Input, OnInit, Output, ViewContain
 @Directive({
   selector: '[appSelectAndClick]'
 })
-export class SelectAndClickDirective implements OnInit {
+export class SelectAndClickDirective {
   @Output('areaSelected') areaSelected = new EventEmitter<any>();
   @Input('selectorItem') selectorItem: HTMLElement;
-
-  constructor(private readonly viewRef: ViewContainerRef) {
-    //console.log(viewRef);
-
-  }
-
-  ngOnInit() {
-
-  }
-
-  @HostListener('mouseout', ['$event'])
-  onMouseOut(itm: MouseEvent) {
-    //console.log('out');
-  }
 
   @HostListener('mousemove', ['$event'])
   onMouseMove(itm: MouseEvent) {

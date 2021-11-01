@@ -84,7 +84,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       retryWhen(e => e.pipe(
         tap(() => {
           this.imageReceivedMessage = `Image with id ${imageId} not synced yet`;
-          console.log('image not synced yet', imageId)
         }),
         delay(1000),
         take(1000 * 300)
