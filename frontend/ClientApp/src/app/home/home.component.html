@@ -16,6 +16,7 @@
         class="form-control"
         [(ngModel)]="cpu">
         <option value=0>Default</option>
+        <option value=4>Too Low (0.001 core)</option>
         <option value=1>Low (0.1 core)</option>
         <option value=2>Medium (0.5 core)</option>
         <option value=3>High (1 core)</option>
@@ -31,6 +32,7 @@
         class="form-control"
         [(ngModel)]="memory">
         <option value=0>Default</option>
+        <option value=4>Too Low (1M)</option>
         <option value=1>Low (100M)</option>
         <option value=2>Medium (500M)</option>
         <option value=3>High (1000M)</option>

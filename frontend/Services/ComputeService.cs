@@ -9,28 +9,12 @@ using RadixJobClient.Model;
 using System.Collections.Generic;
 using System.Runtime.Versioning;
 
-// public class JobStatus
-// {
-//     public string Name { get; set; }
-//     public string Started { get; set; }
-//     public string Ended { get; set; }
-//     public string Status { get; set; }
-// }
-
-
-
 public interface IComputeService
 {
     Task<List<JobStatus>> GetJobs();
     Task<JobStatus> CreateJob(JobRequest request);
 
 }
-
-// public class ComputeRequest
-// {
-//     public string Payload { get; set; }
-//     public JobResourceRequirements Resources { get; set; }
-// }
 
 public class ComputePayload
 {
@@ -41,18 +25,6 @@ public class ComputePayload
     public MandelbrotCoord Bottom { get; set; }
 
 }
-
-// public class Resource
-// {
-//     public string Cpu { get; set; }
-//     public string Memory { get; set; }
-// }
-
-// public class JobResourceRequirements
-// {
-//     public Resource Requests { get; set; }
-//     public Resource Limits { get; set; }
-// }
 
 public class ComputeService : IComputeService
 {
@@ -110,6 +82,9 @@ public class ComputeService : IComputeService
             case JobResourceEnum.Low:
                 memResource="100Mi";
                 break;
+            case JobResourceEnum.TooLow:
+                memResource="1Mi";
+                break;
         }
 
         switch(cpu) {
@@ -121,6 +96,9 @@ public class ComputeService : IComputeService
                 break;
             case JobResourceEnum.Low:
                 cpuResource="100m";
+                break;
+            case JobResourceEnum.TooLow:
+                cpuResource="1m";
                 break;
         }
 
