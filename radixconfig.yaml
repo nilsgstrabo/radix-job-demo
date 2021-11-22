@@ -11,6 +11,9 @@ spec:
     - name: "compute"
       src: "compute"
       schedulerPort: 8080
+      ports:
+        - name: http
+          port: 9999
       payload:
         path: "/compute/args"
       secrets:
