@@ -50,6 +50,10 @@ var basecolors []color.RGBA = []color.RGBA{
 
 func main() {
 
+	for env := range os.Environ() {
+		logrus.Infoln(env)
+	}
+
 	cfgFile := os.Getenv("COMPUTE_CONFIG")
 	callbackCompleteUrl := os.Getenv("CALLBACK_ON_COMPLETE_URL")
 
