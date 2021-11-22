@@ -50,7 +50,7 @@ var basecolors []color.RGBA = []color.RGBA{
 
 func main() {
 
-	for env := range os.Environ() {
+	for _, env := range os.Environ() {
 		logrus.Infoln(env)
 	}
 
