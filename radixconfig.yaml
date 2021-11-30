@@ -16,8 +16,6 @@ spec:
           port: 9999
       payload:
         path: "/compute/args"
-      secrets:
-        - MYSECRET
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
@@ -37,8 +35,6 @@ spec:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
-      secrets:
-        - DB_PWD
       ports:
         - name: http
           port: 5005
