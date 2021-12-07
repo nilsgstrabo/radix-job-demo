@@ -7,6 +7,7 @@ spec:
     - name: qa
       build:
         from: main
+    - name: bad_name
   jobs:
     - name: "compute"
       src: "compute"
@@ -35,6 +36,36 @@ spec:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
+      authentication:
+        oauth2:
+          clientId: #<required>
+          scope: <can we use a default?> #<required?>
+          setAuthRequestHeaders: false #<optional, default>
+          setAuthorizationHeader: false #<optional, default>
+          emailDomains: "*" #<optional, default>
+          loginUrl: "" #<optional>
+          redeemUrl: "" #<optional>
+          pathPrefix: "/oauth2" #<optional, default>
+          oidc:
+            issuerUrl: #<optional? default to https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0> 
+            jwksUrl: #<optional>
+            emailClaim: email #<optional, default>
+            groupsClaim: groups #<optional, default>
+            skipDiscovery: false #<optional, default>
+            insecureSkipVerifyNonce: false #<optional, default>
+          sessionStore: cookie #<optional, default>
+          cookieStore:
+            minimal: false #<optional, default>
+          redisStore:
+            connectionUrl: #<required>
+            allowEmptyPassword: false #<optional, default>
+          cookie:
+            name: _oauth2_proxy <optional, default>
+            path: "/" #<optional, default>
+            domain: #<optional, default>
+            expire: #<optional, default>
+            refresh: #<optional, default>
+            samesite: "" #<optional, default>
       ports:
         - name: http
           port: 5005
