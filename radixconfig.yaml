@@ -7,7 +7,6 @@ spec:
     - name: qa
       build:
         from: main
-    - name: bad_name
   jobs:
     - name: "compute"
       src: "compute"
