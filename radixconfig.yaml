@@ -7,6 +7,7 @@ spec:
     - name: qa
       build:
         from: main
+    - name: err_env
   jobs:
     - name: "compute"
       src: "compute"
@@ -39,12 +40,12 @@ spec:
         oauth2:
           clientId: #<required>
           scope: <can we use a default?> #<required?>
-          setAuthRequestHeaders: false #<optional, default>
+          setXAuthRequestHeaders: false #<optional, default>
           setAuthorizationHeader: false #<optional, default>
           emailDomains: "*" #<optional, default>
           loginUrl: "" #<optional>
           redeemUrl: "" #<optional>
-          pathPrefix: "/oauth2" #<optional, default>
+          proxyPrefix: "/oauth2" #<optional, default>
           oidc:
             issuerUrl: #<optional? default to https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0> 
             jwksUrl: #<optional>
@@ -57,14 +58,13 @@ spec:
             minimal: false #<optional, default>
           redisStore:
             connectionUrl: #<required>
-            allowEmptyPassword: false #<optional, default>
           cookie:
             name: _oauth2_proxy <optional, default>
             path: "/" #<optional, default>
             domain: #<optional, default>
             expire: #<optional, default>
             refresh: #<optional, default>
-            samesite: "" #<optional, default>
+            sameSite: "" #<optional, default>
       ports:
         - name: http
           port: 5005
