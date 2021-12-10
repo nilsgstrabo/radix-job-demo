@@ -7,7 +7,6 @@ spec:
     - name: qa
       build:
         from: main
-    - name: err_env
   jobs:
     - name: "compute"
       src: "compute"
@@ -38,33 +37,33 @@ spec:
         COMPUTE_IMAGE_PATH: "/app/computeimages"
       authentication:
         oauth2:
-          clientId: #<required>
-          scope: <can we use a default?> #<required?>
-          setXAuthRequestHeaders: false #<optional, default>
-          setAuthorizationHeader: false #<optional, default>
-          emailDomains: "*" #<optional, default>
-          loginUrl: "" #<optional>
-          redeemUrl: "" #<optional>
-          proxyPrefix: "/oauth2" #<optional, default>
+          clientId: 5687b237-eda3-4ec3-a2a1-023e85a2bd84 #<required>
+          scope: "openid profile email" #<optional default: openid profile email offline_access>
+          setXAuthRequestHeaders: true #<optional, default false>
+          setAuthorizationHeader: true #<optional, default false>
+          emailDomains: "gmail.com" #<optional, default *>
+          loginUrl: "foo" #<optional>
+          redeemUrl: "bar" #<optional>
+          proxyPrefix: "baz" #<optional, default /oauth2>
           oidc:
-            issuerUrl: #<optional? default to https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0> 
-            jwksUrl: #<optional>
-            emailClaim: email #<optional, default>
-            groupsClaim: groups #<optional, default>
-            skipDiscovery: false #<optional, default>
-            insecureSkipVerifyNonce: false #<optional, default>
-          sessionStore: cookie #<optional, default>
+            issuerUrl: "1-foo" #<optional default to https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0> 
+            jwksUrl: "1-bar" #<optional>
+            emailClaim: email #<optional, default email>
+            groupsClaim: groups #<optional, default groups>
+            skipDiscovery: true #<optional, default false>
+            insecureSkipVerifyNonce: true #<optional, default false>
+          sessionStoreType: cookie #<optional, default>
           cookieStore:
             minimal: false #<optional, default>
           redisStore:
-            connectionUrl: #<required>
+            connectionUrl: "redis://localhost:123" #<required>
           cookie:
-            name: _oauth2_proxy <optional, default>
+            name: _oauth2_proxy #<optional, default>
             path: "/" #<optional, default>
-            domain: #<optional, default>
-            expire: #<optional, default>
-            refresh: #<optional, default>
-            sameSite: "" #<optional, default>
+            domain: "equinor.com" #<optional, default>
+            expire: "168h" #<optional, default>
+            refresh: "60m" #<optional, default>
+            sameSite: "strict" #<optional, default>
       ports:
         - name: http
           port: 5005
