@@ -41,7 +41,7 @@ spec:
           scope: "openid profile email" #<optional default: openid profile email offline_access>
           setXAuthRequestHeaders: true #<optional, default false>
           setAuthorizationHeader: true #<optional, default false>
-          emailDomains: "gmail.com" #<optional, default *>
+          emailDomain: "gmail.com" #<optional, default *>
           loginUrl: "foo" #<optional>
           redeemUrl: "bar" #<optional>
           proxyPrefix: "baz" #<optional, default /oauth2>
@@ -54,7 +54,7 @@ spec:
             insecureSkipVerifyNonce: true #<optional, default false>
           sessionStoreType: cookie #<optional, default>
           cookieStore:
-            minimal: false #<optional, default>
+            minimal: true #<optional, default>
           redisStore:
             connectionUrl: "redis://localhost:123" #<required>
           cookie:
