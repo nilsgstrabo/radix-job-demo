@@ -31,7 +31,7 @@ jobs:
   
     - name: 'Run Azure CLI commands'
       run: |
-          az account show
+          az acr login --name radixdev
     - name: 'Build the Docker image'
       run: docker build . --file Dockerfile.frontend --tag radixdev.azurecr.io/radix-job-demo-fed-test:${{ steps.prep.outputs.BUILD_ID }}
     - name: 'Push the docker image'
