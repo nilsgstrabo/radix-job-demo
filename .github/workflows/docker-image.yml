@@ -15,6 +15,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Generate build ID
+      id: prep
+      run: |
+        branch=${GITHUB_REF##*/}
+        sha=${GITHUB_SHA::8}
+        ts=$(date +%s)
+        echo "::set-output name=BUILD_ID::${branch}-${sha}-${ts}"
     - name: 'Az CLI login'
       uses: azure/login@v1
       with:
@@ -25,7 +32,7 @@ jobs:
     - name: 'Run Azure CLI commands'
       run: |
           az account show
-          az group list
-          pwd 
-    # - name: Build the Docker image
-    #   run: docker build . --file Dockerfile.frontend --tag radixdev.azurecr.io/radix-job-demo-fed-test:$(date +%s)
+    - name: 'Build the Docker image'
+      run: docker build . --file Dockerfile.frontend --tag radixdev.azurecr.io/radix-job-demo-fed-test:${{ steps.prep.outputs.BUILD_ID }}
+    - name: 'Push the docker image'
+      run: docker push radixdev.azurecr.io/radix-job-demo-fed-test:${{ steps.prep.outputs.BUILD_ID }}
