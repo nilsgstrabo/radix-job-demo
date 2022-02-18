@@ -11,9 +11,9 @@ spec:
     - name: "compute"
       src: "compute"
       schedulerPort: 8080
-      node:
-        gpu: nvidia-v100
-        gpuCount: 1
+      # node:
+      #   gpu: nvidia-v100
+      #   gpuCount: 1
       ports:
         - name: http
           port: 9999
