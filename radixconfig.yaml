@@ -54,10 +54,10 @@ spec:
       resources:
         requests:
           memory: "150M"
-          cpu: "50m"
+          cpu: "500m"
         limits:
           memory: "500M"
-          cpu: "50m"
+          cpu: "500m"
     - name: redis
       image: bitnami/redis:6.2
       alwaysPullImageOnDeploy: true
