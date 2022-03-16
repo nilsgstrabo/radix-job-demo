@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private hub: NotificationHubService) { }
 
   ngOnInit() {
-    this.jobListSubscription = timer(1000, 2000).pipe(
+    this.jobListSubscription = timer(1000, 5*60*1000).pipe(
       exhaustMap(() => this.getJobList().pipe(catchError(e => of([]))))
     ).subscribe(v => this.setJobList(v), err => console.error(err));
 
