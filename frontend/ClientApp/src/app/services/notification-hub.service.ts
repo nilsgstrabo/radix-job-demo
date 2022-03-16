@@ -31,6 +31,7 @@ export class NotificationHubService {
     }
 
     private registerServerEvents(): void {
+        this.connection.onclose((e)=> {console.log('connection closed', e);})
         this.connection.on('imageChanged', (img) => this.imageChangedSubject.next(img));
         this.connection.on('timeChanged', (img) => this.timeChangedSubject.next(img));
     }
