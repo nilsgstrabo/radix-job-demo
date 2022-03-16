@@ -20,6 +20,7 @@ namespace AFP.Web.Hubs
     public interface INotificationHubClient
     {
         Task ImageChanged(ImageChanged image);
+        Task TimeChanged(string time);
 
     }
 
@@ -31,6 +32,7 @@ namespace AFP.Web.Hubs
     public interface INotificationHubService
     {
         Task NotifyImageChanged(ImageChanged image);
+        Task NotifyTimeChanged(string time);
     }
 
     public class NotificationHubService : INotificationHubService
@@ -45,6 +47,11 @@ namespace AFP.Web.Hubs
         public Task NotifyImageChanged(ImageChanged image)
         {
             return _hub.Clients.All.ImageChanged(image);
+        }
+
+        public Task NotifyTimeChanged(string time)
+        {
+            return _hub.Clients.All.TimeChanged(time);
         }
     }
 }

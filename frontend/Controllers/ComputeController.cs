@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RadixJobClient.Model;
 using System.Runtime.Versioning;
+using AFP.Web.Hubs;
 
 namespace frontend.Controllers
 {
@@ -44,11 +45,13 @@ public enum JobResourceEnum {
     {
         private readonly ILogger _logger;
         private readonly IComputeService _computeService;
+        private readonly INotificationHubService _hub;
 
-        public ComputeController(IComputeService computeService, ILogger<ComputeController> logger)
+        public ComputeController(IComputeService computeService,INotificationHubService hub, ILogger<ComputeController> logger)
         {
             _logger = logger;
             _computeService = computeService;
+            _hub=hub;
         }
 
         [HttpGet("jobs")]
@@ -56,6 +59,7 @@ public enum JobResourceEnum {
         {
             try
             {
+                await _hub.NotifyTimeChanged(DateTime.Now.ToString());
                 return await _computeService.GetJobs();
             }
             catch (System.Exception ex)

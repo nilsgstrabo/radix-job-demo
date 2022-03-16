@@ -13,6 +13,9 @@ export class NotificationHubService {
     private imageChangedSubject = new Subject<ImageChanged>();
     imageChanged = this.imageChangedSubject.asObservable();
 
+    private timeChangedSubject = new Subject<ImageChanged>();
+    timeChanged = this.timeChangedSubject.asObservable();
+
     constructor() {
         this.createConnection();
         this.registerServerEvents();
@@ -29,6 +32,9 @@ export class NotificationHubService {
 
     private registerServerEvents(): void {
         this.connection.on('imageChanged', (img) => this.imageChangedSubject.next(img));
+        this.connection.on('timeChanged', (img) => this.timeChangedSubject.next(img));
     }
+
+
 
 }

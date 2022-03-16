@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private boxHeight = 100;
   private jobListSubscription: Subscription;
   private imageChangedSubscription: Subscription;
+  private timeChangedSubscription: Subscription;
   memory=0;
   cpu=0;
   jobs: any[] = [];
@@ -66,6 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     ).subscribe(v => this.setJobList(v), err => console.error(err));
 
     this.imageChangedSubscription = this.hub.imageChanged.subscribe(v => this.imageChanged(v), e => console.error(e));
+    this.timeChangedSubscription = this.hub.timeChanged.subscribe(v => this.timeChanged(v), e => console.error(e));
   }
 
   ngOnDestroy() {
@@ -79,6 +81,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public getStatus(status: JobStatus) {
     return JobStatus[status];
+  }
+
+  private timeChanged(time: any) {
+    console.log(time);
   }
 
   private imageChanged(img: ImageChanged) {
