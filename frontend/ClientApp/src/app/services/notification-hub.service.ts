@@ -24,6 +24,7 @@ export class NotificationHubService {
 
     private createConnection() {
         this.connection = new signalR.HubConnectionBuilder().withUrl('/notificationhub').build();
+        this.connection.serverTimeoutInMilliseconds=2*60*1000;
     }
 
     private startConnection() {
