@@ -28,7 +28,7 @@ namespace AFP.Web.Hubs
     public class NotificationHub : Hub<INotificationHubClient>
     {
         private readonly ILogger _logger;
-        protected NotificationHub(ILogger<NotificationHub> logger):base() {
+        public NotificationHub(ILogger<NotificationHub> logger):base() {
             _logger=logger;
         }
 
