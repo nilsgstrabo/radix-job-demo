@@ -38,7 +38,7 @@ namespace AFP.Web.Hubs
         }
 
         public override Task OnDisconnectedAsync(Exception exception) {
-            _logger.LogWarning(exception, exception.Message);
+            _logger.LogInformation(0,"Hub connection closed");
             return Task.CompletedTask;
         }
  
