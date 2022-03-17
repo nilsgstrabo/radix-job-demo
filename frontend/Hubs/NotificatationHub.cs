@@ -31,6 +31,12 @@ namespace AFP.Web.Hubs
         protected NotificationHub(ILogger<NotificationHub> logger):base() {
             _logger=logger;
         }
+
+        public override Task OnConnectedAsync() {
+            _logger.LogInformation(0,"Connection to hub established");
+            return Task.CompletedTask;
+        }
+
         public override Task OnDisconnectedAsync(Exception exception) {
             _logger.LogWarning(exception, exception.Message);
             return Task.CompletedTask;
