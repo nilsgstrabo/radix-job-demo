@@ -1,6 +1,7 @@
 
 using frontend.Controllers;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,15 @@ namespace AFP.Web.Hubs
 
     public class NotificationHub : Hub<INotificationHubClient>
     {
-
+        private readonly ILogger _logger;
+        protected NotificationHub(ILogger<NotificationHub> logger):base() {
+            _logger=logger;
+        }
+        public override Task OnDisconnectedAsync(Exception exception) {
+            _logger.LogWarning(exception, exception.Message);
+            return Task.CompletedTask;
+        }
+ 
     }
 
     public interface INotificationHubService

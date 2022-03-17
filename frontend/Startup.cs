@@ -24,7 +24,7 @@ namespace frontend
         {
             services.AddSignalR(c=> {
                 c.KeepAliveInterval=new System.TimeSpan(0,5,0);
-                c.ClientTimeoutInterval=new System.TimeSpan(0,2,0);
+                c.ClientTimeoutInterval=new System.TimeSpan(0,1,30);
             });
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
