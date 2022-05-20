@@ -11,6 +11,7 @@ spec:
     - name: "compute"
       src: "compute"
       schedulerPort: 8080
+      timeLimitSeconds: 30
       # node:
       #   gpu: nvidia-v100
       #   gpuCount: 1
