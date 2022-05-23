@@ -33,16 +33,6 @@ spec:
               memory: "500M"
               cpu: "500m"
   components:
-    - name: nginx1
-      image: nginxinc/nginx-unprivileged:1.21.6-alpine
-      ports:
-        - name: http
-          port: 8080
-    - name: nginx2
-      dockerfileName: Dockerfile.nginx
-      ports:
-        - name: http
-          port: 8080
     - name: "server"
       dockerfileName: Dockerfile.frontend
       variables:
