@@ -39,7 +39,7 @@ spec:
         - name: http
           port: 8080
     - name: nginx2
-      dockerFileName: Dockerfile.nginx
+      dockerfileName: Dockerfile.nginx
       ports:
         - name: http
           port: 8080
