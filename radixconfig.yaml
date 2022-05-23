@@ -34,7 +34,7 @@ spec:
               cpu: "500m"
   components:
     - name: nginx1
-      image: nginxinc/nginx-unprivileged:1.21.5-alpine
+      image: nginxinc/nginx-unprivileged:1.21.6-alpine
       ports:
         - name: http
           port: 8080
