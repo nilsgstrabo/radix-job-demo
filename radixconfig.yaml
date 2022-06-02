@@ -57,7 +57,7 @@ spec:
       resources:
         requests:
           memory: "200M"
-          cpu: "500m"
+          cpu: "50m"
         limits:
           memory: "500M"
           cpu: "500m"
@@ -69,6 +69,13 @@ spec:
           port: 6379
       secrets:
         - REDIS_PASSWORD
+      resources:
+        requests:
+          memory: "100M"
+          cpu: "50m"
+        limits:
+          memory: "200M"
+          cpu: "100m"
     - name: serverprivate
       image: nilsgustavstrabo/privatefrontend:latest
       alwaysPullImageOnDeploy: true
@@ -94,7 +101,7 @@ spec:
       resources:
         requests:
           memory: "200M"
-          cpu: "500m"
+          cpu: "50m"
         limits:
           memory: "500M"
           cpu: "500m"
