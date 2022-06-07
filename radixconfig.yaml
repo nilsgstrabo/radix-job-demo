@@ -3,6 +3,9 @@ kind: RadixApplication
 metadata:
   name: radix-job-demo
 spec:
+  dnsAppAlias:
+    environment: qa
+    component: server
   environments:
     - name: qa
       build:
