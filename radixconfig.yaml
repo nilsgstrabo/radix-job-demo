@@ -81,35 +81,35 @@ spec:
         limits:
           memory: "200M"
           cpu: "100m"
-    # - name: serverprivate
-    #   image: nilsgustavstrabo/privatefrontend:latest
-    #   alwaysPullImageOnDeploy: true
-    #   variables:
-    #     ASPNETCORE_URLS: "http://*:5005"
-    #     JOB_SCHEDULER: "http://compute:8080"
-    #     COMPUTE_IMAGE_PATH: "/app/computeimages"
-    #   environmentConfig:
-    #     - environment: qa
-    #       authentication:
-    #         oauth2:
-    #           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-    #           scope: openid email profile offline_access
-    #           sessionStoreType: redis
-    #           redisStore:
-    #             connectionUrl: redis://redis:6379
-    #   ports:
-    #     - name: http
-    #       port: 5005
-    #   publicPort: http
-    #   ingressConfiguration:
-    #     - websocketfriendly
-    #   resources:
-    #     requests:
-    #       memory: "200M"
-    #       cpu: "50m"
-    #     limits:
-    #       memory: "500M"
-    #       cpu: "500m"
+    - name: serverprivate
+      image: nilsgustavstrabo/privatefrontend:latest
+      alwaysPullImageOnDeploy: true
+      variables:
+        ASPNETCORE_URLS: "http://*:5005"
+        JOB_SCHEDULER: "http://compute:8080"
+        COMPUTE_IMAGE_PATH: "/app/computeimages"
+      environmentConfig:
+        - environment: qa
+          authentication:
+            oauth2:
+              clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+              scope: openid email profile offline_access
+              sessionStoreType: redis
+              redisStore:
+                connectionUrl: redis://redis:6379
+      ports:
+        - name: http
+          port: 5005
+      publicPort: http
+      ingressConfiguration:
+        - websocketfriendly
+      resources:
+        requests:
+          memory: "200M"
+          cpu: "50m"
+        limits:
+          memory: "500M"
+          cpu: "500m"
   privateImageHubs:
     docker.io:
       username: nilsgustavstrabo
