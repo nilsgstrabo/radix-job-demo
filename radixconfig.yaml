@@ -110,7 +110,7 @@ spec:
     #     limits:
     #       memory: "500M"
     #       cpu: "500m"
-  # privateImageHubs:
-  #   docker.io:
-  #     username: nilsgustavstrabo
-  #     email: nilsgustav.straabo@gmail.com
+  privateImageHubs:
+    docker.io:
+      username: nilsgustavstrabo
+      email: nilsgustav.straabo@gmail.com
