@@ -1,6 +1,7 @@
 <h2>Radix Job Demo</h2>
 <div>
   <button class="btn btn-primary" (click)="resetImage()">Start Over</button>
+  <button class="btn btn-primary" (click)="kill()">Kill Server</button>
 </div>
 <div style="min-height: 100px;" class="p-0 position-relative">
   <img class="" src="/api/image/{{imageId}}" appSelectAndClick [selectorItem]="selector" (areaSelected)="onAreaSelected($event)"> 

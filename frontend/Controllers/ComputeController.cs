@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using RadixJobClient.Model;
 using System.Runtime.Versioning;
 using AFP.Web.Hubs;
+using Microsoft.AspNetCore.Hosting;
 
 namespace frontend.Controllers
 {
@@ -77,6 +78,21 @@ public enum JobResourceEnum {
             {
                 var job = await _computeService.CreateJob(request);
                 return job;
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost("kill")]
+        public IActionResult Kill([FromServices] IApplicationLifetime app)
+        {
+            try
+            {
+                app.StopApplication();
+                return StatusCode(200);
             }
             catch (System.Exception ex)
             {

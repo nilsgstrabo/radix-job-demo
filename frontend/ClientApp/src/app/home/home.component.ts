@@ -169,4 +169,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     const response = await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
     return response
   }
+
+  async kill() {
+    await this.http.post('/api/compute/kill', null, getJsonOptions).toPromise();
+ }
 }
