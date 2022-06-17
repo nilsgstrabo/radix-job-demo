@@ -13,7 +13,6 @@ import (
 	"net/url"
 	"os"
 	"strings"
-	"time"
 
 	// "time"
 
@@ -50,8 +49,6 @@ var basecolors []color.RGBA = []color.RGBA{
 }
 
 func main() {
-
-	time.Sleep(60 * time.Second)
 
 	logrus.Infof("RADIX_JOB_NAME: %s \n", os.Getenv("RADIX_JOB_NAME"))
 
@@ -135,5 +132,7 @@ func main() {
 		logrus.Infof("Response on POST to complete URL %s: code %v", adrStr, resp.Status)
 
 		defer resp.Body.Close()
+
+		panic("bad things happened")
 	}
 }
