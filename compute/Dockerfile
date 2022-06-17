@@ -17,7 +17,7 @@ RUN go mod download
 COPY . .
 RUN go build -o app .
 
-FROM alpine:3.14.1
+FROM alpine:3.16.0
 
 WORKDIR /dist
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
