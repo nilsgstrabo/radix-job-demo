@@ -22,6 +22,6 @@ FROM alpine:3.16.0
 WORKDIR /dist
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=build /etc/passwd /etc/passwd
-COPY --from=build2 /build/app .
+COPY --from=build /build/app .
 USER 1001
 CMD ["/dist/app"]
