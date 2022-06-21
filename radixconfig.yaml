@@ -58,8 +58,8 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      ingressConfiguration:
-        - websocketfriendly
+      # ingressConfiguration:
+      #   - websocketfriendly
       resources:
         requests:
           memory: "200M"
