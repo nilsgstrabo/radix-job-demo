@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using RadixJobClient.Model;
 using System.Runtime.Versioning;
 using AFP.Web.Hubs;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace frontend.Controllers
 {
@@ -86,8 +86,23 @@ public enum JobResourceEnum {
             }
         }
 
+        [HttpPost("batches")]
+        public async Task<ActionResult<BatchStatus>> CreateBatch([FromBody] JobRequest request)
+        {
+            try
+            {
+                var job = await _computeService.CreateBatch(request);
+                return job;
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500);
+            }
+        }
+
         [HttpPost("kill")]
-        public IActionResult Kill([FromServices] IApplicationLifetime app)
+        public IActionResult Kill([FromServices] IHostApplicationLifetime app)
         {
             try
             {

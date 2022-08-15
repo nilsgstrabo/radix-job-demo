@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private timeChangedSubscription: Subscription;
   memory=0;
   cpu=0;
+  requestType=1;
   jobs: any[] = [];
   imageReceivedMessage = '';
   imageId = 1;
@@ -165,9 +166,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       memory: Number(this.memory),
       cpu: Number(this.cpu)
     };
-
-    const response = await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
-    return response
+    console.log(this.requestType);
+    switch (Number(this.requestType)) {
+      case 1:
+        return await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
+      case 2:
+        return await this.http.post('/api/compute/batches', request, getJsonOptions).toPromise();
+    }
+    // const response = await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
+    // return response
   }
 
   async kill() {

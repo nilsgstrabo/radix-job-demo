@@ -8,11 +8,13 @@ using RadixJobClient.Api;
 using RadixJobClient.Model;
 using System.Collections.Generic;
 using System.Runtime.Versioning;
+using Microsoft.AspNetCore.Builder;
 
 public interface IComputeService
 {
     Task<List<JobStatus>> GetJobs();
     Task<JobStatus> CreateJob(JobRequest request);
+    Task<BatchStatus> CreateBatch(JobRequest request);
 
 }
 
@@ -30,11 +32,13 @@ public class ComputeService : IComputeService
 {
     private readonly ILogger _logger;
     private readonly IJobApi _jobApi;
+    private readonly IBatchApi _batchApi;
 
-    public ComputeService(IJobApi jobApi, ILogger<ComputeService> logger)
+    public ComputeService(IJobApi jobApi, IBatchApi batchApi, ILogger<ComputeService> logger)
     {
         _logger = logger;
         _jobApi = jobApi;
+        _batchApi = batchApi;
     }
 
     public async Task<List<JobStatus>> GetJobs()
@@ -44,27 +48,9 @@ public class ComputeService : IComputeService
 
     public async Task<RadixJobClient.Model.JobStatus> CreateJob(JobRequest request)
     {
-        ComputePayload payloadObj = new ComputePayload
-        {
-            ImageId = request.ImageId,
-            Width = 1050,
-            Height = 600,
-            Top = request.MandelbrotWindow.Top,
-            Bottom = request.MandelbrotWindow.Bottom
-        };
-
-        var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        });
+        var jobRequest = GetJobScheduleDescriptionFromJobRequest(request);
         
-        JobScheduleDescription jobRequest = new JobScheduleDescription(){ Payload = payload };
-        
-        if (request.Cpu!=JobResourceEnum.Default || request.Memory!=JobResourceEnum.Default) {
-            jobRequest.Resources=GetResources(request.Memory, request.Cpu);
-        }
-
-        _logger.LogInformation("Payload: {0}", payload);
+        _logger.LogInformation("JobRequest: {0}", request);
         return await _jobApi.CreateJobAsync(jobRequest);
     }
 
@@ -116,5 +102,41 @@ public class ComputeService : IComputeService
             Requests=resource,
             Limits=resource
         };
+    }
+
+    public async Task<BatchStatus> CreateBatch(JobRequest request)
+    {
+       var jobRequest = GetJobScheduleDescriptionFromJobRequest(request);
+
+        BatchScheduleDescription batchRequest=new BatchScheduleDescription {
+            JobScheduleDescriptions=new List<JobScheduleDescription>{jobRequest}
+        };
+
+        _logger.LogInformation("Payload: {0}", request);
+        return await _batchApi.CreateBatchAsync(batchRequest);
+    }
+
+    private JobScheduleDescription GetJobScheduleDescriptionFromJobRequest(JobRequest request) {
+        ComputePayload payloadObj = new ComputePayload
+        {
+            ImageId = request.ImageId,
+            Width = 1050,
+            Height = 600,
+            Top = request.MandelbrotWindow.Top,
+            Bottom = request.MandelbrotWindow.Bottom
+        };
+
+        var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        
+        JobScheduleDescription jobRequest = new JobScheduleDescription(){ Payload = payload };
+        
+        if (request.Cpu!=JobResourceEnum.Default || request.Memory!=JobResourceEnum.Default) {
+            jobRequest.Resources=GetResources(request.Memory, request.Cpu);
+        }
+
+        return jobRequest;
     }
 }

@@ -38,6 +38,9 @@ namespace frontend
             services.AddScoped<IJobApi>(sp => {
                 return new JobApi(Configuration["JOB_SCHEDULER"]+ "/api/v1/");
             });
+            services.AddScoped<IBatchApi>(sp => {
+                return new BatchApi(Configuration["JOB_SCHEDULER"]+ "/api/v1/");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
