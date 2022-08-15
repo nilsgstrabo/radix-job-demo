@@ -106,11 +106,9 @@ public class ComputeService : IComputeService
 
     public async Task<BatchStatus> CreateBatch(JobRequest request)
     {
-       var jobRequest = GetJobScheduleDescriptionFromJobRequest(request);
+        var jobRequest = GetJobScheduleDescriptionFromJobRequest(request);
 
-        BatchScheduleDescription batchRequest=new BatchScheduleDescription {
-            JobScheduleDescriptions=new List<JobScheduleDescription>{jobRequest}
-        };
+        var batchRequest=new BatchScheduleDescription(null, new List<JobScheduleDescription>{jobRequest});
 
         _logger.LogInformation("Payload: {0}", request);
         return await _batchApi.CreateBatchAsync(batchRequest);
