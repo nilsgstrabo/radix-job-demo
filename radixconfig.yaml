@@ -46,7 +46,7 @@ spec:
         COMPUTE_IMAGE_PATH: "/app/computeimages"
       environmentConfig:
         - environment: qa
-          replicas: 2
+          replicas: 1
           authentication:
             oauth2:
               clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
