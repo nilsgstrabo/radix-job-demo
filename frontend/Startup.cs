@@ -23,8 +23,8 @@ namespace frontend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSignalR(c=> {
-                c.KeepAliveInterval=System.TimeSpan.FromSeconds(15);
-                c.ClientTimeoutInterval=System.TimeSpan.FromSeconds(60);
+                // c.KeepAliveInterval=System.TimeSpan.FromSeconds(15);
+                // c.ClientTimeoutInterval=System.TimeSpan.FromSeconds(60);
             });
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
