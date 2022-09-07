@@ -78,7 +78,7 @@ spec:
       dockerfileName: Dockerfile.frontend
       variables:
         ASPNETCORE_URLS: "http://*:5005"
-        JOB_SCHEDULER: "http://compute-with-very-long-name-volumeerr:8080"
+        JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
       environmentConfig:
         - environment: qa
