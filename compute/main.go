@@ -13,7 +13,6 @@ import (
 	"net/url"
 	"os"
 	"strings"
-	"time"
 
 	// "time"
 
@@ -52,7 +51,7 @@ var basecolors []color.RGBA = []color.RGBA{
 func main() {
 
 	logrus.Infof("RADIX_JOB_NAME: %s \n", os.Getenv("RADIX_JOB_NAME"))
-	time.Sleep(2 * time.Minute)
+
 	for _, env := range os.Environ() {
 		logrus.Infoln(env)
 	}
