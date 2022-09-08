@@ -38,7 +38,7 @@ spec:
           volumeMounts:
             - type: azure-blob
               name: storage
-              storage: blobbytest
+              storage: test-volume
               path: /mnt/image-storage
           resources:
             requests:
@@ -98,7 +98,7 @@ spec:
           volumeMounts:
             - type: azure-blob
               name: storage
-              storage: blobbytest
+              storage: test-volume
               path: /mnt/image-storage
       ports:
         - name: http
