@@ -35,6 +35,11 @@ spec:
                 envVar: DB_PASS
       environmentConfig:
         - environment: qa
+          volumeMounts:
+            - type: azure-blob
+              name: storage
+              storage: blobbytest
+              path: /mnt/image-storage
           resources:
             requests:
               memory: "100M"
@@ -90,6 +95,11 @@ spec:
               sessionStoreType: redis
               redisStore:
                 connectionUrl: redis://redis:6379
+          volumeMounts:
+            - type: azure-blob
+              name: storage
+              storage: blobbytest
+              path: /mnt/image-storage
       ports:
         - name: http
           port: 5005
