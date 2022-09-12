@@ -56,13 +56,13 @@ func main() {
 	for _, env := range os.Environ() {
 		logrus.Infoln(env)
 	}
-	time.Sleep(2 * time.Minute)
-	files, err := ioutil.ReadDir("/mnt/image-storage")
+	time.Sleep(1 * time.Minute)
+	files, err := ioutil.ReadDir("/mnt/image-storage/")
 	if err != nil {
 		logrus.Error(err)
 	} else {
 		for _, f := range files {
-			logrus.Infof("file: %s", f)
+			logrus.Infof("file: %s", f.Name())
 		}
 	}
 
