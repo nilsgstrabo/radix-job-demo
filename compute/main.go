@@ -13,6 +13,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"time"
 
 	// "time"
 
@@ -55,7 +56,7 @@ func main() {
 	for _, env := range os.Environ() {
 		logrus.Infoln(env)
 	}
-
+	time.Sleep(2 * time.Minute)
 	files, err := ioutil.ReadDir("/mnt/image-storage")
 	if err != nil {
 		logrus.Error(err)
