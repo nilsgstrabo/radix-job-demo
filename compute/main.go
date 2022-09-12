@@ -56,6 +56,15 @@ func main() {
 		logrus.Infoln(env)
 	}
 
+	files, err := ioutil.ReadDir("/mnt/image-storage")
+	if err != nil {
+		logrus.Error(err)
+	} else {
+		for _, f := range files {
+			logrus.Infof("file: %s", f)
+		}
+	}
+
 	cfgFile := os.Getenv("COMPUTE_CONFIG")
 	callbackCompleteUrl := os.Getenv("CALLBACK_ON_COMPLETE_URL")
 
