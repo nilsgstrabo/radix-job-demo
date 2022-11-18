@@ -22,62 +22,6 @@ spec:
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
-      secretRefs:
-        azureKeyVaults:
-          - name: radix-app-secrets-2
-            path: /mnt/secrets2
-            items:
-              - name: connection-string-test
-                envVar: CONNECTION_STRING
-              - name: db-qa-user
-                envVar: DB_USER
-              - name: db-password
-                envVar: DB_PASS
-      environmentConfig:
-        - environment: qa
-          volumeMounts:
-            - type: azure-blob
-              name: storage
-              storage: test-volume
-              path: /mnt/image-storage
-          resources:
-            requests:
-              memory: "100M"
-              cpu: "50m"
-            limits:
-              memory: "500M"
-              cpu: "500m"
-    - name: "compute-with-very-long-name-volumeerr"
-      src: "compute"
-      schedulerPort: 8080
-      ports:
-        - name: http
-          port: 9999
-      payload:
-        path: "/compute/args"
-      variables:
-        COMPUTE_CONFIG: "/compute/args/payload"
-        CALLBACK_ON_COMPLETE_URL: "http://server:5005"
-      secretRefs:
-        azureKeyVaults:
-          - name: radix-app-secrets-2
-            path: /mnt/secrets2
-            items:
-              - name: connection-string-test
-                envVar: CONNECTION_STRING
-              - name: db-qa-user
-                envVar: DB_USER
-              - name: db-password
-                envVar: DB_PASS
-      environmentConfig:
-        - environment: qa
-          resources:
-            requests:
-              memory: "100M"
-              cpu: "50m"
-            limits:
-              memory: "500M"
-              cpu: "500m"
   components:
     - name: "server"
       dockerfileName: Dockerfile.frontend
@@ -85,27 +29,17 @@ spec:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
-      environmentConfig:
-        - environment: qa
-          replicas: 1
-          authentication:
-            oauth2:
-              clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-              scope: openid email #email profile offline_access
-              sessionStoreType: redis
-              redisStore:
-                connectionUrl: redis://redis:6379
-          volumeMounts:
-            - type: azure-blob
-              name: storage
-              storage: test-volume
-              path: /mnt/image-storage
+      authentication:
+        oauth2:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+          scope: openid email profile offline_access
+          sessionStoreType: redis
+          redisStore:
+            connectionUrl: redis://redis:6379
       ports:
         - name: http
           port: 5005
       publicPort: http
-      # ingressConfiguration:
-      #   - websocketfriendly
       resources:
         requests:
           memory: "200M"
@@ -113,7 +47,6 @@ spec:
         limits:
           memory: "500M"
           cpu: "500m"
-      
     - name: redis
       image: bitnami/redis:6.2
       alwaysPullImageOnDeploy: true
@@ -129,36 +62,4 @@ spec:
         limits:
           memory: "200M"
           cpu: "100m"
-  #   - name: serverprivate
-  #     image: nilsgustavstrabo/privatefrontend:latest
-  #     alwaysPullImageOnDeploy: true
-  #     variables:
-  #       ASPNETCORE_URLS: "http://*:5005"
-  #       JOB_SCHEDULER: "http://compute:8080"
-  #       COMPUTE_IMAGE_PATH: "/app/computeimages"
-  #     environmentConfig:
-  #       - environment: qa
-  #         authentication:
-  #           oauth2:
-  #             clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-  #             scope: openid email profile offline_access
-  #             sessionStoreType: redis
-  #             redisStore:
-  #               connectionUrl: redis://redis:6379
-  #     ports:
-  #       - name: http
-  #         port: 5005
-  #     publicPort: http
-  #     ingressConfiguration:
-  #       - websocketfriendly
-  #     resources:
-  #       requests:
-  #         memory: "200M"
-  #         cpu: "50m"
-  #       limits:
-  #         memory: "500M"
-  #         cpu: "500m"
-  # privateImageHubs:
-  #   docker.io:
-  #     username: nilsgustavstrabo
-  #     email: nilsgustav.straabo@gmail.com
+
