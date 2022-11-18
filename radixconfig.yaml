@@ -10,6 +10,7 @@ spec:
     - name: qa
       build:
         from: main
+    - name: prod
   jobs:
     - name: "compute"
       src: "compute"
