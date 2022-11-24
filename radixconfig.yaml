@@ -13,6 +13,7 @@ spec:
     - name: dev
       build:
         from: feature/**
+    - name: prod
   jobs:
     - name: "compute"
       src: "compute"
