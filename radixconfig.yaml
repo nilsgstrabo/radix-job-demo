@@ -29,9 +29,9 @@ spec:
   components:
     - name: "server"
       dockerfileName: Dockerfile.frontend
-      # identity:
-      #   azure:
-      #     clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+      identity:
+        azure:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
@@ -50,7 +50,7 @@ spec:
       resources:
         requests:
           memory: "200M"
-          cpu: "51m"
+          cpu: "50m"
         limits:
           memory: "500M"
           cpu: "500m"
