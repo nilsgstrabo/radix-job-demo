@@ -1,24 +1,24 @@
-name: Docker Image CI
+# name: Docker Image CI
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
 
 
 
-jobs:
+# jobs:
 
-  build:
+#   build:
 
-    runs-on: ubuntu-latest
-    # environment: prod
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: |
-        echo "hello there"
+#     runs-on: ubuntu-latest
+#     environment: prod
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Build the Docker image
+#       run: |
+#         echo "hello there"
 
       
 
