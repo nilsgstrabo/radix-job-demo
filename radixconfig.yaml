@@ -23,6 +23,9 @@ spec:
           port: 9999
       payload:
         path: "/compute/args"
+      identity:
+        azure:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
@@ -56,9 +59,9 @@ spec:
           cpu: "500m"
     - name: "default"
       dockerfileName: Dockerfile.frontend
-      identity:
-        azure:
-          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+      # identity:
+      #   azure:
+      #     clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
