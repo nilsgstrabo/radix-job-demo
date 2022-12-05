@@ -57,18 +57,6 @@ spec:
         limits:
           memory: "500M"
           cpu: "500m"
-    - name: "default"
-      dockerfileName: Dockerfile.frontend
-      # identity:
-      #   azure:
-      #     clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-      variables:
-        ASPNETCORE_URLS: "http://*:5005"
-        JOB_SCHEDULER: "http://compute:8080"
-        COMPUTE_IMAGE_PATH: "/app/computeimages"
-      ports:
-        - name: http
-          port: 5005
     - name: redis
       image: bitnami/redis:6.2
       alwaysPullImageOnDeploy: true
