@@ -8,12 +8,10 @@ import (
 	"image"
 	"image/color"
 	"image/png"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
-	"time"
 
 	// "time"
 
@@ -51,13 +49,15 @@ var basecolors []color.RGBA = []color.RGBA{
 
 func main() {
 
+	doSqlQuery()
+
 	logrus.Infof("RADIX_JOB_NAME: %s \n", os.Getenv("RADIX_JOB_NAME"))
 
 	for _, env := range os.Environ() {
 		logrus.Infoln(env)
 	}
-	time.Sleep(1 * time.Minute)
-	files, err := ioutil.ReadDir("/mnt/image-storage/")
+
+	files, err := os.ReadDir("/mnt/image-storage/")
 	if err != nil {
 		logrus.Error(err)
 	} else {
@@ -72,7 +72,7 @@ func main() {
 	logrus.Infof("Config file: %s\n", cfgFile)
 	logrus.Infof("CALLBACK_ON_COMPLETE_URL: %s\n", callbackCompleteUrl)
 
-	cfgBytes, err := ioutil.ReadFile(cfgFile)
+	cfgBytes, err := os.ReadFile(cfgFile)
 	if err != nil {
 		logrus.Panicf("error reading config file: %v", err)
 	}
