@@ -56,7 +56,7 @@ func doSqlQuery() {
 	db := sql.OpenDB(connector)
 	defer db.Close()
 
-	for {
+	
 		func() {
 			conn, err := db.Conn(context.Background())
 			if err != nil {
@@ -76,5 +76,5 @@ func doSqlQuery() {
 				fmt.Printf("%v: there are %d rows in dbo.Vulnerability\n", time.Now(), rowcount)
 			}
 		}()
-	}
+	
 }
