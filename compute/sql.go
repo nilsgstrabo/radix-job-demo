@@ -19,11 +19,12 @@ func doSqlQuery() {
 		token, err := os.ReadFile(os.Getenv("AZURE_FEDERATED_TOKEN_FILE"))
 		return string(token), err
 	})
-
+	authority := fmt.Sprintf("%s%s/oauth2/token", os.Getenv("AZURE_AUTHORITY_HOST"), os.Getenv("AZURE_TENANT_ID"))
+	fmt.Printf("using authority %s\n", authority)
 	confidentialClientApp, err := confidential.New(
 		os.Getenv("AZURE_CLIENT_ID"),
 		cred,
-		confidential.WithAuthority(fmt.Sprintf("%s%s/oauth2/token", os.Getenv("AZURE_AUTHORITY_HOST"), os.Getenv("AZURE_TENANT_ID"))),
+		confidential.WithAuthority(authority),
 		confidential.WithAccessor(&TokenCache{}),
 	)
 	if err != nil {
