@@ -29,6 +29,9 @@ spec:
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
+        SQL_SERVER_NAME: "fed-test.database.windows.net"
+        SQL_DATABASE_NAME: "fed-test"
+
   components:
     - name: "server"
       dockerfileName: Dockerfile.frontend
