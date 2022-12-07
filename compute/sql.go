@@ -10,6 +10,7 @@ import (
 	"github.com/AzureAD/microsoft-authentication-library-for-go/apps/confidential"
 	mssql "github.com/denisenkom/go-mssqldb"
 	"github.com/denisenkom/go-mssqldb/msdsn"
+	"github.com/sirupsen/logrus"
 )
 
 func doSqlQuery() {
@@ -29,7 +30,7 @@ func doSqlQuery() {
 		confidential.WithAccessor(&TokenCache{}),
 	)
 	if err != nil {
-		fmt.Println(err)
+		logrus.Errorf("error creating confidential client: %w", err)
 		return
 	}
 
@@ -37,7 +38,7 @@ func doSqlQuery() {
 		var authResult confidential.AuthResult
 		authResult, err := confidentialClientApp.AcquireTokenSilent(ctx, scopes)
 		if err != nil {
-			fmt.Println("requesting new token")
+			fmt.Println("requesting new token for sql credentials")
 			authResult, err = confidentialClientApp.AcquireTokenByCredential(ctx, scopes)
 			if err != nil {
 				fmt.Println(err)
@@ -52,7 +53,7 @@ func doSqlQuery() {
 		getToken)
 
 	if err != nil {
-		fmt.Println(err)
+		logrus.Errorf("error creating sql connector: %w", err)
 		return
 	}
 	db := sql.OpenDB(connector)
@@ -61,20 +62,20 @@ func doSqlQuery() {
 	func() {
 		conn, err := db.Conn(context.Background())
 		if err != nil {
-			fmt.Println(err)
+			logrus.Errorf("error connecting to sql database: %w", err)
 			return
 		}
 		defer conn.Close()
 		rows, err := db.QueryContext(context.Background(), "select count(1) as cnt from dbo.Products")
 		if err != nil {
-			fmt.Println(err)
+			logrus.Errorf("error executing query: %w", err)
 			return
 		}
 		defer rows.Close()
 		var rowcount int64
 		for rows.Next() {
 			rows.Scan(&rowcount)
-			fmt.Printf("%v: there are %d rows in dbo.Products\n", time.Now(), rowcount)
+			logrus.Infof("%v: there are %d rows in dbo.Products\n", time.Now(), rowcount)
 		}
 	}()
 
