@@ -22,7 +22,7 @@ func doSqlQuery() {
 	})
 
 	authority := fmt.Sprintf("%s%s/oauth2/token", os.Getenv("AZURE_AUTHORITY_HOST"), os.Getenv("AZURE_TENANT_ID"))
-	fmt.Printf("using authority %s\n", authority)
+	logrus.Infof("using authority %s\n", authority)
 	confidentialClientApp, err := confidential.New(
 		os.Getenv("AZURE_CLIENT_ID"),
 		cred,
@@ -38,7 +38,7 @@ func doSqlQuery() {
 		var authResult confidential.AuthResult
 		authResult, err := confidentialClientApp.AcquireTokenSilent(ctx, scopes)
 		if err != nil {
-			fmt.Println("requesting new token for sql credentials")
+			logrus.Infof("requesting new token for sql credentials")
 			authResult, err = confidentialClientApp.AcquireTokenByCredential(ctx, scopes)
 			if err != nil {
 				fmt.Println(err)
