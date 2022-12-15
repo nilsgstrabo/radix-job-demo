@@ -18,7 +18,7 @@ spec:
     - name: "compute"
       src: "compute"
       schedulerPort: 8080
-      timeLimitSeconds: 3
+      timeLimitSeconds: 60
       ports:
         - name: http
           port: 9999
