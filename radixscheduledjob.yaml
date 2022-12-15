@@ -19,6 +19,8 @@ spec:
   node:
     gpu:
     gpuCount:
+status:
+  phase:
 ---
 apiVersion: radix.equinor.com/v1
 kind: RadixBatchJob
@@ -54,4 +56,6 @@ spec:
         job: compute
       payloadSecretRef:
         name: compute-batch-20221212143712-abcdefgh-secret2
-        key: payload        
+        key: payload 
+status:
+  jobStatuses:
