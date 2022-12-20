@@ -142,5 +142,7 @@ func main() {
 		logrus.Infof("Response on POST to complete URL %s: code %v", adrStr, resp.Status)
 
 		defer resp.Body.Close()
+
+		os.Exit(5)
 	}
 }
