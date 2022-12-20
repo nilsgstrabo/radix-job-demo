@@ -143,6 +143,5 @@ func main() {
 
 		defer resp.Body.Close()
 
-		os.Exit(5)
 	}
 }
