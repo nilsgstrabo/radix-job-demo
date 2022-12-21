@@ -24,7 +24,6 @@ jobs:
           token=$(az account get-access-token --resource 6dae42f8-4368-4678-94ff-3960e28e3630 --query=accessToken -otsv)
           echo "::add-mask::$token"
           echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV
-          echo "token is masked: $token"
       - name: Deploy on Radix
         uses: equinor/radix-github-actions@master
         env:
