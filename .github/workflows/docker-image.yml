@@ -11,7 +11,7 @@ permissions:
 jobs:
   list-radix-apps:
     runs-on: ubuntu-latest
-    # environment: prod
+    environment: prod
     steps:
       - name: 'Az CLI login'
         uses: azure/login@v1
