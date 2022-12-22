@@ -33,6 +33,13 @@ jobs:
             get
             application
             --context development
+      - name: List apps2
+        uses: equinor/radix-github-actions@master
+        with:
+          args: >
+            get
+            application
+            --context development
       - name: Restart qa env
         uses: equinor/radix-github-actions@master
         with:
@@ -42,6 +49,7 @@ jobs:
             --application radix-job-demo
             --environment qa
             --context development
+
 
       
       
