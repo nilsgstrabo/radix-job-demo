@@ -26,6 +26,16 @@ jobs:
       - name: jq
         run: |
           echo '{"a":"y"}' | jq .
+      - name: Restart qa env
+        uses: equinor/radix-github-actions@master
+        with:
+          args: >
+            restart
+            component
+            --application radix-job-demo
+            --environment qa
+            --component server
+            --context development
       - name: List apps
         uses: equinor/radix-github-actions@master
         with:
@@ -33,18 +43,7 @@ jobs:
             get
             application
             --context development
-      - name: List apps2
-        run: |
-          rx get application --context development --token-environment
-      - name: Restart qa env
-        uses: equinor/radix-github-actions@master
-        with:
-          args: >
-            restart
-            environment
-            --application radix-job-demo
-            --environment qa
-            --context development
+
 
 
       
