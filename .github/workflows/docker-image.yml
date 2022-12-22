@@ -26,8 +26,8 @@ jobs:
           echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV
       - name: List apps in Radix dev cluster
         uses: equinor/radix-github-actions@master
-        env:
-          APP_SERVICE_ACCOUNT_TOKEN: ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}
+        # env:
+        #   APP_SERVICE_ACCOUNT_TOKEN: ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}
         with:
           args: >
             get application
