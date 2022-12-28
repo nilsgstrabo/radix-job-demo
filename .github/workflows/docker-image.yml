@@ -30,8 +30,6 @@ jobs:
             get
             application
             --context development
-      - name: print-apps
-        run: echo "output from step ${{ steps.get-apps.result }}"
       - name: Restart qa env
         uses: equinor/radix-github-actions@master
         with:
