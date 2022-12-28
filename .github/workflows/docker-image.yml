@@ -30,6 +30,15 @@ jobs:
             get
             application
             --context development
+      - name: Create adhoc env
+        uses: equinor/radix-github-actions@master
+        with:
+          args: >
+            create
+            environment
+            --application radix-job-demo
+            --environment adhoc2
+            --context development
       - name: Restart qa env
         uses: equinor/radix-github-actions@master
         with:
