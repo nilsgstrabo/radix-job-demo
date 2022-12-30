@@ -1,4 +1,4 @@
-FROM golang:1.17-alpine as build
+FROM golang:1.19-alpine3.17 as build
 
 RUN addgroup -S -g 1001 radix-non-root-group
 # Add a new user "radix-non-root-user" with user id 1001 and include in group
@@ -17,7 +17,7 @@ RUN go mod download
 COPY . .
 RUN go build -o app .
 
-FROM alpine:3.16.0
+FROM alpine:3.17
 
 WORKDIR /dist
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/

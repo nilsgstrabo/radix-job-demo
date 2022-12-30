@@ -1,6 +1,6 @@
 module github.com/nilsgstrabo/radix-job-demo/compute
 
-go 1.17
+go 1.19
 
 require (
 	github.com/AzureAD/microsoft-authentication-library-for-go v0.7.0
