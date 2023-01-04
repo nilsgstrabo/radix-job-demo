@@ -3,6 +3,10 @@ kind: RadixApplication
 metadata:
   name: radix-job-demo
 spec:
+  dnsExternalAlias:
+    - alias: jobdemo.example.com
+      environment: qa
+      component: server
   build:
     secrets:
       - A_BUILD_SECRET
