@@ -26,28 +26,19 @@ jobs:
       # - name: 'Get machine user token for Radix'
       #   run: |
       #     echo "APP_SERVICE_ACCOUNT_TOKEN=${{ secrets.MACHINE_USER_TOKEN }}" >> $GITHUB_ENV
-      - name: list-apps
-        uses: equinor/radix-github-actions@master
-        with:
-          args: >
-            get
-            application
-            --context development
-      # - name: Create adhoc env
+      # - name: list-apps
       #   uses: equinor/radix-github-actions@master
       #   with:
       #     args: >
-      #       create
-      #       environment
-      #       --application radix-job-demo
-      #       --environment adhoc2
+      #       get
+      #       application
       #       --context development
       - name: Update build secret
         run: |
           curl https://api.dev.radix.equinor.com/api/v1/applications/radix-job-demo/buildsecrets/A_BUILD_SECRET \
             -X PUT \
             -d '{"secretValue":"new value"}' \
-            -H 'Authorization: Bearer $APP_SERVICE_ACCOUNT_TOKEN'
+            -H 'Authorization: Bearer ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}'
       - name: Restart qa env
         uses: equinor/radix-github-actions@master
         with:
