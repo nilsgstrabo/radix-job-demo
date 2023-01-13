@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Manage Radix App
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   # contents: read # set required permissions (https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs)
 
 jobs:
-  list-radix-apps:
+  set-build-secret-and-restart:
     runs-on: ubuntu-latest
     steps:
       - name: 'Az CLI login'
@@ -58,10 +58,3 @@ jobs:
       #       --application radix-job-demo
       #       --branch main
       #       --context development            
-
-
-
-
-      
-      
-
