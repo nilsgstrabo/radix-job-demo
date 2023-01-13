@@ -46,7 +46,6 @@ spec:
       dockerfileName: Dockerfile.frontend
       identity:
         azure:
-          # clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6 # app registration
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49 # user assigned managed identity
       variables:
         ASPNETCORE_URLS: "http://*:5005"
