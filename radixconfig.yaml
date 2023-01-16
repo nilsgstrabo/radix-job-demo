@@ -19,7 +19,7 @@ spec:
         from: main
     - name: dev
       build:
-        from: feature/**
+        from: upgrade-angular
     - name: prod
   jobs:
     - name: "compute"
