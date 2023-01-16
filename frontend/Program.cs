@@ -24,7 +24,7 @@ var app = builder.Build();
 app.UseStaticFiles();
 app.UseRouting();
 
-
+app.MapHub<NotificationHub>("/notificationhub");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
