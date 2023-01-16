@@ -1,26 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using frontend.Hubs;
+using RadixJobClient.Api;
 
-namespace frontend
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+var builder = WebApplication.CreateBuilder(args);
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
-}
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR(c=>{
+    // c.KeepAliveInterval=System.TimeSpan.FromSeconds(15);
+    // c.ClientTimeoutInterval=System.TimeSpan.FromSeconds(60);
+});
+
+builder.Services.AddSingleton<INotificationHubService, NotificationHubService>();
+builder.Services.AddScoped<IComputeService, ComputeService>();
+builder.Services.AddScoped<IJobApi>(sp => {
+    return new JobApi(builder.Configuration["JOB_SCHEDULER"]+ "/api/v1/");
+});
+builder.Services.AddScoped<IBatchApi>(sp => {
+    return new BatchApi(builder.Configuration["JOB_SCHEDULER"]+ "/api/v1/");
+});
+
+var app = builder.Build();
+
+app.UseStaticFiles();
+app.UseRouting();
+
+app.MapHub<NotificationHub>("/notificationhub");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action=Index}/{id?}");
+
+app.MapFallbackToFile("index.html");;
+
+app.Run();

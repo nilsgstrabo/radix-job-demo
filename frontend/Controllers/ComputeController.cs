@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RadixJobClient.Model;
 using System.Runtime.Versioning;
-using AFP.Web.Hubs;
 using Microsoft.Extensions.Hosting;
+using frontend.Hubs;
 
 namespace frontend.Controllers
 {

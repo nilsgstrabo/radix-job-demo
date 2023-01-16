@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { of, Subscription, timer } from 'rxjs';
+import { firstValueFrom, of, Subscription, timer } from 'rxjs';
 import { switchMap, exhaustMap, tap, catchError, retryWhen, retry, map, delayWhen, delay, take } from 'rxjs/operators';
 import { ImageChanged } from '../models/image-changed';
 import { MandelbrotCoord } from '../models/mandelbrot-coord';
@@ -39,9 +39,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   private imageHeight = 600;
   private boxWidth = 175;
   private boxHeight = 100;
-  private jobListSubscription: Subscription;
-  private imageChangedSubscription: Subscription;
-  private timeChangedSubscription: Subscription;
+  private jobListSubscription?: Subscription;
+  private imageChangedSubscription?: Subscription;
+  private timeChangedSubscription?: Subscription;
   memory=0;
   cpu=0;
   requestType=1;
@@ -159,19 +159,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  async sendImageRequest(mandelbrot: MandelbrotWindow) {
+  sendImageRequest(mandelbrot: MandelbrotWindow) {
     const request: ComputeRequest = {
       imageId: this.getNextImageId(),
       mandelbrotWindow: mandelbrot,
       memory: Number(this.memory),
       cpu: Number(this.cpu)
     };
+    
     console.log(this.requestType);
     switch (Number(this.requestType)) {
       case 1:
-        return await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
-      case 2:
-        return await this.http.post('/api/compute/batches', request, getJsonOptions).toPromise();
+        return firstValueFrom(this.http.post('/api/compute/jobs', request, getJsonOptions));
+      default:
+        return firstValueFrom(this.http.post('/api/compute/batches', request, getJsonOptions));
     }
     // const response = await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
     // return response

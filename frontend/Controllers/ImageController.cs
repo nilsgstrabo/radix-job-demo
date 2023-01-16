@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.StaticFiles;
-using AFP.Web.Hubs;
 using Microsoft.Graph;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Hosting;
+using frontend.Hubs;
 
 namespace frontend.Controllers
 {

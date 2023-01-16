@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AFP.Web.Hubs
+namespace frontend.Hubs
 {
 
     public class ImageChanged
