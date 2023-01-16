@@ -51,19 +51,19 @@ spec:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
-      secrets:
-        - A_RUNTIME_SECRET
-      secretRefs:
-        azureKeyVaults:
-          - name: radix-sci-az-kv-test
-            path: /mnt/secrets
-            items:
-              - name: connection-string-prod
-                envVar: CONNECTION_STRING
-              - name: secret1
-                envVar: SECRET1
-              - name: secret2
-                envVar: SECRET2
+      # secrets:
+      #   - A_RUNTIME_SECRET
+      # secretRefs:
+      #   azureKeyVaults:
+      #     - name: radix-sci-az-kv-test
+      #       path: /mnt/secrets
+      #       items:
+      #         - name: connection-string-prod
+      #           envVar: CONNECTION_STRING
+      #         - name: secret1
+      #           envVar: SECRET1
+      #         - name: secret2
+      #           envVar: SECRET2
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
@@ -82,13 +82,13 @@ spec:
         limits:
           memory: "500M"
           cpu: "500m"
-      environmentConfig:
-        - environment: qa
-          volumeMounts:
-            - type: azure-blob
-              name: images
-              storage: jobdemo
-              path: /mnt/image-storage
+      # environmentConfig:
+      #   - environment: qa
+      #     volumeMounts:
+      #       - type: azure-blob
+      #         name: images
+      #         storage: jobdemo
+      #         path: /mnt/image-storage
     - name: redis
       image: bitnami/redis:6.2
       alwaysPullImageOnDeploy: true
