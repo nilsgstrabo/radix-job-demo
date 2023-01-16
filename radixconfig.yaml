@@ -20,7 +20,7 @@ spec:
     - name: dev
       build:
         from: upgrade-angular
-    - name: prod
+    # - name: prod
   jobs:
     - name: "compute"
       src: "compute"
