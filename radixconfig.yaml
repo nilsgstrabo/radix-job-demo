@@ -17,9 +17,6 @@ spec:
     - name: qa
       build:
         from: main
-    - name: dev
-      build:
-        from: upgrade-angular
     # - name: prod
   jobs:
     - name: "compute"
