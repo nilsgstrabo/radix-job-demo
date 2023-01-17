@@ -27,6 +27,7 @@ public class ComputePayload
     public MandelbrotCoord Bottom { get; set; }
     public int Sleep { get; set; }
     public bool Fail { get; set; }
+    public string StringVal { get; set; }
 
 }
 
@@ -125,7 +126,8 @@ public class ComputeService : IComputeService
             Top = request.MandelbrotWindow.Top,
             Bottom = request.MandelbrotWindow.Bottom,
             Sleep = request.Sleep,
-            Fail = request.Fail
+            Fail = request.Fail,
+            StringVal = "my escaped \" string {}"
         };
 
         var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions
