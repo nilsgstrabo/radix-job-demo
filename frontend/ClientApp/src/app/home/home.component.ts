@@ -28,6 +28,7 @@ interface ComputeRequest {
   mandelbrotWindow: MandelbrotWindow;
   memory: number,
   cpu: number,
+  sleep: number,
 }
 
 @Component({
@@ -44,6 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private timeChangedSubscription?: Subscription;
   memory=0;
   cpu=0;
+  sleep=0;
   requestType=1;
   jobs: any[] = [];
   imageReceivedMessage = '';
@@ -164,7 +166,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       imageId: this.getNextImageId(),
       mandelbrotWindow: mandelbrot,
       memory: Number(this.memory),
-      cpu: Number(this.cpu)
+      cpu: Number(this.cpu),
+      sleep: this.sleep
     };
     
     console.log(this.requestType);

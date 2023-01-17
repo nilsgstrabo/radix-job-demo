@@ -25,6 +25,7 @@ public class ComputePayload
     public int Width { get; set; }
     public MandelbrotCoord Top { get; set; }
     public MandelbrotCoord Bottom { get; set; }
+    public int Sleep { get; set; }
 
 }
 
@@ -121,7 +122,8 @@ public class ComputeService : IComputeService
             Width = 1050,
             Height = 600,
             Top = request.MandelbrotWindow.Top,
-            Bottom = request.MandelbrotWindow.Bottom
+            Bottom = request.MandelbrotWindow.Bottom,
+            Sleep = request.Sleep
         };
 
         var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions

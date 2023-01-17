@@ -26,6 +26,8 @@ public enum JobResourceEnum {
         public MandelbrotWindow MandelbrotWindow { get; set; }
         public JobResourceEnum Memory { get; set; }
         public JobResourceEnum Cpu { get; set; }
+
+        public int Sleep { get; set; }
     }
 
     public class MandelbrotCoord
