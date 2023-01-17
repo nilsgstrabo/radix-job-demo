@@ -6,4 +6,5 @@ type Config struct {
 	Width   int                  `yaml:"width"`
 	Top     MandelbrotCoordinate `yaml:"top"`
 	Bottom  MandelbrotCoordinate `yaml:"bottom"`
+	Sleep   int                  `yaml:"sleep"`
 }

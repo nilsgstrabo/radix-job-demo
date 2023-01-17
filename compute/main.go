@@ -12,6 +12,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"time"
 
 	// "time"
 
@@ -123,6 +124,7 @@ func main() {
 		if err != nil {
 			logrus.Panicf("error posting image: %v", err)
 		}
+		defer resp.Body.Close()
 		logrus.Infof("Response on POST image: code %v", resp.Status)
 
 		adr, err := url.Parse(callbackCompleteUrl)
@@ -140,8 +142,10 @@ func main() {
 			logrus.Panicf("error posting result: %v", err)
 		}
 		logrus.Infof("Response on POST to complete URL %s: code %v", adrStr, resp.Status)
+	}
 
-		defer resp.Body.Close()
-
+	if config.Sleep > 0 {
+		logrus.Infof("sleeping for %d seconds", config.Sleep)
+		time.Sleep(time.Duration(config.Sleep) * time.Second)
 	}
 }
