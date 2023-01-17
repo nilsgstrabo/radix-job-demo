@@ -3,13 +3,13 @@ kind: RadixApplication
 metadata:
   name: radix-job-demo
 spec:
-  dnsExternalAlias:
-    - alias: jobdemo.example.com
-      environment: qa
-      component: server
-  build:
-    secrets:
-      - A_BUILD_SECRET
+  # dnsExternalAlias:
+  #   - alias: jobdemo.example.com
+  #     environment: qa
+  #     component: server
+  # build:
+  #   secrets:
+  #     - A_BUILD_SECRET
   dnsAppAlias:
     environment: qa
     component: server
@@ -37,7 +37,6 @@ spec:
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
-
   components:
     - name: "server"
       dockerfileName: Dockerfile.frontend

@@ -33,18 +33,18 @@ jobs:
       #       get
       #       application
       #       --context development
-      - name: Update build secret
-        run: |
-          curl https://api.dev.radix.equinor.com/api/v1/applications/radix-job-demo/buildsecrets/A_BUILD_SECRET \
-            -X PUT \
-            -d '{"secretValue":"new value"}' \
-            -H 'Authorization: Bearer ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}'
-      - name: Update component secret
-        run: |
-          curl https://api.dev.radix.equinor.com/api/v1/applications/radix-job-demo/environments/qa/components/redis/secrets/REDIS_PASSWORD \
-            -X PUT \
-            -d '{"secretValue":"new value"}' \
-            -H 'Authorization: Bearer ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}'            
+      # - name: Update build secret
+      #   run: |
+      #     curl https://api.dev.radix.equinor.com/api/v1/applications/radix-job-demo/buildsecrets/A_BUILD_SECRET \
+      #       -X PUT \
+      #       -d '{"secretValue":"new value"}' \
+      #       -H 'Authorization: Bearer ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}'
+      # - name: Update component secret
+      #   run: |
+      #     curl https://api.dev.radix.equinor.com/api/v1/applications/radix-job-demo/environments/qa/components/redis/secrets/REDIS_PASSWORD \
+      #       -X PUT \
+      #       -d '{"secretValue":"12345"}' \
+      #       -H 'Authorization: Bearer ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}'            
       - name: Restart qa env
         uses: equinor/radix-github-actions@master
         with:
