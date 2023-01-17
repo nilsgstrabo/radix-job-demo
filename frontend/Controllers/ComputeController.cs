@@ -28,6 +28,7 @@ public enum JobResourceEnum {
         public JobResourceEnum Cpu { get; set; }
 
         public int Sleep { get; set; }
+        public bool Fail { get; set; }
     }
 
     public class MandelbrotCoord

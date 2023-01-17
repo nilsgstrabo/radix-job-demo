@@ -148,4 +148,8 @@ func main() {
 		logrus.Infof("sleeping for %d seconds", config.Sleep)
 		time.Sleep(time.Duration(config.Sleep) * time.Second)
 	}
+
+	if config.Fail {
+		panic("job was configured to simulate panic")
+	}
 }

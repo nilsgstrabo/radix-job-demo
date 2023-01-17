@@ -7,4 +7,5 @@ type Config struct {
 	Top     MandelbrotCoordinate `yaml:"top"`
 	Bottom  MandelbrotCoordinate `yaml:"bottom"`
 	Sleep   int                  `yaml:"sleep"`
+	Fail    bool                 `yaml:"fail"`
 }

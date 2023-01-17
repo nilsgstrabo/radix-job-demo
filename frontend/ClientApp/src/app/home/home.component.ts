@@ -29,6 +29,7 @@ interface ComputeRequest {
   memory: number,
   cpu: number,
   sleep: number,
+  fail: boolean,
 }
 
 @Component({
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   memory=0;
   cpu=0;
   sleep=0;
+  fail=false;
   requestType=1;
   jobs: any[] = [];
   imageReceivedMessage = '';
@@ -167,7 +169,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       mandelbrotWindow: mandelbrot,
       memory: Number(this.memory),
       cpu: Number(this.cpu),
-      sleep: this.sleep
+      sleep: this.sleep,
+      fail: this.fail
     };
     
     console.log(this.requestType);
