@@ -28,7 +28,6 @@ spec:
           port: 9999
         - name: metrics
           port: 9090
-      monitoring: true
       monitoringConfig:
         portName: metrics
         path: /metrics
@@ -43,6 +42,11 @@ spec:
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
+      environmentConfig:
+        - environment: qa
+          monitoring: true
+        - environment: prod
+          monitoring: true
   components:
     - name: "server"
       dockerfileName: Dockerfile.frontend
