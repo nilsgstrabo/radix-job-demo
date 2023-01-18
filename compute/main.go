@@ -11,14 +11,24 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 	"time"
 
 	// "time"
 
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 )
+
+var tickMetric = promauto.NewCounterVec(prometheus.CounterOpts{
+	Name: "job_demo_compute_counter",
+	Help: "A counter that increments once per second",
+}, []string{})
 
 type ImagePostData struct {
 	Data string `json:"data"`
@@ -49,6 +59,17 @@ var basecolors []color.RGBA = []color.RGBA{
 }
 
 func main() {
+
+	go startHttpServer()
+
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
+
+	go func() {
+		for range ticker.C {
+			tickMetric.With(prometheus.Labels{}).Inc()
+		}
+	}()
 
 	doSqlQuery()
 
@@ -153,4 +174,30 @@ func main() {
 	if config.Fail {
 		panic("job was configured to simulate panic")
 	}
+}
+
+func startHttpServer() {
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+
+	http.Handle("/metrics", promhttp.Handler())
+	// metricsSrv := &http.Server{Addr: ":9090", Handler: metricsMux}
+	go func() {
+		if err := http.ListenAndServe(":9090", nil); err != nil {
+			logrus.Error(err)
+		}
+	}()
+
+	httpSrv := &http.Server{Addr: ":9999", Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("hello world"))
+		w.WriteHeader(200)
+	})}
+	go func() {
+		if err := httpSrv.ListenAndServe(); err != nil {
+			logrus.Error(err)
+		}
+	}()
+
+	<-quit
+
 }

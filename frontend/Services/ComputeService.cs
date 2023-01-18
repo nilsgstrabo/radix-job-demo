@@ -135,7 +135,7 @@ public class ComputeService : IComputeService
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
         
-        JobScheduleDescription jobRequest = new JobScheduleDescription(){ Payload = payload };
+        JobScheduleDescription jobRequest = new JobScheduleDescription{ Payload = payload };
         
         if (request.Cpu!=JobResourceEnum.Default || request.Memory!=JobResourceEnum.Default) {
             jobRequest.Resources=GetResources(request.Memory, request.Cpu);

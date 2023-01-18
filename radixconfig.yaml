@@ -26,6 +26,11 @@ spec:
       ports:
         - name: http
           port: 9999
+        - name: metrics
+          port: 9090
+      monitoringConfig:
+        portName: metrics
+        path: /metrics
       payload:
         path: "/compute/args"
       identity:
