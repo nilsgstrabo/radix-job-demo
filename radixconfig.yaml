@@ -28,6 +28,7 @@ spec:
           port: 9999
         - name: metrics
           port: 9090
+      monitoring: true
       monitoringConfig:
         portName: metrics
         path: /metrics
