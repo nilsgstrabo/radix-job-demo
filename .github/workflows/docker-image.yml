@@ -45,25 +45,25 @@ jobs:
       #       -X PUT \
       #       -d '{"secretValue":"12345"}' \
       #       -H 'Authorization: Bearer ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}'            
-      - name: Restart qa env
-        uses: equinor/radix-github-actions@master
-        with:
-          args: >
-            restart
-            environment
-            --application radix-job-demo
-            --environment qa
-            --context development
-      # - name: Start build-deploy
+      # - name: Restart qa env
       #   uses: equinor/radix-github-actions@master
       #   with:
       #     args: >
-      #       create
-      #       job
-      #       build-deploy
+      #       restart
+      #       environment
       #       --application radix-job-demo
-      #       --branch main
-      #       --context development            
+      #       --environment qa
+      #       --context development
+      - name: Start build-deploy
+        uses: equinor/radix-github-actions@master
+        with:
+          args: >
+            create
+            job
+            build-deploy
+            --application radix-job-demo
+            --branch main
+            --context development            
 
 
 
