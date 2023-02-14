@@ -6,8 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR(c=>{
-    // c.KeepAliveInterval=System.TimeSpan.FromSeconds(15);
-    // c.ClientTimeoutInterval=System.TimeSpan.FromSeconds(60);
+    c.KeepAliveInterval=System.TimeSpan.FromSeconds(250);
+    c.ClientTimeoutInterval=System.TimeSpan.FromSeconds(30);
 });
 
 builder.Services.AddSingleton<INotificationHubService, NotificationHubService>();

@@ -24,7 +24,7 @@ export class NotificationHubService {
 
     private createConnection() {
         this.connection = new signalR.HubConnectionBuilder().withUrl('/notificationhub').build();
-        // this.connection.serverTimeoutInMilliseconds=30*1000;
+        this.connection.serverTimeoutInMilliseconds=300*1000;
     }
 
     private startConnection() {
@@ -33,7 +33,7 @@ export class NotificationHubService {
 
     private registerServerEvents(): void {
         this.connection?.onclose((e)=> {
-            // console.log('connection closed');
+            console.log('connection closed');
             this.startConnection();
         })
         this.connection?.on('imageChanged', (img) => this.imageChangedSubject.next(img));
