@@ -79,8 +79,8 @@ spec:
         - name: http
           port: 5005
       publicPort: http
-      # ingressConfiguration:
-      #   - websocketfriendly
+      ingressConfiguration:
+        - stickysessions
       resources:
         requests:
           memory: "202M"
