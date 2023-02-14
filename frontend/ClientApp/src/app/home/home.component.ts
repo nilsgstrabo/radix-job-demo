@@ -74,15 +74,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     
     this.imageChangedSubscription = this.hub.imageChanged.subscribe({
       next: (v) => this.imageChanged(v),
-      complete: () => console.log(Date.now(), 'imageChangedSubscription complete'),
-      error: (e) => console.log(Date.now(), 'imageChangedSubscription', e)
+      complete: () => console.log(new Date().toLocaleString(), 'imageChangedSubscription complete'),
+      error: (e) => console.log(new Date().toLocaleString(), 'imageChangedSubscription', e)
     });
     
 
     this.timeChangedSubscription = this.hub.timeChanged.subscribe({
       next: (v) => this.timeChanged(v),
-      complete: () => console.log(Date.now(), 'timeChangedSubscription complete'),
-      error: (e) => console.log(Date.now(), 'timeChangedSubscription', e)
+      complete: () => console.log(new Date().toLocaleString(), 'timeChangedSubscription complete'),
+      error: (e) => console.log(new Date().toLocaleString(), 'timeChangedSubscription', e)
     });
     // this.imageChangedSubscription = this.hub.imageChanged.subscribe(v => this.imageChanged(v), e => console.error(e));
     // this.timeChangedSubscription = this.hub.timeChanged.subscribe(v => this.timeChanged(v), e => console.error(e));
@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private imageChanged(img: ImageChanged) {
-    console.log(Date.now(), 'imageChanged');
+    console.log(new Date().toLocaleString(), 'imageChanged');
     this.imageReceivedMessage = `Image with id ${img.imageId} received. Wait for blob storage sync`;
     this.checkImageExist(img.imageId).pipe(take(1)).toPromise().then(() => {
       this.imageReceivedMessage = `Image with id ${img.imageId} successfully synced`;

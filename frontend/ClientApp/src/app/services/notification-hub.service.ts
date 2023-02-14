@@ -28,12 +28,12 @@ export class NotificationHubService {
     }
 
     private startConnection() {
-        this.connection?.start().catch(e => console.log(e));
+        this.connection?.start().then(() => console.log(new Date().toLocaleString(), 'connection started')).catch(e => console.log(e));
     }
 
     private registerServerEvents(): void {
         this.connection?.onclose((e)=> {
-            console.log(Date.now() ,'connection closed');
+            console.log(new Date().toLocaleString() ,'connection closed');
             this.startConnection();
         })
         this.connection?.on('imageChanged', (img) => this.imageChangedSubject.next(img));
