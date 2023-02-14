@@ -79,6 +79,8 @@ spec:
         - name: http
           port: 5005
       publicPort: http
+      ingressConfiguration:
+        - websocketfriendly
       resources:
         requests:
           memory: "202M"
