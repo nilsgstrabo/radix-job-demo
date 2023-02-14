@@ -33,7 +33,7 @@ export class NotificationHubService {
 
     private registerServerEvents(): void {
         this.connection?.onclose((e)=> {
-            console.log('connection closed');
+            console.log(Date.now() ,'connection closed');
             this.startConnection();
         })
         this.connection?.on('imageChanged', (img) => this.imageChangedSubject.next(img));

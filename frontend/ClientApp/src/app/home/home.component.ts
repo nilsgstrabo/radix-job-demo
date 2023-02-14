@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { firstValueFrom, of, Subscription, timer } from 'rxjs';
+import { firstValueFrom, noop, of, Subscription, timer } from 'rxjs';
 import { switchMap, exhaustMap, tap, catchError, retryWhen, retry, map, delayWhen, delay, take } from 'rxjs/operators';
 import { ImageChanged } from '../models/image-changed';
 import { MandelbrotCoord } from '../models/mandelbrot-coord';
@@ -71,8 +71,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       exhaustMap(() => this.getJobList().pipe(catchError(e => of([]))))
     ).subscribe(v => this.setJobList(v), err => console.error(err));
 
-    this.imageChangedSubscription = this.hub.imageChanged.subscribe(v => this.imageChanged(v), e => console.error(e));
-    this.timeChangedSubscription = this.hub.timeChanged.subscribe(v => this.timeChanged(v), e => console.error(e));
+    
+    this.imageChangedSubscription = this.hub.imageChanged.subscribe({
+      next: (v) => this.imageChanged(v),
+      complete: () => console.log(Date.now(), 'imageChangedSubscription complete'),
+      error: (e) => console.log(Date.now(), 'imageChangedSubscription', e)
+    });
+    
+
+    this.timeChangedSubscription = this.hub.timeChanged.subscribe({
+      next: (v) => this.timeChanged(v),
+      complete: () => console.log(Date.now(), 'timeChangedSubscription complete'),
+      error: (e) => console.log(Date.now(), 'timeChangedSubscription', e)
+    });
+    // this.imageChangedSubscription = this.hub.imageChanged.subscribe(v => this.imageChanged(v), e => console.error(e));
+    // this.timeChangedSubscription = this.hub.timeChanged.subscribe(v => this.timeChanged(v), e => console.error(e));
   }
 
   ngOnDestroy() {
@@ -89,10 +102,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private timeChanged(time: any) {
-    console.log(time);
+    console.log(time, 'timeChanged');
   }
 
   private imageChanged(img: ImageChanged) {
+    console.log(Date.now(), 'imageChanged');
     this.imageReceivedMessage = `Image with id ${img.imageId} received. Wait for blob storage sync`;
     this.checkImageExist(img.imageId).pipe(take(1)).toPromise().then(() => {
       this.imageReceivedMessage = `Image with id ${img.imageId} successfully synced`;
