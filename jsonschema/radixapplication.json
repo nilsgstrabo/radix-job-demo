@@ -19,26 +19,24 @@
           "description": "Defines the specification for building the components",
           "properties": {
             "secrets": {
+              "description": "Defines a list of secrets to be used in Dockerfile or sub-pipelines",
               "items": {
                 "type": "string"
               },
               "type": "array"
             },
             "useBuildKit": {
+              "description": "Enables BuildKit when for docker build. More info about BuildKit: https://docs.docker.com/build/buildkit/",
               "type": "boolean"
             },
             "variables": {
               "additionalProperties": {
                 "type": "string"
               },
-              "description": "EnvVarsMap maps environment variable keys to their values",
+              "description": "Defines variables that will be available in sub-pipelines",
               "type": "object"
             }
           },
-          "required": [
-            "secrets",
-            "variables"
-          ],
           "type": "object"
         },
         "components": {
@@ -473,7 +471,7 @@
                       "additionalProperties": {
                         "type": "string"
                       },
-                      "description": "EnvVarsMap maps environment variable keys to their values",
+                      "description": "Map of environment variables in the form '<envvarname>: <value>'",
                       "type": "object"
                     },
                     "volumeMounts": {
@@ -731,11 +729,11 @@
                 "type": "object"
               },
               "secrets": {
+                "description": "List of secret environment variables for the component. The value for each secret must be set in Radix Web Console.",
                 "items": {
                   "type": "string"
                 },
-                "type": "array",
-                "uniqueItems": true
+                "type": "array"
               },
               "src": {
                 "type": "string"
@@ -744,7 +742,7 @@
                 "additionalProperties": {
                   "type": "string"
                 },
-                "description": "EnvVarsMap maps environment variable keys to their values",
+                "description": "Map of environment variables in the form '<envvarname>: <value>'",
                 "type": "object"
               }
             },
@@ -827,7 +825,7 @@
                     "additionalProperties": {
                       "type": "string"
                     },
-                    "description": "EnvVarsMap maps environment variable keys to their values",
+                    "description": "Map of environment variables in the form '<envvarname>: <value>'",
                     "type": "object"
                   }
                 },
@@ -1062,7 +1060,7 @@
                       "additionalProperties": {
                         "type": "string"
                       },
-                      "description": "EnvVarsMap maps environment variable keys to their values",
+                      "description": "Map of environment variables in the form '<envvarname>: <value>'",
                       "type": "object"
                     },
                     "volumeMounts": {
@@ -1339,7 +1337,7 @@
                 "additionalProperties": {
                   "type": "string"
                 },
-                "description": "EnvVarsMap maps environment variable keys to their values",
+                "description": "Map of environment variables in the form '<envvarname>: <value>'",
                 "type": "object"
               }
             },
