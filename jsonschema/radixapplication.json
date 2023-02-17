@@ -734,7 +734,8 @@
                 "items": {
                   "type": "string"
                 },
-                "type": "array"
+                "type": "array",
+                "uniqueItems": true
               },
               "src": {
                 "type": "string"
@@ -761,7 +762,6 @@
           },
           "minItems": 1,
           "type": "array",
-          "uniqueItems": true,
           "x-kubernetes-list-map-keys": [
             "name"
           ],
@@ -891,7 +891,6 @@
           },
           "minItems": 1,
           "type": "array",
-          "uniqueItems": true,
           "x-kubernetes-list-map-keys": [
             "name"
           ],
