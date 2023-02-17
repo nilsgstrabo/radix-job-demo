@@ -613,10 +613,13 @@
                   "description": "ComponentPort defines the port number, protocol and port for a service",
                   "properties": {
                     "name": {
+                      "maxLength": 15,
                       "type": "string"
                     },
                     "port": {
                       "format": "int32",
+                      "maximum": 65535,
+                      "minimum": 1024,
                       "type": "integer"
                     }
                   },
@@ -1205,10 +1208,13 @@
                   "description": "ComponentPort defines the port number, protocol and port for a service",
                   "properties": {
                     "name": {
+                      "maxLength": 15,
                       "type": "string"
                     },
                     "port": {
                       "format": "int32",
+                      "maximum": 65535,
+                      "minimum": 1024,
                       "type": "integer"
                     }
                   },
