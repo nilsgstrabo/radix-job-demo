@@ -13,10 +13,10 @@
       "type": "object"
     },
     "spec": {
-      "description": "RadixApplicationSpec is the spec for an application.",
+      "description": "Specification for an application",
       "properties": {
         "build": {
-          "description": "Defines the specification for building the components",
+          "description": "Defines build configuration",
           "properties": {
             "secrets": {
               "description": "Defines a list of secrets to be used in Dockerfile or sub-pipelines",
@@ -37,8 +37,7 @@
               "type": "object"
             }
           },
-          "type": "object",
-          "additionalProperties": false
+          "type": "object"
         },
         "components": {
           "description": "Defines the components for the application.",
@@ -309,6 +308,8 @@
                       "type": "boolean"
                     },
                     "environment": {
+                      "maxLength": 63,
+                      "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                       "type": "string"
                     },
                     "horizontalScaling": {
@@ -372,23 +373,24 @@
                       "type": "object"
                     },
                     "replicas": {
+                      "minimum": 0,
                       "type": "integer"
                     },
                     "resources": {
-                      "description": "ResourceRequirements describes the compute resource requirements.",
+                      "description": "ResourceRequirements describes the compute resource requirements. More info: - https://www.radix.equinor.com/references/reference-radix-config/#resources-common - https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
                       "properties": {
                         "limits": {
                           "additionalProperties": {
                             "type": "string"
                           },
-                          "description": "Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+                          "description": "Limits describes the maximum amount of compute resources allowed.",
                           "type": "object"
                         },
                         "requests": {
                           "additionalProperties": {
                             "type": "string"
                           },
-                          "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+                          "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value.",
                           "type": "object"
                         }
                       },
@@ -533,11 +535,7 @@
                     }
                   },
                   "required": [
-                    "environment",
-                    "imageTagName",
-                    "monitoring",
-                    "replicas",
-                    "variables"
+                    "environment"
                   ],
                   "type": "object"
                 },
@@ -589,6 +587,7 @@
                 "type": "object"
               },
               "name": {
+                "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                 "type": "string"
               },
               "node": {
@@ -630,29 +629,36 @@
                   ],
                   "type": "object"
                 },
-                "type": "array"
+                "minItems": 1,
+                "type": "array",
+                "x-kubernetes-list-map-keys": [
+                  "name"
+                ],
+                "x-kubernetes-list-type": "map"
               },
               "public": {
                 "type": "boolean"
               },
               "publicPort": {
+                "maxLength": 15,
+                "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                 "type": "string"
               },
               "resources": {
-                "description": "ResourceRequirements describes the compute resource requirements.",
+                "description": "ResourceRequirements describes the compute resource requirements. More info: - https://www.radix.equinor.com/references/reference-radix-config/#resources-common - https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
                 "properties": {
                   "limits": {
                     "additionalProperties": {
                       "type": "string"
                     },
-                    "description": "Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+                    "description": "Limits describes the maximum amount of compute resources allowed.",
                     "type": "object"
                   },
                   "requests": {
                     "additionalProperties": {
                       "type": "string"
                     },
-                    "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+                    "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value.",
                     "type": "object"
                   }
                 },
@@ -733,7 +739,6 @@
                 "type": "object"
               },
               "secrets": {
-                "description": "List of secret environment variables for the component. The value for each secret must be set in Radix Web Console.",
                 "items": {
                   "type": "string"
                 },
@@ -751,14 +756,8 @@
               }
             },
             "required": [
-              "alwaysPullImageOnDeploy",
-              "dockerfileName",
-              "image",
               "name",
-              "ports",
-              "public",
-              "src",
-              "variables"
+              "ports"
             ],
             "type": "object"
           },
@@ -773,9 +772,13 @@
           "description": "Defines a URL alias for this application. The URL will be of form <app-name>.app.radix.equinor.com",
           "properties": {
             "component": {
+              "maxLength": 63,
+              "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
               "type": "string"
             },
             "environment": {
+              "maxLength": 63,
+              "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
               "type": "string"
             }
           },
@@ -791,15 +794,25 @@
             "description": "ExternalAlias defines a URL alias for this application with ability to bring-your-own certificate",
             "properties": {
               "alias": {
+                "maxLength": 255,
                 "type": "string"
               },
               "component": {
+                "maxLength": 63,
+                "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                 "type": "string"
               },
               "environment": {
+                "maxLength": 63,
+                "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                 "type": "string"
               }
             },
+            "required": [
+              "alias",
+              "component",
+              "environment"
+            ],
             "type": "object"
           },
           "type": "array",
@@ -811,13 +824,14 @@
         "environments": {
           "description": "Defines the environments for the application.",
           "items": {
-            "description": "Environment defines a Radix application environment",
+            "description": "Defines an application environment",
             "properties": {
               "build": {
-                "description": "Defines build parameters of a specific environment",
+                "description": "Defines build parameters",
                 "properties": {
                   "from": {
                     "description": "Name of the Github branch to build from",
+                    "maxLength": 255,
                     "type": "string"
                   },
                   "variables": {
@@ -831,19 +845,23 @@
                 "type": "object"
               },
               "egress": {
-                "description": "Defines an egress configuration for an environment",
+                "description": "Defines egress configuration for the environment More info: https://www.radix.equinor.com/references/reference-radix-config/#egress",
                 "properties": {
                   "allowRadix": {
+                    "description": "Allow or deny outgoing traffic to the public IP for the Radix cluster.",
                     "type": "boolean"
                   },
                   "rules": {
+                    "description": "Defines a list of egress rules",
                     "items": {
                       "description": "EgressRule defines an egress rule in network policy",
                       "properties": {
                         "destinations": {
+                          "description": "List of allowed destinations Each destination must be a valid CIDR",
                           "items": {
                             "type": "string"
                           },
+                          "minItems": 1,
                           "type": "array"
                         },
                         "ports": {
@@ -852,9 +870,15 @@
                             "properties": {
                               "port": {
                                 "format": "int32",
+                                "maximum": 65535,
+                                "minimum": 1024,
                                 "type": "integer"
                               },
                               "protocol": {
+                                "enum": [
+                                  "TCP",
+                                  "UDP"
+                                ],
                                 "type": "string"
                               }
                             },
@@ -864,14 +888,17 @@
                             ],
                             "type": "object"
                           },
+                          "minItems": 1,
                           "type": "array"
                         }
                       },
                       "required": [
-                        "destinations"
+                        "destinations",
+                        "ports"
                       ],
                       "type": "object"
                     },
+                    "maxItems": 1000,
                     "type": "array"
                   }
                 },
@@ -961,20 +988,20 @@
                       "type": "object"
                     },
                     "resources": {
-                      "description": "ResourceRequirements describes the compute resource requirements.",
+                      "description": "ResourceRequirements describes the compute resource requirements. More info: - https://www.radix.equinor.com/references/reference-radix-config/#resources-common - https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
                       "properties": {
                         "limits": {
                           "additionalProperties": {
                             "type": "string"
                           },
-                          "description": "Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+                          "description": "Limits describes the maximum amount of compute resources allowed.",
                           "type": "object"
                         },
                         "requests": {
                           "additionalProperties": {
                             "type": "string"
                           },
-                          "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+                          "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value.",
                           "type": "object"
                         }
                       },
@@ -1228,20 +1255,20 @@
                 "type": "array"
               },
               "resources": {
-                "description": "ResourceRequirements describes the compute resource requirements.",
+                "description": "ResourceRequirements describes the compute resource requirements. More info: - https://www.radix.equinor.com/references/reference-radix-config/#resources-common - https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
                 "properties": {
                   "limits": {
                     "additionalProperties": {
                       "type": "string"
                     },
-                    "description": "Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+                    "description": "Limits describes the maximum amount of compute resources allowed.",
                     "type": "object"
                   },
                   "requests": {
                     "additionalProperties": {
                       "type": "string"
                     },
-                    "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+                    "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value.",
                     "type": "object"
                   }
                 },
