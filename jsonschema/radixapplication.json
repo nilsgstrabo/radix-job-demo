@@ -810,29 +810,24 @@
             "description": "Environment defines a Radix application environment",
             "properties": {
               "build": {
-                "description": "EnvBuild defines build parameters of a specific environment",
+                "description": "Defines build parameters of a specific environment",
                 "properties": {
                   "from": {
+                    "description": "Name of the Github branch to build from",
                     "type": "string"
-                  },
-                  "secrets": {
-                    "items": {
-                      "type": "string"
-                    },
-                    "type": "array"
                   },
                   "variables": {
                     "additionalProperties": {
                       "type": "string"
                     },
-                    "description": "Map of environment variables in the form '<envvarname>: <value>'",
+                    "description": "Defines variables that will be available in sub-pipelines",
                     "type": "object"
                   }
                 },
                 "type": "object"
               },
               "egress": {
-                "description": "EgressConfig defines an egress configuration for an environment",
+                "description": "Defines an egress configuration for an environment",
                 "properties": {
                   "allowRadix": {
                     "type": "boolean"
@@ -879,6 +874,9 @@
                 "type": "object"
               },
               "name": {
+                "description": "Name of the environment",
+                "maxLength": 63,
+                "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                 "type": "string"
               }
             },
