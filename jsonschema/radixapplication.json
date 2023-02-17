@@ -776,6 +776,10 @@
               "type": "string"
             }
           },
+          "required": [
+            "component",
+            "environment"
+          ],
           "type": "object"
         },
         "dnsExternalAlias": {
