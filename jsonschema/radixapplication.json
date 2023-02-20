@@ -59,6 +59,12 @@
                       },
                       "verification": {
                         "description": "Verification Client certificate verification type",
+                        "enum": [
+                          "on",
+                          "off",
+                          "optional",
+                          "optional_no_ca"
+                        ],
                         "type": "string"
                       }
                     },
@@ -88,6 +94,12 @@
                           },
                           "sameSite": {
                             "description": "SameSite. Optional. The samesite cookie attribute Allowed values: strict, lax, none or empty Default: lax",
+                            "enum": [
+                              "strict",
+                              "lax",
+                              "none",
+                              ""
+                            ],
                             "type": "string"
                           }
                         },
@@ -145,6 +157,9 @@
                             "type": "string"
                           }
                         },
+                        "required": [
+                          "connectionUrl"
+                        ],
                         "type": "object"
                       },
                       "scope": {
@@ -153,6 +168,10 @@
                       },
                       "sessionStoreType": {
                         "description": "SessionStoreType. Optional. Specifies where to store the session data Allowed values: cookie, redis Default: cookie",
+                        "enum": [
+                          "cookie",
+                          "redis"
+                        ],
                         "type": "string"
                       },
                       "setAuthorizationHeader": {
@@ -164,6 +183,9 @@
                         "type": "boolean"
                       }
                     },
+                    "required": [
+                      "clientId"
+                    ],
                     "type": "object"
                   }
                 },
@@ -194,6 +216,12 @@
                             },
                             "verification": {
                               "description": "Verification Client certificate verification type",
+                              "enum": [
+                                "on",
+                                "off",
+                                "optional",
+                                "optional_no_ca"
+                              ],
                               "type": "string"
                             }
                           },
@@ -223,6 +251,12 @@
                                 },
                                 "sameSite": {
                                   "description": "SameSite. Optional. The samesite cookie attribute Allowed values: strict, lax, none or empty Default: lax",
+                                  "enum": [
+                                    "strict",
+                                    "lax",
+                                    "none",
+                                    ""
+                                  ],
                                   "type": "string"
                                 }
                               },
@@ -280,6 +314,9 @@
                                   "type": "string"
                                 }
                               },
+                              "required": [
+                                "connectionUrl"
+                              ],
                               "type": "object"
                             },
                             "scope": {
@@ -288,6 +325,10 @@
                             },
                             "sessionStoreType": {
                               "description": "SessionStoreType. Optional. Specifies where to store the session data Allowed values: cookie, redis Default: cookie",
+                              "enum": [
+                                "cookie",
+                                "redis"
+                              ],
                               "type": "string"
                             },
                             "setAuthorizationHeader": {
@@ -299,6 +340,9 @@
                               "type": "boolean"
                             }
                           },
+                          "required": [
+                            "clientId"
+                          ],
                           "type": "object"
                         }
                       },
@@ -317,10 +361,12 @@
                       "properties": {
                         "maxReplicas": {
                           "format": "int32",
+                          "minimum": 1,
                           "type": "integer"
                         },
                         "minReplicas": {
                           "format": "int32",
+                          "minimum": 0,
                           "type": "integer"
                         }
                       },
@@ -367,8 +413,7 @@
                         }
                       },
                       "required": [
-                        "gpu",
-                        "gpuCount"
+                        "gpu"
                       ],
                       "type": "object"
                     },
@@ -427,6 +472,10 @@
                                     },
                                     "k8sSecretType": {
                                       "description": "K8SSecretType. Optional. Setting object k8s secret type. Allowed types: opaque (default), tls. It corresponds to \"Opaque\" and \"kubernetes.io/tls\" secret types: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types",
+                                      "enum": [
+                                        "opaque",
+                                        "tls"
+                                      ],
                                       "type": "string"
                                     },
                                     "name": {
@@ -435,6 +484,11 @@
                                     },
                                     "type": {
                                       "description": "Type. Optional. Type of the Azure KeyVault object: secret (default), key, cert",
+                                      "enum": [
+                                        "secret",
+                                        "key",
+                                        "cert"
+                                      ],
                                       "type": "string"
                                     },
                                     "version": {
@@ -443,11 +497,11 @@
                                     }
                                   },
                                   "required": [
-                                    "envVar",
                                     "name"
                                   ],
                                   "type": "object"
                                 },
+                                "minItems": 1,
                                 "type": "array"
                               },
                               "name": {
@@ -482,9 +536,18 @@
                         "description": "RadixVolumeMount defines volume to be mounted to the container",
                         "properties": {
                           "accessMode": {
+                            "enum": [
+                              "ReadOnlyMany",
+                              "ReadWriteOnce",
+                              "ReadWriteMany"
+                            ],
                             "type": "string"
                           },
                           "bindingMode": {
+                            "enum": [
+                              "Immediate",
+                              "WaitForFirstConsumer"
+                            ],
                             "type": "string"
                           },
                           "container": {
@@ -510,6 +573,11 @@
                           },
                           "type": {
                             "description": "MountType Holds types of mount",
+                            "enum": [
+                              "blob",
+                              "azure-blob",
+                              "azure-file"
+                            ],
                             "type": "string"
                           },
                           "uid": {
@@ -517,17 +585,10 @@
                           }
                         },
                         "required": [
-                          "accessMode",
-                          "bindingMode",
-                          "container",
-                          "gid",
                           "name",
                           "path",
-                          "requestsStorage",
-                          "skuName",
                           "storage",
-                          "type",
-                          "uid"
+                          "type"
                         ],
                         "type": "object"
                       },
@@ -603,8 +664,7 @@
                   }
                 },
                 "required": [
-                  "gpu",
-                  "gpuCount"
+                  "gpu"
                 ],
                 "type": "object"
               },
@@ -695,6 +755,10 @@
                               },
                               "k8sSecretType": {
                                 "description": "K8SSecretType. Optional. Setting object k8s secret type. Allowed types: opaque (default), tls. It corresponds to \"Opaque\" and \"kubernetes.io/tls\" secret types: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types",
+                                "enum": [
+                                  "opaque",
+                                  "tls"
+                                ],
                                 "type": "string"
                               },
                               "name": {
@@ -703,6 +767,11 @@
                               },
                               "type": {
                                 "description": "Type. Optional. Type of the Azure KeyVault object: secret (default), key, cert",
+                                "enum": [
+                                  "secret",
+                                  "key",
+                                  "cert"
+                                ],
                                 "type": "string"
                               },
                               "version": {
@@ -711,11 +780,11 @@
                               }
                             },
                             "required": [
-                              "envVar",
                               "name"
                             ],
                             "type": "object"
                           },
+                          "minItems": 1,
                           "type": "array"
                         },
                         "name": {
@@ -982,8 +1051,7 @@
                         }
                       },
                       "required": [
-                        "gpu",
-                        "gpuCount"
+                        "gpu"
                       ],
                       "type": "object"
                     },
@@ -1038,6 +1106,10 @@
                                     },
                                     "k8sSecretType": {
                                       "description": "K8SSecretType. Optional. Setting object k8s secret type. Allowed types: opaque (default), tls. It corresponds to \"Opaque\" and \"kubernetes.io/tls\" secret types: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types",
+                                      "enum": [
+                                        "opaque",
+                                        "tls"
+                                      ],
                                       "type": "string"
                                     },
                                     "name": {
@@ -1046,6 +1118,11 @@
                                     },
                                     "type": {
                                       "description": "Type. Optional. Type of the Azure KeyVault object: secret (default), key, cert",
+                                      "enum": [
+                                        "secret",
+                                        "key",
+                                        "cert"
+                                      ],
                                       "type": "string"
                                     },
                                     "version": {
@@ -1054,11 +1131,11 @@
                                     }
                                   },
                                   "required": [
-                                    "envVar",
                                     "name"
                                   ],
                                   "type": "object"
                                 },
+                                "minItems": 1,
                                 "type": "array"
                               },
                               "name": {
@@ -1097,9 +1174,18 @@
                         "description": "RadixVolumeMount defines volume to be mounted to the container",
                         "properties": {
                           "accessMode": {
+                            "enum": [
+                              "ReadOnlyMany",
+                              "ReadWriteOnce",
+                              "ReadWriteMany"
+                            ],
                             "type": "string"
                           },
                           "bindingMode": {
+                            "enum": [
+                              "Immediate",
+                              "WaitForFirstConsumer"
+                            ],
                             "type": "string"
                           },
                           "container": {
@@ -1125,6 +1211,11 @@
                           },
                           "type": {
                             "description": "MountType Holds types of mount",
+                            "enum": [
+                              "blob",
+                              "azure-blob",
+                              "azure-file"
+                            ],
                             "type": "string"
                           },
                           "uid": {
@@ -1132,17 +1223,10 @@
                           }
                         },
                         "required": [
-                          "accessMode",
-                          "bindingMode",
-                          "container",
-                          "gid",
                           "name",
                           "path",
-                          "requestsStorage",
-                          "skuName",
                           "storage",
-                          "type",
-                          "uid"
+                          "type"
                         ],
                         "type": "object"
                       },
@@ -1150,10 +1234,7 @@
                     }
                   },
                   "required": [
-                    "environment",
-                    "imageTagName",
-                    "monitoring",
-                    "variables"
+                    "environment"
                   ],
                   "type": "object"
                 },
@@ -1214,8 +1295,7 @@
                   }
                 },
                 "required": [
-                  "gpu",
-                  "gpuCount"
+                  "gpu"
                 ],
                 "type": "object"
               },
@@ -1309,6 +1389,10 @@
                               },
                               "k8sSecretType": {
                                 "description": "K8SSecretType. Optional. Setting object k8s secret type. Allowed types: opaque (default), tls. It corresponds to \"Opaque\" and \"kubernetes.io/tls\" secret types: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types",
+                                "enum": [
+                                  "opaque",
+                                  "tls"
+                                ],
                                 "type": "string"
                               },
                               "name": {
@@ -1317,6 +1401,11 @@
                               },
                               "type": {
                                 "description": "Type. Optional. Type of the Azure KeyVault object: secret (default), key, cert",
+                                "enum": [
+                                  "secret",
+                                  "key",
+                                  "cert"
+                                ],
                                 "type": "string"
                               },
                               "version": {
@@ -1325,11 +1414,11 @@
                               }
                             },
                             "required": [
-                              "envVar",
                               "name"
                             ],
                             "type": "object"
                           },
+                          "minItems": 1,
                           "type": "array"
                         },
                         "name": {
@@ -1374,12 +1463,7 @@
               }
             },
             "required": [
-              "dockerfileName",
-              "image",
-              "name",
-              "ports",
-              "src",
-              "variables"
+              "name"
             ],
             "type": "object"
           },
