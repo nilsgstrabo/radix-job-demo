@@ -184,9 +184,6 @@
                         "type": "boolean"
                       }
                     },
-                    "required": [
-                      "clientId"
-                    ],
                     "type": "object"
                   }
                 },
@@ -341,9 +338,6 @@
                               "type": "boolean"
                             }
                           },
-                          "required": [
-                            "clientId"
-                          ],
                           "type": "object"
                         }
                       },
@@ -354,6 +348,7 @@
                     },
                     "environment": {
                       "maxLength": 63,
+                      "minLength": 1,
                       "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                       "type": "string"
                     },
@@ -413,9 +408,6 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "gpu"
-                      ],
                       "type": "object"
                     },
                     "replicas": {
@@ -457,6 +449,7 @@
                                   "properties": {
                                     "alias": {
                                       "description": "Alias. Optional. It is not yet fully supported by the Azure CSI Key vault driver. Specify the filename of the object when written to disk. Defaults to objectName if not provided.",
+                                      "minLength": 1,
                                       "type": "string"
                                     },
                                     "encoding": {
@@ -488,6 +481,8 @@
                                     },
                                     "name": {
                                       "description": "Name. Name of the Azure Key Vault object",
+                                      "maxLength": 127,
+                                      "minLength": 1,
                                       "type": "string"
                                     },
                                     "type": {
@@ -514,10 +509,13 @@
                               },
                               "name": {
                                 "description": "Name. Name of the Azure Key Vault",
+                                "maxLength": 24,
+                                "minLength": 3,
                                 "type": "string"
                               },
                               "path": {
                                 "description": "Path. Optional. Path within replicas, where secrets are mapped as files. Default: /mnt/azure-key-vault/<key-vault-name>/<component-name>",
+                                "minLength": 1,
                                 "type": "string"
                               }
                             },
@@ -565,9 +563,11 @@
                             "type": "string"
                           },
                           "name": {
+                            "minLength": 1,
                             "type": "string"
                           },
                           "path": {
+                            "minLength": 1,
                             "type": "string"
                           },
                           "requestsStorage": {
@@ -577,6 +577,7 @@
                             "type": "string"
                           },
                           "storage": {
+                            "minLength": 1,
                             "type": "string"
                           },
                           "type": {
@@ -608,7 +609,11 @@
                   ],
                   "type": "object"
                 },
-                "type": "array"
+                "type": "array",
+                "x-kubernetes-list-map-keys": [
+                  "environment"
+                ],
+                "x-kubernetes-list-type": "map"
               },
               "identity": {
                 "description": "Identity configuration for federation with external identity providers",
@@ -648,6 +653,9 @@
                   },
                   "portName": {
                     "description": "Port name",
+                    "maxLength": 15,
+                    "minLength": 1,
+                    "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                     "type": "string"
                   }
                 },
@@ -657,6 +665,8 @@
                 "type": "object"
               },
               "name": {
+                "maxLength": 253,
+                "minLength": 1,
                 "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                 "type": "string"
               },
@@ -672,9 +682,6 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "gpu"
-                ],
                 "type": "object"
               },
               "ports": {
@@ -684,6 +691,7 @@
                     "name": {
                       "maxLength": 15,
                       "minLength": 1,
+                      "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                       "type": "string"
                     },
                     "port": {
@@ -711,6 +719,7 @@
               },
               "publicPort": {
                 "maxLength": 15,
+                "minLength": 1,
                 "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                 "type": "string"
               },
@@ -749,6 +758,7 @@
                             "properties": {
                               "alias": {
                                 "description": "Alias. Optional. It is not yet fully supported by the Azure CSI Key vault driver. Specify the filename of the object when written to disk. Defaults to objectName if not provided.",
+                                "minLength": 1,
                                 "type": "string"
                               },
                               "encoding": {
@@ -780,6 +790,8 @@
                               },
                               "name": {
                                 "description": "Name. Name of the Azure Key Vault object",
+                                "maxLength": 127,
+                                "minLength": 1,
                                 "type": "string"
                               },
                               "type": {
@@ -806,10 +818,13 @@
                         },
                         "name": {
                           "description": "Name. Name of the Azure Key Vault",
+                          "maxLength": 24,
+                          "minLength": 3,
                           "type": "string"
                         },
                         "path": {
                           "description": "Path. Optional. Path within replicas, where secrets are mapped as files. Default: /mnt/azure-key-vault/<key-vault-name>/<component-name>",
+                          "minLength": 1,
                           "type": "string"
                         }
                       },
@@ -885,6 +900,7 @@
               "alias": {
                 "maxLength": 255,
                 "minLength": 4,
+                "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$",
                 "type": "string"
               },
               "component": {
@@ -1038,6 +1054,9 @@
                       "type": "boolean"
                     },
                     "environment": {
+                      "maxLength": 63,
+                      "minLength": 1,
+                      "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                       "type": "string"
                     },
                     "identity": {
@@ -1077,9 +1096,6 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "gpu"
-                      ],
                       "type": "object"
                     },
                     "resources": {
@@ -1117,6 +1133,7 @@
                                   "properties": {
                                     "alias": {
                                       "description": "Alias. Optional. It is not yet fully supported by the Azure CSI Key vault driver. Specify the filename of the object when written to disk. Defaults to objectName if not provided.",
+                                      "minLength": 1,
                                       "type": "string"
                                     },
                                     "encoding": {
@@ -1148,6 +1165,8 @@
                                     },
                                     "name": {
                                       "description": "Name. Name of the Azure Key Vault object",
+                                      "maxLength": 127,
+                                      "minLength": 1,
                                       "type": "string"
                                     },
                                     "type": {
@@ -1174,10 +1193,13 @@
                               },
                               "name": {
                                 "description": "Name. Name of the Azure Key Vault",
+                                "maxLength": 24,
+                                "minLength": 3,
                                 "type": "string"
                               },
                               "path": {
                                 "description": "Path. Optional. Path within replicas, where secrets are mapped as files. Default: /mnt/azure-key-vault/<key-vault-name>/<component-name>",
+                                "minLength": 1,
                                 "type": "string"
                               }
                             },
@@ -1229,9 +1251,11 @@
                             "type": "string"
                           },
                           "name": {
+                            "minLength": 1,
                             "type": "string"
                           },
                           "path": {
+                            "minLength": 1,
                             "type": "string"
                           },
                           "requestsStorage": {
@@ -1241,6 +1265,7 @@
                             "type": "string"
                           },
                           "storage": {
+                            "minLength": 1,
                             "type": "string"
                           },
                           "type": {
@@ -1272,7 +1297,11 @@
                   ],
                   "type": "object"
                 },
-                "type": "array"
+                "type": "array",
+                "x-kubernetes-list-map-keys": [
+                  "environment"
+                ],
+                "x-kubernetes-list-type": "map"
               },
               "identity": {
                 "description": "Identity configuration for federation with external identity providers",
@@ -1305,6 +1334,9 @@
                   },
                   "portName": {
                     "description": "Port name",
+                    "maxLength": 15,
+                    "minLength": 1,
+                    "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                     "type": "string"
                   }
                 },
@@ -1314,6 +1346,9 @@
                 "type": "object"
               },
               "name": {
+                "maxLength": 253,
+                "minLength": 1,
+                "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                 "type": "string"
               },
               "node": {
@@ -1328,15 +1363,13 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "gpu"
-                ],
                 "type": "object"
               },
               "payload": {
                 "description": "RadixJobComponentPayload defines the path and where the payload received by radix-job-scheduler-server will be mounted to the job container",
                 "properties": {
                   "path": {
+                    "minLength": 1,
                     "type": "string"
                   }
                 },
@@ -1352,6 +1385,7 @@
                     "name": {
                       "maxLength": 15,
                       "minLength": 1,
+                      "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                       "type": "string"
                     },
                     "port": {
@@ -1367,7 +1401,11 @@
                   ],
                   "type": "object"
                 },
-                "type": "array"
+                "type": "array",
+                "x-kubernetes-list-map-keys": [
+                  "name"
+                ],
+                "x-kubernetes-list-type": "map"
               },
               "resources": {
                 "description": "ResourceRequirements describes the compute resource requirements. More info: - https://www.radix.equinor.com/references/reference-radix-config/#resources-common - https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
@@ -1408,6 +1446,7 @@
                             "properties": {
                               "alias": {
                                 "description": "Alias. Optional. It is not yet fully supported by the Azure CSI Key vault driver. Specify the filename of the object when written to disk. Defaults to objectName if not provided.",
+                                "minLength": 1,
                                 "type": "string"
                               },
                               "encoding": {
@@ -1439,6 +1478,8 @@
                               },
                               "name": {
                                 "description": "Name. Name of the Azure Key Vault object",
+                                "maxLength": 127,
+                                "minLength": 1,
                                 "type": "string"
                               },
                               "type": {
@@ -1465,10 +1506,13 @@
                         },
                         "name": {
                           "description": "Name. Name of the Azure Key Vault",
+                          "maxLength": 24,
+                          "minLength": 3,
                           "type": "string"
                         },
                         "path": {
                           "description": "Path. Optional. Path within replicas, where secrets are mapped as files. Default: /mnt/azure-key-vault/<key-vault-name>/<component-name>",
+                          "minLength": 1,
                           "type": "string"
                         }
                       },
@@ -1524,6 +1568,7 @@
                 "type": "string"
               },
               "username": {
+                "minLength": 1,
                 "type": "string"
               }
             },
