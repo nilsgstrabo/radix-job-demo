@@ -23,7 +23,8 @@
               "items": {
                 "type": "string"
               },
-              "type": "array"
+              "type": "array",
+              "uniqueItems": true
             },
             "useBuildKit": {
               "description": "Enables BuildKit when for docker build. More info about BuildKit: https://docs.docker.com/build/buildkit/",
