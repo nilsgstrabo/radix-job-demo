@@ -915,6 +915,7 @@
                   "from": {
                     "description": "Name of the Github branch to build from",
                     "maxLength": 255,
+                    "minLength": 1,
                     "type": "string"
                   },
                   "variables": {
@@ -990,6 +991,7 @@
               "name": {
                 "description": "Name of the environment",
                 "maxLength": 63,
+                "minLength": 1,
                 "pattern": "^(([a-z0-9][-a-z0-9.]*)?[a-z0-9])?$",
                 "type": "string"
               }
