@@ -636,7 +636,8 @@
                 "items": {
                   "type": "string"
                 },
-                "type": "array"
+                "type": "array",
+                "uniqueItems": true
               },
               "monitoringConfig": {
                 "description": "MonitoringConfig Monitoring configuration",
@@ -827,7 +828,8 @@
                 "items": {
                   "type": "string"
                 },
-                "type": "array"
+                "type": "array",
+                "uniqueItems": true
               },
               "src": {
                 "type": "string"
@@ -954,7 +956,8 @@
                             "type": "string"
                           },
                           "minItems": 1,
-                          "type": "array"
+                          "type": "array",
+                          "uniqueItems": true
                         },
                         "ports": {
                           "items": {
@@ -1484,7 +1487,8 @@
                 "items": {
                   "type": "string"
                 },
-                "type": "array"
+                "type": "array",
+                "uniqueItems": true
               },
               "src": {
                 "type": "string"
