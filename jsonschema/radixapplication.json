@@ -681,6 +681,7 @@
                   "properties": {
                     "name": {
                       "maxLength": 15,
+                      "minLength": 1,
                       "type": "string"
                     },
                     "port": {
@@ -880,7 +881,7 @@
             "properties": {
               "alias": {
                 "maxLength": 255,
-                "minLength": 1,
+                "minLength": 4,
                 "type": "string"
               },
               "component": {
@@ -1346,6 +1347,7 @@
                   "properties": {
                     "name": {
                       "maxLength": 15,
+                      "minLength": 1,
                       "type": "string"
                     },
                     "port": {
