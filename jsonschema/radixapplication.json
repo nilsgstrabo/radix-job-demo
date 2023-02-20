@@ -961,7 +961,7 @@
                               "port": {
                                 "format": "int32",
                                 "maximum": 65535,
-                                "minimum": 1024,
+                                "minimum": 0,
                                 "type": "integer"
                               },
                               "protocol": {
