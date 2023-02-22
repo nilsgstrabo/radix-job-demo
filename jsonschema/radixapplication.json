@@ -411,6 +411,7 @@
                       "properties": {
                         "gpu": {
                           "description": "Defines rules for allowed GPU types. More info: https://www.radix.equinor.com/references/reference-radix-config/#gpu",
+                          "minLength": 1,
                           "type": "string"
                         },
                         "gpuCount": {
@@ -693,6 +694,7 @@
                 "properties": {
                   "gpu": {
                     "description": "Defines rules for allowed GPU types. More info: https://www.radix.equinor.com/references/reference-radix-config/#gpu",
+                    "minLength": 1,
                     "type": "string"
                   },
                   "gpuCount": {
@@ -886,7 +888,6 @@
             ],
             "type": "object"
           },
-          "minItems": 1,
           "type": "array",
           "x-kubernetes-list-map-keys": [
             "name"
@@ -911,10 +912,6 @@
               "type": "string"
             }
           },
-          "required": [
-            "component",
-            "environment"
-          ],
           "type": "object"
         },
         "dnsExternalAlias": {
@@ -1124,6 +1121,7 @@
                       "properties": {
                         "gpu": {
                           "description": "Defines rules for allowed GPU types. More info: https://www.radix.equinor.com/references/reference-radix-config/#gpu",
+                          "minLength": 1,
                           "type": "string"
                         },
                         "gpuCount": {
@@ -1399,6 +1397,7 @@
                 "properties": {
                   "gpu": {
                     "description": "Defines rules for allowed GPU types. More info: https://www.radix.equinor.com/references/reference-radix-config/#gpu",
+                    "minLength": 1,
                     "type": "string"
                   },
                   "gpuCount": {
@@ -1638,7 +1637,6 @@
         }
       },
       "required": [
-        "components",
         "environments"
       ],
       "type": "object"
