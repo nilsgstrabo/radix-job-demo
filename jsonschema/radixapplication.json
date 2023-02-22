@@ -418,9 +418,6 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "gpu"
-                      ],
                       "type": "object"
                     },
                     "replicas": {
@@ -682,9 +679,6 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "portName"
-                ],
                 "type": "object"
               },
               "name": {
@@ -706,9 +700,6 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "gpu"
-                ],
                 "type": "object"
               },
               "ports": {
@@ -1140,9 +1131,6 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "gpu"
-                      ],
                       "type": "object"
                     },
                     "resources": {
@@ -1397,9 +1385,6 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "portName"
-                ],
                 "type": "object"
               },
               "name": {
@@ -1421,9 +1406,6 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "gpu"
-                ],
                 "type": "object"
               },
               "payload": {
