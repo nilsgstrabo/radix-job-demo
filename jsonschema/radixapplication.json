@@ -23,8 +23,7 @@
               "items": {
                 "type": "string"
               },
-              "type": "array",
-              "uniqueItems": true
+              "type": "array"
             },
             "useBuildKit": {
               "description": "Enables BuildKit when building Dockerfile. More info about BuildKit: https://docs.docker.com/build/buildkit/",
@@ -667,8 +666,7 @@
                 "items": {
                   "type": "string"
                 },
-                "type": "array",
-                "uniqueItems": true
+                "type": "array"
               },
               "monitoringConfig": {
                 "description": "Configures the monitoring endpoint exposed by the component. This endpoint is used by Prometheus to collect custom metrics. environmentConfig.monitoring must be set to true to enable collection of metrics for an environment. More info: https://www.radix.equinor.com/references/reference-radix-config/#monitoringconfig",
@@ -877,8 +875,7 @@
                 "items": {
                   "type": "string"
                 },
-                "type": "array",
-                "uniqueItems": true
+                "type": "array"
               },
               "src": {
                 "description": "Path to the Dockerfile that builds the component. More info: https://www.radix.equinor.com/references/reference-radix-config/#src",
@@ -1012,8 +1009,7 @@
                             "type": "string"
                           },
                           "minItems": 1,
-                          "type": "array",
-                          "uniqueItems": true
+                          "type": "array"
                         },
                         "ports": {
                           "description": "List of allowed ports.",
@@ -1604,8 +1600,7 @@
                 "items": {
                   "type": "string"
                 },
-                "type": "array",
-                "uniqueItems": true
+                "type": "array"
               },
               "src": {
                 "description": "Path to the Dockerfile that builds the job. More info: https://www.radix.equinor.com/references/reference-radix-config/#src-2",
