@@ -5,13 +5,6 @@ kind: RadixApplication
 metadata:
   name: radix-job-demo
 spec:
-  # dnsExternalAlias:
-  #   - alias: jobdemo.example.com
-  #     environment: qa
-  #     component: server
-  # build:
-  #   secrets:
-  #     - A_BUILD_SECRET
   dnsAppAlias:
     environment: qa
     component: server
@@ -19,12 +12,11 @@ spec:
     - name: qa
       build:
         from: main
-    # - name: prod
   jobs:
     - name: "compute"
       src: "compute"
       schedulerPort: 8080
-      # timeLimitSeconds: 60
+      timeLimitSeconds: 300
       ports:
         - name: http
           port: 9999
@@ -37,7 +29,6 @@ spec:
         path: "/compute/args"
       identity:
         azure:
-          # clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6 # app registration
           clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
@@ -57,19 +48,6 @@ spec:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
-      # secrets:
-      #   - A_RUNTIME_SECRET
-      # secretRefs:
-      #   azureKeyVaults:
-      #     - name: radix-sci-az-kv-test
-      #       path: /mnt/secrets
-      #       items:
-      #         - name: connection-string-prod
-      #           envVar: CONNECTION_STRING
-      #         - name: secret1
-      #           envVar: SECRET1
-      #         - name: secret2
-      #           envVar: SECRET2
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
@@ -90,13 +68,6 @@ spec:
         limits:
           memory: "500M"
           cpu: "500m"
-      # environmentConfig:
-      #   - environment: qa
-      #     volumeMounts:
-      #       - type: azure-blob
-      #         name: images
-      #         storage: jobdemo
-      #         path: /mnt/image-storage
     - name: redis
       image: bitnami/redis:6.2
       alwaysPullImageOnDeploy: true
