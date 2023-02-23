@@ -117,11 +117,15 @@ Class | Method | HTTP request | Description
 *BatchApi* | [**CreateBatch**](docs/BatchApi.md#createbatch) | **POST** /batches | Create batch
 *BatchApi* | [**DeleteBatch**](docs/BatchApi.md#deletebatch) | **DELETE** /batches/{batchName} | Delete batch
 *BatchApi* | [**GetBatch**](docs/BatchApi.md#getbatch) | **GET** /batches/{batchName} | Gets batch
+*BatchApi* | [**GetBatchJob**](docs/BatchApi.md#getbatchjob) | **GET** /batches/{batchName}/jobs/{jobName} | Gets batch job
 *BatchApi* | [**GetBatches**](docs/BatchApi.md#getbatches) | **GET** /batches/ | Gets batches
+*BatchApi* | [**StopBatch**](docs/BatchApi.md#stopbatch) | **POST** /batches/{batchName}/stop | Stop batch
+*BatchApi* | [**StopBatchJob**](docs/BatchApi.md#stopbatchjob) | **POST** /batches/{batchName}/jobs/{jobName}/stop | Stop batch job
 *JobApi* | [**CreateJob**](docs/JobApi.md#createjob) | **POST** /jobs | Create job
 *JobApi* | [**DeleteJob**](docs/JobApi.md#deletejob) | **DELETE** /jobs/{jobName} | Delete job
 *JobApi* | [**GetJob**](docs/JobApi.md#getjob) | **GET** /jobs/{jobName} | Gets job
 *JobApi* | [**GetJobs**](docs/JobApi.md#getjobs) | **GET** /jobs/ | Gets jobs
+*JobApi* | [**StopJob**](docs/JobApi.md#stopjob) | **POST** /jobs/{jobName}/stop | Stop job
 
 
 <a name="documentation-for-models"></a>

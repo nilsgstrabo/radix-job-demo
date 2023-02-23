@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/nilsgstrabo/radix-job-demo/main/jsonschema/radixapplication.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/45826-kubebuilder-radixapplication-crd-schema/json-schema/radixapplication.json
 
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
@@ -20,11 +20,10 @@ spec:
       ports:
         - name: http
           port: 9999
-        - name: metrics
+        - name: metrics2
           port: 9090
       monitoringConfig:
-        portName: metrics
-        path: /metrics
+        portName: metrics2
       payload:
         path: "/compute/args"
       identity:

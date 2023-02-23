@@ -72,7 +72,13 @@ namespace RadixJobClient.Model
             /// Enum Failed for value: Failed
             /// </summary>
             [EnumMember(Value = "Failed")]
-            Failed = 6
+            Failed = 6,
+
+            /// <summary>
+            /// Enum DeadlineExceeded for value: DeadlineExceeded
+            /// </summary>
+            [EnumMember(Value = "DeadlineExceeded")]
+            DeadlineExceeded = 7
 
         }
 

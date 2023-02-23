@@ -5,6 +5,7 @@ JobScheduleDescription holds description about scheduling job
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**BackoffLimit** | **int** | BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s. | [optional] 
 **JobId** | **string** | JobId Optional ID of a job | [optional] 
 **Node** | [**RadixNode**](RadixNode.md) |  | [optional] 
 **Payload** | **string** | Payload holding json data to be mapped to component | [optional] 

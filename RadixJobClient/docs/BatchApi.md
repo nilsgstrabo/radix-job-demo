@@ -7,7 +7,10 @@ Method | HTTP request | Description
 [**CreateBatch**](BatchApi.md#createbatch) | **POST** /batches | Create batch
 [**DeleteBatch**](BatchApi.md#deletebatch) | **DELETE** /batches/{batchName} | Delete batch
 [**GetBatch**](BatchApi.md#getbatch) | **GET** /batches/{batchName} | Gets batch
+[**GetBatchJob**](BatchApi.md#getbatchjob) | **GET** /batches/{batchName}/jobs/{jobName} | Gets batch job
 [**GetBatches**](BatchApi.md#getbatches) | **GET** /batches/ | Gets batches
+[**StopBatch**](BatchApi.md#stopbatch) | **POST** /batches/{batchName}/stop | Stop batch
+[**StopBatchJob**](BatchApi.md#stopbatchjob) | **POST** /batches/{batchName}/jobs/{jobName}/stop | Stop batch job
 
 
 <a name="createbatch"></a>
@@ -225,6 +228,79 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="getbatchjob"></a>
+# **GetBatchJob**
+> JobStatus GetBatchJob (string batchName, string jobName)
+
+Gets batch job
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using RadixJobClient.Api;
+using RadixJobClient.Client;
+using RadixJobClient.Model;
+
+namespace Example
+{
+    public class GetBatchJobExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "http://localhost/api/v1";
+            var apiInstance = new BatchApi(config);
+            var batchName = batchName_example;  // string | Name of batch
+            var jobName = jobName_example;  // string | Name of job
+
+            try
+            {
+                // Gets batch job
+                JobStatus result = apiInstance.GetBatchJob(batchName, jobName);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling BatchApi.GetBatchJob: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **batchName** | **string**| Name of batch | 
+ **jobName** | **string**| Name of job | 
+
+### Return type
+
+[**JobStatus**](JobStatus.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful get job |  -  |
+| **404** | Not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="getbatches"></a>
 # **GetBatches**
 > List&lt;BatchStatus&gt; GetBatches ()
@@ -287,6 +363,150 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful get batches |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="stopbatch"></a>
+# **StopBatch**
+> Status StopBatch (string batchName)
+
+Stop batch
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using RadixJobClient.Api;
+using RadixJobClient.Client;
+using RadixJobClient.Model;
+
+namespace Example
+{
+    public class StopBatchExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "http://localhost/api/v1";
+            var apiInstance = new BatchApi(config);
+            var batchName = batchName_example;  // string | Name of batch
+
+            try
+            {
+                // Stop batch
+                Status result = apiInstance.StopBatch(batchName);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling BatchApi.StopBatch: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **batchName** | **string**| Name of batch | 
+
+### Return type
+
+[**Status**](Status.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful stop batch |  -  |
+| **404** | Not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="stopbatchjob"></a>
+# **StopBatchJob**
+> Status StopBatchJob (string batchName, string jobName)
+
+Stop batch job
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using RadixJobClient.Api;
+using RadixJobClient.Client;
+using RadixJobClient.Model;
+
+namespace Example
+{
+    public class StopBatchJobExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "http://localhost/api/v1";
+            var apiInstance = new BatchApi(config);
+            var batchName = batchName_example;  // string | Name of batch
+            var jobName = jobName_example;  // string | Name of job
+
+            try
+            {
+                // Stop batch job
+                Status result = apiInstance.StopBatchJob(batchName, jobName);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling BatchApi.StopBatchJob: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **batchName** | **string**| Name of batch | 
+ **jobName** | **string**| Name of job | 
+
+### Return type
+
+[**Status**](Status.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful stop batch job |  -  |
+| **404** | Not found |  -  |
 | **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

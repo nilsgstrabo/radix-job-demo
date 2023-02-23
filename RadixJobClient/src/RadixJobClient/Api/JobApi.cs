@@ -96,6 +96,24 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>ApiResponse of List&lt;JobStatus&gt;</returns>
         ApiResponse<List<JobStatus>> GetJobsWithHttpInfo();
+        /// <summary>
+        /// Stop job
+        /// </summary>
+        /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="jobName">Name of job</param>
+        /// <returns>Status</returns>
+        Status StopJob(string jobName);
+
+        /// <summary>
+        /// Stop job
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="jobName">Name of job</param>
+        /// <returns>ApiResponse of Status</returns>
+        ApiResponse<Status> StopJobWithHttpInfo(string jobName);
         #endregion Synchronous Operations
     }
 
@@ -195,6 +213,29 @@ namespace RadixJobClient.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;JobStatus&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<JobStatus>>> GetJobsWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Stop job
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="jobName">Name of job</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Status</returns>
+        System.Threading.Tasks.Task<Status> StopJobAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Stop job
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="jobName">Name of job</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Status)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Status>> StopJobWithHttpInfoAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -757,6 +798,121 @@ namespace RadixJobClient.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetJobs", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Stop job 
+        /// </summary>
+        /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="jobName">Name of job</param>
+        /// <returns>Status</returns>
+        public Status StopJob(string jobName)
+        {
+            RadixJobClient.Client.ApiResponse<Status> localVarResponse = StopJobWithHttpInfo(jobName);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Stop job 
+        /// </summary>
+        /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="jobName">Name of job</param>
+        /// <returns>ApiResponse of Status</returns>
+        public RadixJobClient.Client.ApiResponse<Status> StopJobWithHttpInfo(string jobName)
+        {
+            // verify the required parameter 'jobName' is set
+            if (jobName == null)
+                throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling JobApi->StopJob");
+
+            RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<Status>("/jobs/{jobName}/stop", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("StopJob", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Stop job 
+        /// </summary>
+        /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="jobName">Name of job</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Status</returns>
+        public async System.Threading.Tasks.Task<Status> StopJobAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            RadixJobClient.Client.ApiResponse<Status> localVarResponse = await StopJobWithHttpInfoAsync(jobName, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Stop job 
+        /// </summary>
+        /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="jobName">Name of job</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Status)</returns>
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<Status>> StopJobWithHttpInfoAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'jobName' is set
+            if (jobName == null)
+                throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling JobApi->StopJob");
+
+
+            RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+
+            var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
+
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Status>("/jobs/{jobName}/stop", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("StopJob", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 

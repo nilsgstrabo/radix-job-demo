@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteJob**](JobApi.md#deletejob) | **DELETE** /jobs/{jobName} | Delete job
 [**GetJob**](JobApi.md#getjob) | **GET** /jobs/{jobName} | Gets job
 [**GetJobs**](JobApi.md#getjobs) | **GET** /jobs/ | Gets jobs
+[**StopJob**](JobApi.md#stopjob) | **POST** /jobs/{jobName}/stop | Stop job
 
 
 <a name="createjob"></a>
@@ -287,6 +288,77 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful get jobs |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="stopjob"></a>
+# **StopJob**
+> Status StopJob (string jobName)
+
+Stop job
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using RadixJobClient.Api;
+using RadixJobClient.Client;
+using RadixJobClient.Model;
+
+namespace Example
+{
+    public class StopJobExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "http://localhost/api/v1";
+            var apiInstance = new JobApi(config);
+            var jobName = jobName_example;  // string | Name of job
+
+            try
+            {
+                // Stop job
+                Status result = apiInstance.StopJob(jobName);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling JobApi.StopJob: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **jobName** | **string**| Name of job | 
+
+### Return type
+
+[**Status**](Status.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful delete job |  -  |
+| **404** | Not found |  -  |
 | **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

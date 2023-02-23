@@ -34,19 +34,28 @@ namespace RadixJobClient.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="JobScheduleDescription" /> class.
         /// </summary>
+        /// <param name="backoffLimit">BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s..</param>
         /// <param name="jobId">JobId Optional ID of a job.</param>
         /// <param name="node">node.</param>
         /// <param name="payload">Payload holding json data to be mapped to component.</param>
         /// <param name="resources">resources.</param>
         /// <param name="timeLimitSeconds">TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s..</param>
-        public JobScheduleDescription(string jobId = default(string), RadixNode node = default(RadixNode), string payload = default(string), ResourceRequirements resources = default(ResourceRequirements), long timeLimitSeconds = default(long))
+        public JobScheduleDescription(int backoffLimit = default(int), string jobId = default(string), RadixNode node = default(RadixNode), string payload = default(string), ResourceRequirements resources = default(ResourceRequirements), long timeLimitSeconds = default(long))
         {
+            this.BackoffLimit = backoffLimit;
             this.JobId = jobId;
             this.Node = node;
             this.Payload = payload;
             this.Resources = resources;
             this.TimeLimitSeconds = timeLimitSeconds;
         }
+
+        /// <summary>
+        /// BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s.
+        /// </summary>
+        /// <value>BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s.</value>
+        [DataMember(Name = "backoffLimit", EmitDefaultValue = false)]
+        public int BackoffLimit { get; set; }
 
         /// <summary>
         /// JobId Optional ID of a job
@@ -89,6 +98,7 @@ namespace RadixJobClient.Model
         {
             var sb = new StringBuilder();
             sb.Append("class JobScheduleDescription {\n");
+            sb.Append("  BackoffLimit: ").Append(BackoffLimit).Append("\n");
             sb.Append("  JobId: ").Append(JobId).Append("\n");
             sb.Append("  Node: ").Append(Node).Append("\n");
             sb.Append("  Payload: ").Append(Payload).Append("\n");
@@ -129,6 +139,10 @@ namespace RadixJobClient.Model
 
             return 
                 (
+                    this.BackoffLimit == input.BackoffLimit ||
+                    this.BackoffLimit.Equals(input.BackoffLimit)
+                ) && 
+                (
                     this.JobId == input.JobId ||
                     (this.JobId != null &&
                     this.JobId.Equals(input.JobId))
@@ -163,6 +177,7 @@ namespace RadixJobClient.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                hashCode = hashCode * 59 + this.BackoffLimit.GetHashCode();
                 if (this.JobId != null)
                     hashCode = hashCode * 59 + this.JobId.GetHashCode();
                 if (this.Node != null)

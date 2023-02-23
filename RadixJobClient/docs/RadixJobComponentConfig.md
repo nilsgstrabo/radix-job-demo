@@ -5,6 +5,7 @@ RadixJobComponentConfig holds description of RadixJobComponent
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**BackoffLimit** | **int** | BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s. | [optional] 
 **Node** | [**RadixNode**](RadixNode.md) |  | [optional] 
 **Resources** | [**ResourceRequirements**](ResourceRequirements.md) |  | [optional] 
 **TimeLimitSeconds** | **long** | TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s. | [optional] 
