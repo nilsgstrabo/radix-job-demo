@@ -58,6 +58,7 @@ public enum JobResourceEnum {
             _logger = logger;
             _computeService = computeService;
             _hub=hub;
+            _configuration=configuration;
         }
 
         [HttpGet("jobs")]
