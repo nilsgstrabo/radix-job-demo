@@ -8,6 +8,7 @@ using RadixJobClient.Model;
 using System.Runtime.Versioning;
 using Microsoft.Extensions.Hosting;
 using frontend.Hubs;
+using Microsoft.Data.SqlClient;
 
 namespace frontend.Controllers
 {
@@ -50,8 +51,9 @@ public enum JobResourceEnum {
         private readonly ILogger _logger;
         private readonly IComputeService _computeService;
         private readonly INotificationHubService _hub;
+        private readonly IConfiguration _configuration;
 
-        public ComputeController(IComputeService computeService,INotificationHubService hub, ILogger<ComputeController> logger)
+        public ComputeController(IConfiguration configuration, IComputeService computeService,INotificationHubService hub, ILogger<ComputeController> logger)
         {
             _logger = logger;
             _computeService = computeService;
@@ -61,6 +63,22 @@ public enum JobResourceEnum {
         [HttpGet("jobs")]
         public async Task<ActionResult<List<JobStatus>>> GetJobs()
         {
+            try
+            {
+                var connStr = $"Server={_configuration["SQL_SERVER_NAME"]}; Authentication=Active Directory Managed Identity; Encrypt=True; Database={_configuration["SQL_DATABASE_NAME"]}";
+                using(SqlConnection conn = new SqlConnection(connStr)) {
+                    conn.Open();
+                    using(SqlCommand cmd=new SqlCommand("select count(1) as cnt from dbo.Products", conn)) {
+                        var v=cmd.ExecuteScalar();
+                        _logger.LogInformation("Got {0}", v);
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+
             try
             {
                 await _hub.NotifyTimeChanged(DateTime.Now.ToString());
