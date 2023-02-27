@@ -66,22 +66,6 @@ public enum JobResourceEnum {
         {
             try
             {
-                var connStr = $"Server={_configuration["SQL_SERVER_NAME"]}; Authentication=Active Directory Managed Identity; Encrypt=True; Database={_configuration["SQL_DATABASE_NAME"]}";
-                using(SqlConnection conn = new SqlConnection(connStr)) {
-                    conn.Open();
-                    using(SqlCommand cmd=new SqlCommand("select count(1) as cnt from dbo.Products", conn)) {
-                        var v=cmd.ExecuteScalar();
-                        _logger.LogInformation("Got {0}", v);
-                    }
-                }
-            }
-            catch (System.Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-            }
-
-            try
-            {
                 await _hub.NotifyTimeChanged(DateTime.Now.ToString());
                 return await _computeService.GetJobs();
             }

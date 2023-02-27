@@ -47,8 +47,6 @@ spec:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
-        SQL_SERVER_NAME: "fed-test.database.windows.net"
-        SQL_DATABASE_NAME: "fed-test"
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
