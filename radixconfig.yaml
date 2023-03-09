@@ -1,122 +1,87 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/release/json-schema/radixapplication.json
+
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
   name: radix-job-demo
 spec:
+  dnsAppAlias:
+    environment: qa
+    component: server
   environments:
     - name: qa
       build:
         from: main
-    - name: production
-      build:
-        from: release
   jobs:
     - name: "compute"
-      src: "./compute"
+      src: "compute"
       schedulerPort: 8080
-      payload:
-        path: "/compute/payload"
+      timeLimitSeconds: 300
+      backoffLimit: 3
       ports:
         - name: http
-          port: 8080
+          port: 9999
+        - name: metrics2
+          port: 9090
+      monitoringConfig:
+        portName: metrics2
+      payload:
+        path: "/compute/args"
+      identity:
+        azure:
+          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
       variables:
-        COMPUTE_CONFIG: "/compute/payload/payload"
+        COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
-        PORT: "8080"
+        SQL_SERVER_NAME: "fed-test.database.windows.net"
+        SQL_DATABASE_NAME: "fed-test"
       environmentConfig:
         - environment: qa
-          runAsNonRoot: true
-          resources:
-            requests:
-              memory: "100M"
-              cpu: "50m"
-            limits:
-              memory: "100M"
-              cpu: "50m"
+          monitoring: true
+          backoffLimit: 2
   components:
     - name: "server"
-      src: "./frontend"
-      authentication:
-        clientCertificate:
-          verification: optional_no_ca
-          passCertificateToUpstream: true
+      dockerfileName: Dockerfile.frontend
+      identity:
+        azure:
+          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49 # user assigned managed identity
       variables:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
+      authentication:
+        oauth2:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+          scope: openid email profile offline_access
+          sessionStoreType: redis
+          redisStore:
+            connectionUrl: redis://redis:6379
       ports:
         - name: http
           port: 5005
       publicPort: http
+      ingressConfiguration:
+        - stickysessions
       resources:
         requests:
-          memory: "150M"
+          memory: "202M"
           cpu: "50m"
         limits:
-          memory: "150M"
-          cpu: "50m"
-      replicas: 1
-      environmentConfig:
-        - environment: qa
-          runAsNonRoot: true
-        - environment: production
-          authentication:
-            clientCertificate:
-              verification: on
-          runAsNonRoot: true
-          variables:
-            ENV: production
-            COMPUTE_IMAGE_PATH: "/app/computeimages2"
-          resources:
-            requests:
-              memory: "151M"
-              cpu: "51m"
-            limits:
-              memory: "152M"
-              cpu: "52m"
-          replicas: 1
-          horizontalScaling:
-            minReplicas: 1
-            maxReplicas: 2
-    - name: auth-proxy
-      image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.1
-      publicPort: http
-      secrets:
-        - OAUTH2_PROXY_CLIENT_ID
-        - OAUTH2_PROXY_CLIENT_SECRET
-        - OAUTH2_PROXY_COOKIE_SECRET
-        - OAUTH2_PROXY_REDIRECT_URL
-      ports:
-        - name: http
-          port: 8000
-      environmentConfig:
-        - environment: qa
-          runAsNonRoot: true
-          variables:
-            OAUTH2_PROXY_PROVIDER: "oidc"
-            OAUTH2_PROXY_OIDC_ISSUER_URL: "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0"
-            #OAUTH2_PROXY_SCOPE: "openid email offline_access" # Simplified scope - If api is not public, and you only want to authenticate the client
-            #"openid email offline_access xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/user_impersonation" # UID is resource client id for API. Application exist under Azure Active Directory -> App registration
-            OAUTH2_PROXY_SCOPE: "openid email https://graph.microsoft.com/user.read"
-            OAUTH2_PROXY_UPSTREAMS: "http://server:5005"
-            OAUTH2_PROXY_HTTP_ADDRESS: "http://:8000"
-            OAUTH2_PROXY_SESSION_STORE_TYPE: "redis"
-            OAUTH2_PROXY_REDIS_CONNECTION_URL: "redis://auth-state:6379"
-            OAUTH2_PROXY_COOKIE_REFRESH: "60m"
-            OAUTH2_PROXY_EMAIL_DOMAINS: "*"
-            OAUTH2_PROXY_PASS_ACCESS_TOKEN: "true"
-            OAUTH2_PROXY_PASS_USER_HEADERS: "false"
-            OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
-            OAUTH2_PROXY_PASS_BASIC_AUTH: "false"
-            OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: "true"
-    - name: auth-state
-      src: "./redis"
+          memory: "500M"
+          cpu: "500m"
+    - name: redis
+      image: bitnami/redis:6.2
       alwaysPullImageOnDeploy: true
       ports:
         - name: redis
           port: 6379
-      environmentConfig:
-        - environment: qa
-          runAsNonRoot: true
-      variables:
-        ALLOW_EMPTY_PASSWORD: "yes"              
+      secrets:
+        - REDIS_PASSWORD
+      resources:
+        requests:
+          memory: "100M"
+          cpu: "50m"
+        limits:
+          memory: "200M"
+          cpu: "100m"
+

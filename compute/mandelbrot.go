@@ -18,10 +18,10 @@ type Mandelbrot struct {
 }
 
 func (m *Mandelbrot) Bitmap() [][]uint8 {
-	var bitmap [][]uint8 = make([][]uint8, m.Height, m.Height)
+	var bitmap [][]uint8 = make([][]uint8, m.Height)
 
 	for y := 0; y < m.Height; y++ {
-		bitmap[y] = make([]uint8, m.Width, m.Width)
+		bitmap[y] = make([]uint8, m.Width)
 
 		for x := 0; x < m.Width; x++ {
 			bitmap[y][x] = m.pixel(x, y)

@@ -1,20 +1,14 @@
-using System.Reflection.Metadata;
-using System.Net;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.StaticFiles;
-using AFP.Web.Hubs;
-using System.Security.Cryptography;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Graph;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Microsoft.Extensions.Hosting;
+using frontend.Hubs;
 
 namespace frontend.Controllers
 {
@@ -29,22 +23,6 @@ namespace frontend.Controllers
         public string Data { get; set; }
     }
 
-    public class AccessTokenAuthenticationProvider : IAuthenticationProvider
-    {
-        private string accessToken;
-
-        public AccessTokenAuthenticationProvider(string accessToken)
-        {
-            this.accessToken = accessToken;
-        }
-
-        public Task AuthenticateRequestAsync(HttpRequestMessage request)
-        {
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            return Task.FromResult(0);
-        }
-    }
-
     [ApiController]
     [Route("api/[controller]")]
     public class ImageController : ControllerBase
@@ -52,66 +30,18 @@ namespace frontend.Controllers
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
         private readonly INotificationHubService _hub;
-        public ImageController(IConfiguration configuration, ILogger<ImageController> logger, INotificationHubService hub)
+        private readonly IHostApplicationLifetime _applicationLifetime;
+        public ImageController(IConfiguration configuration, ILogger<ImageController> logger, INotificationHubService hub, IHostApplicationLifetime applicationLifetime)
         {
             _logger = logger;
             _configuration = configuration;
             _hub = hub;
+            _applicationLifetime = applicationLifetime;
         }
-
 
         [HttpGet("{imageId}")]
         public IActionResult GetImage(int imageId)
         {
-            // try
-            // {
-            //     var accessToken = this.Request.Headers["X-Forwarded-Access-Token"].First();
-
-            //     var graph = new GraphServiceClient(new AccessTokenAuthenticationProvider(accessToken));
-            //     var me = await graph.Me.Request().GetAsync();
-                
-            //     _logger.LogInformation(0, "Graph DisplayName: " + me.DisplayName);
-                
-            //     if (me.MemberOf!= null) {
-            //     _logger.LogInformation(0,"Groups: {0}", me.MemberOf.Aggregate("",(s,c)=>{
-            //         return s+","+c.Id;
-            //     }));
-            //     }
-            // }
-            // catch (Exception ex)
-            // {
-            //     _logger.LogError(0, ex, ex.Message);
-            // }
-
-
-            // _logger.LogInformation(0, "User name: " + Request.HttpContext.User.Identity.Name);
-            _logger.LogInformation(0, "********* Logging Headers **********");
-            _logger.LogInformation(
-                0,
-                this.Request.Headers.ToList().Aggregate("", (s, h) =>
-                {
-                    string startVal;
-                    if(h.Key.StartsWith("ssl-client-")) {
-                        if(h.Key=="ssl-client-cert") {
-                            var unescapedString=Uri.UnescapeDataString(h.Value);
-                            var unescapedBytes = System.Text.Encoding.UTF8.GetBytes(unescapedString);
-                            var unescapedBase64 = Convert.ToBase64String(unescapedBytes);
-                            _logger.LogInformation(0, "ssl-client-cert unescaped:" + unescapedBase64);
-
-                            var escapedBytes = System.Text.Encoding.UTF8.GetBytes(h.Value);
-                            var escapedBase64 = Convert.ToBase64String(escapedBytes);
-                            _logger.LogInformation(0, "ssl-client-cert original:" + escapedBase64);
-                        }
-                        startVal = h.Value.ToString();     
-                    } else {
-                        startVal= h.Value.ToString().Substring(0, Math.Min(10, h.Value.ToString().Length));
-                    }
-                    
-                    return s + h.Key + ": " + startVal + Environment.NewLine;
-                })
-            );
-            _logger.LogInformation(0, "********* Done **********");
-
             try
             {
                 var path = _configuration["COMPUTE_IMAGE_PATH"];

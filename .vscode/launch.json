@@ -26,7 +26,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             "OS-COMMENT4": "If you have changed target frameworks, make sure to update the program path.",
-            "program": "${workspaceFolder}/frontend/bin/Debug/net5.0/frontend.dll",
+            "program": "${workspaceFolder}/frontend/bin/Debug/net6.0/frontend.dll",
             "args": [],
             "cwd": "${workspaceFolder}/frontend",
             "stopAtEntry": false,

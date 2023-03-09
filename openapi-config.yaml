@@ -1,0 +1,4 @@
+additionalProperties:
+  targetFramework: net5.0
+  packageName: RadixJobClient
+  netCoreProjectFile: true

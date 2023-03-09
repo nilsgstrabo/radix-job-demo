@@ -1,20 +1,35 @@
-﻿using System;
+﻿using System.Net.WebSockets;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using AFP.Web.Hubs;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
+using RadixJobClient.Model;
+using System.Runtime.Versioning;
+using Microsoft.Extensions.Hosting;
+using frontend.Hubs;
+using Microsoft.Data.SqlClient;
 
 namespace frontend.Controllers
 {
+
+public enum JobResourceEnum {
+    Default=0,
+    Low=1,
+    Medium=2,
+    High=3,
+    TooLow=4,
+}
 
     public class JobRequest
     {
         public int ImageId { get; set; }
         public MandelbrotWindow MandelbrotWindow { get; set; }
+        public JobResourceEnum Memory { get; set; }
+        public JobResourceEnum Cpu { get; set; }
+
+        public int Sleep { get; set; }
+        public bool Fail { get; set; }
     }
 
     public class MandelbrotCoord
@@ -35,18 +50,31 @@ namespace frontend.Controllers
     {
         private readonly ILogger _logger;
         private readonly IComputeService _computeService;
+        private readonly INotificationHubService _hub;
+        private readonly IConfiguration _configuration;
 
-        public ComputeController(IComputeService computeService, ILogger<ComputeController> logger)
+        public ComputeController(IConfiguration configuration, IComputeService computeService,INotificationHubService hub, ILogger<ComputeController> logger)
         {
             _logger = logger;
             _computeService = computeService;
+            _hub=hub;
+            _configuration=configuration;
         }
 
         [HttpGet("jobs")]
-        public async Task<ActionResult<JobStatus[]>> GetJobs()
+        public async Task<ActionResult<List<JobStatus>>> GetJobs()
         {
+            try
+            {
+                await _hub.NotifyTimeChanged(DateTime.Now.ToString());
+                return await _computeService.GetJobs();
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500);
+            }
             
-            return await _computeService.GetJobs();
         }
 
         [HttpPost("jobs")]
@@ -57,8 +85,39 @@ namespace frontend.Controllers
                 var job = await _computeService.CreateJob(request);
                 return job;
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost("batches")]
+        public async Task<ActionResult<BatchStatus>> CreateBatch([FromBody] JobRequest request)
+        {
+            try
+            {
+                var job = await _computeService.CreateBatch(request);
+                return job;
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost("kill")]
+        public IActionResult Kill([FromServices] IHostApplicationLifetime app)
+        {
+            try
+            {
+                app.StopApplication();
+                return StatusCode(200);
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
                 return StatusCode(500);
             }
         }

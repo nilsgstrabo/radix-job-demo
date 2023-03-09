@@ -2,26 +2,33 @@ package main
 
 import (
 	"bytes"
-	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"image"
 	"image/color"
 	"image/png"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
-	"path/filepath"
+	"os/signal"
 	"strings"
+	"syscall"
 	"time"
 
 	// "time"
 
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 )
+
+var tickMetric = promauto.NewCounterVec(prometheus.CounterOpts{
+	Name: "job_demo_compute_counter",
+	Help: "A counter that increments once per second",
+}, []string{})
 
 type ImagePostData struct {
 	Data string `json:"data"`
@@ -53,29 +60,53 @@ var basecolors []color.RGBA = []color.RGBA{
 
 func main() {
 
+	go startHttpServer()
+
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
+
+	go func() {
+		for range ticker.C {
+			tickMetric.With(prometheus.Labels{}).Inc()
+		}
+	}()
+
+	doSqlQuery()
+
+	logrus.Infof("RADIX_JOB_NAME: %s \n", os.Getenv("RADIX_JOB_NAME"))
+
+	for _, env := range os.Environ() {
+		logrus.Infoln(env)
+	}
+
+	files, err := os.ReadDir("/mnt/image-storage/")
+	if err != nil {
+		logrus.Error(err)
+	} else {
+		for _, f := range files {
+			logrus.Infof("file: %s", f.Name())
+		}
+	}
+
 	cfgFile := os.Getenv("COMPUTE_CONFIG")
-	outPath := os.Getenv("COMPUTE_OUT_PATH")
 	callbackCompleteUrl := os.Getenv("CALLBACK_ON_COMPLETE_URL")
 
 	logrus.Infof("Config file: %s\n", cfgFile)
-	logrus.Infof("Output directory: %s\n", outPath)
 	logrus.Infof("CALLBACK_ON_COMPLETE_URL: %s\n", callbackCompleteUrl)
 
-	cfgBytes, err := ioutil.ReadFile(cfgFile)
+	cfgBytes, err := os.ReadFile(cfgFile)
 	if err != nil {
 		logrus.Panicf("error reading config file: %v", err)
 	}
 
+	logrus.Info(string(cfgBytes))
 	var config Config
-
+	logrus.Info(config)
 	if err := yaml.Unmarshal(cfgBytes, &config); err != nil {
 		logrus.Panicf("error unmarshalling config file: %v", err)
 	}
 
 	logrus.Infof("Config: %v", config)
-
-	srv := startServer(cfgBytes)
-	defer srv.Shutdown(context.Background())
 
 	mandelbrot := Mandelbrot{
 		Height:      config.Height,
@@ -89,27 +120,12 @@ func main() {
 
 	for x := 0; x < mandelbrot.Width; x++ {
 		for y := 0; y < mandelbrot.Height; y++ {
-
 			img.Set(x, y, colorer.Color(m_bitmap[y][x]))
 		}
 	}
 
-	if strings.TrimSpace(outPath) != "" {
-		outFile := filepath.Join(outPath, fmt.Sprintf("%v.png", config.ImageId))
-		logrus.Infof("Writing new image to %v", outFile)
-		f, err := os.Create(outFile)
-		if err != nil {
-			logrus.Panicf("error writing image to out path: %v", err)
-		}
-
-		if err = png.Encode(f, img); err != nil {
-			logrus.Panicf("error encoding png: %v", err)
-		}
-		f.Close()
-	}
-
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
-		postAdr, err := url.Parse(callbackCompleteUrl)
+		postAdr, _ := url.Parse(callbackCompleteUrl)
 		postAdr.Path = fmt.Sprintf("%s/%v/data", "api/image", config.ImageId)
 		postAdrStr := postAdr.String()
 
@@ -130,6 +146,7 @@ func main() {
 		if err != nil {
 			logrus.Panicf("error posting image: %v", err)
 		}
+		defer resp.Body.Close()
 		logrus.Infof("Response on POST image: code %v", resp.Status)
 
 		adr, err := url.Parse(callbackCompleteUrl)
@@ -147,8 +164,40 @@ func main() {
 			logrus.Panicf("error posting result: %v", err)
 		}
 		logrus.Infof("Response on POST to complete URL %s: code %v", adrStr, resp.Status)
-
-		defer resp.Body.Close()
 	}
-	time.Sleep(2 * time.Minute)
+
+	if config.Sleep > 0 {
+		logrus.Infof("sleeping for %d seconds", config.Sleep)
+		time.Sleep(time.Duration(config.Sleep) * time.Second)
+	}
+
+	if config.Fail {
+		panic("job was configured to simulate panic")
+	}
+}
+
+func startHttpServer() {
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+
+	http.Handle("/metrics", promhttp.Handler())
+	// metricsSrv := &http.Server{Addr: ":9090", Handler: metricsMux}
+	go func() {
+		if err := http.ListenAndServe(":9090", nil); err != nil {
+			logrus.Error(err)
+		}
+	}()
+
+	httpSrv := &http.Server{Addr: ":9999", Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("hello world"))
+		w.WriteHeader(200)
+	})}
+	go func() {
+		if err := httpSrv.ListenAndServe(); err != nil {
+			logrus.Error(err)
+		}
+	}()
+
+	<-quit
+
 }

@@ -1,14 +1,69 @@
 <h2>Radix Job Demo</h2>
-<p>Demonstrate how jobs in radixconfig works</p>
 <div>
   <button class="btn btn-primary" (click)="resetImage()">Start Over</button>
+  <button class="btn btn-primary" (click)="kill()">Kill Server</button>
 </div>
-
-  <div class="p-0 position-relative">
-  
-    <img class="" src="/api/image/{{imageId}}" appSelectAndClick [selectorItem]="selector" (areaSelected)="onAreaSelected($event)"> 
-    <div #selector class="position-absolute border border-primary border-3" style="top:0px; width: 175px; height: 100px; background-color: transparent; "></div>
+<div style="min-height: 100px;" class="p-0 position-relative">
+  <img class="" src="/api/image/{{imageId}}" appSelectAndClick [selectorItem]="selector" (areaSelected)="onAreaSelected($event)"> 
+  <div #selector class="position-absolute border border-primary border-3" style="top:0px; width: 175px; height: 100px; background-color: transparent; "></div>
+</div>
+<div class="row mb-3">
+  <label class="col-sm-1 col-form-label">Request Type</label>
+  <div class="col-sm-3">
+    <select 
+        name="requesttype" 
+        id="requesttype" 
+        class="form-control"
+        [(ngModel)]="requestType">
+        <option value=1>Job</option>
+        <option value=2>Batch</option>
+    </select>
   </div>
+</div>
+<div class="row my-3">
+  <label class="col-sm-1 col-form-label">CPU</label>
+  <div class="col-sm-3">
+    <select 
+        name="cpu" 
+        id="cpu" 
+        class="form-control"
+        [(ngModel)]="cpu">
+        <option value=0>Default</option>
+        <option value=4>Too Low (0.001 core)</option>
+        <option value=1>Low (0.1 core)</option>
+        <option value=2>Medium (0.5 core)</option>
+        <option value=3>High (1 core)</option>
+    </select>
+  </div>
+</div>
+<div class="row mb-3">
+  <label class="col-sm-1 col-form-label">Memory</label>
+  <div class="col-sm-3">
+    <select 
+        name="memory" 
+        id="memory" 
+        class="form-control"
+        [(ngModel)]="memory">
+        <option value=0>Default</option>
+        <option value=4>Too Low (1M)</option>
+        <option value=1>Low (100M)</option>
+        <option value=2>Medium (500M)</option>
+        <option value=3>High (1000M)</option>
+    </select>
+  </div>
+</div>
+<div class="row mb-3">
+  <label class="col-sm-1 col-form-label">Sleep (seconds)</label>
+  <div class="col-sm-3">
+    <input name="sleep" id="sleep" type="number" [(ngModel)]="sleep">
+  </div>
+</div>
+<div class="row mb-3">
+  <label class="col-sm-1 col-form-label">Job should fail</label>
+  <div class="col-sm-3">
+    <input name="fail" id="fail" type="checkbox" [(ngModel)]="fail">
+  </div>
+</div>
 
 <div>{{imageReceivedMessage}}</div>
 <h4>List of jobs</h4>
@@ -26,7 +81,7 @@
       <td>{{j.name}}</td>
       <td>{{j.started}}</td>
       <td>{{j.ended}}</td>
-      <td>{{j.status}}</td>
+      <td>{{getStatus(j.status)}}</td>
     </tr>
   </tbody>
 </table>
