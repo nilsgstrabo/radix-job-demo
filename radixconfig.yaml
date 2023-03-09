@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/45826-kubebuilder-radixapplication-crd-schema/json-schema/radixapplication.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/release/json-schema/radixapplication.json
 
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
@@ -17,6 +17,7 @@ spec:
       src: "compute"
       schedulerPort: 8080
       timeLimitSeconds: 300
+      backoffLimit: 3
       ports:
         - name: http
           port: 9999
@@ -37,6 +38,7 @@ spec:
       environmentConfig:
         - environment: qa
           monitoring: true
+          backoffLimit: 2
   components:
     - name: "server"
       dockerfileName: Dockerfile.frontend
