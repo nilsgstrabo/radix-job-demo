@@ -30,6 +30,8 @@ public enum JobResourceEnum {
 
         public int Sleep { get; set; }
         public bool Fail { get; set; }
+
+        public string? CustomJobName { get; set; }
     }
 
     public class MandelbrotCoord

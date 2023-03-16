@@ -30,6 +30,7 @@ interface ComputeRequest {
   cpu: number,
   sleep: number,
   fail: boolean,
+  customJobName?: string,
 }
 
 @Component({
@@ -49,6 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   sleep=0;
   fail=false;
   requestType=1;
+  customJobName="";
   jobs: any[] = [];
   imageReceivedMessage = '';
   imageId = 1;
@@ -184,7 +186,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       memory: Number(this.memory),
       cpu: Number(this.cpu),
       sleep: this.sleep,
-      fail: this.fail
+      fail: this.fail,
+      customJobName: this.customJobName ? this.customJobName : undefined,
     };
     
     console.log(this.requestType);
