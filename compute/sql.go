@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"net/url"
 	"os"
 	"time"
 
@@ -20,8 +21,12 @@ func doSqlQuery() {
 		token, err := os.ReadFile(os.Getenv("AZURE_FEDERATED_TOKEN_FILE"))
 		return string(token), err
 	})
-
-	authority := fmt.Sprintf("%s%s/oauth2/token", os.Getenv("AZURE_AUTHORITY_HOST"), os.Getenv("AZURE_TENANT_ID"))
+	authority, err := url.JoinPath(os.Getenv("AZURE_AUTHORITY_HOST"), os.Getenv("AZURE_TENANT_ID"), "oauth", "token")
+	if err != nil {
+		logrus.Errorf("error composing authority: %w", err)
+		return
+	}
+	// authority := fmt.Sprintf("%s%s/oauth2/token", os.Getenv("AZURE_AUTHORITY_HOST"), os.Getenv("AZURE_TENANT_ID"))
 	logrus.Infof("using authority %s\n", authority)
 	confidentialClientApp, err := confidential.New(
 		os.Getenv("AZURE_CLIENT_ID"),
