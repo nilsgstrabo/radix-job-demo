@@ -80,6 +80,7 @@ spec:
               - name: secret2
                 envVar: SSP_SECRET2
             name: radix-sci-az-kv-test
+            useAzureIdentity: true
     - name: redis
       image: bitnami/redis:6.2
       alwaysPullImageOnDeploy: true
