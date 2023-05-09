@@ -70,17 +70,17 @@ spec:
         limits:
           memory: "500M"
           cpu: "500m"
-      secretRefs:
-        azureKeyVaults:
-          - items:
-              - name: connection-string-dev
-                envVar: SSP_CONN_STRING_DEV
-              - name: secret1
-                envVar: SSP_SECRET1
-              - name: secret2
-                envVar: SSP_SECRET2
-            name: radix-sci-az-kv-test
-            useAzureIdentity: true
+      # secretRefs:
+      #   azureKeyVaults:
+      #     - items:
+      #         - name: connection-string-dev
+      #           envVar: SSP_CONN_STRING_DEV
+      #         - name: secret1
+      #           envVar: SSP_SECRET1
+      #         - name: secret2
+      #           envVar: SSP_SECRET2
+      #       name: radix-sci-az-kv-test
+      #       useAzureIdentity: true
     - name: redis
       image: bitnami/redis:6.2
       alwaysPullImageOnDeploy: true

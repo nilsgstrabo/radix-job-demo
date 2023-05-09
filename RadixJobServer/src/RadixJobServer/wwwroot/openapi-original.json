@@ -1,0 +1,1052 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "contact" : {
+      "url" : "https://equinor.slack.com/messages/CBKM6N2JY"
+    },
+    "description" : "This is the API Server for the Radix job scheduler server.",
+    "title" : "Radix job scheduler server.",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "/api/v1"
+  } ],
+  "paths" : {
+    "/batches" : {
+      "post" : {
+        "operationId" : "createBatch",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BatchScheduleDescription"
+              }
+            }
+          },
+          "description" : "Batch to create",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BatchStatus"
+                }
+              }
+            },
+            "description" : "Successful create batch"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "422" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Invalid data in request"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Create batch",
+        "tags" : [ "Batch" ],
+        "x-codegen-request-body-name" : "batchCreation"
+      }
+    },
+    "/batches/" : {
+      "get" : {
+        "operationId" : "getBatches",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/BatchStatus"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "Successful get batches"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Gets batches",
+        "tags" : [ "Batch" ]
+      }
+    },
+    "/batches/{batchName}" : {
+      "delete" : {
+        "operationId" : "deleteBatch",
+        "parameters" : [ {
+          "description" : "Name of batch",
+          "in" : "path",
+          "name" : "batchName",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Successful delete batch"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Delete batch",
+        "tags" : [ "Batch" ]
+      },
+      "get" : {
+        "operationId" : "getBatch",
+        "parameters" : [ {
+          "description" : "Name of batch",
+          "in" : "path",
+          "name" : "batchName",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BatchStatus"
+                }
+              }
+            },
+            "description" : "Successful get batch"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Gets batch",
+        "tags" : [ "Batch" ]
+      }
+    },
+    "/batches/{batchName}/jobs/{jobName}" : {
+      "get" : {
+        "operationId" : "getBatchJob",
+        "parameters" : [ {
+          "description" : "Name of batch",
+          "in" : "path",
+          "name" : "batchName",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "Name of job",
+          "in" : "path",
+          "name" : "jobName",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JobStatus"
+                }
+              }
+            },
+            "description" : "Successful get job"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Gets batch job",
+        "tags" : [ "Batch" ]
+      }
+    },
+    "/batches/{batchName}/jobs/{jobName}/stop" : {
+      "post" : {
+        "operationId" : "stopBatchJob",
+        "parameters" : [ {
+          "description" : "Name of batch",
+          "in" : "path",
+          "name" : "batchName",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "Name of job",
+          "in" : "path",
+          "name" : "jobName",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Successful stop batch job"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Stop batch job",
+        "tags" : [ "Batch" ]
+      }
+    },
+    "/batches/{batchName}/stop" : {
+      "post" : {
+        "operationId" : "stopBatch",
+        "parameters" : [ {
+          "description" : "Name of batch",
+          "in" : "path",
+          "name" : "batchName",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Successful stop batch"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Stop batch",
+        "tags" : [ "Batch" ]
+      }
+    },
+    "/jobs" : {
+      "post" : {
+        "operationId" : "createJob",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/JobScheduleDescription"
+              }
+            }
+          },
+          "description" : "Job to create",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JobStatus"
+                }
+              }
+            },
+            "description" : "Successful create job"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "422" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Invalid data in request"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Create job",
+        "tags" : [ "Job" ],
+        "x-codegen-request-body-name" : "jobCreation"
+      }
+    },
+    "/jobs/" : {
+      "get" : {
+        "operationId" : "getJobs",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/JobStatus"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "Successful get jobs"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Gets jobs",
+        "tags" : [ "Job" ]
+      }
+    },
+    "/jobs/{jobName}" : {
+      "delete" : {
+        "operationId" : "deleteJob",
+        "parameters" : [ {
+          "description" : "Name of job",
+          "in" : "path",
+          "name" : "jobName",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Successful delete job"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Delete job",
+        "tags" : [ "Job" ]
+      },
+      "get" : {
+        "operationId" : "getJob",
+        "parameters" : [ {
+          "description" : "Name of job",
+          "in" : "path",
+          "name" : "jobName",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JobStatus"
+                }
+              }
+            },
+            "description" : "Successful get job"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Gets job",
+        "tags" : [ "Job" ]
+      }
+    },
+    "/jobs/{jobName}/stop" : {
+      "post" : {
+        "operationId" : "stopJob",
+        "parameters" : [ {
+          "description" : "Name of job",
+          "in" : "path",
+          "name" : "jobName",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Successful delete job"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : "Internal server error"
+          }
+        },
+        "summary" : "Stop job",
+        "tags" : [ "Job" ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "BatchScheduleDescription" : {
+        "description" : "BatchScheduleDescription holds description about batch scheduling job",
+        "example" : {
+          "defaultRadixJobComponentConfig" : {
+            "node" : {
+              "gpu" : "gpu",
+              "gpuCount" : "gpuCount"
+            },
+            "backoffLimit" : 0,
+            "timeLimitSeconds" : 6,
+            "resources" : {
+              "requests" : {
+                "key" : "requests"
+              },
+              "limits" : {
+                "key" : "limits"
+              }
+            }
+          },
+          "jobScheduleDescriptions" : [ {
+            "jobId" : "'job1'",
+            "node" : {
+              "gpu" : "gpu",
+              "gpuCount" : "gpuCount"
+            },
+            "backoffLimit" : 1,
+            "payload" : "{'data':'value'}",
+            "timeLimitSeconds" : 5,
+            "resources" : {
+              "requests" : {
+                "key" : "requests"
+              },
+              "limits" : {
+                "key" : "limits"
+              }
+            }
+          }, {
+            "jobId" : "'job1'",
+            "node" : {
+              "gpu" : "gpu",
+              "gpuCount" : "gpuCount"
+            },
+            "backoffLimit" : 1,
+            "payload" : "{'data':'value'}",
+            "timeLimitSeconds" : 5,
+            "resources" : {
+              "requests" : {
+                "key" : "requests"
+              },
+              "limits" : {
+                "key" : "limits"
+              }
+            }
+          } ]
+        },
+        "properties" : {
+          "defaultRadixJobComponentConfig" : {
+            "$ref" : "#/components/schemas/RadixJobComponentConfig"
+          },
+          "jobScheduleDescriptions" : {
+            "description" : "JobScheduleDescriptions descriptions of jobs to schedule within the batch",
+            "items" : {
+              "$ref" : "#/components/schemas/JobScheduleDescription"
+            },
+            "type" : "array",
+            "x-go-name" : "JobScheduleDescriptions"
+          }
+        },
+        "required" : [ "jobScheduleDescriptions" ],
+        "type" : "object",
+        "x-go-package" : "github.com/equinor/radix-job-scheduler/models/common"
+      },
+      "BatchStatus" : {
+        "description" : "BatchStatus holds general information about batch status",
+        "example" : {
+          "batchName" : "'batch1'",
+          "jobId" : "'job1'",
+          "created" : "2006-01-02T15:04:05Z",
+          "ended" : "2006-01-02T15:04:05Z",
+          "name" : "calculator",
+          "started" : "2006-01-02T15:04:05Z",
+          "message" : "\"Error occurred\"",
+          "jobStatuses" : [ {
+            "batchName" : "'batch1'",
+            "jobId" : "'job1'",
+            "created" : "2006-01-02T15:04:05Z",
+            "ended" : "2006-01-02T15:04:05Z",
+            "name" : "calculator",
+            "started" : "2006-01-02T15:04:05Z",
+            "message" : "\"Error occurred\"",
+            "status" : "Waiting"
+          }, {
+            "batchName" : "'batch1'",
+            "jobId" : "'job1'",
+            "created" : "2006-01-02T15:04:05Z",
+            "ended" : "2006-01-02T15:04:05Z",
+            "name" : "calculator",
+            "started" : "2006-01-02T15:04:05Z",
+            "message" : "\"Error occurred\"",
+            "status" : "Waiting"
+          } ],
+          "status" : "Waiting"
+        },
+        "properties" : {
+          "batchName" : {
+            "description" : "BatchName Optional Batch ID of a job",
+            "example" : "'batch1'",
+            "type" : "string",
+            "x-go-name" : "BatchName"
+          },
+          "created" : {
+            "description" : "Created timestamp",
+            "example" : "2006-01-02T15:04:05Z",
+            "type" : "string",
+            "x-go-name" : "Created"
+          },
+          "ended" : {
+            "description" : "Ended timestamp",
+            "example" : "2006-01-02T15:04:05Z",
+            "type" : "string",
+            "x-go-name" : "Ended"
+          },
+          "jobId" : {
+            "description" : "JobId Optional ID of a job",
+            "example" : "'job1'",
+            "type" : "string",
+            "x-go-name" : "JobId"
+          },
+          "jobStatuses" : {
+            "description" : "JobStatuses of the jobs in the batch",
+            "items" : {
+              "$ref" : "#/components/schemas/JobStatus"
+            },
+            "type" : "array",
+            "x-go-name" : "JobStatuses"
+          },
+          "message" : {
+            "description" : "Status message, if any, of the job",
+            "example" : "\"Error occurred\"",
+            "type" : "string",
+            "x-go-name" : "Message"
+          },
+          "name" : {
+            "description" : "Name of the job",
+            "example" : "calculator",
+            "type" : "string",
+            "x-go-name" : "Name"
+          },
+          "started" : {
+            "description" : "Started timestamp",
+            "example" : "2006-01-02T15:04:05Z",
+            "type" : "string",
+            "x-go-name" : "Started"
+          },
+          "status" : {
+            "description" : "Status of the job",
+            "enum" : [ "Waiting", "Running", "Succeeded", "Stopping", "Stopped", "Failed", "DeadlineExceeded" ],
+            "example" : "Waiting",
+            "type" : "string",
+            "x-go-name" : "Status"
+          }
+        },
+        "required" : [ "created", "name" ],
+        "type" : "object",
+        "x-go-package" : "github.com/equinor/radix-job-scheduler/models/v1"
+      },
+      "JobScheduleDescription" : {
+        "description" : "JobScheduleDescription holds description about scheduling job",
+        "example" : {
+          "jobId" : "'job1'",
+          "node" : {
+            "gpu" : "gpu",
+            "gpuCount" : "gpuCount"
+          },
+          "backoffLimit" : 1,
+          "payload" : "{'data':'value'}",
+          "timeLimitSeconds" : 5,
+          "resources" : {
+            "requests" : {
+              "key" : "requests"
+            },
+            "limits" : {
+              "key" : "limits"
+            }
+          }
+        },
+        "properties" : {
+          "backoffLimit" : {
+            "description" : "BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s.",
+            "format" : "int32",
+            "type" : "integer",
+            "x-go-name" : "BackoffLimit"
+          },
+          "jobId" : {
+            "description" : "JobId Optional ID of a job",
+            "example" : "'job1'",
+            "type" : "string",
+            "x-go-name" : "JobId"
+          },
+          "node" : {
+            "$ref" : "#/components/schemas/RadixNode"
+          },
+          "payload" : {
+            "description" : "Payload holding json data to be mapped to component",
+            "example" : "{'data':'value'}",
+            "type" : "string",
+            "x-go-name" : "Payload"
+          },
+          "resources" : {
+            "$ref" : "#/components/schemas/ResourceRequirements"
+          },
+          "timeLimitSeconds" : {
+            "description" : "TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s.",
+            "format" : "int64",
+            "type" : "integer",
+            "x-go-name" : "TimeLimitSeconds"
+          }
+        },
+        "type" : "object",
+        "x-go-package" : "github.com/equinor/radix-job-scheduler/models/common"
+      },
+      "JobStatus" : {
+        "description" : "JobStatus holds general information about job status",
+        "example" : {
+          "batchName" : "'batch1'",
+          "jobId" : "'job1'",
+          "created" : "2006-01-02T15:04:05Z",
+          "ended" : "2006-01-02T15:04:05Z",
+          "name" : "calculator",
+          "started" : "2006-01-02T15:04:05Z",
+          "message" : "\"Error occurred\"",
+          "status" : "Waiting"
+        },
+        "properties" : {
+          "batchName" : {
+            "description" : "BatchName Optional Batch ID of a job",
+            "example" : "'batch1'",
+            "type" : "string",
+            "x-go-name" : "BatchName"
+          },
+          "created" : {
+            "description" : "Created timestamp",
+            "example" : "2006-01-02T15:04:05Z",
+            "type" : "string",
+            "x-go-name" : "Created"
+          },
+          "ended" : {
+            "description" : "Ended timestamp",
+            "example" : "2006-01-02T15:04:05Z",
+            "type" : "string",
+            "x-go-name" : "Ended"
+          },
+          "jobId" : {
+            "description" : "JobId Optional ID of a job",
+            "example" : "'job1'",
+            "type" : "string",
+            "x-go-name" : "JobId"
+          },
+          "message" : {
+            "description" : "Status message, if any, of the job",
+            "example" : "\"Error occurred\"",
+            "type" : "string",
+            "x-go-name" : "Message"
+          },
+          "name" : {
+            "description" : "Name of the job",
+            "example" : "calculator",
+            "type" : "string",
+            "x-go-name" : "Name"
+          },
+          "started" : {
+            "description" : "Started timestamp",
+            "example" : "2006-01-02T15:04:05Z",
+            "type" : "string",
+            "x-go-name" : "Started"
+          },
+          "status" : {
+            "description" : "Status of the job",
+            "enum" : [ "Waiting", "Running", "Succeeded", "Stopping", "Stopped", "Failed", "DeadlineExceeded" ],
+            "example" : "Waiting",
+            "type" : "string",
+            "x-go-name" : "Status"
+          }
+        },
+        "required" : [ "created", "name" ],
+        "type" : "object",
+        "x-go-package" : "github.com/equinor/radix-job-scheduler/models/v1"
+      },
+      "RadixJobComponentConfig" : {
+        "description" : "RadixJobComponentConfig holds description of RadixJobComponent",
+        "example" : {
+          "node" : {
+            "gpu" : "gpu",
+            "gpuCount" : "gpuCount"
+          },
+          "backoffLimit" : 0,
+          "timeLimitSeconds" : 6,
+          "resources" : {
+            "requests" : {
+              "key" : "requests"
+            },
+            "limits" : {
+              "key" : "limits"
+            }
+          }
+        },
+        "properties" : {
+          "backoffLimit" : {
+            "description" : "BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s.",
+            "format" : "int32",
+            "type" : "integer",
+            "x-go-name" : "BackoffLimit"
+          },
+          "node" : {
+            "$ref" : "#/components/schemas/RadixNode"
+          },
+          "resources" : {
+            "$ref" : "#/components/schemas/ResourceRequirements"
+          },
+          "timeLimitSeconds" : {
+            "description" : "TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s.",
+            "format" : "int64",
+            "type" : "integer",
+            "x-go-name" : "TimeLimitSeconds"
+          }
+        },
+        "type" : "object",
+        "x-go-package" : "github.com/equinor/radix-job-scheduler/models/common"
+      },
+      "RadixNode" : {
+        "description" : "RadixNode defines node attributes, where container should be scheduled",
+        "example" : {
+          "gpu" : "gpu",
+          "gpuCount" : "gpuCount"
+        },
+        "properties" : {
+          "gpu" : {
+            "description" : "Gpu Optional. Holds lists of node GPU types, with dashed types to exclude",
+            "type" : "string",
+            "x-go-name" : "Gpu"
+          },
+          "gpuCount" : {
+            "description" : "GpuCount Optional. Holds minimum count of GPU on node",
+            "type" : "string",
+            "x-go-name" : "GpuCount"
+          }
+        },
+        "type" : "object",
+        "x-go-package" : "github.com/equinor/radix-operator/pkg/apis/radix/v1"
+      },
+      "ResourceList" : {
+        "additionalProperties" : {
+          "type" : "string"
+        },
+        "description" : "ResourceList Placeholder for resouce specifications in the config",
+        "type" : "object",
+        "x-go-package" : "github.com/equinor/radix-operator/pkg/apis/radix/v1"
+      },
+      "ResourceRequirements" : {
+        "example" : {
+          "requests" : {
+            "key" : "requests"
+          },
+          "limits" : {
+            "key" : "limits"
+          }
+        },
+        "properties" : {
+          "limits" : {
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "ResourceList Placeholder for resouce specifications in the config",
+            "type" : "object",
+            "x-go-package" : "github.com/equinor/radix-operator/pkg/apis/radix/v1"
+          },
+          "requests" : {
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "ResourceList Placeholder for resouce specifications in the config",
+            "type" : "object",
+            "x-go-package" : "github.com/equinor/radix-operator/pkg/apis/radix/v1"
+          }
+        },
+        "title" : "ResourceRequirements describes the compute resource requirements.",
+        "type" : "object",
+        "x-go-package" : "github.com/equinor/radix-operator/pkg/apis/radix/v1"
+      },
+      "Status" : {
+        "description" : "Status is a return value for calls that don't return other objects or when a request returns an error",
+        "example" : {
+          "reason" : "reason",
+          "code" : 404,
+          "message" : "job job123 is not found",
+          "status" : "Failure"
+        },
+        "properties" : {
+          "code" : {
+            "description" : "Suggested HTTP return code for this status, 0 if not set.",
+            "example" : 404,
+            "format" : "int64",
+            "type" : "integer",
+            "x-go-name" : "Code"
+          },
+          "message" : {
+            "description" : "A human-readable description of the status of this operation.",
+            "example" : "job job123 is not found",
+            "type" : "string",
+            "x-go-name" : "Message"
+          },
+          "reason" : {
+            "type" : "string",
+            "x-go-package" : "github.com/equinor/radix-job-scheduler/models/common"
+          },
+          "status" : {
+            "description" : "Status of the operation.\nOne of: \"Success\" or \"Failure\".",
+            "example" : "Failure",
+            "type" : "string",
+            "x-go-name" : "Status"
+          }
+        },
+        "type" : "object",
+        "x-go-package" : "github.com/equinor/radix-job-scheduler/models/common"
+      },
+      "StatusReason" : {
+        "type" : "string",
+        "x-go-package" : "github.com/equinor/radix-job-scheduler/models/common"
+      }
+    }
+  },
+  "x-original-swagger-version" : "2.0"
+}

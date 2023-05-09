@@ -1,0 +1,4 @@
+additionalProperties:
+  aspnetCoreVersion: 5.0
+  packageName: RadixJobServer
+  netCoreProjectFile: true
