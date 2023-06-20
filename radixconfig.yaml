@@ -37,6 +37,10 @@ spec:
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
       environmentConfig:
+        - environment: prod
+          identity:
+            azure:
+              clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
         - environment: qa
           monitoring: true
           backoffLimit: 2
