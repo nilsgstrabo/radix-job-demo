@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"net/url"
 	"os"
 	"time"
 
@@ -20,8 +21,12 @@ func doSqlQuery() {
 		token, err := os.ReadFile(os.Getenv("AZURE_FEDERATED_TOKEN_FILE"))
 		return string(token), err
 	})
-
-	authority := fmt.Sprintf("%s%s/oauth2/token", os.Getenv("AZURE_AUTHORITY_HOST"), os.Getenv("AZURE_TENANT_ID"))
+	authority, err := url.JoinPath(os.Getenv("AZURE_AUTHORITY_HOST"), os.Getenv("AZURE_TENANT_ID"), "oauth", "token")
+	if err != nil {
+		logrus.Errorf("error composing authority: %v", err)
+		return
+	}
+	// authority := fmt.Sprintf("%s%s/oauth2/token", os.Getenv("AZURE_AUTHORITY_HOST"), os.Getenv("AZURE_TENANT_ID"))
 	logrus.Infof("using authority %s\n", authority)
 	confidentialClientApp, err := confidential.New(
 		os.Getenv("AZURE_CLIENT_ID"),
@@ -30,7 +35,7 @@ func doSqlQuery() {
 		confidential.WithAccessor(&TokenCache{}),
 	)
 	if err != nil {
-		logrus.Errorf("error creating confidential client: %w", err)
+		logrus.Errorf("error creating confidential client: %v", err)
 		return
 	}
 
@@ -53,7 +58,7 @@ func doSqlQuery() {
 		getToken)
 
 	if err != nil {
-		logrus.Errorf("error creating sql connector: %w", err)
+		logrus.Errorf("error creating sql connector: %v", err)
 		return
 	}
 	db := sql.OpenDB(connector)
@@ -62,13 +67,13 @@ func doSqlQuery() {
 	func() {
 		conn, err := db.Conn(context.Background())
 		if err != nil {
-			logrus.Errorf("error connecting to sql database: %w", err)
+			logrus.Errorf("error connecting to sql database: %v", err)
 			return
 		}
 		defer conn.Close()
 		rows, err := db.QueryContext(context.Background(), "select count(1) as cnt from dbo.Products")
 		if err != nil {
-			logrus.Errorf("error executing query: %w", err)
+			logrus.Errorf("error executing query: %v", err)
 			return
 		}
 		defer rows.Close()

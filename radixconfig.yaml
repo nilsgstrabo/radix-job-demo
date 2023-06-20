@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/release/json-schema/radixapplication.json
-
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
@@ -12,6 +10,9 @@ spec:
     - name: qa
       build:
         from: main
+    - name: prod
+      build:
+        from: release
   jobs:
     - name: "compute"
       src: "compute"
@@ -29,13 +30,17 @@ spec:
         path: "/compute/args"
       identity:
         azure:
-          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
       environmentConfig:
+        - environment: prod
+          identity:
+            azure:
+              clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
         - environment: qa
           monitoring: true
           backoffLimit: 2
@@ -44,7 +49,7 @@ spec:
       dockerfileName: Dockerfile.frontend
       identity:
         azure:
-          clientId: b96d264b-7053-4465-a4a7-32be5b0fec49 # user assigned managed identity
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
         ASPNETCORE_URLS: "http://*:5005"
         JOB_SCHEDULER: "http://compute:8080"
@@ -69,6 +74,17 @@ spec:
         limits:
           memory: "500M"
           cpu: "500m"
+      # secretRefs:
+      #   azureKeyVaults:
+      #     - items:
+      #         - name: connection-string-dev
+      #           envVar: SSP_CONN_STRING_DEV
+      #         - name: secret1
+      #           envVar: SSP_SECRET1
+      #         - name: secret2
+      #           envVar: SSP_SECRET2
+      #       name: radix-sci-az-kv-test
+      #       useAzureIdentity: true
     - name: redis
       image: bitnami/redis:6.2
       alwaysPullImageOnDeploy: true
