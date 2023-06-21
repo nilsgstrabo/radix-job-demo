@@ -55,6 +55,8 @@ spec:
         JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
       authentication:
+        clientCertificate:
+          verification: on
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
           scope: openid email profile offline_access
