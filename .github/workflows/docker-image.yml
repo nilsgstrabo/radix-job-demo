@@ -58,7 +58,7 @@ jobs:
           args: >
             restart
             environment
-            --application radix-job-demo
+            --application oauth-demo
             --environment qa
             --context development
       # - name: Start build-deploy
