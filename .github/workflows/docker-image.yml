@@ -45,6 +45,13 @@ jobs:
       #       -X PUT \
       #       -d '{"secretValue":"12345"}' \
       #       -H 'Authorization: Bearer ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}'            
+      - name: List apps
+        uses: equinor/radix-github-actions@restore-output-to-github-action-result
+        with:
+          args: >
+            get
+            application
+            --context development
       - name: Restart qa env
         uses: equinor/radix-github-actions@restore-output-to-github-action-result
         with:
