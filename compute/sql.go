@@ -42,9 +42,9 @@ func doSqlQuery() {
 		logrus.Errorf("error creating confidential client: %v", err)
 		return
 	}
-	creds, err := azidentity.NewManagedIdentityCredential(nil)
+	creds, err := azidentity.NewWorkloadIdentityCredential(nil)
 	if err != nil {
-		logrus.Errorf("NewManagedIdentityCredential: %v", err)
+		logrus.Errorf("NewWorkloadIdentityCredential: %v", err)
 		return
 	}
 	token, err := creds.GetToken(context.Background(), policy.TokenRequestOptions{Scopes: scopes})
