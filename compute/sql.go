@@ -8,6 +8,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/AzureAD/microsoft-authentication-library-for-go/apps/confidential"
 	mssql "github.com/denisenkom/go-mssqldb"
 	"github.com/denisenkom/go-mssqldb/msdsn"
@@ -38,6 +40,17 @@ func doSqlQuery() {
 		logrus.Errorf("error creating confidential client: %v", err)
 		return
 	}
+	creds, err := azidentity.NewManagedIdentityCredential("", nil)
+	if err != nil {
+		logrus.Errorf("NewManagedIdentityCredential: %v", err)
+		return
+	}
+	token, err := creds.GetToken(context.Background(), policy.TokenRequestOptions{Scopes: scopes})
+	if err != nil {
+		logrus.Errorf("GetToken: %v", err)
+		return
+	}
+	fmt.Printf("Got token with expiry %v\n", token.ExpiresOn)
 
 	getToken := func(ctx context.Context) (string, error) {
 		var authResult confidential.AuthResult
