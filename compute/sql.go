@@ -28,19 +28,21 @@ func doSqlQuery() {
 		logrus.Errorf("error composing authority: %v", err)
 		return
 	}
+
 	// authority := fmt.Sprintf("%s%s/oauth2/token", os.Getenv("AZURE_AUTHORITY_HOST"), os.Getenv("AZURE_TENANT_ID"))
 	logrus.Infof("using authority %s\n", authority)
 	confidentialClientApp, err := confidential.New(
+		authority,
 		os.Getenv("AZURE_CLIENT_ID"),
 		cred,
-		confidential.WithAuthority(authority),
-		confidential.WithAccessor(&TokenCache{}),
+		confidential.WithCache(&TokenCache{}),
 	)
+
 	if err != nil {
 		logrus.Errorf("error creating confidential client: %v", err)
 		return
 	}
-	creds, err := azidentity.NewManagedIdentityCredential("", nil)
+	creds, err := azidentity.NewManagedIdentityCredential(nil)
 	if err != nil {
 		logrus.Errorf("NewManagedIdentityCredential: %v", err)
 		return
