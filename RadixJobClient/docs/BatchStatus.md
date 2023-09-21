@@ -6,6 +6,7 @@ BatchStatus holds general information about batch status
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BatchName** | **string** | BatchName Optional Batch ID of a job | [optional] 
+**BatchType** | **string** | BatchType Single job or multiple jobs batch | [optional] 
 **Created** | **string** | Created timestamp | 
 **Ended** | **string** | Ended timestamp | [optional] 
 **JobId** | **string** | JobId Optional ID of a job | [optional] 

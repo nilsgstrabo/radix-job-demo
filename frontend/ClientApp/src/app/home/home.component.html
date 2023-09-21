@@ -65,6 +65,18 @@
   </div>
 </div>
 <div class="row mb-3">
+  <label class="col-sm-1 col-form-label">Time limit seconds</label>
+  <div class="col-sm-3">
+    <input name="timelimitSeconds" id="timelimitSeconds" type="number" [(ngModel)]="timelimitSeconds">
+  </div>
+</div>
+<div class="row mb-3">
+  <label class="col-sm-1 col-form-label">Backoff limit (number of retries)</label>
+  <div class="col-sm-3">
+    <input name="backoffLimit" id="backoffLimit" type="number" [(ngModel)]="backoffLimit">
+  </div>
+</div>
+<div class="row mb-3">
   <label class="col-sm-1 col-form-label">Custom job name</label>
   <div class="col-sm-3">
     <input name="customJobName" id="customJobName" [(ngModel)]="customJobName">

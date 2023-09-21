@@ -31,6 +31,8 @@ interface ComputeRequest {
   sleep: number,
   fail: boolean,
   customJobName?: string,
+  backoffLimit: number,
+  timelimitSeconds: number,
 }
 
 @Component({
@@ -48,6 +50,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   memory=0;
   cpu=0;
   sleep=0;
+  timelimitSeconds=300;
+  backoffLimit=0;
   fail=false;
   requestType=1;
   customJobName="";
@@ -188,6 +192,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       sleep: this.sleep,
       fail: this.fail,
       customJobName: this.customJobName ? this.customJobName : undefined,
+      backoffLimit: this.backoffLimit,
+      timelimitSeconds: this.timelimitSeconds,
     };
     
     console.log(this.requestType);

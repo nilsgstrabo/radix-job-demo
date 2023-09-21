@@ -5,8 +5,8 @@ RadixNode defines node attributes, where container should be scheduled
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Gpu** | **string** | Gpu Optional. Holds lists of node GPU types, with dashed types to exclude | [optional] 
-**GpuCount** | **string** | GpuCount Optional. Holds minimum count of GPU on node | [optional] 
+**Gpu** | **string** | Defines rules for allowed GPU types. More info: https://www.radix.equinor.com/references/reference-radix-config/#gpu +optional | [optional] 
+**GpuCount** | **string** | Defines minimum number of required GPUs. +optional | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

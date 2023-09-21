@@ -98,6 +98,7 @@ namespace RadixJobClient.Model
         /// Initializes a new instance of the <see cref="BatchStatus" /> class.
         /// </summary>
         /// <param name="batchName">BatchName Optional Batch ID of a job.</param>
+        /// <param name="batchType">BatchType Single job or multiple jobs batch.</param>
         /// <param name="created">Created timestamp (required).</param>
         /// <param name="ended">Ended timestamp.</param>
         /// <param name="jobId">JobId Optional ID of a job.</param>
@@ -106,7 +107,7 @@ namespace RadixJobClient.Model
         /// <param name="name">Name of the job (required).</param>
         /// <param name="started">Started timestamp.</param>
         /// <param name="status">Status of the job.</param>
-        public BatchStatus(string batchName = default(string), string created = default(string), string ended = default(string), string jobId = default(string), List<JobStatus> jobStatuses = default(List<JobStatus>), string message = default(string), string name = default(string), string started = default(string), StatusEnum? status = default(StatusEnum?))
+        public BatchStatus(string batchName = default(string), string batchType = default(string), string created = default(string), string ended = default(string), string jobId = default(string), List<JobStatus> jobStatuses = default(List<JobStatus>), string message = default(string), string name = default(string), string started = default(string), StatusEnum? status = default(StatusEnum?))
         {
             // to ensure "created" is required (not null)
             if (created == null) {
@@ -119,6 +120,7 @@ namespace RadixJobClient.Model
             }
             this.Name = name;
             this.BatchName = batchName;
+            this.BatchType = batchType;
             this.Ended = ended;
             this.JobId = jobId;
             this.JobStatuses = jobStatuses;
@@ -133,6 +135,13 @@ namespace RadixJobClient.Model
         /// <value>BatchName Optional Batch ID of a job</value>
         [DataMember(Name = "batchName", EmitDefaultValue = false)]
         public string BatchName { get; set; }
+
+        /// <summary>
+        /// BatchType Single job or multiple jobs batch
+        /// </summary>
+        /// <value>BatchType Single job or multiple jobs batch</value>
+        [DataMember(Name = "batchType", EmitDefaultValue = false)]
+        public string BatchType { get; set; }
 
         /// <summary>
         /// Created timestamp
@@ -192,6 +201,7 @@ namespace RadixJobClient.Model
             var sb = new StringBuilder();
             sb.Append("class BatchStatus {\n");
             sb.Append("  BatchName: ").Append(BatchName).Append("\n");
+            sb.Append("  BatchType: ").Append(BatchType).Append("\n");
             sb.Append("  Created: ").Append(Created).Append("\n");
             sb.Append("  Ended: ").Append(Ended).Append("\n");
             sb.Append("  JobId: ").Append(JobId).Append("\n");
@@ -238,6 +248,11 @@ namespace RadixJobClient.Model
                     this.BatchName == input.BatchName ||
                     (this.BatchName != null &&
                     this.BatchName.Equals(input.BatchName))
+                ) && 
+                (
+                    this.BatchType == input.BatchType ||
+                    (this.BatchType != null &&
+                    this.BatchType.Equals(input.BatchType))
                 ) && 
                 (
                     this.Created == input.Created ||
@@ -292,6 +307,8 @@ namespace RadixJobClient.Model
                 int hashCode = 41;
                 if (this.BatchName != null)
                     hashCode = hashCode * 59 + this.BatchName.GetHashCode();
+                if (this.BatchType != null)
+                    hashCode = hashCode * 59 + this.BatchType.GetHashCode();
                 if (this.Created != null)
                     hashCode = hashCode * 59 + this.Created.GetHashCode();
                 if (this.Ended != null)

@@ -137,7 +137,9 @@ public class ComputeService : IComputeService
         
         JobScheduleDescription jobRequest = new JobScheduleDescription{ 
             Payload = payload,
-            JobId = request.CustomJobName ?? ""
+            JobId = request.CustomJobName ?? "",
+            BackoffLimit = request.BackoffLimit,
+            TimeLimitSeconds = request.TimelimitSeconds
         };
         
         if (request.Cpu!=JobResourceEnum.Default || request.Memory!=JobResourceEnum.Default) {

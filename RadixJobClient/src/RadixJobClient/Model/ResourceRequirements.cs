@@ -26,7 +26,7 @@ using OpenAPIDateConverter = RadixJobClient.Client.OpenAPIDateConverter;
 namespace RadixJobClient.Model
 {
     /// <summary>
-    /// ResourceRequirements
+    /// More info: https://www.radix.equinor.com/references/reference-radix-config/#resources-common
     /// </summary>
     [DataContract(Name = "ResourceRequirements")]
     public partial class ResourceRequirements : IEquatable<ResourceRequirements>, IValidatableObject
@@ -34,8 +34,8 @@ namespace RadixJobClient.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ResourceRequirements" /> class.
         /// </summary>
-        /// <param name="limits">ResourceList Placeholder for resouce specifications in the config.</param>
-        /// <param name="requests">ResourceList Placeholder for resouce specifications in the config.</param>
+        /// <param name="limits">limits.</param>
+        /// <param name="requests">requests.</param>
         public ResourceRequirements(Dictionary<string, string> limits = default(Dictionary<string, string>), Dictionary<string, string> requests = default(Dictionary<string, string>))
         {
             this.Limits = limits;
@@ -43,16 +43,14 @@ namespace RadixJobClient.Model
         }
 
         /// <summary>
-        /// ResourceList Placeholder for resouce specifications in the config
+        /// Gets or Sets Limits
         /// </summary>
-        /// <value>ResourceList Placeholder for resouce specifications in the config</value>
         [DataMember(Name = "limits", EmitDefaultValue = false)]
         public Dictionary<string, string> Limits { get; set; }
 
         /// <summary>
-        /// ResourceList Placeholder for resouce specifications in the config
+        /// Gets or Sets Requests
         /// </summary>
-        /// <value>ResourceList Placeholder for resouce specifications in the config</value>
         [DataMember(Name = "requests", EmitDefaultValue = false)]
         public Dictionary<string, string> Requests { get; set; }
 
