@@ -119,7 +119,7 @@ namespace frontend.Controllers
                     string imgPath = Path.Join(path, fileName);
                     using (var fs = new System.IO.FileStream(imgPath, FileMode.Create, FileAccess.ReadWrite))
                     {
-                        ms.CopyTo(fs)
+                        ms.CopyTo(fs);
                     }
 
                 }
