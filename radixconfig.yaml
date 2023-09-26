@@ -31,6 +31,15 @@ spec:
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+      secrets:
+        - SECRET1
+        - SECRET2
+      secretRefs:
+        azureKeyVaults:
+          - items:
+              - name: db-password
+                envVar: DB_PASSWORD
+            name: mykeyvalut
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5005"
