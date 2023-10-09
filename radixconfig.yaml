@@ -43,7 +43,7 @@ spec:
               clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
         - environment: qa
           monitoring: true
-          backoffLimit: 2
+          backoffLimit: 0
   components:
     - name: "server"
       dockerfileName: Dockerfile.frontend
