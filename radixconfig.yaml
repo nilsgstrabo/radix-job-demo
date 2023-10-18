@@ -3,6 +3,8 @@ kind: RadixApplication
 metadata:
   name: radix-job-demo
 spec:
+  build:
+    useBuildKit: true
   dnsAppAlias:
     environment: qa
     component: server
