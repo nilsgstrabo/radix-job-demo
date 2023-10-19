@@ -28,6 +28,7 @@ public class ComputePayload
     public int Sleep { get; set; }
     public bool Fail { get; set; }
     public string StringVal { get; set; }
+    
 
 }
 
@@ -111,7 +112,14 @@ public class ComputeService : IComputeService
     {
         var jobRequest = GetJobScheduleDescriptionFromJobRequest(request);
 
-        var batchRequest=new BatchScheduleDescription(null, new List<JobScheduleDescription>{jobRequest});
+        var jobs = new List<JobScheduleDescription>();
+
+        for (int i = 0; i < request.JobCount; i++)
+        {
+            jobs.Add(jobRequest);
+        }
+
+        var batchRequest=new BatchScheduleDescription(null, jobs);
 
         _logger.LogInformation("Payload: {0}", request);
         return await _batchApi.CreateBatchAsync(batchRequest);

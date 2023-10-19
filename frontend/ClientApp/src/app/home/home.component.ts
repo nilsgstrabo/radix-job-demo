@@ -33,6 +33,7 @@ interface ComputeRequest {
   customJobName?: string,
   backoffLimit: number,
   timelimitSeconds: number,
+  jobCount: number,
 }
 
 @Component({
@@ -55,6 +56,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   fail=false;
   requestType=1;
   customJobName="";
+  jobCount=1;
   jobs: any[] = [];
   imageReceivedMessage = '';
   imageId = 1;
@@ -194,6 +196,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       customJobName: this.customJobName ? this.customJobName : undefined,
       backoffLimit: this.backoffLimit,
       timelimitSeconds: this.timelimitSeconds,
+      jobCount: this.jobCount,
     };
     
     console.log(this.requestType);
