@@ -96,7 +96,7 @@ func main() {
 
 	cfgBytes, err := os.ReadFile(cfgFile)
 	if err != nil {
-		logrus.Panicf("error reading config file: %v", err)
+		logrus.Panicf("error reading config file  %v", err)
 	}
 
 	logrus.Info(string(cfgBytes))
