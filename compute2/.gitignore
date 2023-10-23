@@ -1,0 +1,14 @@
+# VS Code
+.vscode
+
+# Binaries, plugins, libs
+*.dll
+*.dylib
+*.exe
+*.exe~
+*.so
+
+# Testing
+*.test
+*.tmp
+test/out/*.png
