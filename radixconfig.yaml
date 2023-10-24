@@ -81,7 +81,6 @@ spec:
           cpu: "50m"
         limits:
           memory: "500M"
-          cpu: "500m"
     - name: redis
       image: bitnami/redis:6.2
       alwaysPullImageOnDeploy: true
@@ -96,5 +95,4 @@ spec:
           cpu: "50m"
         limits:
           memory: "200M"
-          cpu: "100m"
 
