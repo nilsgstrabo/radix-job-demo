@@ -9,6 +9,9 @@ spec:
     environment: qa
     component: server
   environments:
+    - name: dev
+      build:
+        from: main
     - name: qa
       build:
         from: main
