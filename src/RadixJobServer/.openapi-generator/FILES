@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 README.md
 RadixJobServer.sln
 build.bat
@@ -13,6 +12,7 @@ src/RadixJobServer/Dockerfile
 src/RadixJobServer/Filters/BasePathFilter.cs
 src/RadixJobServer/Filters/GeneratePathParamsValidationFilter.cs
 src/RadixJobServer/Formatters/InputFormatterStream.cs
+src/RadixJobServer/Models/BatchEvent.cs
 src/RadixJobServer/Models/BatchScheduleDescription.cs
 src/RadixJobServer/Models/BatchStatus.cs
 src/RadixJobServer/Models/JobScheduleDescription.cs

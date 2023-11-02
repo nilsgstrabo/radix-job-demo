@@ -131,6 +131,7 @@ Class | Method | HTTP request | Description
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [Model.BatchEvent](docs/BatchEvent.md)
  - [Model.BatchScheduleDescription](docs/BatchScheduleDescription.md)
  - [Model.BatchStatus](docs/BatchStatus.md)
  - [Model.JobScheduleDescription](docs/JobScheduleDescription.md)

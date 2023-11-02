@@ -56,9 +56,9 @@ namespace RadixJobServer.Models
         public string JobId { get; set; }
 
         /// <summary>
-        /// Status message, if any, of the job
+        /// Message, if any, of the job
         /// </summary>
-        /// <value>Status message, if any, of the job</value>
+        /// <value>Message, if any, of the job</value>
         [DataMember(Name="message", EmitDefaultValue=false)]
         public string Message { get; set; }
 

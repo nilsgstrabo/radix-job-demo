@@ -27,16 +27,16 @@ namespace RadixJobServer.Models
     public partial class RadixNode : IEquatable<RadixNode>
     {
         /// <summary>
-        /// Gpu Optional. Holds lists of node GPU types, with dashed types to exclude
+        /// Defines rules for allowed GPU types. More info: https://www.radix.equinor.com/references/reference-radix-config/#gpu +optional
         /// </summary>
-        /// <value>Gpu Optional. Holds lists of node GPU types, with dashed types to exclude</value>
+        /// <value>Defines rules for allowed GPU types. More info: https://www.radix.equinor.com/references/reference-radix-config/#gpu +optional</value>
         [DataMember(Name="gpu", EmitDefaultValue=false)]
         public string Gpu { get; set; }
 
         /// <summary>
-        /// GpuCount Optional. Holds minimum count of GPU on node
+        /// Defines minimum number of required GPUs. +optional
         /// </summary>
-        /// <value>GpuCount Optional. Holds minimum count of GPU on node</value>
+        /// <value>Defines minimum number of required GPUs. +optional</value>
         [DataMember(Name="gpuCount", EmitDefaultValue=false)]
         public string GpuCount { get; set; }
 

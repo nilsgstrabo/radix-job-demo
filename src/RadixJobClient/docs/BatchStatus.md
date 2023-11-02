@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Ended** | **string** | Ended timestamp | [optional] 
 **JobId** | **string** | JobId Optional ID of a job | [optional] 
 **JobStatuses** | [**List&lt;JobStatus&gt;**](JobStatus.md) | JobStatuses of the jobs in the batch | [optional] 
-**Message** | **string** | Status message, if any, of the job | [optional] 
+**Message** | **string** | Message, if any, of the job | [optional] 
 **Name** | **string** | Name of the job | 
 **Started** | **string** | Started timestamp | [optional] 
 **Status** | **string** | Status of the job | [optional] 

@@ -26,10 +26,10 @@ using OpenAPIDateConverter = RadixJobClient.Client.OpenAPIDateConverter;
 namespace RadixJobClient.Model
 {
     /// <summary>
-    /// BatchStatus holds general information about batch status
+    /// BatchEvent holds general information about batch event on change of status
     /// </summary>
-    [DataContract(Name = "BatchStatus")]
-    public partial class BatchStatus : IEquatable<BatchStatus>, IValidatableObject
+    [DataContract(Name = "BatchEvent")]
+    public partial class BatchEvent : IEquatable<BatchEvent>, IValidatableObject
     {
         /// <summary>
         /// Status of the job
@@ -90,33 +90,39 @@ namespace RadixJobClient.Model
         [DataMember(Name = "status", EmitDefaultValue = false)]
         public StatusEnum? Status { get; set; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="BatchStatus" /> class.
+        /// Initializes a new instance of the <see cref="BatchEvent" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected BatchStatus() { }
+        protected BatchEvent() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="BatchStatus" /> class.
+        /// Initializes a new instance of the <see cref="BatchEvent" /> class.
         /// </summary>
         /// <param name="batchName">BatchName Optional Batch ID of a job.</param>
         /// <param name="batchType">BatchType Single job or multiple jobs batch.</param>
         /// <param name="created">Created timestamp (required).</param>
         /// <param name="ended">Ended timestamp.</param>
+        /// <param name="_event">_event (required).</param>
         /// <param name="jobId">JobId Optional ID of a job.</param>
         /// <param name="jobStatuses">JobStatuses of the jobs in the batch.</param>
         /// <param name="message">Message, if any, of the job.</param>
         /// <param name="name">Name of the job (required).</param>
         /// <param name="started">Started timestamp.</param>
         /// <param name="status">Status of the job.</param>
-        public BatchStatus(string batchName = default(string), string batchType = default(string), string created = default(string), string ended = default(string), string jobId = default(string), List<JobStatus> jobStatuses = default(List<JobStatus>), string message = default(string), string name = default(string), string started = default(string), StatusEnum? status = default(StatusEnum?))
+        public BatchEvent(string batchName = default(string), string batchType = default(string), string created = default(string), string ended = default(string), string _event = default(string), string jobId = default(string), List<JobStatus> jobStatuses = default(List<JobStatus>), string message = default(string), string name = default(string), string started = default(string), StatusEnum? status = default(StatusEnum?))
         {
             // to ensure "created" is required (not null)
             if (created == null) {
-                throw new ArgumentNullException("created is a required property for BatchStatus and cannot be null");
+                throw new ArgumentNullException("created is a required property for BatchEvent and cannot be null");
             }
             this.Created = created;
+            // to ensure "_event" is required (not null)
+            if (_event == null) {
+                throw new ArgumentNullException("_event is a required property for BatchEvent and cannot be null");
+            }
+            this.Event = _event;
             // to ensure "name" is required (not null)
             if (name == null) {
-                throw new ArgumentNullException("name is a required property for BatchStatus and cannot be null");
+                throw new ArgumentNullException("name is a required property for BatchEvent and cannot be null");
             }
             this.Name = name;
             this.BatchName = batchName;
@@ -156,6 +162,12 @@ namespace RadixJobClient.Model
         /// <value>Ended timestamp</value>
         [DataMember(Name = "ended", EmitDefaultValue = false)]
         public string Ended { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Event
+        /// </summary>
+        [DataMember(Name = "event", IsRequired = true, EmitDefaultValue = false)]
+        public string Event { get; set; }
 
         /// <summary>
         /// JobId Optional ID of a job
@@ -199,11 +211,12 @@ namespace RadixJobClient.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class BatchStatus {\n");
+            sb.Append("class BatchEvent {\n");
             sb.Append("  BatchName: ").Append(BatchName).Append("\n");
             sb.Append("  BatchType: ").Append(BatchType).Append("\n");
             sb.Append("  Created: ").Append(Created).Append("\n");
             sb.Append("  Ended: ").Append(Ended).Append("\n");
+            sb.Append("  Event: ").Append(Event).Append("\n");
             sb.Append("  JobId: ").Append(JobId).Append("\n");
             sb.Append("  JobStatuses: ").Append(JobStatuses).Append("\n");
             sb.Append("  Message: ").Append(Message).Append("\n");
@@ -230,15 +243,15 @@ namespace RadixJobClient.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as BatchStatus);
+            return this.Equals(input as BatchEvent);
         }
 
         /// <summary>
-        /// Returns true if BatchStatus instances are equal
+        /// Returns true if BatchEvent instances are equal
         /// </summary>
-        /// <param name="input">Instance of BatchStatus to be compared</param>
+        /// <param name="input">Instance of BatchEvent to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(BatchStatus input)
+        public bool Equals(BatchEvent input)
         {
             if (input == null)
                 return false;
@@ -263,6 +276,11 @@ namespace RadixJobClient.Model
                     this.Ended == input.Ended ||
                     (this.Ended != null &&
                     this.Ended.Equals(input.Ended))
+                ) && 
+                (
+                    this.Event == input.Event ||
+                    (this.Event != null &&
+                    this.Event.Equals(input.Event))
                 ) && 
                 (
                     this.JobId == input.JobId ||
@@ -313,6 +331,8 @@ namespace RadixJobClient.Model
                     hashCode = hashCode * 59 + this.Created.GetHashCode();
                 if (this.Ended != null)
                     hashCode = hashCode * 59 + this.Ended.GetHashCode();
+                if (this.Event != null)
+                    hashCode = hashCode * 59 + this.Event.GetHashCode();
                 if (this.JobId != null)
                     hashCode = hashCode * 59 + this.JobId.GetHashCode();
                 if (this.JobStatuses != null)

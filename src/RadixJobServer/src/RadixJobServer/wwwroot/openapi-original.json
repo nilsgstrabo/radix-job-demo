@@ -617,6 +617,81 @@
   },
   "components" : {
     "schemas" : {
+      "BatchEvent" : {
+        "description" : "BatchEvent holds general information about batch event on change of status",
+        "properties" : {
+          "batchName" : {
+            "description" : "BatchName Optional Batch ID of a job",
+            "example" : "'batch1'",
+            "type" : "string",
+            "x-go-name" : "BatchName"
+          },
+          "batchType" : {
+            "description" : "BatchType Single job or multiple jobs batch",
+            "example" : "\"job\"",
+            "type" : "string",
+            "x-go-name" : "BatchType"
+          },
+          "created" : {
+            "description" : "Created timestamp",
+            "example" : "2006-01-02T15:04:05Z",
+            "type" : "string",
+            "x-go-name" : "Created"
+          },
+          "ended" : {
+            "description" : "Ended timestamp",
+            "example" : "2006-01-02T15:04:05Z",
+            "type" : "string",
+            "x-go-name" : "Ended"
+          },
+          "event" : {
+            "type" : "string",
+            "x-go-package" : "github.com/equinor/radix-job-scheduler/models/v1/events"
+          },
+          "jobId" : {
+            "description" : "JobId Optional ID of a job",
+            "example" : "'job1'",
+            "type" : "string",
+            "x-go-name" : "JobId"
+          },
+          "jobStatuses" : {
+            "description" : "JobStatuses of the jobs in the batch",
+            "items" : {
+              "$ref" : "#/components/schemas/JobStatus"
+            },
+            "type" : "array",
+            "x-go-name" : "JobStatuses"
+          },
+          "message" : {
+            "description" : "Message, if any, of the job",
+            "example" : "\"Error occurred\"",
+            "type" : "string",
+            "x-go-name" : "Message"
+          },
+          "name" : {
+            "description" : "Name of the job",
+            "example" : "calculator",
+            "type" : "string",
+            "x-go-name" : "Name"
+          },
+          "started" : {
+            "description" : "Started timestamp",
+            "example" : "2006-01-02T15:04:05Z",
+            "type" : "string",
+            "x-go-name" : "Started"
+          },
+          "status" : {
+            "description" : "Status of the job",
+            "enum" : [ "Waiting", "Running", "Succeeded", "Stopping", "Stopped", "Failed", "DeadlineExceeded" ],
+            "example" : "Waiting",
+            "type" : "string",
+            "x-go-name" : "Status"
+          }
+        },
+        "required" : [ "created", "event", "name" ],
+        "type" : "object",
+        "x-go-package" : "github.com/equinor/radix-job-scheduler/models/v1/events"
+      },
       "BatchScheduleDescription" : {
         "description" : "BatchScheduleDescription holds description about batch scheduling job",
         "example" : {
@@ -627,6 +702,7 @@
             },
             "backoffLimit" : 0,
             "timeLimitSeconds" : 6,
+            "imageTagName" : "imageTagName",
             "resources" : {
               "requests" : {
                 "key" : "requests"
@@ -645,6 +721,7 @@
             "backoffLimit" : 1,
             "payload" : "{'data':'value'}",
             "timeLimitSeconds" : 5,
+            "imageTagName" : "imageTagName",
             "resources" : {
               "requests" : {
                 "key" : "requests"
@@ -662,6 +739,7 @@
             "backoffLimit" : 1,
             "payload" : "{'data':'value'}",
             "timeLimitSeconds" : 5,
+            "imageTagName" : "imageTagName",
             "resources" : {
               "requests" : {
                 "key" : "requests"
@@ -698,6 +776,7 @@
           "ended" : "2006-01-02T15:04:05Z",
           "name" : "calculator",
           "started" : "2006-01-02T15:04:05Z",
+          "batchType" : "\"job\"",
           "message" : "\"Error occurred\"",
           "jobStatuses" : [ {
             "batchName" : "'batch1'",
@@ -727,6 +806,12 @@
             "type" : "string",
             "x-go-name" : "BatchName"
           },
+          "batchType" : {
+            "description" : "BatchType Single job or multiple jobs batch",
+            "example" : "\"job\"",
+            "type" : "string",
+            "x-go-name" : "BatchType"
+          },
           "created" : {
             "description" : "Created timestamp",
             "example" : "2006-01-02T15:04:05Z",
@@ -754,7 +839,7 @@
             "x-go-name" : "JobStatuses"
           },
           "message" : {
-            "description" : "Status message, if any, of the job",
+            "description" : "Message, if any, of the job",
             "example" : "\"Error occurred\"",
             "type" : "string",
             "x-go-name" : "Message"
@@ -783,6 +868,10 @@
         "type" : "object",
         "x-go-package" : "github.com/equinor/radix-job-scheduler/models/v1"
       },
+      "Event" : {
+        "type" : "string",
+        "x-go-package" : "github.com/equinor/radix-job-scheduler/models/v1/events"
+      },
       "JobScheduleDescription" : {
         "description" : "JobScheduleDescription holds description about scheduling job",
         "example" : {
@@ -794,6 +883,7 @@
           "backoffLimit" : 1,
           "payload" : "{'data':'value'}",
           "timeLimitSeconds" : 5,
+          "imageTagName" : "imageTagName",
           "resources" : {
             "requests" : {
               "key" : "requests"
@@ -809,6 +899,11 @@
             "format" : "int32",
             "type" : "integer",
             "x-go-name" : "BackoffLimit"
+          },
+          "imageTagName" : {
+            "description" : "ImageTagName defines the image tag name to use for the job image",
+            "type" : "string",
+            "x-go-name" : "ImageTagName"
           },
           "jobId" : {
             "description" : "JobId Optional ID of a job",
@@ -876,7 +971,7 @@
             "x-go-name" : "JobId"
           },
           "message" : {
-            "description" : "Status message, if any, of the job",
+            "description" : "Message, if any, of the job",
             "example" : "\"Error occurred\"",
             "type" : "string",
             "x-go-name" : "Message"
@@ -914,6 +1009,7 @@
           },
           "backoffLimit" : 0,
           "timeLimitSeconds" : 6,
+          "imageTagName" : "imageTagName",
           "resources" : {
             "requests" : {
               "key" : "requests"
@@ -929,6 +1025,11 @@
             "format" : "int32",
             "type" : "integer",
             "x-go-name" : "BackoffLimit"
+          },
+          "imageTagName" : {
+            "description" : "ImageTagName defines the image tag name to use for the job image",
+            "type" : "string",
+            "x-go-name" : "ImageTagName"
           },
           "node" : {
             "$ref" : "#/components/schemas/RadixNode"
@@ -954,12 +1055,12 @@
         },
         "properties" : {
           "gpu" : {
-            "description" : "Gpu Optional. Holds lists of node GPU types, with dashed types to exclude",
+            "description" : "Defines rules for allowed GPU types.\nMore info: https://www.radix.equinor.com/references/reference-radix-config/#gpu\n+optional",
             "type" : "string",
             "x-go-name" : "Gpu"
           },
           "gpuCount" : {
-            "description" : "GpuCount Optional. Holds minimum count of GPU on node",
+            "description" : "Defines minimum number of required GPUs.\n+optional",
             "type" : "string",
             "x-go-name" : "GpuCount"
           }
@@ -971,11 +1072,12 @@
         "additionalProperties" : {
           "type" : "string"
         },
-        "description" : "ResourceList Placeholder for resouce specifications in the config",
+        "title" : "ResourceList defines a resource and a value.",
         "type" : "object",
         "x-go-package" : "github.com/equinor/radix-operator/pkg/apis/radix/v1"
       },
       "ResourceRequirements" : {
+        "description" : "More info: https://www.radix.equinor.com/references/reference-radix-config/#resources-common",
         "example" : {
           "requests" : {
             "key" : "requests"
@@ -989,7 +1091,7 @@
             "additionalProperties" : {
               "type" : "string"
             },
-            "description" : "ResourceList Placeholder for resouce specifications in the config",
+            "title" : "ResourceList defines a resource and a value.",
             "type" : "object",
             "x-go-package" : "github.com/equinor/radix-operator/pkg/apis/radix/v1"
           },
@@ -997,7 +1099,7 @@
             "additionalProperties" : {
               "type" : "string"
             },
-            "description" : "ResourceList Placeholder for resouce specifications in the config",
+            "title" : "ResourceList defines a resource and a value.",
             "type" : "object",
             "x-go-package" : "github.com/equinor/radix-operator/pkg/apis/radix/v1"
           }

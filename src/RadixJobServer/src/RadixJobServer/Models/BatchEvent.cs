@@ -21,10 +21,10 @@ using RadixJobServer.Converters;
 namespace RadixJobServer.Models
 { 
     /// <summary>
-    /// BatchStatus holds general information about batch status
+    /// BatchEvent holds general information about batch event on change of status
     /// </summary>
     [DataContract]
-    public partial class BatchStatus : IEquatable<BatchStatus>
+    public partial class BatchEvent : IEquatable<BatchEvent>
     {
         /// <summary>
         /// BatchName Optional Batch ID of a job
@@ -54,6 +54,13 @@ namespace RadixJobServer.Models
         /// <value>Ended timestamp</value>
         [DataMember(Name="ended", EmitDefaultValue=false)]
         public string Ended { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Event
+        /// </summary>
+        [Required]
+        [DataMember(Name="event", EmitDefaultValue=false)]
+        public string Event { get; set; }
 
         /// <summary>
         /// JobId Optional ID of a job
@@ -158,11 +165,12 @@ namespace RadixJobServer.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class BatchStatus {\n");
+            sb.Append("class BatchEvent {\n");
             sb.Append("  BatchName: ").Append(BatchName).Append("\n");
             sb.Append("  BatchType: ").Append(BatchType).Append("\n");
             sb.Append("  Created: ").Append(Created).Append("\n");
             sb.Append("  Ended: ").Append(Ended).Append("\n");
+            sb.Append("  Event: ").Append(Event).Append("\n");
             sb.Append("  JobId: ").Append(JobId).Append("\n");
             sb.Append("  JobStatuses: ").Append(JobStatuses).Append("\n");
             sb.Append("  Message: ").Append(Message).Append("\n");
@@ -191,15 +199,15 @@ namespace RadixJobServer.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((BatchStatus)obj);
+            return obj.GetType() == GetType() && Equals((BatchEvent)obj);
         }
 
         /// <summary>
-        /// Returns true if BatchStatus instances are equal
+        /// Returns true if BatchEvent instances are equal
         /// </summary>
-        /// <param name="other">Instance of BatchStatus to be compared</param>
+        /// <param name="other">Instance of BatchEvent to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(BatchStatus other)
+        public bool Equals(BatchEvent other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -224,6 +232,11 @@ namespace RadixJobServer.Models
                     Ended == other.Ended ||
                     Ended != null &&
                     Ended.Equals(other.Ended)
+                ) && 
+                (
+                    Event == other.Event ||
+                    Event != null &&
+                    Event.Equals(other.Event)
                 ) && 
                 (
                     JobId == other.JobId ||
@@ -276,6 +289,8 @@ namespace RadixJobServer.Models
                     hashCode = hashCode * 59 + Created.GetHashCode();
                     if (Ended != null)
                     hashCode = hashCode * 59 + Ended.GetHashCode();
+                    if (Event != null)
+                    hashCode = hashCode * 59 + Event.GetHashCode();
                     if (JobId != null)
                     hashCode = hashCode * 59 + JobId.GetHashCode();
                     if (JobStatuses != null)
@@ -295,12 +310,12 @@ namespace RadixJobServer.Models
         #region Operators
         #pragma warning disable 1591
 
-        public static bool operator ==(BatchStatus left, BatchStatus right)
+        public static bool operator ==(BatchEvent left, BatchEvent right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(BatchStatus left, BatchStatus right)
+        public static bool operator !=(BatchEvent left, BatchEvent right)
         {
             return !Equals(left, right);
         }

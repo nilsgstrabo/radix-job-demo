@@ -9,7 +9,7 @@
     <Version>1.0.0</Version>
     <AssemblyName>RadixJobServer</AssemblyName>
     <PackageId>RadixJobServer</PackageId>
-    <UserSecretsId>c4180322-996a-46ce-9e00-4bd219b4b66b</UserSecretsId>
+    <UserSecretsId>d9b74777-6eb1-45df-94c8-11012a6afbe0</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>

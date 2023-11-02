@@ -21,22 +21,20 @@ using RadixJobServer.Converters;
 namespace RadixJobServer.Models
 { 
     /// <summary>
-    /// 
+    /// More info: https://www.radix.equinor.com/references/reference-radix-config/#resources-common
     /// </summary>
     [DataContract]
     public partial class ResourceRequirements : IEquatable<ResourceRequirements>
     {
         /// <summary>
-        /// ResourceList Placeholder for resouce specifications in the config
+        /// Gets or Sets Limits
         /// </summary>
-        /// <value>ResourceList Placeholder for resouce specifications in the config</value>
         [DataMember(Name="limits", EmitDefaultValue=false)]
         public Dictionary<string, string> Limits { get; set; }
 
         /// <summary>
-        /// ResourceList Placeholder for resouce specifications in the config
+        /// Gets or Sets Requests
         /// </summary>
-        /// <value>ResourceList Placeholder for resouce specifications in the config</value>
         [DataMember(Name="requests", EmitDefaultValue=false)]
         public Dictionary<string, string> Requests { get; set; }
 

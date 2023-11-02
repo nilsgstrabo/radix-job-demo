@@ -34,6 +34,13 @@ namespace RadixJobServer.Models
         public int BackoffLimit { get; set; }
 
         /// <summary>
+        /// ImageTagName defines the image tag name to use for the job image
+        /// </summary>
+        /// <value>ImageTagName defines the image tag name to use for the job image</value>
+        [DataMember(Name="imageTagName", EmitDefaultValue=false)]
+        public string ImageTagName { get; set; }
+
+        /// <summary>
         /// Gets or Sets Node
         /// </summary>
         [DataMember(Name="node", EmitDefaultValue=false)]
@@ -61,6 +68,7 @@ namespace RadixJobServer.Models
             var sb = new StringBuilder();
             sb.Append("class RadixJobComponentConfig {\n");
             sb.Append("  BackoffLimit: ").Append(BackoffLimit).Append("\n");
+            sb.Append("  ImageTagName: ").Append(ImageTagName).Append("\n");
             sb.Append("  Node: ").Append(Node).Append("\n");
             sb.Append("  Resources: ").Append(Resources).Append("\n");
             sb.Append("  TimeLimitSeconds: ").Append(TimeLimitSeconds).Append("\n");
@@ -106,6 +114,11 @@ namespace RadixJobServer.Models
                     BackoffLimit.Equals(other.BackoffLimit)
                 ) && 
                 (
+                    ImageTagName == other.ImageTagName ||
+                    ImageTagName != null &&
+                    ImageTagName.Equals(other.ImageTagName)
+                ) && 
+                (
                     Node == other.Node ||
                     Node != null &&
                     Node.Equals(other.Node)
@@ -134,6 +147,8 @@ namespace RadixJobServer.Models
                 // Suitable nullity checks etc, of course :)
                     
                     hashCode = hashCode * 59 + BackoffLimit.GetHashCode();
+                    if (ImageTagName != null)
+                    hashCode = hashCode * 59 + ImageTagName.GetHashCode();
                     if (Node != null)
                     hashCode = hashCode * 59 + Node.GetHashCode();
                     if (Resources != null)

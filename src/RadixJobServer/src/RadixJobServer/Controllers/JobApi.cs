@@ -61,7 +61,7 @@ namespace RadixJobServer.Controllers
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Status));
             string exampleJson = null;
-            exampleJson = "{\n  \"batchName\" : \"'batch1'\",\n  \"jobId\" : \"'job1'\",\n  \"created\" : \"2006-01-02T15:04:05Z\",\n  \"ended\" : \"2006-01-02T15:04:05Z\",\n  \"name\" : \"calculator\",\n  \"started\" : \"2006-01-02T15:04:05Z\",\n  \"message\" : \"Error occurred\",\n  \"status\" : \"Waiting\"\n}";
+            exampleJson = "{\n  \"batchName\" : \"'batch1'\",\n  \"jobId\" : \"'job1'\",\n  \"created\" : \"2006-01-02T15:04:05Z\",\n  \"ended\" : \"2006-01-02T15:04:05Z\",\n  \"name\" : \"calculator\",\n  \"started\" : \"2006-01-02T15:04:05Z\",\n  \"message\" : \"\\"Error occurred\\"\",\n  \"status\" : \"Waiting\"\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<JobStatus>(exampleJson)
@@ -127,7 +127,7 @@ namespace RadixJobServer.Controllers
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Status));
             string exampleJson = null;
-            exampleJson = "{\n  \"batchName\" : \"'batch1'\",\n  \"jobId\" : \"'job1'\",\n  \"created\" : \"2006-01-02T15:04:05Z\",\n  \"ended\" : \"2006-01-02T15:04:05Z\",\n  \"name\" : \"calculator\",\n  \"started\" : \"2006-01-02T15:04:05Z\",\n  \"message\" : \"Error occurred\",\n  \"status\" : \"Waiting\"\n}";
+            exampleJson = "{\n  \"batchName\" : \"'batch1'\",\n  \"jobId\" : \"'job1'\",\n  \"created\" : \"2006-01-02T15:04:05Z\",\n  \"ended\" : \"2006-01-02T15:04:05Z\",\n  \"name\" : \"calculator\",\n  \"started\" : \"2006-01-02T15:04:05Z\",\n  \"message\" : \"\\"Error occurred\\"\",\n  \"status\" : \"Waiting\"\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<JobStatus>(exampleJson)
@@ -155,7 +155,7 @@ namespace RadixJobServer.Controllers
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Status));
             string exampleJson = null;
-            exampleJson = "{\n  \"batchName\" : \"'batch1'\",\n  \"jobId\" : \"'job1'\",\n  \"created\" : \"2006-01-02T15:04:05Z\",\n  \"ended\" : \"2006-01-02T15:04:05Z\",\n  \"name\" : \"calculator\",\n  \"started\" : \"2006-01-02T15:04:05Z\",\n  \"message\" : \"Error occurred\",\n  \"status\" : \"Waiting\"\n}";
+            exampleJson = "{\n  \"batchName\" : \"'batch1'\",\n  \"jobId\" : \"'job1'\",\n  \"created\" : \"2006-01-02T15:04:05Z\",\n  \"ended\" : \"2006-01-02T15:04:05Z\",\n  \"name\" : \"calculator\",\n  \"started\" : \"2006-01-02T15:04:05Z\",\n  \"message\" : \"\\"Error occurred\\"\",\n  \"status\" : \"Waiting\"\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<List<JobStatus>>(exampleJson)
