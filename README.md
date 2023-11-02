@@ -1,4 +1,4 @@
-# radix-job-demo
+# Radix Job Demo
 
 A simple demo app to show how jobs can be used in Radix.
 
