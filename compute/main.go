@@ -103,7 +103,7 @@ func main() {
 	var config Config
 	logrus.Info(config)
 	if err := yaml.Unmarshal(cfgBytes, &config); err != nil {
-		logrus.Panicf("error unmarshal config file : %v", err)
+		logrus.Panicf("error unmarshal config file: %v", err)
 	}
 
 	logrus.Infof("Config: %v", config)
