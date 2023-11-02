@@ -57,6 +57,7 @@ spec:
       schedulerPort: 8080
   components:
     - name: "server"
+      src: src
       dockerfileName: Dockerfile.frontend
       identity:
         azure:
