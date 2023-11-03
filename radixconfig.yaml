@@ -86,7 +86,10 @@ spec:
         limits:
           memory: "500M"
     - name: redis
-      image: bitnami/redis:6.2
+      image: bitnami/redis:{imageTagName}
+      environmentConfig:
+        - environment: dev
+          imageTagName: "6.2"
       alwaysPullImageOnDeploy: true
       ports:
         - name: redis
