@@ -5,8 +5,6 @@ metadata:
 spec:
   build:
     useBuildKit: true
-    secrets:
-      - SECRET1
   dnsAppAlias:
     environment: qa
     component: server
