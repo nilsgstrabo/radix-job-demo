@@ -73,7 +73,7 @@ func main() {
 
 	doSqlQuery()
 
-	logrus.Infof("RADIX_JOB_NAME     : %s \n", os.Getenv("RADIX_JOB_NAME"))
+	logrus.Infof("RADIX_JOB_NAME: %s \n", os.Getenv("RADIX_JOB_NAME"))
 
 	for _, env := range os.Environ() {
 		logrus.Infoln(env)
