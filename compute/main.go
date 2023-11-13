@@ -92,7 +92,7 @@ func main() {
 	callbackCompleteUrl := os.Getenv("CALLBACK_ON_COMPLETE_URL")
 
 	logrus.Infof("Config file : %s\n", cfgFile)
-	logrus.Infof("CALLBACK_ON_COMPLETE_URL: %s\n", callbackCompleteUrl)
+	logrus.Infof("CALLBACK_ON_COMPLETE_URL : %s\n", callbackCompleteUrl)
 
 	cfgBytes, err := os.ReadFile(cfgFile)
 	if err != nil {
