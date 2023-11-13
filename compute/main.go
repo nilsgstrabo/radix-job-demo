@@ -91,7 +91,7 @@ func main() {
 	cfgFile := os.Getenv("COMPUTE_CONFIG")
 	callbackCompleteUrl := os.Getenv("CALLBACK_ON_COMPLETE_URL")
 
-	logrus.Infof("Config file: %s\n", cfgFile)
+	logrus.Infof("Config file : %s\n", cfgFile)
 	logrus.Infof("CALLBACK_ON_COMPLETE_URL: %s\n", callbackCompleteUrl)
 
 	cfgBytes, err := os.ReadFile(cfgFile)
