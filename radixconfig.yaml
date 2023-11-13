@@ -54,9 +54,6 @@ spec:
     - name: compute2
       src: compute2
       schedulerPort: 8080
-    - name: computex
-      src: compute
-      schedulerPort: 8080
   components:
     - name: "server"
       src: src
