@@ -58,6 +58,13 @@ spec:
       src: compute2
       schedulerPort: 8080
   components:
+    - name: from-private-image-hub
+      image: radixcanary.azurecr.io/nginx-unprivileged:alpine-perl
+      ports:
+       - name: http
+         port: 8080
+      publicPort: http
+      replicas: 1
     - name: "server"
       src: src
       dockerfileName: Dockerfile.frontend
