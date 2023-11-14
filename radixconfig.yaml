@@ -87,7 +87,7 @@ spec:
         - stickysessions
       resources:
         requests:
-          memory: "201M"
+          memory: "200M"
           cpu: "50m"
         limits:
           memory: "500M"
