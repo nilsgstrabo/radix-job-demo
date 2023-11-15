@@ -84,7 +84,7 @@ func main() {
 		logrus.Error(err)
 	} else {
 		for _, f := range files {
-			logrus.Infof("file: %s", f.Name())
+			logrus.Infof("file : %s", f.Name())
 		}
 	}
 
