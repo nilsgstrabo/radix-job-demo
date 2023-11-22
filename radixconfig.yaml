@@ -49,7 +49,7 @@ spec:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
-        CALLBACK_ON_COMPLETE_URL: "http://server:5005"
+        CALLBACK_ON_COMPLETE_URL: "http://server:5000"
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
       environmentConfig:
