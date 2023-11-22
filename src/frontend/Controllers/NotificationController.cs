@@ -10,8 +10,11 @@ using Microsoft.Extensions.Hosting;
 using frontend.Hubs;
 using Microsoft.Data.SqlClient;
 
+
+
 namespace frontend.Controllers
 {
+    
     [Host("*:6000")]
     [ApiController]
     [Route("api/[controller]")]
@@ -21,6 +24,7 @@ namespace frontend.Controllers
 
         public NotificationController(ILogger<NotificationController> logger)
         {
+            
             _logger = logger;
         }
 
