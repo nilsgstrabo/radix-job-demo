@@ -38,8 +38,20 @@ namespace frontend.Controllers
         [HttpPost("job")]
         public IActionResult PostJobStatus()
         {
-            _logger.LogInformation("Received POST job notification");
-            return StatusCode(200);
+            try
+            {
+                var rdr=new StreamReader(this.Request.Body);
+                var b=rdr.ReadToEnd();
+                _logger.LogInformation(b);
+                _logger.LogInformation("Received POST job notification");
+                return StatusCode(200);    
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500);
+            }
+            
         }
     }
 }
