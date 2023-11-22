@@ -60,9 +60,6 @@ spec:
         - environment: qa
           monitoring: true
           backoffLimit: 0
-    - name: compute2
-      src: compute2
-      schedulerPort: 6000
   components:
     - name: "server"
       src: src
