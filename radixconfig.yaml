@@ -33,6 +33,8 @@ spec:
       schedulerPort: 8080
       timeLimitSeconds: 300
       backoffLimit: 0
+      notifications:
+        webhook: http://server:6000/api/notification/job
       ports:
         - name: http
           port: 9999
@@ -60,18 +62,24 @@ spec:
           backoffLimit: 0
     - name: compute2
       src: compute2
-      schedulerPort: 8080
+      schedulerPort: 6000
   components:
     - name: "server"
       src: src
       dockerfileName: Dockerfile.frontend
+      ports:
+        - name: http
+          port: 5000
+        - name: notification
+          port: 6000
+      publicPort: http
+      variables:
+        ASPNETCORE_URLS: "http://*:5000;http://*:6000"
+        JOB_SCHEDULER: "http://compute:8080"
+        COMPUTE_IMAGE_PATH: "/app/computeimages"
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-      variables:
-        ASPNETCORE_URLS: "http://*:5005"
-        JOB_SCHEDULER: "http://compute:8080"
-        COMPUTE_IMAGE_PATH: "/app/computeimages"
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
@@ -79,10 +87,6 @@ spec:
           sessionStoreType: redis
           redisStore:
             connectionUrl: redis://redis:6379
-      ports:
-        - name: http
-          port: 5005
-      publicPort: http
       ingressConfiguration:
         - stickysessions
       resources:

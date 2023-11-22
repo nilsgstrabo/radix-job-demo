@@ -50,6 +50,7 @@ public enum JobResourceEnum {
         public MandelbrotCoord Bottom { get; set; }
     }
 
+    [Host("*:5000")]
     [ApiController]
     [Route("api/[controller]")]
     public class ComputeController : ControllerBase
