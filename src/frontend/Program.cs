@@ -18,7 +18,7 @@ builder.Services.AddScoped<IJobApi>(sp => {
 builder.Services.AddScoped<IBatchApi>(sp => {
     return new BatchApi(builder.Configuration["JOB_SCHEDULER"]+ "/api/v1/");
 });
-builder.WebHost.UseUrls("http://*:5000", "http://*:6000");
+
 var app = builder.Build();
 
 app.UseStaticFiles();
