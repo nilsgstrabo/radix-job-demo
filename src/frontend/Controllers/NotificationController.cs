@@ -36,12 +36,12 @@ namespace frontend.Controllers
         }
 
         [HttpPost("job")]
-        public IActionResult PostJobStatus()
+        public async Task<IActionResult> PostJobStatus()
         {
             try
             {
                 var rdr=new StreamReader(this.Request.Body);
-                var b=rdr.ReadToEnd();
+                string b=await rdr.ReadToEndAsync();
                 _logger.LogInformation(b);
                 _logger.LogInformation("Received POST job notification");
                 return StatusCode(200);    
