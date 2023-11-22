@@ -34,7 +34,7 @@ spec:
       timeLimitSeconds: 300
       backoffLimit: 0
       notifications:
-        webhook: http://server:6000/api/notification/job
+        webhook: http://server:5000/api/notification/job
       ports:
         - name: http
           port: 9999
