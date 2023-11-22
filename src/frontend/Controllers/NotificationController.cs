@@ -36,7 +36,7 @@ namespace frontend.Controllers
         }
 
         [HttpPost("job")]
-        public IActionResult PostJobStatus([FromBody] BatchEvent batchStatus)
+        public IActionResult PostJobStatus()
         {
             _logger.LogInformation("Received POST job notification");
             return StatusCode(200);
