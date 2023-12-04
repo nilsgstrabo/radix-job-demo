@@ -18,6 +18,15 @@
             }
         },
         {
+            "name": "Launch echoweb",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/echoweb",
+            "env": {
+            }
+        },
+        {
             "OS-COMMENT1": "Use IntelliSense to find out which attributes exist for C# debugging",
             "OS-COMMENT2": "Use hover for the description of the existing attributes",
             "OS-COMMENT3": "For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md",

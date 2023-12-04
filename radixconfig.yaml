@@ -61,6 +61,19 @@ spec:
           monitoring: true
           backoffLimit: 0
   components:
+    - name: echo
+      src: echoweb
+      ports:
+        - name: http
+          port: 8000
+      publicPort: http
+      resources:
+        requests:
+          cpu: 10m
+          memory: 10Mi
+        limits:
+          cpu: 10m
+          memory: 10Mi
     - name: "server"
       src: src
       dockerfileName: Dockerfile.frontend
