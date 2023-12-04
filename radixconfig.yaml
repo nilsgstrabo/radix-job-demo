@@ -3,11 +3,16 @@ kind: RadixApplication
 metadata:
   name: radix-job-demo
 spec:
+  dnsExternalAlias:
+    - alias: myapp.equinor.com
+      component: web
+      environment: prod
+      acmeIssuer: digicert
   privateImageHubs:
     radixcanary.azurecr.io:
       username: 814607e6-3d71-44a7-8476-50e8b281abbc
   build:
-    useBuildKit: true
+    useBuildKit: false
     secrets:
       - SECRET1
   dnsAppAlias:
