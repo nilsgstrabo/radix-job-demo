@@ -12,12 +12,12 @@ ENV GO111MODULE=on \
     GOARCH=amd64
 WORKDIR /build
 COPY go.mod .
-COPY go.sum .
+# COPY go.sum .
 RUN go mod download
 COPY . .
 RUN go build -o app .
 
-FROM alpine:3.17
+FROM alpine:3.18
 
 WORKDIR /dist
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
