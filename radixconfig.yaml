@@ -11,7 +11,7 @@ spec:
     radixcanary.azurecr.io:
       username: 814607e6-3d71-44a7-8476-50e8b281abbc
   build:
-    useBuildKit: false
+    useBulidKit: true
     secrets:
       - SECRET1
   dnsAppAlias:
