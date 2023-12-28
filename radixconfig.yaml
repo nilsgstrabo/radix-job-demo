@@ -34,7 +34,39 @@ spec:
       timeLimitSeconds: 300
       backoffLimit: 0
       notifications:
-        webhook: http://server:6000/api/notification/job
+        webhook: http://server:6001/api/notification/compute1
+      ports:
+        - name: http
+          port: 9999
+        - name: metrics2
+          port: 9090
+      monitoringConfig:
+        portName: metrics2
+      payload:
+        path: "/compute/args"
+      identity:
+        azure:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+      variables:
+        COMPUTE_CONFIG: "/compute/args/payload"
+        CALLBACK_ON_COMPLETE_URL: "http://server:5000"
+        SQL_SERVER_NAME: "fed-test.database.windows.net"
+        SQL_DATABASE_NAME: "fed-test"
+      environmentConfig:
+        - environment: prod
+          identity:
+            azure:
+              clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
+        - environment: qa
+          monitoring: true
+          backoffLimit: 0
+    - name: "compute2"
+      src: "compute"
+      schedulerPort: 8080
+      timeLimitSeconds: 300
+      backoffLimit: 0
+      notifications:
+        webhook: http://server:6002/api/notification/compute2
       ports:
         - name: http
           port: 9999
@@ -80,8 +112,10 @@ spec:
       ports:
         - name: http
           port: 5000
-        - name: notification
-          port: 6000
+        - name: notif1
+          port: 6001
+        - name: notif2
+          port: 6002
       publicPort: http
       variables:
         ASPNETCORE_URLS: "http://*:5000;http://*:6000"

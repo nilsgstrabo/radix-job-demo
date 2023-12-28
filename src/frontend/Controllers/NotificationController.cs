@@ -15,7 +15,6 @@ using Microsoft.Data.SqlClient;
 namespace frontend.Controllers
 {
     
-    [Host("*:6000")]
     [ApiController]
     [Route("api/[controller]")]
     public class NotificationController : ControllerBase
@@ -35,15 +34,16 @@ namespace frontend.Controllers
             return StatusCode(200);
         }
 
-        [HttpPost("job")]
-        public async Task<IActionResult> PostJobStatus()
+        [Host("*:6001")]
+        [HttpPost("compute1")]
+        public async Task<IActionResult> PostCompute1Status()
         {
             try
             {
                 var rdr=new StreamReader(this.Request.Body);
                 string b=await rdr.ReadToEndAsync();
+                _logger.LogInformation("Received POST job notification for compute on 6001");
                 _logger.LogInformation(b);
-                _logger.LogInformation("Received POST job notification");
                 return StatusCode(200);    
             }
             catch (System.Exception ex)
@@ -51,7 +51,25 @@ namespace frontend.Controllers
                 _logger.LogError(ex, ex.Message);
                 return StatusCode(500);
             }
-            
+        }
+
+        [Host("*:6002")]
+        [HttpPost("compute2")]
+        public async Task<IActionResult> PostCompute2Status()
+        {
+            try
+            {
+                var rdr=new StreamReader(this.Request.Body);
+                string b=await rdr.ReadToEndAsync();
+                _logger.LogInformation("Received POST job notification for compute2 on 6002");
+                _logger.LogInformation(b);
+                return StatusCode(200);    
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500);
+            }
         }
     }
 }
