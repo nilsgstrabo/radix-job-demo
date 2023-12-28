@@ -118,7 +118,7 @@ spec:
           port: 6002
       publicPort: http
       variables:
-        ASPNETCORE_URLS: "http://*:5000;http://*:6000"
+        ASPNETCORE_URLS: "http://*:5000;http://*:6001;http://*:6002"
         JOB_SCHEDULER: "http://compute:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
       identity:
