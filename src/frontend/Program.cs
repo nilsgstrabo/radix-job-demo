@@ -11,14 +11,20 @@ builder.Services.AddSignalR(c=>{
 });
 
 builder.Services.AddSingleton<INotificationHubService, NotificationHubService>();
-builder.Services.AddScoped<IComputeService, ComputeService>();
-builder.Services.AddScoped<IJobApi>(sp => {
+builder.Services.AddKeyedScoped<IComputeService, ComputeService1>("compute1");
+builder.Services.AddKeyedScoped<IComputeService, ComputeService2>("compute2");
+builder.Services.AddKeyedScoped<IJobApi>("compute1",(sp,_) => {
     return new JobApi(builder.Configuration["JOB_SCHEDULER"]+ "/api/v1/");
 });
-builder.Services.AddScoped<IBatchApi>(sp => {
+builder.Services.AddKeyedScoped<IBatchApi>("compute1",(sp,_) => {
     return new BatchApi(builder.Configuration["JOB_SCHEDULER"]+ "/api/v1/");
 });
-
+builder.Services.AddKeyedScoped<IJobApi>("compute2",(sp,_) => {
+    return new JobApi(builder.Configuration["JOB_SCHEDULER2"]+ "/api/v1/");
+});
+builder.Services.AddKeyedScoped<IBatchApi>("compute2",(sp,_) => {
+    return new BatchApi(builder.Configuration["JOB_SCHEDULER2"]+ "/api/v1/");
+});
 
 
 var app = builder.Build();

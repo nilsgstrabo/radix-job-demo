@@ -48,6 +48,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   private jobListSubscription?: Subscription;
   private imageChangedSubscription?: Subscription;
   private timeChangedSubscription?: Subscription;
+  
+  controller="compute1"
   memory=0;
   cpu=0;
   sleep=0;
@@ -75,11 +77,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private hub: NotificationHubService) { }
 
   ngOnInit() {
-    this.jobListSubscription = timer(1000, 5*60*1000).pipe(
+    this.jobListSubscription = timer(1000, 5*1000).pipe(
       exhaustMap(() => this.getJobList().pipe(catchError(e => of([]))))
-    ).subscribe(v => this.setJobList(v), err => console.error(err));
-
-    
+    ).subscribe({next: (v) => this.setJobList(v), error: (err)=>console.error(err)});
+        
     this.imageChangedSubscription = this.hub.imageChanged.subscribe({
       next: (v) => this.imageChanged(v),
       complete: () => console.log(new Date().toLocaleString(), 'imageChangedSubscription complete'),
@@ -155,7 +156,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private getJobList() {
-    return this.http.get<any[]>('/api/compute/jobs', getJsonOptions);
+    return this.http.get<any[]>(`/api/${this.controller}/jobs`, getJsonOptions);
   }
 
   private setJobList(jobs: any[]) {
@@ -202,15 +203,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log(this.requestType);
     switch (Number(this.requestType)) {
       case 1:
-        return firstValueFrom(this.http.post('/api/compute/jobs', request, getJsonOptions));
+        return firstValueFrom(this.http.post(`/api/${this.controller}/jobs`, request, getJsonOptions));
       default:
-        return firstValueFrom(this.http.post('/api/compute/batches', request, getJsonOptions));
+        return firstValueFrom(this.http.post(`/api/${this.controller}/batches`, request, getJsonOptions));
     }
-    // const response = await this.http.post('/api/compute/jobs', request, getJsonOptions).toPromise();
-    // return response
   }
 
   async kill() {
-    await this.http.post('/api/compute/kill', null, getJsonOptions).toPromise();
+    await this.http.post(`/api/${this.controller}/kill`, null, getJsonOptions).toPromise();
  }
 }

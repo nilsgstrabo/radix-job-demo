@@ -50,17 +50,32 @@ public enum JobResourceEnum {
         public MandelbrotCoord Bottom { get; set; }
     }
 
-    // [Host("*:5000")]
     [ApiController]
     [Route("api/[controller]")]
-    public class ComputeController : ControllerBase
+    public class Compute1Controller : ComputeControllerBase {
+        public Compute1Controller(IConfiguration configuration, [FromKeyedServices("compute1")] IComputeService computeService,INotificationHubService hub, ILogger<Compute1Controller> logger)
+        :base(configuration, computeService, hub, logger)
+        {}
+    }
+
+    [ApiController]
+    [Route("api/[controller]")]
+    public class Compute2Controller : ComputeControllerBase {
+        public Compute2Controller(IConfiguration configuration, [FromKeyedServices("compute2")] IComputeService computeService,INotificationHubService hub, ILogger<Compute1Controller> logger)
+        :base(configuration, computeService, hub, logger)
+        {}
+    }
+
+
+    // [Host("*:5000")]
+    public abstract class ComputeControllerBase : ControllerBase
     {
         private readonly ILogger _logger;
         private readonly IComputeService _computeService;
         private readonly INotificationHubService _hub;
         private readonly IConfiguration _configuration;
 
-        public ComputeController(IConfiguration configuration, IComputeService computeService,INotificationHubService hub, ILogger<ComputeController> logger)
+        public ComputeControllerBase(IConfiguration configuration, IComputeService computeService,INotificationHubService hub, ILogger logger)
         {
             _logger = logger;
             _computeService = computeService;

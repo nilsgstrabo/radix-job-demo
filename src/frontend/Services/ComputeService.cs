@@ -32,13 +32,25 @@ public class ComputePayload
 
 }
 
-public class ComputeService : IComputeService
+public class ComputeService1 : ComputeServiceBase {
+    public ComputeService1([FromKeyedServices("compute1")] IJobApi jobApi,[FromKeyedServices("compute1")] IBatchApi batchApi, ILogger<ComputeService1> logger) : base(jobApi, batchApi, logger)
+    {
+    }
+}
+
+public class ComputeService2 : ComputeServiceBase {
+    public ComputeService2([FromKeyedServices("compute2")] IJobApi jobApi,[FromKeyedServices("compute2")] IBatchApi batchApi, ILogger<ComputeService1> logger) : base(jobApi, batchApi, logger)
+    {
+    }
+}
+
+public class ComputeServiceBase : IComputeService
 {
     private readonly ILogger _logger;
     private readonly IJobApi _jobApi;
     private readonly IBatchApi _batchApi;
 
-    public ComputeService(IJobApi jobApi, IBatchApi batchApi, ILogger<ComputeService> logger)
+    public ComputeServiceBase(IJobApi jobApi, IBatchApi batchApi, ILogger logger)
     {
         _logger = logger;
         _jobApi = jobApi;
