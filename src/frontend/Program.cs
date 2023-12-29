@@ -1,6 +1,6 @@
 using frontend.Hubs;
 using RadixJobClient.Api;
-
+using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,6 +18,8 @@ builder.Services.AddScoped<IJobApi>(sp => {
 builder.Services.AddScoped<IBatchApi>(sp => {
     return new BatchApi(builder.Configuration["JOB_SCHEDULER"]+ "/api/v1/");
 });
+
+
 
 var app = builder.Build();
 
