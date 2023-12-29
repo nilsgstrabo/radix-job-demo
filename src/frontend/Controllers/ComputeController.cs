@@ -61,7 +61,7 @@ public enum JobResourceEnum {
     [ApiController]
     [Route("api/[controller]")]
     public class Compute2Controller : ComputeControllerBase {
-        public Compute2Controller(IConfiguration configuration, [FromKeyedServices("compute2")] IComputeService computeService,INotificationHubService hub, ILogger<Compute1Controller> logger)
+        public Compute2Controller(IConfiguration configuration, [FromKeyedServices("compute2")] IComputeService computeService,INotificationHubService hub, ILogger<Compute2Controller> logger)
         :base(configuration, computeService, hub, logger)
         {}
     }

@@ -33,7 +33,7 @@ public class ComputePayload
 }
 
 public class ComputeService1 : ComputeServiceBase {
-    public ComputeService1([FromKeyedServices("compute1")] IJobApi jobApi,[FromKeyedServices("compute1")] IBatchApi batchApi, ILogger<ComputeService1> logger) : base(jobApi, batchApi, logger)
+    public ComputeService1([FromKeyedServices("compute1")] IJobApi jobApi,[FromKeyedServices("compute1")] IBatchApi batchApi, ILogger<ComputeService2> logger) : base(jobApi, batchApi, logger)
     {
     }
 }
