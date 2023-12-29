@@ -65,8 +65,8 @@ spec:
       schedulerPort: 8080
       timeLimitSeconds: 300
       backoffLimit: 0
-      notifications:
-        webhook: http://server:6002/api/notification/compute2
+      # notifications:
+      #   webhook: http://server:6002/api/notification/compute2
       ports:
         - name: http
           port: 9999
