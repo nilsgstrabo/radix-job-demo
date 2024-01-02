@@ -61,19 +61,19 @@ spec:
           monitoring: true
           backoffLimit: 0
     - name: "compute2"
-      src: "compute"
+      src: "pyjob"
       schedulerPort: 8080
       timeLimitSeconds: 300
       backoffLimit: 0
       notifications:
         webhook: http://server:6002/api/notification/compute2
-      ports:
-        - name: http
-          port: 9999
-        - name: metrics2
-          port: 9090
-      monitoringConfig:
-        portName: metrics2
+      # ports:
+      #   - name: http
+      #     port: 9999
+      #   - name: metrics2
+      #     port: 9090
+      # monitoringConfig:
+      #   portName: metrics2
       payload:
         path: "/compute/args"
       identity:
