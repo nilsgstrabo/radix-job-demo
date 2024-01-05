@@ -84,6 +84,8 @@ spec:
         CALLBACK_ON_COMPLETE_URL: "http://server:5000"
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
+      secrets:
+        - SECRET1
       environmentConfig:
         - environment: prod
           identity:
