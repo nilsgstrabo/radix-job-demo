@@ -27,9 +27,6 @@ spec:
     - name: prod
       build:
         from: release
-    - name: jobytest
-      build:
-        from: feature/testing
   jobs:
     - name: "compute"
       src: "compute"
@@ -55,7 +52,6 @@ spec:
         CALLBACK_ON_COMPLETE_URL: "http://server:5000"
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
-      enabled: false
       environmentConfig:
         - environment: prod
           identity:
@@ -88,7 +84,6 @@ spec:
         CALLBACK_ON_COMPLETE_URL: "http://server:5000"
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
-      enabled: false
       environmentConfig:
         - environment: prod
           identity:
