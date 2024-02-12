@@ -57,8 +57,6 @@ spec:
         SQL_DATABASE_NAME: "fed-test"
       enabled: false
       environmentConfig:
-        - environment: jobtest
-          enabled: true
         - environment: prod
           identity:
             azure:
@@ -92,8 +90,6 @@ spec:
         SQL_DATABASE_NAME: "fed-test"
       enabled: false
       environmentConfig:
-        - environment: jobtest
-          enabled: true
         - environment: prod
           identity:
             azure:
