@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/equinor/radix-operator/1120-readOnlyFileSystem/json-schema/radixapplication.json
-
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
@@ -37,6 +35,7 @@ spec:
       backoffLimit: 0
       notifications:
         webhook: http://server:6001/api/notification/compute1
+      readOnlyFileSystem: true
       ports:
         - name: http
           port: 9999
@@ -70,6 +69,7 @@ spec:
       backoffLimit: 0
       notifications:
         webhook: http://server:6001/api/notification/compute1
+      readOnlyFileSystem: true
       ports:
         - name: http
           port: 9999
@@ -111,6 +111,7 @@ spec:
       #   portName: metrics2
       payload:
         path: "/compute/args"
+      readOnlyFileSystem: true
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
@@ -137,6 +138,7 @@ spec:
         - name: http
           port: 8000
       publicPort: http
+      readOnlyFileSystem: true
       resources:
         requests:
           cpu: 10m
@@ -155,11 +157,13 @@ spec:
         - name: notif2
           port: 6002
       publicPort: http
+      readOnlyFileSystem: true
       variables:
         ASPNETCORE_URLS: "http://*:5000;http://*:6001;http://*:6002"
         JOB_SCHEDULER: "http://compute:8080"
         JOB_SCHEDULER2: "http://compute2:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
+        DOTNET_EnableDiagnostics: "0"
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
@@ -180,6 +184,7 @@ spec:
           memory: "500M"
     - name: redis
       image: bitnami/redis:{imageTagName}
+      readOnlyFileSystem: true
       environmentConfig:
         - environment: dev
           imageTagName: "7.2"
