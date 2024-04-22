@@ -3,24 +3,13 @@ kind: RadixApplication
 metadata:
   name: radix-job-demo
 spec:
-  # dnsExternalAlias:
-  #   - alias: myapp.equinor.com
-  #     component: web
-  #     environment: prod
   privateImageHubs:
     radixcanary.azurecr.io:
       username: 814607e6-3d71-44a7-8476-50e8b281abbc
-  build:
-    useBuildKit: true
-    secrets:
-      - SECRET1
   dnsAppAlias:
     environment: qa
     component: server
   environments:
-    - name: dev
-      build:
-        from: main
     - name: qa
       build:
         from: main
@@ -96,44 +85,22 @@ spec:
           monitoring: true
           backoffLimit: 0
     - name: "compute2"
-      src: "pyjob"
+      image: radixdev.azurecr.io/pointilla:latest
       schedulerPort: 8080
       timeLimitSeconds: 300
       backoffLimit: 0
-      notifications:
-        webhook: http://server:6002/api/notification/compute2
-      # ports:
-      #   - name: http
-      #     port: 9999
-      #   - name: metrics2
-      #     port: 9090
-      # monitoringConfig:
-      #   portName: metrics2
-      payload:
-        path: "/compute/args"
-      readOnlyFileSystem: true
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
-        COMPUTE_CONFIG: "/compute/args/payload"
-        CALLBACK_ON_COMPLETE_URL: "http://server:5000"
-        SQL_SERVER_NAME: "fed-test.database.windows.net"
-        SQL_DATABASE_NAME: "fed-test"
-      secrets:
-        - SECRET1
-      useReadOnlyFileSystem: true
-      environmentConfig:
-        - environment: prod
-          identity:
-            azure:
-              clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
-        - environment: qa
-          monitoring: true
-          backoffLimit: 0
+        MAX_DISTANCE_CHANGEDETECTION: "0.4"
+        MAX_THREADCOUNT: "8"
+        MIN_FILTER_RGB_VALUE: "0.1"
+        MAX_FILTER_RGB_VALUE: "10"
   components:
     - name: echo
       src: echoweb
+      dockerfileName: Dockerfile
       ports:
         - name: http
           port: 8000
@@ -178,11 +145,13 @@ spec:
         - stickysessions
       resources:
         requests:
-          memory: "201M"
+          memory: "200M"
           cpu: "50m"
         limits:
           memory: "500M"
       environmentConfig:
+        - environment: prod
+          replicas: 1
         - environment: dev
           volumeMounts:
             - name: computeimages
