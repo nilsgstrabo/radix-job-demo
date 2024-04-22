@@ -149,20 +149,14 @@ spec:
           cpu: "50m"
         limits:
           memory: "500M"
-      environmentConfig:
-        - environment: prod
-          replicas: 1
-        - environment: dev
-          volumeMounts:
-            - name: computeimages
-              path: /app/computeimages
-              emptyDir:
-                sizeLimit: 50M
+      volumeMounts:
+        - name: computeimages
+          path: /app/computeimages
+          emptyDir:
+            sizeLimit: 50M
     - name: redis
       image: bitnami/redis:{imageTagName}
       environmentConfig:
-        - environment: dev
-          imageTagName: "7.2"
         - environment: qa
           imageTagName: "7.2"          
         - environment: prod
