@@ -33,7 +33,7 @@ spec:
       monitoringConfig:
         portName: metrics2
       payload:
-        path: "/compute/args"
+        path: "/" # "/compute/args"
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
