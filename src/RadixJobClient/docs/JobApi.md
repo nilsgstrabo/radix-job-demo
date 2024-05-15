@@ -358,6 +358,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful delete job |  -  |
+| **400** | Bad request |  -  |
 | **404** | Not found |  -  |
 | **500** | Internal server error |  -  |
 

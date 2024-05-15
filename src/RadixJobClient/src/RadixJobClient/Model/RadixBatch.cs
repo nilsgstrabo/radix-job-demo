@@ -26,10 +26,10 @@ using OpenAPIDateConverter = RadixJobClient.Client.OpenAPIDateConverter;
 namespace RadixJobClient.Model
 {
     /// <summary>
-    /// BatchEvent holds general information about batch event on change of status
+    /// RadixBatch holds general information about batch status
     /// </summary>
-    [DataContract(Name = "BatchEvent")]
-    public partial class BatchEvent : IEquatable<BatchEvent>, IValidatableObject
+    [DataContract(Name = "RadixBatch")]
+    public partial class RadixBatch : IEquatable<RadixBatch>, IValidatableObject
     {
         /// <summary>
         /// Status of the job
@@ -90,75 +90,58 @@ namespace RadixJobClient.Model
         [DataMember(Name = "status", EmitDefaultValue = false)]
         public StatusEnum? Status { get; set; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="BatchEvent" /> class.
+        /// Initializes a new instance of the <see cref="RadixBatch" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected BatchEvent() { }
+        protected RadixBatch() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="BatchEvent" /> class.
+        /// Initializes a new instance of the <see cref="RadixBatch" /> class.
         /// </summary>
-        /// <param name="batchName">BatchName Optional Batch ID of a job.</param>
-        /// <param name="batchType">BatchType Single job or multiple jobs batch.</param>
-        /// <param name="created">Created timestamp (required).</param>
+        /// <param name="batchType">BatchType Single job or multiple jobs batch (required).</param>
+        /// <param name="creationTime">Radix batch creation timestamp (required).</param>
         /// <param name="ended">Ended timestamp.</param>
-        /// <param name="_event">_event (required).</param>
-        /// <param name="jobId">JobId Optional ID of a job.</param>
-        /// <param name="jobStatuses">JobStatuses of the jobs in the batch.</param>
-        /// <param name="message">Message, if any, of the job.</param>
-        /// <param name="name">Name of the job (required).</param>
-        /// <param name="podStatuses">PodStatuses for each pod of the job.</param>
+        /// <param name="jobStatuses">JobStatuses of the Radix batch jobs.</param>
+        /// <param name="message">Status message, if any, of the job.</param>
+        /// <param name="name">Name of the Radix batch (required).</param>
         /// <param name="started">Started timestamp.</param>
         /// <param name="status">Status of the job.</param>
-        /// <param name="updated">Updated timestamp when the status was updated.</param>
-        public BatchEvent(string batchName = default(string), string batchType = default(string), string created = default(string), string ended = default(string), string _event = default(string), string jobId = default(string), List<JobStatus> jobStatuses = default(List<JobStatus>), string message = default(string), string name = default(string), List<PodStatus> podStatuses = default(List<PodStatus>), string started = default(string), StatusEnum? status = default(StatusEnum?), string updated = default(string))
+        public RadixBatch(string batchType = default(string), string creationTime = default(string), string ended = default(string), List<RadixBatchJobStatus> jobStatuses = default(List<RadixBatchJobStatus>), string message = default(string), string name = default(string), string started = default(string), StatusEnum? status = default(StatusEnum?))
         {
-            // to ensure "created" is required (not null)
-            if (created == null) {
-                throw new ArgumentNullException("created is a required property for BatchEvent and cannot be null");
+            // to ensure "batchType" is required (not null)
+            if (batchType == null) {
+                throw new ArgumentNullException("batchType is a required property for RadixBatch and cannot be null");
             }
-            this.Created = created;
-            // to ensure "_event" is required (not null)
-            if (_event == null) {
-                throw new ArgumentNullException("_event is a required property for BatchEvent and cannot be null");
+            this.BatchType = batchType;
+            // to ensure "creationTime" is required (not null)
+            if (creationTime == null) {
+                throw new ArgumentNullException("creationTime is a required property for RadixBatch and cannot be null");
             }
-            this.Event = _event;
+            this.CreationTime = creationTime;
             // to ensure "name" is required (not null)
             if (name == null) {
-                throw new ArgumentNullException("name is a required property for BatchEvent and cannot be null");
+                throw new ArgumentNullException("name is a required property for RadixBatch and cannot be null");
             }
             this.Name = name;
-            this.BatchName = batchName;
-            this.BatchType = batchType;
             this.Ended = ended;
-            this.JobId = jobId;
             this.JobStatuses = jobStatuses;
             this.Message = message;
-            this.PodStatuses = podStatuses;
             this.Started = started;
             this.Status = status;
-            this.Updated = updated;
         }
-
-        /// <summary>
-        /// BatchName Optional Batch ID of a job
-        /// </summary>
-        /// <value>BatchName Optional Batch ID of a job</value>
-        [DataMember(Name = "batchName", EmitDefaultValue = false)]
-        public string BatchName { get; set; }
 
         /// <summary>
         /// BatchType Single job or multiple jobs batch
         /// </summary>
         /// <value>BatchType Single job or multiple jobs batch</value>
-        [DataMember(Name = "batchType", EmitDefaultValue = false)]
+        [DataMember(Name = "batchType", IsRequired = true, EmitDefaultValue = false)]
         public string BatchType { get; set; }
 
         /// <summary>
-        /// Created timestamp
+        /// Radix batch creation timestamp
         /// </summary>
-        /// <value>Created timestamp</value>
-        [DataMember(Name = "created", IsRequired = true, EmitDefaultValue = false)]
-        public string Created { get; set; }
+        /// <value>Radix batch creation timestamp</value>
+        [DataMember(Name = "creationTime", IsRequired = true, EmitDefaultValue = false)]
+        public string CreationTime { get; set; }
 
         /// <summary>
         /// Ended timestamp
@@ -168,45 +151,25 @@ namespace RadixJobClient.Model
         public string Ended { get; set; }
 
         /// <summary>
-        /// Gets or Sets Event
+        /// JobStatuses of the Radix batch jobs
         /// </summary>
-        [DataMember(Name = "event", IsRequired = true, EmitDefaultValue = false)]
-        public string Event { get; set; }
-
-        /// <summary>
-        /// JobId Optional ID of a job
-        /// </summary>
-        /// <value>JobId Optional ID of a job</value>
-        [DataMember(Name = "jobId", EmitDefaultValue = false)]
-        public string JobId { get; set; }
-
-        /// <summary>
-        /// JobStatuses of the jobs in the batch
-        /// </summary>
-        /// <value>JobStatuses of the jobs in the batch</value>
+        /// <value>JobStatuses of the Radix batch jobs</value>
         [DataMember(Name = "jobStatuses", EmitDefaultValue = false)]
-        public List<JobStatus> JobStatuses { get; set; }
+        public List<RadixBatchJobStatus> JobStatuses { get; set; }
 
         /// <summary>
-        /// Message, if any, of the job
+        /// Status message, if any, of the job
         /// </summary>
-        /// <value>Message, if any, of the job</value>
+        /// <value>Status message, if any, of the job</value>
         [DataMember(Name = "message", EmitDefaultValue = false)]
         public string Message { get; set; }
 
         /// <summary>
-        /// Name of the job
+        /// Name of the Radix batch
         /// </summary>
-        /// <value>Name of the job</value>
+        /// <value>Name of the Radix batch</value>
         [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
         public string Name { get; set; }
-
-        /// <summary>
-        /// PodStatuses for each pod of the job
-        /// </summary>
-        /// <value>PodStatuses for each pod of the job</value>
-        [DataMember(Name = "podStatuses", EmitDefaultValue = false)]
-        public List<PodStatus> PodStatuses { get; set; }
 
         /// <summary>
         /// Started timestamp
@@ -216,33 +179,21 @@ namespace RadixJobClient.Model
         public string Started { get; set; }
 
         /// <summary>
-        /// Updated timestamp when the status was updated
-        /// </summary>
-        /// <value>Updated timestamp when the status was updated</value>
-        [DataMember(Name = "updated", EmitDefaultValue = false)]
-        public string Updated { get; set; }
-
-        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class BatchEvent {\n");
-            sb.Append("  BatchName: ").Append(BatchName).Append("\n");
+            sb.Append("class RadixBatch {\n");
             sb.Append("  BatchType: ").Append(BatchType).Append("\n");
-            sb.Append("  Created: ").Append(Created).Append("\n");
+            sb.Append("  CreationTime: ").Append(CreationTime).Append("\n");
             sb.Append("  Ended: ").Append(Ended).Append("\n");
-            sb.Append("  Event: ").Append(Event).Append("\n");
-            sb.Append("  JobId: ").Append(JobId).Append("\n");
             sb.Append("  JobStatuses: ").Append(JobStatuses).Append("\n");
             sb.Append("  Message: ").Append(Message).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  PodStatuses: ").Append(PodStatuses).Append("\n");
             sb.Append("  Started: ").Append(Started).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
-            sb.Append("  Updated: ").Append(Updated).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -263,49 +214,34 @@ namespace RadixJobClient.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as BatchEvent);
+            return this.Equals(input as RadixBatch);
         }
 
         /// <summary>
-        /// Returns true if BatchEvent instances are equal
+        /// Returns true if RadixBatch instances are equal
         /// </summary>
-        /// <param name="input">Instance of BatchEvent to be compared</param>
+        /// <param name="input">Instance of RadixBatch to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(BatchEvent input)
+        public bool Equals(RadixBatch input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.BatchName == input.BatchName ||
-                    (this.BatchName != null &&
-                    this.BatchName.Equals(input.BatchName))
-                ) && 
-                (
                     this.BatchType == input.BatchType ||
                     (this.BatchType != null &&
                     this.BatchType.Equals(input.BatchType))
                 ) && 
                 (
-                    this.Created == input.Created ||
-                    (this.Created != null &&
-                    this.Created.Equals(input.Created))
+                    this.CreationTime == input.CreationTime ||
+                    (this.CreationTime != null &&
+                    this.CreationTime.Equals(input.CreationTime))
                 ) && 
                 (
                     this.Ended == input.Ended ||
                     (this.Ended != null &&
                     this.Ended.Equals(input.Ended))
-                ) && 
-                (
-                    this.Event == input.Event ||
-                    (this.Event != null &&
-                    this.Event.Equals(input.Event))
-                ) && 
-                (
-                    this.JobId == input.JobId ||
-                    (this.JobId != null &&
-                    this.JobId.Equals(input.JobId))
                 ) && 
                 (
                     this.JobStatuses == input.JobStatuses ||
@@ -324,12 +260,6 @@ namespace RadixJobClient.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
-                    this.PodStatuses == input.PodStatuses ||
-                    this.PodStatuses != null &&
-                    input.PodStatuses != null &&
-                    this.PodStatuses.SequenceEqual(input.PodStatuses)
-                ) && 
-                (
                     this.Started == input.Started ||
                     (this.Started != null &&
                     this.Started.Equals(input.Started))
@@ -337,11 +267,6 @@ namespace RadixJobClient.Model
                 (
                     this.Status == input.Status ||
                     this.Status.Equals(input.Status)
-                ) && 
-                (
-                    this.Updated == input.Updated ||
-                    (this.Updated != null &&
-                    this.Updated.Equals(input.Updated))
                 );
         }
 
@@ -354,31 +279,21 @@ namespace RadixJobClient.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.BatchName != null)
-                    hashCode = hashCode * 59 + this.BatchName.GetHashCode();
                 if (this.BatchType != null)
                     hashCode = hashCode * 59 + this.BatchType.GetHashCode();
-                if (this.Created != null)
-                    hashCode = hashCode * 59 + this.Created.GetHashCode();
+                if (this.CreationTime != null)
+                    hashCode = hashCode * 59 + this.CreationTime.GetHashCode();
                 if (this.Ended != null)
                     hashCode = hashCode * 59 + this.Ended.GetHashCode();
-                if (this.Event != null)
-                    hashCode = hashCode * 59 + this.Event.GetHashCode();
-                if (this.JobId != null)
-                    hashCode = hashCode * 59 + this.JobId.GetHashCode();
                 if (this.JobStatuses != null)
                     hashCode = hashCode * 59 + this.JobStatuses.GetHashCode();
                 if (this.Message != null)
                     hashCode = hashCode * 59 + this.Message.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.PodStatuses != null)
-                    hashCode = hashCode * 59 + this.PodStatuses.GetHashCode();
                 if (this.Started != null)
                     hashCode = hashCode * 59 + this.Started.GetHashCode();
                 hashCode = hashCode * 59 + this.Status.GetHashCode();
-                if (this.Updated != null)
-                    hashCode = hashCode * 59 + this.Updated.GetHashCode();
                 return hashCode;
             }
         }

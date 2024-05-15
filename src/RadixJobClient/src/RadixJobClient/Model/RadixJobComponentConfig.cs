@@ -36,10 +36,10 @@ namespace RadixJobClient.Model
         /// </summary>
         /// <param name="backoffLimit">BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s..</param>
         /// <param name="imageTagName">ImageTagName defines the image tag name to use for the job image.</param>
-        /// <param name="node">node.</param>
-        /// <param name="resources">resources.</param>
+        /// <param name="node">Node defines node attributes, where container should be scheduled.</param>
+        /// <param name="resources">Resource describes the compute resource requirements..</param>
         /// <param name="timeLimitSeconds">TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s..</param>
-        public RadixJobComponentConfig(int backoffLimit = default(int), string imageTagName = default(string), RadixNode node = default(RadixNode), ResourceRequirements resources = default(ResourceRequirements), long timeLimitSeconds = default(long))
+        public RadixJobComponentConfig(int backoffLimit = default(int), string imageTagName = default(string), Object node = default(Object), Object resources = default(Object), long timeLimitSeconds = default(long))
         {
             this.BackoffLimit = backoffLimit;
             this.ImageTagName = imageTagName;
@@ -63,16 +63,18 @@ namespace RadixJobClient.Model
         public string ImageTagName { get; set; }
 
         /// <summary>
-        /// Gets or Sets Node
+        /// Node defines node attributes, where container should be scheduled
         /// </summary>
+        /// <value>Node defines node attributes, where container should be scheduled</value>
         [DataMember(Name = "node", EmitDefaultValue = false)]
-        public RadixNode Node { get; set; }
+        public Object Node { get; set; }
 
         /// <summary>
-        /// Gets or Sets Resources
+        /// Resource describes the compute resource requirements.
         /// </summary>
+        /// <value>Resource describes the compute resource requirements.</value>
         [DataMember(Name = "resources", EmitDefaultValue = false)]
-        public ResourceRequirements Resources { get; set; }
+        public Object Resources { get; set; }
 
         /// <summary>
         /// TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s.

@@ -136,9 +136,12 @@ Class | Method | HTTP request | Description
  - [Model.BatchStatus](docs/BatchStatus.md)
  - [Model.JobScheduleDescription](docs/JobScheduleDescription.md)
  - [Model.JobStatus](docs/JobStatus.md)
+ - [Model.PodStatus](docs/PodStatus.md)
+ - [Model.RadixBatch](docs/RadixBatch.md)
+ - [Model.RadixBatchJobPodStatus](docs/RadixBatchJobPodStatus.md)
+ - [Model.RadixBatchJobStatus](docs/RadixBatchJobStatus.md)
  - [Model.RadixJobComponentConfig](docs/RadixJobComponentConfig.md)
- - [Model.RadixNode](docs/RadixNode.md)
- - [Model.ResourceRequirements](docs/ResourceRequirements.md)
+ - [Model.ReplicaStatus](docs/ReplicaStatus.md)
  - [Model.Status](docs/Status.md)
 
 

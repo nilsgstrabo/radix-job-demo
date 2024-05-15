@@ -105,9 +105,11 @@ namespace RadixJobClient.Model
         /// <param name="jobStatuses">JobStatuses of the jobs in the batch.</param>
         /// <param name="message">Message, if any, of the job.</param>
         /// <param name="name">Name of the job (required).</param>
+        /// <param name="podStatuses">PodStatuses for each pod of the job.</param>
         /// <param name="started">Started timestamp.</param>
         /// <param name="status">Status of the job.</param>
-        public BatchStatus(string batchName = default(string), string batchType = default(string), string created = default(string), string ended = default(string), string jobId = default(string), List<JobStatus> jobStatuses = default(List<JobStatus>), string message = default(string), string name = default(string), string started = default(string), StatusEnum? status = default(StatusEnum?))
+        /// <param name="updated">Updated timestamp when the status was updated.</param>
+        public BatchStatus(string batchName = default(string), string batchType = default(string), string created = default(string), string ended = default(string), string jobId = default(string), List<JobStatus> jobStatuses = default(List<JobStatus>), string message = default(string), string name = default(string), List<PodStatus> podStatuses = default(List<PodStatus>), string started = default(string), StatusEnum? status = default(StatusEnum?), string updated = default(string))
         {
             // to ensure "created" is required (not null)
             if (created == null) {
@@ -125,8 +127,10 @@ namespace RadixJobClient.Model
             this.JobId = jobId;
             this.JobStatuses = jobStatuses;
             this.Message = message;
+            this.PodStatuses = podStatuses;
             this.Started = started;
             this.Status = status;
+            this.Updated = updated;
         }
 
         /// <summary>
@@ -186,11 +190,25 @@ namespace RadixJobClient.Model
         public string Name { get; set; }
 
         /// <summary>
+        /// PodStatuses for each pod of the job
+        /// </summary>
+        /// <value>PodStatuses for each pod of the job</value>
+        [DataMember(Name = "podStatuses", EmitDefaultValue = false)]
+        public List<PodStatus> PodStatuses { get; set; }
+
+        /// <summary>
         /// Started timestamp
         /// </summary>
         /// <value>Started timestamp</value>
         [DataMember(Name = "started", EmitDefaultValue = false)]
         public string Started { get; set; }
+
+        /// <summary>
+        /// Updated timestamp when the status was updated
+        /// </summary>
+        /// <value>Updated timestamp when the status was updated</value>
+        [DataMember(Name = "updated", EmitDefaultValue = false)]
+        public string Updated { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -208,8 +226,10 @@ namespace RadixJobClient.Model
             sb.Append("  JobStatuses: ").Append(JobStatuses).Append("\n");
             sb.Append("  Message: ").Append(Message).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  PodStatuses: ").Append(PodStatuses).Append("\n");
             sb.Append("  Started: ").Append(Started).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  Updated: ").Append(Updated).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -286,6 +306,12 @@ namespace RadixJobClient.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.PodStatuses == input.PodStatuses ||
+                    this.PodStatuses != null &&
+                    input.PodStatuses != null &&
+                    this.PodStatuses.SequenceEqual(input.PodStatuses)
+                ) && 
+                (
                     this.Started == input.Started ||
                     (this.Started != null &&
                     this.Started.Equals(input.Started))
@@ -293,6 +319,11 @@ namespace RadixJobClient.Model
                 (
                     this.Status == input.Status ||
                     this.Status.Equals(input.Status)
+                ) && 
+                (
+                    this.Updated == input.Updated ||
+                    (this.Updated != null &&
+                    this.Updated.Equals(input.Updated))
                 );
         }
 
@@ -321,9 +352,13 @@ namespace RadixJobClient.Model
                     hashCode = hashCode * 59 + this.Message.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.PodStatuses != null)
+                    hashCode = hashCode * 59 + this.PodStatuses.GetHashCode();
                 if (this.Started != null)
                     hashCode = hashCode * 59 + this.Started.GetHashCode();
                 hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.Updated != null)
+                    hashCode = hashCode * 59 + this.Updated.GetHashCode();
                 return hashCode;
             }
         }
