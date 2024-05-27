@@ -13,3 +13,4 @@ Regenerate Job Scheduler server:
 ```
 openapi-generator-cli generate -g aspnetcore -i https://raw.githubusercontent.com/equinor/radix-job-scheduler/main/swaggerui/html/swagger.json -c src/openapi-config-server.yaml -o src/RadixJobServer
 ```
+

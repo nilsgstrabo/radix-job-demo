@@ -18,7 +18,7 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	if codeStr := r.Form.Get("code"); len(codeStr) > 0 {
 		if code, err := strconv.Atoi(codeStr); err == nil {
 			w.WriteHeader(code)
-			w.Write([]byte(fmt.Sprintf("returned code %v", code)))
+			w.Write([]byte(fmt.Sprintf("Returned code %v", code)))
 			return
 		}
 	}
