@@ -26,16 +26,13 @@ builder.Services.AddKeyedScoped<IBatchApi>("compute2",(sp,_) => {
     return new BatchApi(builder.Configuration["JOB_SCHEDULER2"]+ "/api/v1/");
 });
 
-
 var app = builder.Build();
 
 app.UseStaticFiles();
+
 app.UseRouting();
 
-
 app.MapHub<NotificationHub>("/notificationhub");
-
-
 
 app.MapControllerRoute(
     name: "default",

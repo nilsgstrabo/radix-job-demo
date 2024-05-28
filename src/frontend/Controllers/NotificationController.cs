@@ -61,7 +61,7 @@ namespace frontend.Controllers
             {
                 var rdr=new StreamReader(this.Request.Body);
                 string b=await rdr.ReadToEndAsync();
-                _logger.LogInformation("Received POST job notification for compute2 on 6002");
+                _logger.LogInformation("Received POST job notification for compute2 on 6002.");
                 _logger.LogInformation(b);
                 return StatusCode(200);    
             }
