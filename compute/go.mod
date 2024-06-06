@@ -1,6 +1,6 @@
 module github.com/nilsgstrabo/radix-job-demo/compute
 
-go 1.21
+go 1.22
 
 require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.7.1

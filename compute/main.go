@@ -114,6 +114,8 @@ func main() {
 		TopLeft:     config.Top,
 		BottomRight: config.Bottom,
 	}
+
+	mbstart := time.Now()
 	m_bitmap := mandelbrot.Bitmap()
 	img := image.NewRGBA(image.Rect(0, 0, mandelbrot.Width, mandelbrot.Height))
 	colorer := NewColorer(basecolors)
@@ -123,6 +125,7 @@ func main() {
 			img.Set(x, y, colorer.Color(m_bitmap[y][x]))
 		}
 	}
+	logrus.Infof("Mandelbrot generation took %v", time.Since(mbstart))
 
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
 		postAdr, _ := url.Parse(callbackCompleteUrl)

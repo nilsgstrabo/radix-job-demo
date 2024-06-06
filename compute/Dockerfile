@@ -1,4 +1,4 @@
-FROM docker.io/golang:1.21-alpine as build
+FROM docker.io/golang:1.22-alpine3.20 as build
 
 RUN addgroup -S -g 1001 radix-non-root-group
 # Add a new user "radix-non-root-user" with user id 1001 and include in group
