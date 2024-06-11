@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=file:///home/nst/go/src/github.com/equinor/radix-operator/json-schema/radixapplication.json
+
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
@@ -9,6 +11,8 @@ spec:
   dnsAppAlias:
     environment: qa
     component: server
+  build:
+    useBuildKit: true
   environments:
     - name: qa
       build:
