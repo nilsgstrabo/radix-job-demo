@@ -63,6 +63,8 @@ spec:
       schedulerPort: 8080
       timeLimitSeconds: 3600
       backoffLimit: 0
+      runtime:
+        architecture: arm64
       notifications:
         webhook: http://server:6001/api/notification/compute1
       readOnlyFileSystem: true
@@ -84,13 +86,14 @@ spec:
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
       environmentConfig:
+        - environment: qa
+          monitoring: true
+          backoffLimit: 0
+          runtime: {}
         - environment: prod
           identity:
             azure:
               clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
-        - environment: qa
-          monitoring: true
-          backoffLimit: 0
     - name: "compute2"
       src: "compute"
       schedulerPort: 8080
@@ -102,10 +105,10 @@ spec:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
-        MAX_DISTANCE_CHANGEDETECTION: "0.4"
-        MAX_THREADCOUNT: "8"
-        MIN_FILTER_RGB_VALUE: "0.1"
-        MAX_FILTER_RGB_VALUE: "10"
+        COMPUTE_CONFIG: "/compute/args/payload"
+        CALLBACK_ON_COMPLETE_URL: "http://server:5000"
+        SQL_SERVER_NAME: "fed-test.database.windows.net"
+        SQL_DATABASE_NAME: "fed-test"
   components:
     - name: echo
       src: echoweb
