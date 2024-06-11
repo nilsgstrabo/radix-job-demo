@@ -63,8 +63,7 @@ spec:
       schedulerPort: 8080
       timeLimitSeconds: 3600
       backoffLimit: 0
-      runtime:
-        architecture: arm64
+      runtime: {}
       notifications:
         webhook: http://server:6001/api/notification/compute1
       readOnlyFileSystem: true
