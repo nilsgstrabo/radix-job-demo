@@ -1,11 +1,19 @@
+# yaml-language-server: $schema=file:///home/nst/go/src/github.com/equinor/radix-operator/json-schema/radixapplication.json
+
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
   name: radix-job-demo
 spec:
+  privateImageHubs:
+    radixcanary.azurecr.io:
+      username: 814607e6-3d71-44a7-8476-50e8b281abbc
   dnsAppAlias:
     environment: qa
     component: server
+  build:
+    useBuildKit: true
+    useBuildCache: false
   environments:
     - name: qa
       build:
@@ -17,8 +25,47 @@ spec:
     - name: "compute"
       src: "compute"
       schedulerPort: 8080
-      timeLimitSeconds: 300
-      backoffLimit: 3
+      timeLimitSeconds: 3600
+      backoffLimit: 0
+      notifications:
+        webhook: http://server:6001/api/notification/compute1
+      readOnlyFileSystem: true
+      ports:
+        - name: http
+          port: 9999
+        - name: metrics2
+          port: 9090
+      monitoringConfig:
+        portName: metrics2
+      payload:
+        path: "/compute/args"
+      identity:
+        azure:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+      runtime:
+        architecture: arm64
+      variables:
+        COMPUTE_CONFIG: "/compute/args/payload"
+        CALLBACK_ON_COMPLETE_URL: "http://server:5000"
+        SQL_SERVER_NAME: "fed-test.database.windows.net"
+        SQL_DATABASE_NAME: "fed-test"
+      environmentConfig:
+        - environment: prod
+          identity:
+            azure:
+              clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
+        - environment: qa
+          monitoring: true
+          backoffLimit: 0
+          useReadOnlyFileSystem: true
+    - name: "compute1"
+      src: "compute"
+      schedulerPort: 8080
+      timeLimitSeconds: 3600
+      backoffLimit: 0
+      notifications:
+        webhook: http://server:6001/api/notification/compute1
+      readOnlyFileSystem: true
       ports:
         - name: http
           port: 9999
@@ -33,27 +80,75 @@ spec:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
-        CALLBACK_ON_COMPLETE_URL: "http://server:5005"
+        CALLBACK_ON_COMPLETE_URL: "http://server:5000"
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
       environmentConfig:
+        - environment: qa
+          monitoring: true
+          backoffLimit: 0
+          runtime:
+            architecture: arm64
         - environment: prod
+          runtime:
+            architecture: amd64
           identity:
             azure:
               clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
-        - environment: qa
-          monitoring: true
-          backoffLimit: 2
-  components:
-    - name: "server"
-      dockerfileName: Dockerfile.frontend
+    - name: "compute2"
+      src: "compute"
+      schedulerPort: 8080
+      timeLimitSeconds: 300
+      backoffLimit: 0
+      payload:
+        path: "/compute/args"
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
-        ASPNETCORE_URLS: "http://*:5005"
+        COMPUTE_CONFIG: "/compute/args/payload"
+        CALLBACK_ON_COMPLETE_URL: "http://server:5000"
+        SQL_SERVER_NAME: "fed-test.database.windows.net"
+        SQL_DATABASE_NAME: "fed-test"
+  components:
+    - name: echo
+      src: echoweb
+      dockerfileName: Dockerfile
+      ports:
+        - name: http
+          port: 8000
+      publicPort: http
+      readOnlyFileSystem: true
+      runtime:
+        architecture: arm64
+      resources:
+        requests:
+          cpu: 10m
+          memory: 10Mi
+        limits:
+          cpu: 10m
+          memory: 10Mi
+    - name: "server"
+      src: src
+      dockerfileName: Dockerfile.frontend
+      ports:
+        - name: http
+          port: 5000
+        - name: notif1
+          port: 6001
+        - name: notif2
+          port: 6002
+      publicPort: http
+      readOnlyFileSystem: true
+      variables:
+        ASPNETCORE_URLS: "http://*:5000;http://*:6001;http://*:6002"
         JOB_SCHEDULER: "http://compute:8080"
+        JOB_SCHEDULER2: "http://compute2:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
+        DOTNET_EnableDiagnostics: "0"
+      identity:
+        azure:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       authentication:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
@@ -61,32 +156,26 @@ spec:
           sessionStoreType: redis
           redisStore:
             connectionUrl: redis://redis:6379
-      ports:
-        - name: http
-          port: 5005
-      publicPort: http
       ingressConfiguration:
         - stickysessions
       resources:
         requests:
-          memory: "202M"
+          memory: "200M"
           cpu: "50m"
         limits:
           memory: "500M"
-          cpu: "500m"
-      # secretRefs:
-      #   azureKeyVaults:
-      #     - items:
-      #         - name: connection-string-dev
-      #           envVar: SSP_CONN_STRING_DEV
-      #         - name: secret1
-      #           envVar: SSP_SECRET1
-      #         - name: secret2
-      #           envVar: SSP_SECRET2
-      #       name: radix-sci-az-kv-test
-      #       useAzureIdentity: true
+      volumeMounts:
+        - name: computeimages
+          path: /app/computeimages
+          emptyDir:
+            sizeLimit: 50M
     - name: redis
-      image: bitnami/redis:6.2
+      image: bitnami/redis:{imageTagName}
+      environmentConfig:
+        - environment: qa
+          imageTagName: "7.2"          
+        - environment: prod
+          imageTagName: "7.0"
       alwaysPullImageOnDeploy: true
       ports:
         - name: redis
@@ -99,5 +188,4 @@ spec:
           cpu: "50m"
         limits:
           memory: "200M"
-          cpu: "100m"
 

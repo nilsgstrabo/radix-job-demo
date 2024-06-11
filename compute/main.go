@@ -73,7 +73,7 @@ func main() {
 
 	doSqlQuery()
 
-	logrus.Infof("RADIX_JOB_NAME: %s \n", os.Getenv("RADIX_JOB_NAME"))
+	logrus.Infof("RADIX_JOB_NAME:  %s \n", os.Getenv("RADIX_JOB_NAME"))
 
 	for _, env := range os.Environ() {
 		logrus.Infoln(env)
@@ -84,26 +84,26 @@ func main() {
 		logrus.Error(err)
 	} else {
 		for _, f := range files {
-			logrus.Infof("file: %s", f.Name())
+			logrus.Infof("file : %s", f.Name())
 		}
 	}
 
 	cfgFile := os.Getenv("COMPUTE_CONFIG")
 	callbackCompleteUrl := os.Getenv("CALLBACK_ON_COMPLETE_URL")
 
-	logrus.Infof("Config file: %s\n", cfgFile)
-	logrus.Infof("CALLBACK_ON_COMPLETE_URL: %s\n", callbackCompleteUrl)
+	logrus.Infof("Config file : %s\n", cfgFile)
+	logrus.Infof("CALLBACK_ON_COMPLETE_URL : %s\n", callbackCompleteUrl)
 
 	cfgBytes, err := os.ReadFile(cfgFile)
 	if err != nil {
-		logrus.Panicf("error reading config file: %v", err)
+		logrus.Panicf("error reading config file : %v", err)
 	}
 
 	logrus.Info(string(cfgBytes))
 	var config Config
 	logrus.Info(config)
 	if err := yaml.Unmarshal(cfgBytes, &config); err != nil {
-		logrus.Panicf("error unmarshalling config file: %v", err)
+		logrus.Panicf("error unmarshal config file: %v", err)
 	}
 
 	logrus.Infof("Config: %v", config)
@@ -114,6 +114,8 @@ func main() {
 		TopLeft:     config.Top,
 		BottomRight: config.Bottom,
 	}
+
+	mbstart := time.Now()
 	m_bitmap := mandelbrot.Bitmap()
 	img := image.NewRGBA(image.Rect(0, 0, mandelbrot.Width, mandelbrot.Height))
 	colorer := NewColorer(basecolors)
@@ -123,6 +125,7 @@ func main() {
 			img.Set(x, y, colorer.Color(m_bitmap[y][x]))
 		}
 	}
+	logrus.Infof("Mandelbrot generation took %v", time.Since(mbstart))
 
 	if strings.TrimSpace(callbackCompleteUrl) != "" {
 		postAdr, _ := url.Parse(callbackCompleteUrl)

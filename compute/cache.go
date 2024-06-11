@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"context"
 
 	"github.com/AzureAD/microsoft-authentication-library-for-go/apps/cache"
 )
@@ -10,7 +10,7 @@ type TokenCache struct {
 	data []byte
 }
 
-func (t *TokenCache) Replace(cache cache.Unmarshaler, key string) {
+func (t *TokenCache) Replace(ctx context.Context, cache cache.Unmarshaler, hints cache.ReplaceHints) error {
 	// jsonFile, err := os.Open(t.file)
 	// if err != nil {
 	// 	log.Println(err)
@@ -20,20 +20,14 @@ func (t *TokenCache) Replace(cache cache.Unmarshaler, key string) {
 	// if err != nil {
 	// 	log.Println(err)
 	// }
-	err := cache.Unmarshal(t.data)
-	if err != nil {
-		log.Println(err)
-	}
+	return cache.Unmarshal(t.data)
 }
 
-func (t *TokenCache) Export(cache cache.Marshaler, key string) {
+func (t *TokenCache) Export(ctx context.Context, cache cache.Marshaler, hints cache.ExportHints) error {
 	data, err := cache.Marshal()
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 	t.data = data
-	// err = ioutil.WriteFile(t.file, data, 0600)
-	// if err != nil {
-	// 	log.Println(err)
-	// }
+	return nil
 }

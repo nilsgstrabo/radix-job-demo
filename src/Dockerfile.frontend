@@ -1,0 +1,29 @@
+# https://hub.docker.com/_/microsoft-dotnet
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+
+RUN apk add --update nodejs npm
+
+WORKDIR /source
+
+# copy csproj and restore as distinct layers
+COPY /frontend/*.csproj ./frontend/
+COPY /RadixJobClient/src/RadixJobClient/*.csproj ./RadixJobClient/src/RadixJobClient/
+RUN dotnet restore ./frontend
+
+# copy everything else and build app
+COPY /frontend ./frontend
+COPY /RadixJobClient ./RadixJobClient
+RUN dotnet publish -c release -o /app ./frontend
+
+# final stage/image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
+WORKDIR /app
+COPY --from=build /app ./
+# Add a new user "radix-non-root-user" with user id 1001
+RUN adduser -D --uid 1001 radix-non-root-user
+
+RUN mkdir /app/computeimages
+RUN chown 1001 /app/computeimages
+USER 1001
+
+ENTRYPOINT ["dotnet", "frontend.dll"]
