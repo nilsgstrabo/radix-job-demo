@@ -7,13 +7,17 @@ import (
 )
 
 func main() {
-	err := http.ListenAndServe(":8000", http.HandlerFunc(handle))
+	addr := ":8000"
+	fmt.Printf("server listening on address %s", addr)
+
+	err := http.ListenAndServe(addr, http.HandlerFunc(handle))
 	if err != nil {
 		panic(err)
 	}
 }
 
 func handle(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("%s - %v", r.RemoteAddr, r.URL)
 	r.ParseForm()
 	if codeStr := r.Form.Get("code"); len(codeStr) > 0 {
 		if code, err := strconv.Atoi(codeStr); err == nil {
