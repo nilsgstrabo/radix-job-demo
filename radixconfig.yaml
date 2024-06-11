@@ -12,7 +12,7 @@ spec:
     environment: qa
     component: server
   build:
-    useBuildKit: true
+    useBuildKit: false
   environments:
     - name: qa
       build:
@@ -41,6 +41,8 @@ spec:
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+      runtime:
+        architecture: arm64
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5000"
