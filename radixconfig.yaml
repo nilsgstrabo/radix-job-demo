@@ -13,6 +13,7 @@ spec:
     component: server
   build:
     useBuildKit: true
+    useBuildCache: false
   environments:
     - name: qa
       build:
