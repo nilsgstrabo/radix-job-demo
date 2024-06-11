@@ -92,7 +92,7 @@ spec:
           monitoring: true
           backoffLimit: 0
     - name: "compute2"
-      image: radixdev.azurecr.io/pointilla:latest
+      src: "compute"
       schedulerPort: 8080
       timeLimitSeconds: 300
       backoffLimit: 0
