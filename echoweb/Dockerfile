@@ -6,10 +6,7 @@ RUN adduser -S -u 1001 -G radix-non-root-group radix-non-root-user
 
 
 RUN apk --no-cache add ca-certificates
-ENV GO111MODULE=on \
-    CGO_ENABLED=0 \
-    GOOS=linux \
-    GOARCH=amd64
+
 WORKDIR /build
 RUN go env
 COPY go.mod .
