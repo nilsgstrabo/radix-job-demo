@@ -42,8 +42,6 @@ spec:
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-      runtime:
-        architecture: arm64
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5000"
@@ -87,11 +85,7 @@ spec:
         - environment: qa
           monitoring: true
           backoffLimit: 0
-          runtime:
-            architecture: arm64
         - environment: prod
-          runtime:
-            architecture: amd64
           identity:
             azure:
               clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
@@ -119,8 +113,6 @@ spec:
           port: 8000
       publicPort: http
       readOnlyFileSystem: true
-      runtime:
-        architecture: arm64
       resources:
         requests:
           cpu: 10m
