@@ -57,7 +57,7 @@ spec:
         - environment: qa
           monitoring: true
           backoffLimit: 0
-          useReadOnlyFileSystem: true
+          readOnlyFileSystem: true
     - name: "compute1"
       src: "compute"
       schedulerPort: 8080
