@@ -30,8 +30,6 @@ spec:
       notifications:
         webhook: http://server:6001/api/notification/compute1
       readOnlyFileSystem: true
-      runtime:
-        architecture: amd64
       ports:
         - name: http
           port: 9999
@@ -96,8 +94,6 @@ spec:
       schedulerPort: 8080
       timeLimitSeconds: 300
       backoffLimit: 0
-      runtime:
-        architecture: arm64
       payload:
         path: "/compute/args"
       identity:
