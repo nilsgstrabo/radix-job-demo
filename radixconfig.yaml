@@ -27,6 +27,8 @@ spec:
       schedulerPort: 8080
       timeLimitSeconds: 3600
       backoffLimit: 0
+      runtime:
+        architecture: arm64
       notifications:
         webhook: http://server:6001/api/notification/compute1
       readOnlyFileSystem: true
@@ -132,6 +134,8 @@ spec:
           port: 6002
       publicPort: http
       readOnlyFileSystem: true
+      runtime:
+        architecture: arm64
       variables:
         ASPNETCORE_URLS: "http://*:5000;http://*:6001;http://*:6002"
         JOB_SCHEDULER: "http://compute:8080"
@@ -165,10 +169,13 @@ spec:
       image: bitnami/redis:{imageTagName}
       environmentConfig:
         - environment: qa
-          imageTagName: "7.2"          
+          imageTagName: "7.2"
+          runtime:
+            architecture: arm64
         - environment: prod
           imageTagName: "7.0"
       alwaysPullImageOnDeploy: true
+      
       ports:
         - name: redis
           port: 6379
