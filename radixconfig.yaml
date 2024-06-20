@@ -181,6 +181,8 @@ spec:
           port: 6379
       secrets:
         - REDIS_PASSWORD
+      runtime:
+        architecture: arm64
       resources:
         requests:
           memory: "100M"
