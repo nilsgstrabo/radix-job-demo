@@ -96,6 +96,8 @@ spec:
       schedulerPort: 8080
       timeLimitSeconds: 300
       backoffLimit: 0
+      runtime:
+        architecture: arm64
       payload:
         path: "/compute/args"
       identity:
@@ -114,6 +116,8 @@ spec:
         - name: http
           port: 8000
       publicPort: http
+      runtime:
+        architecture: arm64
       readOnlyFileSystem: true
       resources:
         requests:
@@ -166,12 +170,12 @@ spec:
           emptyDir:
             sizeLimit: 50M
     - name: redis
+      runtime:
+        architecture: arm64
       image: bitnami/redis:{imageTagName}
       environmentConfig:
         - environment: qa
           imageTagName: "7.2"
-          runtime:
-            architecture: arm64
         - environment: prod
           imageTagName: "7.0"
       alwaysPullImageOnDeploy: true
@@ -181,8 +185,6 @@ spec:
           port: 6379
       secrets:
         - REDIS_PASSWORD
-      runtime:
-        architecture: arm64
       resources:
         requests:
           memory: "100M"
