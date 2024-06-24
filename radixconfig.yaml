@@ -121,13 +121,13 @@ spec:
       runtime:
         architecture: arm64
       readOnlyFileSystem: true
-      resources:
-        requests:
-          cpu: 10m
-          memory: 10Mi
-        limits:
-          cpu: 10m
-          memory: 10Mi
+      # resources:
+      #   requests:
+      #     cpu: 10m
+      #     memory: 10Mi
+      #   limits:
+      #     cpu: 10m
+      #     memory: 10Mi
     - name: "server"
       src: src
       dockerfileName: Dockerfile.frontend
