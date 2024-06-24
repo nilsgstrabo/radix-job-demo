@@ -32,6 +32,10 @@ spec:
       notifications:
         webhook: http://server:6001/api/notification/compute1
       readOnlyFileSystem: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 100Mi
       ports:
         - name: http
           port: 9999
@@ -121,13 +125,13 @@ spec:
       runtime:
         architecture: arm64
       readOnlyFileSystem: true
-      # resources:
-      #   requests:
-      #     cpu: 10m
-      #     memory: 10Mi
-      #   limits:
-      #     cpu: 10m
-      #     memory: 10Mi
+      resources:
+        requests:
+          cpu: 10m
+          memory: 10Mi
+        limits:
+          cpu: 10m
+          memory: 10Mi
     - name: "server"
       src: src
       dockerfileName: Dockerfile.frontend
