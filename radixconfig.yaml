@@ -115,6 +115,22 @@ spec:
         SQL_SERVER_NAME: "fed-test.database.windows.net"
         SQL_DATABASE_NAME: "fed-test"
   components:
+    - name: simpledotnet
+      src: simpledotnet
+      enabled: false
+      ports:
+        - name: http
+          port: 8080
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50M
+        limits:
+          cpu: 50m
+          memory: 50M
+      environmentConfig:
+        - environment: qa
+          enabled: true
     - name: echo
       src: echoweb
       dockerfileName: Dockerfile
