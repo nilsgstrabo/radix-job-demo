@@ -11,6 +11,11 @@ spec:
   dnsAppAlias:
     environment: qa
     component: server
+  dnsExternalAlias:
+    - alias: something.example.com
+      component: server
+      environment: qa
+      useCertificateAutomation: false
   build:
     useBuildKit: true
     useBuildCache: false
