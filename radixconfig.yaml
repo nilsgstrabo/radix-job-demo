@@ -9,7 +9,7 @@ spec:
     environment: qa
     component: server
   build:
-    useBuildKit: true
+    useBuildKit: false
     useBuildCache: false
   environments:
     - name: qa
@@ -25,7 +25,7 @@ spec:
       timeLimitSeconds: 3600
       backoffLimit: 0
       runtime:
-        architecture: arm64
+        architecture: amd64
       notifications:
         webhook: http://server:6001/api/notification/compute1
       readOnlyFileSystem: true
@@ -65,7 +65,7 @@ spec:
       timeLimitSeconds: 3600
       backoffLimit: 0
       runtime:
-        architecture: arm64
+        architecture: amd64
       notifications:
         webhook: http://server:6001/api/notification/compute1
       readOnlyFileSystem: true
@@ -100,7 +100,7 @@ spec:
       timeLimitSeconds: 300
       backoffLimit: 0
       runtime:
-        architecture: arm64
+        architecture: amd64
       payload:
         path: "/compute/args"
       identity:
@@ -120,7 +120,7 @@ spec:
           port: 8000
       publicPort: http
       runtime:
-        architecture: arm64
+        architecture: amd64
       readOnlyFileSystem: true
       resources:
         requests:
@@ -142,7 +142,7 @@ spec:
       publicPort: http
       readOnlyFileSystem: true
       runtime:
-        architecture: arm64
+        architecture: amd64
       variables:
         ASPNETCORE_URLS: "http://*:5000;http://*:6001;http://*:6002"
         JOB_SCHEDULER: "http://compute:8080"
@@ -174,7 +174,7 @@ spec:
             sizeLimit: 50M
     - name: redis
       runtime:
-        architecture: arm64
+        architecture: amd64
       image: bitnami/redis:{imageTagName}
       environmentConfig:
         - environment: qa
