@@ -15,6 +15,9 @@ spec:
     - name: qa
       build:
         from: main
+    - name: qa2
+      build:
+        from: main
     - name: prod
       build:
         from: release
