@@ -179,6 +179,7 @@ spec:
       runtime:
         architecture: amd64
       image: bitnami/redis:{imageTagName}
+      imageTagName: "7.2"
       environmentConfig:
         - environment: qa
           imageTagName: "7.2"
