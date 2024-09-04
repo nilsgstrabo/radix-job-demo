@@ -9,8 +9,8 @@ spec:
     environment: qa
     component: server
   build:
-    useBuildKit: false
-    useBuildCache: false
+    useBuildKit: true
+    # useBuildCache: false
   environments:
     - name: qa
       build:
