@@ -9,7 +9,7 @@ spec:
     environment: qa
     component: server
   build:
-    useBuildKit: false
+    useBuildKit: true
     useBuildCache: false
     secrets:
       - SECRET1
