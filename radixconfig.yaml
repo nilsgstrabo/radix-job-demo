@@ -11,6 +11,8 @@ spec:
   build:
     useBuildKit: false
     useBuildCache: false
+    secrets:
+      - SECRET1
   environments:
     - name: qa
       build:
