@@ -16,7 +16,6 @@ RUN go mod download
 COPY . .
 RUN go build -o app .
 
-RUN sleep 300
 
 FROM alpine:3
 
