@@ -1,10 +1,6 @@
 FROM docker.io/golang:1.22-alpine3.20 as build
 
-ARG SECRET1
 
-#decode `SECRET1` argument and assign it to `BUILD_ARG` variable for further commands in this `RUN`
-RUN BUILD_ARG=$(echo $SECRET1|base64 -d) && \
-    echo $BUILD_ARG
 
 RUN addgroup -S -g 1001 radix-non-root-group
 # Add a new user "radix-non-root-user" with user id 1001 and include in group
@@ -19,6 +15,8 @@ COPY go.sum .
 RUN go mod download
 COPY . .
 RUN go build -o app .
+
+RUN sleep 300
 
 FROM alpine:3
 
