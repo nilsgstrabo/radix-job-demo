@@ -88,7 +88,7 @@ public enum JobResourceEnum {
         {
             try
             {
-                await _hub.NotifyTimeChanged(DateTime.Now.ToString());
+                // await _hub.NotifyTimeChanged(DateTime.Now.ToString());
                 return await _computeService.GetJobs();
             }
             catch (System.Exception ex)
