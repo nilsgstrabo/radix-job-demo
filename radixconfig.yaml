@@ -151,6 +151,11 @@ spec:
         JOB_SCHEDULER2: "http://compute2:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
         DOTNET_EnableDiagnostics: "0"
+      network:
+        ingress:
+          public:
+            proxyReadTimeout: 30
+            proxySendTimeout: 30
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
@@ -161,8 +166,6 @@ spec:
           sessionStoreType: redis
           redisStore:
             connectionUrl: redis://redis:6379
-      ingressConfiguration:
-        - stickysessions
       resources:
         requests:
           memory: "200M"
