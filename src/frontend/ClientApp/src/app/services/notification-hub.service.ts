@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as signalR from '@aspnet/signalr';
+import * as signalR from '@microsoft/signalr';
 import { Subject } from 'rxjs';
 import { ImageChanged } from '../models/image-changed';
 import { MandelbrotCoord } from '../models/mandelbrot-coord';
