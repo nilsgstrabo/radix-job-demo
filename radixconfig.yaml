@@ -178,14 +178,8 @@ spec:
       runtime:
         architecture: amd64
       image: bitnami/redis:{imageTagName}
-      imageTagName: "7.2"
-      environmentConfig:
-        - environment: qa
-          imageTagName: "7.2"
-        - environment: prod
-          imageTagName: "7.0"
+      imageTagName: "7.4.1"
       alwaysPullImageOnDeploy: true
-      
       ports:
         - name: redis
           port: 6379
