@@ -29,7 +29,7 @@ export class NotificationHubService {
             .build();
 
         this.connection.serverTimeoutInMilliseconds=30*1000;
-        this.connection.keepAliveIntervalInMilliseconds=10*1000;
+        this.connection.keepAliveIntervalInMilliseconds=2*1000;
     }
 
     private startConnection() {
