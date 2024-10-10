@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as signalR from '@aspnet/signalr';
+import * as signalR from '@microsoft/signalr';
 import { Subject } from 'rxjs';
 import { ImageChanged } from '../models/image-changed';
 import { MandelbrotCoord } from '../models/mandelbrot-coord';
@@ -23,8 +23,13 @@ export class NotificationHubService {
     }
 
     private createConnection() {
-        this.connection = new signalR.HubConnectionBuilder().withUrl('/notificationhub').build();
-        this.connection.serverTimeoutInMilliseconds=30*1000;
+        this.connection = new signalR.HubConnectionBuilder()
+            .withUrl('/notificationhub')
+            .withAutomaticReconnect()
+            .withKeepAliveInterval(10*1000)
+            .withServerTimeout(30*1000)
+            .build();
+        // this.connection.serverTimeoutInMilliseconds=30*1000;
     }
 
     private startConnection() {
@@ -34,8 +39,14 @@ export class NotificationHubService {
     private registerServerEvents(): void {
         this.connection?.onclose((e)=> {
             console.log(new Date().toLocaleString() ,'connection closed');
-            this.startConnection();
+            // this.startConnection();
         })
+        this.connection?.onreconnecting((e)=> {
+            console.log(new Date().toLocaleString() ,'reconnecting', e);
+        });
+        this.connection?.onreconnected((id)=> {
+            console.log(new Date().toLocaleString() ,'reconnected', id);
+        });
         this.connection?.on('imageChanged', (img) => this.imageChangedSubject.next(img));
         this.connection?.on('timeChanged', (img) => this.timeChangedSubject.next(img));
     }
