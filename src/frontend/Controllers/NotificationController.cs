@@ -9,8 +9,7 @@ using System.Runtime.Versioning;
 using Microsoft.Extensions.Hosting;
 using frontend.Hubs;
 using Microsoft.Data.SqlClient;
-using System.Text.Json;
-
+using Newtonsoft.Json;
 
 
 
@@ -79,17 +78,11 @@ namespace frontend.Controllers
             }
         }
 
-        private async Task<BatchEvent?> GetBatchEventAsync() {
-            
-            return await JsonSerializer.DeserializeAsync<BatchEvent>(
-                this.Request.Body,
-                new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
-
-            // var rdr=new StreamReader(this.Request.Body);
-            // using(StreamReader sr = new StreamReader(this.Request.Body))
-            // using(JsonTextReader reader=new JsonTextReader(sr)) {
-            //     return new JsonSerializer().Deserialize<BatchEvent>(reader);
-            // }
+        private Task<BatchEvent?> GetBatchEventAsync() {
+            using StreamReader sr = new StreamReader(this.Request.Body);
+            using JsonTextReader reader = new JsonTextReader(sr);
+            var batch = new JsonSerializer().Deserialize<BatchEvent>(reader);
+            return Task.FromResult(batch);
         }
 
     }
