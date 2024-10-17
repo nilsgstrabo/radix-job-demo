@@ -39,17 +39,26 @@ namespace RadixJobClient.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="BatchScheduleDescription" /> class.
         /// </summary>
+        /// <param name="batchId">Defines a user defined ID of the batch..</param>
         /// <param name="defaultRadixJobComponentConfig">defaultRadixJobComponentConfig.</param>
         /// <param name="jobScheduleDescriptions">JobScheduleDescriptions descriptions of jobs to schedule within the batch (required).</param>
-        public BatchScheduleDescription(RadixJobComponentConfig defaultRadixJobComponentConfig = default(RadixJobComponentConfig), List<JobScheduleDescription> jobScheduleDescriptions = default(List<JobScheduleDescription>))
+        public BatchScheduleDescription(string batchId = default(string), RadixJobComponentConfig defaultRadixJobComponentConfig = default(RadixJobComponentConfig), List<JobScheduleDescription> jobScheduleDescriptions = default(List<JobScheduleDescription>))
         {
             // to ensure "jobScheduleDescriptions" is required (not null)
             if (jobScheduleDescriptions == null) {
                 throw new ArgumentNullException("jobScheduleDescriptions is a required property for BatchScheduleDescription and cannot be null");
             }
             this.JobScheduleDescriptions = jobScheduleDescriptions;
+            this.BatchId = batchId;
             this.DefaultRadixJobComponentConfig = defaultRadixJobComponentConfig;
         }
+
+        /// <summary>
+        /// Defines a user defined ID of the batch.
+        /// </summary>
+        /// <value>Defines a user defined ID of the batch.</value>
+        [DataMember(Name = "batchId", EmitDefaultValue = false)]
+        public string BatchId { get; set; }
 
         /// <summary>
         /// Gets or Sets DefaultRadixJobComponentConfig
@@ -72,6 +81,7 @@ namespace RadixJobClient.Model
         {
             var sb = new StringBuilder();
             sb.Append("class BatchScheduleDescription {\n");
+            sb.Append("  BatchId: ").Append(BatchId).Append("\n");
             sb.Append("  DefaultRadixJobComponentConfig: ").Append(DefaultRadixJobComponentConfig).Append("\n");
             sb.Append("  JobScheduleDescriptions: ").Append(JobScheduleDescriptions).Append("\n");
             sb.Append("}\n");
@@ -109,6 +119,11 @@ namespace RadixJobClient.Model
 
             return 
                 (
+                    this.BatchId == input.BatchId ||
+                    (this.BatchId != null &&
+                    this.BatchId.Equals(input.BatchId))
+                ) && 
+                (
                     this.DefaultRadixJobComponentConfig == input.DefaultRadixJobComponentConfig ||
                     (this.DefaultRadixJobComponentConfig != null &&
                     this.DefaultRadixJobComponentConfig.Equals(input.DefaultRadixJobComponentConfig))
@@ -130,6 +145,8 @@ namespace RadixJobClient.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.BatchId != null)
+                    hashCode = hashCode * 59 + this.BatchId.GetHashCode();
                 if (this.DefaultRadixJobComponentConfig != null)
                     hashCode = hashCode * 59 + this.DefaultRadixJobComponentConfig.GetHashCode();
                 if (this.JobScheduleDescriptions != null)

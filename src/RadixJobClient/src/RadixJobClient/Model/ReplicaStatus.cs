@@ -32,9 +32,9 @@ namespace RadixJobClient.Model
     public partial class ReplicaStatus : IEquatable<ReplicaStatus>, IValidatableObject
     {
         /// <summary>
-        /// Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state
+        /// Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state Stopped &#x3D; Job has been stopped
         /// </summary>
-        /// <value>Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state</value>
+        /// <value>Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state Stopped &#x3D; Job has been stopped</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StatusEnum
         {
@@ -78,15 +78,21 @@ namespace RadixJobClient.Model
             /// Enum Starting for value: Starting
             /// </summary>
             [EnumMember(Value = "Starting")]
-            Starting = 7
+            Starting = 7,
+
+            /// <summary>
+            /// Enum Stopped for value: Stopped
+            /// </summary>
+            [EnumMember(Value = "Stopped")]
+            Stopped = 8
 
         }
 
 
         /// <summary>
-        /// Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state
+        /// Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state Stopped &#x3D; Job has been stopped
         /// </summary>
-        /// <value>Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state</value>
+        /// <value>Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state Stopped &#x3D; Job has been stopped</value>
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public StatusEnum Status { get; set; }
         /// <summary>
@@ -97,7 +103,7 @@ namespace RadixJobClient.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ReplicaStatus" /> class.
         /// </summary>
-        /// <param name="status">Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state (required).</param>
+        /// <param name="status">Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state Stopped &#x3D; Job has been stopped (required).</param>
         public ReplicaStatus(StatusEnum status = default(StatusEnum))
         {
             this.Status = status;

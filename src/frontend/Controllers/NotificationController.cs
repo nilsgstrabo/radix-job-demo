@@ -9,6 +9,8 @@ using System.Runtime.Versioning;
 using Microsoft.Extensions.Hosting;
 using frontend.Hubs;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
+
 
 
 
@@ -36,15 +38,17 @@ namespace frontend.Controllers
 
         [Host("*:6001")]
         [HttpPost("compute1")]
-        public async Task<IActionResult> PostCompute1Status()
+        public IActionResult PostCompute1Status()
         {
             try
             {
-                var rdr=new StreamReader(this.Request.Body);
-                string b=await rdr.ReadToEndAsync();
-                _logger.LogInformation("Received POST job notification for compute on 6001");
-                _logger.LogInformation(b);
-                return StatusCode(200);    
+                var batch = GetBatchEvent();
+                if(batch!=null) {
+                    _logger.LogInformation("Received batch event for compute1 on 6001: {0} - {1}", batch.BatchName, batch.Status);
+                } else {
+                    _logger.LogWarning("unable to read batch event from request");
+                }
+                return StatusCode(200);  
             }
             catch (System.Exception ex)
             {
@@ -55,14 +59,16 @@ namespace frontend.Controllers
 
         [Host("*:6002")]
         [HttpPost("compute2")]
-        public async Task<IActionResult> PostCompute2Status()
+        public IActionResult PostCompute2Status()
         {
             try
             {
-                var rdr=new StreamReader(this.Request.Body);
-                string b=await rdr.ReadToEndAsync();
-                _logger.LogInformation("Received POST job notification for compute2 on 6002.");
-                _logger.LogInformation(b);
+                var batch = GetBatchEvent();
+                if(batch!=null) {
+                    _logger.LogInformation("Received batch event for compute2 on 6002: {0} - {1}", batch.BatchName, batch.Status);
+                } else {
+                    _logger.LogWarning("unable to read batch event from request");
+                }
                 return StatusCode(200);    
             }
             catch (System.Exception ex)
@@ -71,5 +77,14 @@ namespace frontend.Controllers
                 return StatusCode(500);
             }
         }
+
+        private BatchEvent? GetBatchEvent() {
+            var rdr=new StreamReader(this.Request.Body);
+            using(StreamReader sr = new StreamReader(this.Request.Body))
+            using(JsonTextReader reader=new JsonTextReader(sr)) {
+                return new JsonSerializer().Deserialize<BatchEvent>(reader);
+            }
+        }
+
     }
 }
