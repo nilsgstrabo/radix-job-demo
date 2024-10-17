@@ -2,6 +2,8 @@ using frontend.Hubs;
 using RadixJobClient.Api;
 using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.ConfigureKestrel(k=>k.AllowSynchronousIO=true);
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
