@@ -131,7 +131,7 @@ public class ComputeServiceBase : IComputeService
             jobs.Add(jobRequest);
         }
 
-        var batchRequest=new BatchScheduleDescription(null, jobs);
+        var batchRequest=new BatchScheduleDescription("",null, jobs);
 
         _logger.LogInformation("Payload: {0}", request);
         return await _batchApi.CreateBatchAsync(batchRequest);
