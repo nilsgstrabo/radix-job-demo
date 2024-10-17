@@ -43,7 +43,7 @@ namespace frontend.Controllers
             {
                 var batch = await GetBatchEventAsync();
                 if(batch!=null) {
-                    _logger.LogInformation("Received batch event for compute1 on 6001: {0} - {1}", batch.Name, batch.Status);
+                    _logger.LogInformation("Received batch event for compute1 on 6001: {0} - {1} - {2}", batch.Event, batch.Name, batch.Status);
                 } else {
                     _logger.LogWarning("unable to read batch event from request");
                 }
@@ -65,7 +65,7 @@ namespace frontend.Controllers
             {
                 var batch = await GetBatchEventAsync();
                 if(batch!=null) {
-                    _logger.LogInformation("Received batch event for compute2 on 6002: {0} - {1}", batch.Name, batch.Status);
+                    _logger.LogInformation("Received batch event for compute1 on 6001: {0} - {1} - {2}", batch.Event, batch.Name, batch.Status);
                 } else {
                     _logger.LogWarning("unable to read batch event from request");
                 }
