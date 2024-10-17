@@ -9,7 +9,7 @@ using System.Runtime.Versioning;
 using Microsoft.Extensions.Hosting;
 using frontend.Hubs;
 using Microsoft.Data.SqlClient;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 
 
@@ -38,16 +38,17 @@ namespace frontend.Controllers
 
         [Host("*:6001")]
         [HttpPost("compute1")]
-        public IActionResult PostCompute1Status()
+        public async Task<IActionResult> PostCompute1Status()
         {
             try
             {
-                var batch = GetBatchEvent();
+                var batch = await GetBatchEventAsync();
                 if(batch!=null) {
                     _logger.LogInformation("Received batch event for compute1 on 6001: {0} - {1}", batch.BatchName, batch.Status);
                 } else {
                     _logger.LogWarning("unable to read batch event from request");
                 }
+
                 return StatusCode(200);  
             }
             catch (System.Exception ex)
@@ -59,11 +60,11 @@ namespace frontend.Controllers
 
         [Host("*:6002")]
         [HttpPost("compute2")]
-        public IActionResult PostCompute2Status()
+        public async Task<IActionResult> PostCompute2Status()
         {
             try
             {
-                var batch = GetBatchEvent();
+                var batch = await GetBatchEventAsync();
                 if(batch!=null) {
                     _logger.LogInformation("Received batch event for compute2 on 6002: {0} - {1}", batch.BatchName, batch.Status);
                 } else {
@@ -78,12 +79,17 @@ namespace frontend.Controllers
             }
         }
 
-        private BatchEvent? GetBatchEvent() {
-            var rdr=new StreamReader(this.Request.Body);
-            using(StreamReader sr = new StreamReader(this.Request.Body))
-            using(JsonTextReader reader=new JsonTextReader(sr)) {
-                return new JsonSerializer().Deserialize<BatchEvent>(reader);
-            }
+        private async Task<BatchEvent?> GetBatchEventAsync() {
+            
+            return await JsonSerializer.DeserializeAsync<BatchEvent>(
+                this.Request.Body,
+                new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
+
+            // var rdr=new StreamReader(this.Request.Body);
+            // using(StreamReader sr = new StreamReader(this.Request.Body))
+            // using(JsonTextReader reader=new JsonTextReader(sr)) {
+            //     return new JsonSerializer().Deserialize<BatchEvent>(reader);
+            // }
         }
 
     }
