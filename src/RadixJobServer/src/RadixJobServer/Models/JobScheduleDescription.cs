@@ -48,10 +48,11 @@ namespace RadixJobServer.Models
         public string JobId { get; set; }
 
         /// <summary>
-        /// Gets or Sets Node
+        /// Node defines node attributes, where container should be scheduled
         /// </summary>
+        /// <value>Node defines node attributes, where container should be scheduled</value>
         [DataMember(Name="node", EmitDefaultValue=false)]
-        public RadixNode Node { get; set; }
+        public Object Node { get; set; }
 
         /// <summary>
         /// Payload holding json data to be mapped to component
@@ -61,10 +62,11 @@ namespace RadixJobServer.Models
         public string Payload { get; set; }
 
         /// <summary>
-        /// Gets or Sets Resources
+        /// Resource describes the compute resource requirements.
         /// </summary>
+        /// <value>Resource describes the compute resource requirements.</value>
         [DataMember(Name="resources", EmitDefaultValue=false)]
-        public ResourceRequirements Resources { get; set; }
+        public Object Resources { get; set; }
 
         /// <summary>
         /// TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s.

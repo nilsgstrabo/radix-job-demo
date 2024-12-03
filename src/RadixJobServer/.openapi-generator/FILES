@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 RadixJobServer.sln
 build.bat
@@ -17,9 +18,9 @@ src/RadixJobServer/Models/BatchScheduleDescription.cs
 src/RadixJobServer/Models/BatchStatus.cs
 src/RadixJobServer/Models/JobScheduleDescription.cs
 src/RadixJobServer/Models/JobStatus.cs
+src/RadixJobServer/Models/PodStatus.cs
 src/RadixJobServer/Models/RadixJobComponentConfig.cs
-src/RadixJobServer/Models/RadixNode.cs
-src/RadixJobServer/Models/ResourceRequirements.cs
+src/RadixJobServer/Models/ReplicaStatus.cs
 src/RadixJobServer/Models/Status.cs
 src/RadixJobServer/OpenApi/TypeExtensions.cs
 src/RadixJobServer/Program.cs

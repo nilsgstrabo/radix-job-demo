@@ -35,15 +35,15 @@ spec:
           - action: FailJob
             onExitCodes:
               operator: In
-              values: [10,11]
+              values: [1]
           - action: Count
             onExitCodes:
               operator: In
-              values: [1]
+              values: [10,11]
           - action: Ignore
             onExitCodes:
               operator: In
-              values: [2, 3, 4, 5]
+              values: [20,21,22]
       readOnlyFileSystem: true
       resources:
         requests:

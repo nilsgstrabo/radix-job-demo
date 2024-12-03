@@ -27,6 +27,20 @@ namespace RadixJobServer.Models
     public partial class BatchEvent : IEquatable<BatchEvent>
     {
         /// <summary>
+        /// DeploymentName for this batch
+        /// </summary>
+        /// <value>DeploymentName for this batch</value>
+        [DataMember(Name="DeploymentName", EmitDefaultValue=false)]
+        public string DeploymentName { get; set; }
+
+        /// <summary>
+        /// Defines a user defined ID of the batch.
+        /// </summary>
+        /// <value>Defines a user defined ID of the batch.</value>
+        [DataMember(Name="batchId", EmitDefaultValue=false)]
+        public string BatchId { get; set; }
+
+        /// <summary>
         /// BatchName Optional Batch ID of a job
         /// </summary>
         /// <value>BatchName Optional Batch ID of a job</value>
@@ -63,6 +77,13 @@ namespace RadixJobServer.Models
         public string Event { get; set; }
 
         /// <summary>
+        /// The number of times the container for the job has failed. +optional
+        /// </summary>
+        /// <value>The number of times the container for the job has failed. +optional</value>
+        [DataMember(Name="failed", EmitDefaultValue=false)]
+        public int Failed { get; set; }
+
+        /// <summary>
         /// JobId Optional ID of a job
         /// </summary>
         /// <value>JobId Optional ID of a job</value>
@@ -92,6 +113,20 @@ namespace RadixJobServer.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// PodStatuses for each pod of the job
+        /// </summary>
+        /// <value>PodStatuses for each pod of the job</value>
+        [DataMember(Name="podStatuses", EmitDefaultValue=false)]
+        public List<PodStatus> PodStatuses { get; set; }
+
+        /// <summary>
+        /// Timestamp of the job restart, if applied. +optional
+        /// </summary>
+        /// <value>Timestamp of the job restart, if applied. +optional</value>
+        [DataMember(Name="restart", EmitDefaultValue=false)]
+        public string Restart { get; set; }
+
+        /// <summary>
         /// Started timestamp
         /// </summary>
         /// <value>Started timestamp</value>
@@ -100,63 +135,76 @@ namespace RadixJobServer.Models
 
 
         /// <summary>
-        /// Status of the job
+        /// Status of the job Running = Job is running Succeeded = Job has succeeded Failed = Job has failed Waiting = Job is waiting Stopping = Job is stopping Stopped = Job has been stopped Active = Job is active Completed = Job is completed
         /// </summary>
-        /// <value>Status of the job</value>
+        /// <value>Status of the job Running = Job is running Succeeded = Job has succeeded Failed = Job has failed Waiting = Job is waiting Stopping = Job is stopping Stopped = Job has been stopped Active = Job is active Completed = Job is completed</value>
         [TypeConverter(typeof(CustomEnumConverter<StatusEnum>))]
         [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public enum StatusEnum
         {
             
             /// <summary>
-            /// Enum WaitingEnum for Waiting
-            /// </summary>
-            [EnumMember(Value = "Waiting")]
-            WaitingEnum = 1,
-            
-            /// <summary>
             /// Enum RunningEnum for Running
             /// </summary>
             [EnumMember(Value = "Running")]
-            RunningEnum = 2,
+            RunningEnum = 1,
             
             /// <summary>
             /// Enum SucceededEnum for Succeeded
             /// </summary>
             [EnumMember(Value = "Succeeded")]
-            SucceededEnum = 3,
-            
-            /// <summary>
-            /// Enum StoppingEnum for Stopping
-            /// </summary>
-            [EnumMember(Value = "Stopping")]
-            StoppingEnum = 4,
-            
-            /// <summary>
-            /// Enum StoppedEnum for Stopped
-            /// </summary>
-            [EnumMember(Value = "Stopped")]
-            StoppedEnum = 5,
+            SucceededEnum = 2,
             
             /// <summary>
             /// Enum FailedEnum for Failed
             /// </summary>
             [EnumMember(Value = "Failed")]
-            FailedEnum = 6,
+            FailedEnum = 3,
             
             /// <summary>
-            /// Enum DeadlineExceededEnum for DeadlineExceeded
+            /// Enum WaitingEnum for Waiting
             /// </summary>
-            [EnumMember(Value = "DeadlineExceeded")]
-            DeadlineExceededEnum = 7
+            [EnumMember(Value = "Waiting")]
+            WaitingEnum = 4,
+            
+            /// <summary>
+            /// Enum StoppingEnum for Stopping
+            /// </summary>
+            [EnumMember(Value = "Stopping")]
+            StoppingEnum = 5,
+            
+            /// <summary>
+            /// Enum StoppedEnum for Stopped
+            /// </summary>
+            [EnumMember(Value = "Stopped")]
+            StoppedEnum = 6,
+            
+            /// <summary>
+            /// Enum ActiveEnum for Active
+            /// </summary>
+            [EnumMember(Value = "Active")]
+            ActiveEnum = 7,
+            
+            /// <summary>
+            /// Enum CompletedEnum for Completed
+            /// </summary>
+            [EnumMember(Value = "Completed")]
+            CompletedEnum = 8
         }
 
         /// <summary>
-        /// Status of the job
+        /// Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed
         /// </summary>
-        /// <value>Status of the job</value>
+        /// <value>Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed</value>
         [DataMember(Name="status", EmitDefaultValue=false)]
         public StatusEnum Status { get; set; }
+
+        /// <summary>
+        /// Updated timestamp when the status was updated
+        /// </summary>
+        /// <value>Updated timestamp when the status was updated</value>
+        [DataMember(Name="updated", EmitDefaultValue=false)]
+        public string Updated { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -166,17 +214,23 @@ namespace RadixJobServer.Models
         {
             var sb = new StringBuilder();
             sb.Append("class BatchEvent {\n");
+            sb.Append("  DeploymentName: ").Append(DeploymentName).Append("\n");
+            sb.Append("  BatchId: ").Append(BatchId).Append("\n");
             sb.Append("  BatchName: ").Append(BatchName).Append("\n");
             sb.Append("  BatchType: ").Append(BatchType).Append("\n");
             sb.Append("  Created: ").Append(Created).Append("\n");
             sb.Append("  Ended: ").Append(Ended).Append("\n");
             sb.Append("  Event: ").Append(Event).Append("\n");
+            sb.Append("  Failed: ").Append(Failed).Append("\n");
             sb.Append("  JobId: ").Append(JobId).Append("\n");
             sb.Append("  JobStatuses: ").Append(JobStatuses).Append("\n");
             sb.Append("  Message: ").Append(Message).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  PodStatuses: ").Append(PodStatuses).Append("\n");
+            sb.Append("  Restart: ").Append(Restart).Append("\n");
             sb.Append("  Started: ").Append(Started).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  Updated: ").Append(Updated).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -214,6 +268,16 @@ namespace RadixJobServer.Models
 
             return 
                 (
+                    DeploymentName == other.DeploymentName ||
+                    DeploymentName != null &&
+                    DeploymentName.Equals(other.DeploymentName)
+                ) && 
+                (
+                    BatchId == other.BatchId ||
+                    BatchId != null &&
+                    BatchId.Equals(other.BatchId)
+                ) && 
+                (
                     BatchName == other.BatchName ||
                     BatchName != null &&
                     BatchName.Equals(other.BatchName)
@@ -239,6 +303,11 @@ namespace RadixJobServer.Models
                     Event.Equals(other.Event)
                 ) && 
                 (
+                    Failed == other.Failed ||
+                    
+                    Failed.Equals(other.Failed)
+                ) && 
+                (
                     JobId == other.JobId ||
                     JobId != null &&
                     JobId.Equals(other.JobId)
@@ -260,6 +329,17 @@ namespace RadixJobServer.Models
                     Name.Equals(other.Name)
                 ) && 
                 (
+                    PodStatuses == other.PodStatuses ||
+                    PodStatuses != null &&
+                    other.PodStatuses != null &&
+                    PodStatuses.SequenceEqual(other.PodStatuses)
+                ) && 
+                (
+                    Restart == other.Restart ||
+                    Restart != null &&
+                    Restart.Equals(other.Restart)
+                ) && 
+                (
                     Started == other.Started ||
                     Started != null &&
                     Started.Equals(other.Started)
@@ -268,6 +348,11 @@ namespace RadixJobServer.Models
                     Status == other.Status ||
                     
                     Status.Equals(other.Status)
+                ) && 
+                (
+                    Updated == other.Updated ||
+                    Updated != null &&
+                    Updated.Equals(other.Updated)
                 );
         }
 
@@ -281,6 +366,10 @@ namespace RadixJobServer.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
+                    if (DeploymentName != null)
+                    hashCode = hashCode * 59 + DeploymentName.GetHashCode();
+                    if (BatchId != null)
+                    hashCode = hashCode * 59 + BatchId.GetHashCode();
                     if (BatchName != null)
                     hashCode = hashCode * 59 + BatchName.GetHashCode();
                     if (BatchType != null)
@@ -291,6 +380,8 @@ namespace RadixJobServer.Models
                     hashCode = hashCode * 59 + Ended.GetHashCode();
                     if (Event != null)
                     hashCode = hashCode * 59 + Event.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + Failed.GetHashCode();
                     if (JobId != null)
                     hashCode = hashCode * 59 + JobId.GetHashCode();
                     if (JobStatuses != null)
@@ -299,10 +390,16 @@ namespace RadixJobServer.Models
                     hashCode = hashCode * 59 + Message.GetHashCode();
                     if (Name != null)
                     hashCode = hashCode * 59 + Name.GetHashCode();
+                    if (PodStatuses != null)
+                    hashCode = hashCode * 59 + PodStatuses.GetHashCode();
+                    if (Restart != null)
+                    hashCode = hashCode * 59 + Restart.GetHashCode();
                     if (Started != null)
                     hashCode = hashCode * 59 + Started.GetHashCode();
                     
                     hashCode = hashCode * 59 + Status.GetHashCode();
+                    if (Updated != null)
+                    hashCode = hashCode * 59 + Updated.GetHashCode();
                 return hashCode;
             }
         }

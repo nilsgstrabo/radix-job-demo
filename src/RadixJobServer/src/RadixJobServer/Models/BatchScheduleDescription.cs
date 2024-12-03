@@ -27,6 +27,13 @@ namespace RadixJobServer.Models
     public partial class BatchScheduleDescription : IEquatable<BatchScheduleDescription>
     {
         /// <summary>
+        /// Defines a user defined ID of the batch.
+        /// </summary>
+        /// <value>Defines a user defined ID of the batch.</value>
+        [DataMember(Name="batchId", EmitDefaultValue=false)]
+        public string BatchId { get; set; }
+
+        /// <summary>
         /// Gets or Sets DefaultRadixJobComponentConfig
         /// </summary>
         [DataMember(Name="defaultRadixJobComponentConfig", EmitDefaultValue=false)]
@@ -48,6 +55,7 @@ namespace RadixJobServer.Models
         {
             var sb = new StringBuilder();
             sb.Append("class BatchScheduleDescription {\n");
+            sb.Append("  BatchId: ").Append(BatchId).Append("\n");
             sb.Append("  DefaultRadixJobComponentConfig: ").Append(DefaultRadixJobComponentConfig).Append("\n");
             sb.Append("  JobScheduleDescriptions: ").Append(JobScheduleDescriptions).Append("\n");
             sb.Append("}\n");
@@ -87,6 +95,11 @@ namespace RadixJobServer.Models
 
             return 
                 (
+                    BatchId == other.BatchId ||
+                    BatchId != null &&
+                    BatchId.Equals(other.BatchId)
+                ) && 
+                (
                     DefaultRadixJobComponentConfig == other.DefaultRadixJobComponentConfig ||
                     DefaultRadixJobComponentConfig != null &&
                     DefaultRadixJobComponentConfig.Equals(other.DefaultRadixJobComponentConfig)
@@ -109,6 +122,8 @@ namespace RadixJobServer.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
+                    if (BatchId != null)
+                    hashCode = hashCode * 59 + BatchId.GetHashCode();
                     if (DefaultRadixJobComponentConfig != null)
                     hashCode = hashCode * 59 + DefaultRadixJobComponentConfig.GetHashCode();
                     if (JobScheduleDescriptions != null)

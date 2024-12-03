@@ -175,7 +175,12 @@ func main() {
 	}
 
 	if config.Fail {
-		panic("job was configured to simulate panic")
+		logrus.Errorf("simulating failure")
+		exitCode := config.FailExitCode
+		if exitCode <= 0 {
+			exitCode = 1
+		}
+		os.Exit(exitCode)
 	}
 }
 

@@ -9,7 +9,7 @@
     <Version>1.0.0</Version>
     <AssemblyName>RadixJobServer</AssemblyName>
     <PackageId>RadixJobServer</PackageId>
-    <UserSecretsId>d9b74777-6eb1-45df-94c8-11012a6afbe0</UserSecretsId>
+    <UserSecretsId>79fbff8f-12aa-4d1b-8a25-83c610bba9e4</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0"/>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.0.0"/>
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.3.0"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0"/>
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.0.0" />
     <PackageReference Include="JsonSubTypes" Version="1.8.0" />
   </ItemGroup>
