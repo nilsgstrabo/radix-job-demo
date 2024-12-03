@@ -106,8 +106,8 @@ func main() {
 		logrus.Panicf("error unmarshal config file: %v", err)
 	}
 
-	logrus.Infof("Config: %v", config)
-
+	logrus.Infof("Config: %+v", config)
+	fmt.Print()
 	mandelbrot := Mandelbrot{
 		Height:      config.Height,
 		Width:       config.Width,
