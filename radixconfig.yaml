@@ -30,6 +30,20 @@ spec:
         architecture: amd64
       notifications:
         webhook: http://server:6001/api/notification/compute1
+      failurePolicy:
+        rules:
+          - action: FailJob
+            onExitCodes:
+              operator: In
+              values: [10,11]
+          - action: Count
+            onExitCodes:
+              operator: In
+              values: [1]
+          - action: Ignore
+            onExitCodes:
+              operator: In
+              values: [2, 3, 4, 5]
       readOnlyFileSystem: true
       resources:
         requests:
