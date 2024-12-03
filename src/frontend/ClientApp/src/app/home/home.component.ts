@@ -34,6 +34,7 @@ interface ComputeRequest {
   backoffLimit: number,
   timelimitSeconds: number,
   jobCount: number,
+  failExitCode: number,
 }
 
 @Component({
@@ -56,6 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   timelimitSeconds=300;
   backoffLimit=0;
   fail=false;
+  failExitCode=1;
   requestType=1;
   customJobName="";
   jobCount=1;
@@ -198,6 +200,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       backoffLimit: this.backoffLimit,
       timelimitSeconds: this.timelimitSeconds,
       jobCount: this.jobCount,
+      failExitCode: this.failExitCode,
     };
     
     console.log(this.requestType);

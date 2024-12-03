@@ -28,7 +28,7 @@ public class ComputePayload
     public int Sleep { get; set; }
     public bool Fail { get; set; }
     public string StringVal { get; set; }
-    
+    public int FailExitCode { get; set; }
 
 }
 
@@ -147,7 +147,8 @@ public class ComputeServiceBase : IComputeService
             Bottom = request.MandelbrotWindow.Bottom,
             Sleep = request.Sleep,
             Fail = request.Fail,
-            StringVal = "my escaped \" string {}"
+            StringVal = "my escaped \" string {}",
+            FailExitCode=request.FailExitCode,
         };
 
         var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions
