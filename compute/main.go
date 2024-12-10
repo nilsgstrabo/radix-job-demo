@@ -67,7 +67,7 @@ func main() {
 		for s := range chSignal {
 			logrus.Infof("received %s", s)
 			if s == syscall.SIGTERM {
-				logrus.Infof("respecting signal %s by terminating", s)
+				logrus.Infof("respecting signal %q by terminating the job", s)
 				os.Exit(143)
 			}
 		}
