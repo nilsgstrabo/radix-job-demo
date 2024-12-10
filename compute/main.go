@@ -61,7 +61,7 @@ var basecolors []color.RGBA = []color.RGBA{
 func main() {
 
 	chSignal := make(chan os.Signal, 1)
-	signal.Notify(chSignal, os.Interrupt)
+	signal.Notify(chSignal)
 
 	go func() {
 		for s := range chSignal {
