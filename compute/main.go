@@ -60,6 +60,15 @@ var basecolors []color.RGBA = []color.RGBA{
 
 func main() {
 
+	chSignal := make(chan os.Signal, 1)
+	signal.Notify(chSignal)
+
+	go func() {
+		for s := range chSignal {
+			logrus.Infof("received %s", s)
+		}
+	}()
+
 	go startHttpServer()
 
 	ticker := time.NewTicker(time.Second)
