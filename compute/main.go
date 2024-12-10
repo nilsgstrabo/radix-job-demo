@@ -61,11 +61,15 @@ var basecolors []color.RGBA = []color.RGBA{
 func main() {
 
 	chSignal := make(chan os.Signal, 1)
-	signal.Notify(chSignal)
+	signal.Notify(chSignal, os.Interrupt)
 
 	go func() {
 		for s := range chSignal {
 			logrus.Infof("received %s", s)
+			if s == syscall.SIGTERM {
+				logrus.Infof("respecting signal %s by terminating", s)
+				os.Exit(143)
+			}
 		}
 	}()
 
