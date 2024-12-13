@@ -29,19 +29,21 @@ namespace RadixJobClient.Model
     /// RadixJobComponentConfig holds description of RadixJobComponent
     /// </summary>
     [DataContract(Name = "RadixJobComponentConfig")]
-    public partial class RadixJobComponentConfig : IEquatable<RadixJobComponentConfig>, IValidatableObject
+    public partial class RadixJobComponentConfig : IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RadixJobComponentConfig" /> class.
         /// </summary>
         /// <param name="backoffLimit">BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s..</param>
+        /// <param name="failurePolicy">failurePolicy.</param>
         /// <param name="imageTagName">ImageTagName defines the image tag name to use for the job image.</param>
-        /// <param name="node">Node defines node attributes, where container should be scheduled.</param>
-        /// <param name="resources">Resource describes the compute resource requirements..</param>
+        /// <param name="node">node.</param>
+        /// <param name="resources">resources.</param>
         /// <param name="timeLimitSeconds">TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s..</param>
-        public RadixJobComponentConfig(int backoffLimit = default(int), string imageTagName = default(string), Object node = default(Object), Object resources = default(Object), long timeLimitSeconds = default(long))
+        public RadixJobComponentConfig(int backoffLimit = default(int), FailurePolicy failurePolicy = default(FailurePolicy), string imageTagName = default(string), Node node = default(Node), Resources resources = default(Resources), long timeLimitSeconds = default(long))
         {
             this.BackoffLimit = backoffLimit;
+            this.FailurePolicy = failurePolicy;
             this.ImageTagName = imageTagName;
             this.Node = node;
             this.Resources = resources;
@@ -56,6 +58,12 @@ namespace RadixJobClient.Model
         public int BackoffLimit { get; set; }
 
         /// <summary>
+        /// Gets or Sets FailurePolicy
+        /// </summary>
+        [DataMember(Name = "failurePolicy", EmitDefaultValue = false)]
+        public FailurePolicy FailurePolicy { get; set; }
+
+        /// <summary>
         /// ImageTagName defines the image tag name to use for the job image
         /// </summary>
         /// <value>ImageTagName defines the image tag name to use for the job image</value>
@@ -63,18 +71,16 @@ namespace RadixJobClient.Model
         public string ImageTagName { get; set; }
 
         /// <summary>
-        /// Node defines node attributes, where container should be scheduled
+        /// Gets or Sets Node
         /// </summary>
-        /// <value>Node defines node attributes, where container should be scheduled</value>
         [DataMember(Name = "node", EmitDefaultValue = false)]
-        public Object Node { get; set; }
+        public Node Node { get; set; }
 
         /// <summary>
-        /// Resource describes the compute resource requirements.
+        /// Gets or Sets Resources
         /// </summary>
-        /// <value>Resource describes the compute resource requirements.</value>
         [DataMember(Name = "resources", EmitDefaultValue = false)]
-        public Object Resources { get; set; }
+        public Resources Resources { get; set; }
 
         /// <summary>
         /// TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s.
@@ -89,9 +95,10 @@ namespace RadixJobClient.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.Append("class RadixJobComponentConfig {\n");
             sb.Append("  BackoffLimit: ").Append(BackoffLimit).Append("\n");
+            sb.Append("  FailurePolicy: ").Append(FailurePolicy).Append("\n");
             sb.Append("  ImageTagName: ").Append(ImageTagName).Append("\n");
             sb.Append("  Node: ").Append(Node).Append("\n");
             sb.Append("  Resources: ").Append(Resources).Append("\n");
@@ -110,78 +117,11 @@ namespace RadixJobClient.Model
         }
 
         /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="input">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object input)
-        {
-            return this.Equals(input as RadixJobComponentConfig);
-        }
-
-        /// <summary>
-        /// Returns true if RadixJobComponentConfig instances are equal
-        /// </summary>
-        /// <param name="input">Instance of RadixJobComponentConfig to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(RadixJobComponentConfig input)
-        {
-            if (input == null)
-                return false;
-
-            return 
-                (
-                    this.BackoffLimit == input.BackoffLimit ||
-                    this.BackoffLimit.Equals(input.BackoffLimit)
-                ) && 
-                (
-                    this.ImageTagName == input.ImageTagName ||
-                    (this.ImageTagName != null &&
-                    this.ImageTagName.Equals(input.ImageTagName))
-                ) && 
-                (
-                    this.Node == input.Node ||
-                    (this.Node != null &&
-                    this.Node.Equals(input.Node))
-                ) && 
-                (
-                    this.Resources == input.Resources ||
-                    (this.Resources != null &&
-                    this.Resources.Equals(input.Resources))
-                ) && 
-                (
-                    this.TimeLimitSeconds == input.TimeLimitSeconds ||
-                    this.TimeLimitSeconds.Equals(input.TimeLimitSeconds)
-                );
-        }
-
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                int hashCode = 41;
-                hashCode = hashCode * 59 + this.BackoffLimit.GetHashCode();
-                if (this.ImageTagName != null)
-                    hashCode = hashCode * 59 + this.ImageTagName.GetHashCode();
-                if (this.Node != null)
-                    hashCode = hashCode * 59 + this.Node.GetHashCode();
-                if (this.Resources != null)
-                    hashCode = hashCode * 59 + this.Resources.GetHashCode();
-                hashCode = hashCode * 59 + this.TimeLimitSeconds.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        /// <summary>
         /// To validate all properties of the instance
         /// </summary>
         /// <param name="validationContext">Validation context</param>
         /// <returns>Validation Result</returns>
-        public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
             yield break;
         }

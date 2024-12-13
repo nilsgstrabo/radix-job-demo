@@ -29,7 +29,7 @@ namespace RadixJobClient.Model
     /// JobStatus holds general information about job status
     /// </summary>
     [DataContract(Name = "JobStatus")]
-    public partial class JobStatus : IEquatable<JobStatus>, IValidatableObject
+    public partial class JobStatus : IValidatableObject
     {
         /// <summary>
         /// Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed
@@ -85,7 +85,6 @@ namespace RadixJobClient.Model
             /// </summary>
             [EnumMember(Value = "Completed")]
             Completed = 8
-
         }
 
 
@@ -93,6 +92,9 @@ namespace RadixJobClient.Model
         /// Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed
         /// </summary>
         /// <value>Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed</value>
+        /*
+        <example>Waiting</example>
+        */
         [DataMember(Name = "status", EmitDefaultValue = false)]
         public StatusEnum? Status { get; set; }
         /// <summary>
@@ -106,7 +108,7 @@ namespace RadixJobClient.Model
         /// <param name="deploymentName">DeploymentName for this batch.</param>
         /// <param name="batchId">Defines a user defined ID of the batch..</param>
         /// <param name="batchName">BatchName Optional Batch ID of a job.</param>
-        /// <param name="created">Created timestamp (required).</param>
+        /// <param name="created">Created timestamp.</param>
         /// <param name="ended">Ended timestamp.</param>
         /// <param name="failed">The number of times the container for the job has failed. +optional.</param>
         /// <param name="jobId">JobId Optional ID of a job.</param>
@@ -117,21 +119,18 @@ namespace RadixJobClient.Model
         /// <param name="started">Started timestamp.</param>
         /// <param name="status">Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed.</param>
         /// <param name="updated">Updated timestamp when the status was updated.</param>
-        public JobStatus(string deploymentName = default(string), string batchId = default(string), string batchName = default(string), string created = default(string), string ended = default(string), int failed = default(int), string jobId = default(string), string message = default(string), string name = default(string), List<PodStatus> podStatuses = default(List<PodStatus>), string restart = default(string), string started = default(string), StatusEnum? status = default(StatusEnum?), string updated = default(string))
+        public JobStatus(string deploymentName = default(string), string batchId = default(string), string batchName = default(string), DateTime created = default(DateTime), DateTime ended = default(DateTime), int failed = default(int), string jobId = default(string), string message = default(string), string name = default(string), List<PodStatus> podStatuses = default(List<PodStatus>), string restart = default(string), DateTime started = default(DateTime), StatusEnum? status = default(StatusEnum?), DateTime updated = default(DateTime))
         {
-            // to ensure "created" is required (not null)
-            if (created == null) {
-                throw new ArgumentNullException("created is a required property for JobStatus and cannot be null");
-            }
-            this.Created = created;
             // to ensure "name" is required (not null)
-            if (name == null) {
+            if (name == null)
+            {
                 throw new ArgumentNullException("name is a required property for JobStatus and cannot be null");
             }
             this.Name = name;
             this.DeploymentName = deploymentName;
             this.BatchId = batchId;
             this.BatchName = batchName;
+            this.Created = created;
             this.Ended = ended;
             this.Failed = failed;
             this.JobId = jobId;
@@ -154,6 +153,9 @@ namespace RadixJobClient.Model
         /// Defines a user defined ID of the batch.
         /// </summary>
         /// <value>Defines a user defined ID of the batch.</value>
+        /*
+        <example>&#39;batch-id-1&#39;</example>
+        */
         [DataMember(Name = "batchId", EmitDefaultValue = false)]
         public string BatchId { get; set; }
 
@@ -161,6 +163,9 @@ namespace RadixJobClient.Model
         /// BatchName Optional Batch ID of a job
         /// </summary>
         /// <value>BatchName Optional Batch ID of a job</value>
+        /*
+        <example>&#39;batch1&#39;</example>
+        */
         [DataMember(Name = "batchName", EmitDefaultValue = false)]
         public string BatchName { get; set; }
 
@@ -168,15 +173,15 @@ namespace RadixJobClient.Model
         /// Created timestamp
         /// </summary>
         /// <value>Created timestamp</value>
-        [DataMember(Name = "created", IsRequired = true, EmitDefaultValue = false)]
-        public string Created { get; set; }
+        [DataMember(Name = "created", EmitDefaultValue = false)]
+        public DateTime Created { get; set; }
 
         /// <summary>
         /// Ended timestamp
         /// </summary>
         /// <value>Ended timestamp</value>
         [DataMember(Name = "ended", EmitDefaultValue = false)]
-        public string Ended { get; set; }
+        public DateTime Ended { get; set; }
 
         /// <summary>
         /// The number of times the container for the job has failed. +optional
@@ -189,6 +194,9 @@ namespace RadixJobClient.Model
         /// JobId Optional ID of a job
         /// </summary>
         /// <value>JobId Optional ID of a job</value>
+        /*
+        <example>&#39;job1&#39;</example>
+        */
         [DataMember(Name = "jobId", EmitDefaultValue = false)]
         public string JobId { get; set; }
 
@@ -196,6 +204,9 @@ namespace RadixJobClient.Model
         /// Message, if any, of the job
         /// </summary>
         /// <value>Message, if any, of the job</value>
+        /*
+        <example>&quot;Error occurred&quot;</example>
+        */
         [DataMember(Name = "message", EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -203,7 +214,10 @@ namespace RadixJobClient.Model
         /// Name of the job
         /// </summary>
         /// <value>Name of the job</value>
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        /*
+        <example>calculator</example>
+        */
+        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = true)]
         public string Name { get; set; }
 
         /// <summary>
@@ -225,14 +239,14 @@ namespace RadixJobClient.Model
         /// </summary>
         /// <value>Started timestamp</value>
         [DataMember(Name = "started", EmitDefaultValue = false)]
-        public string Started { get; set; }
+        public DateTime Started { get; set; }
 
         /// <summary>
         /// Updated timestamp when the status was updated
         /// </summary>
         /// <value>Updated timestamp when the status was updated</value>
         [DataMember(Name = "updated", EmitDefaultValue = false)]
-        public string Updated { get; set; }
+        public DateTime Updated { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -240,7 +254,7 @@ namespace RadixJobClient.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.Append("class JobStatus {\n");
             sb.Append("  DeploymentName: ").Append(DeploymentName).Append("\n");
             sb.Append("  BatchId: ").Append(BatchId).Append("\n");
@@ -270,142 +284,11 @@ namespace RadixJobClient.Model
         }
 
         /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="input">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object input)
-        {
-            return this.Equals(input as JobStatus);
-        }
-
-        /// <summary>
-        /// Returns true if JobStatus instances are equal
-        /// </summary>
-        /// <param name="input">Instance of JobStatus to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(JobStatus input)
-        {
-            if (input == null)
-                return false;
-
-            return 
-                (
-                    this.DeploymentName == input.DeploymentName ||
-                    (this.DeploymentName != null &&
-                    this.DeploymentName.Equals(input.DeploymentName))
-                ) && 
-                (
-                    this.BatchId == input.BatchId ||
-                    (this.BatchId != null &&
-                    this.BatchId.Equals(input.BatchId))
-                ) && 
-                (
-                    this.BatchName == input.BatchName ||
-                    (this.BatchName != null &&
-                    this.BatchName.Equals(input.BatchName))
-                ) && 
-                (
-                    this.Created == input.Created ||
-                    (this.Created != null &&
-                    this.Created.Equals(input.Created))
-                ) && 
-                (
-                    this.Ended == input.Ended ||
-                    (this.Ended != null &&
-                    this.Ended.Equals(input.Ended))
-                ) && 
-                (
-                    this.Failed == input.Failed ||
-                    this.Failed.Equals(input.Failed)
-                ) && 
-                (
-                    this.JobId == input.JobId ||
-                    (this.JobId != null &&
-                    this.JobId.Equals(input.JobId))
-                ) && 
-                (
-                    this.Message == input.Message ||
-                    (this.Message != null &&
-                    this.Message.Equals(input.Message))
-                ) && 
-                (
-                    this.Name == input.Name ||
-                    (this.Name != null &&
-                    this.Name.Equals(input.Name))
-                ) && 
-                (
-                    this.PodStatuses == input.PodStatuses ||
-                    this.PodStatuses != null &&
-                    input.PodStatuses != null &&
-                    this.PodStatuses.SequenceEqual(input.PodStatuses)
-                ) && 
-                (
-                    this.Restart == input.Restart ||
-                    (this.Restart != null &&
-                    this.Restart.Equals(input.Restart))
-                ) && 
-                (
-                    this.Started == input.Started ||
-                    (this.Started != null &&
-                    this.Started.Equals(input.Started))
-                ) && 
-                (
-                    this.Status == input.Status ||
-                    this.Status.Equals(input.Status)
-                ) && 
-                (
-                    this.Updated == input.Updated ||
-                    (this.Updated != null &&
-                    this.Updated.Equals(input.Updated))
-                );
-        }
-
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                int hashCode = 41;
-                if (this.DeploymentName != null)
-                    hashCode = hashCode * 59 + this.DeploymentName.GetHashCode();
-                if (this.BatchId != null)
-                    hashCode = hashCode * 59 + this.BatchId.GetHashCode();
-                if (this.BatchName != null)
-                    hashCode = hashCode * 59 + this.BatchName.GetHashCode();
-                if (this.Created != null)
-                    hashCode = hashCode * 59 + this.Created.GetHashCode();
-                if (this.Ended != null)
-                    hashCode = hashCode * 59 + this.Ended.GetHashCode();
-                hashCode = hashCode * 59 + this.Failed.GetHashCode();
-                if (this.JobId != null)
-                    hashCode = hashCode * 59 + this.JobId.GetHashCode();
-                if (this.Message != null)
-                    hashCode = hashCode * 59 + this.Message.GetHashCode();
-                if (this.Name != null)
-                    hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.PodStatuses != null)
-                    hashCode = hashCode * 59 + this.PodStatuses.GetHashCode();
-                if (this.Restart != null)
-                    hashCode = hashCode * 59 + this.Restart.GetHashCode();
-                if (this.Started != null)
-                    hashCode = hashCode * 59 + this.Started.GetHashCode();
-                hashCode = hashCode * 59 + this.Status.GetHashCode();
-                if (this.Updated != null)
-                    hashCode = hashCode * 59 + this.Updated.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        /// <summary>
         /// To validate all properties of the instance
         /// </summary>
         /// <param name="validationContext">Validation context</param>
         /// <returns>Validation Result</returns>
-        public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
             yield break;
         }

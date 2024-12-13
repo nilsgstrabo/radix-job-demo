@@ -91,6 +91,19 @@ namespace RadixJobClient.Test.Api
         }
 
         /// <summary>
+        /// Test GetBatchJob
+        /// </summary>
+        [Fact]
+        public void GetBatchJobTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string batchName = null;
+            //string jobName = null;
+            //var response = instance.GetBatchJob(batchName, jobName);
+            //Assert.IsType<JobStatus>(response);
+        }
+
+        /// <summary>
         /// Test GetBatches
         /// </summary>
         [Fact]
@@ -99,6 +112,31 @@ namespace RadixJobClient.Test.Api
             // TODO uncomment below to test the method and replace null with proper value
             //var response = instance.GetBatches();
             //Assert.IsType<List<BatchStatus>>(response);
+        }
+
+        /// <summary>
+        /// Test StopBatch
+        /// </summary>
+        [Fact]
+        public void StopBatchTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string batchName = null;
+            //var response = instance.StopBatch(batchName);
+            //Assert.IsType<Status>(response);
+        }
+
+        /// <summary>
+        /// Test StopBatchJob
+        /// </summary>
+        [Fact]
+        public void StopBatchJobTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string batchName = null;
+            //string jobName = null;
+            //var response = instance.StopBatchJob(batchName, jobName);
+            //Assert.IsType<Status>(response);
         }
     }
 }

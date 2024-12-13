@@ -31,8 +31,9 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchCreation">Batch to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>BatchStatus</returns>
-        BatchStatus CreateBatch(BatchScheduleDescription batchCreation);
+        BatchStatus CreateBatch(BatchScheduleDescription batchCreation, int operationIndex = 0);
 
         /// <summary>
         /// Create batch
@@ -42,15 +43,17 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchCreation">Batch to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of BatchStatus</returns>
-        ApiResponse<BatchStatus> CreateBatchWithHttpInfo(BatchScheduleDescription batchCreation);
+        ApiResponse<BatchStatus> CreateBatchWithHttpInfo(BatchScheduleDescription batchCreation, int operationIndex = 0);
         /// <summary>
         /// Delete batch
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Status</returns>
-        Status DeleteBatch(string batchName);
+        Status DeleteBatch(string batchName, int operationIndex = 0);
 
         /// <summary>
         /// Delete batch
@@ -60,15 +63,17 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Status</returns>
-        ApiResponse<Status> DeleteBatchWithHttpInfo(string batchName);
+        ApiResponse<Status> DeleteBatchWithHttpInfo(string batchName, int operationIndex = 0);
         /// <summary>
         /// Gets batch
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>BatchStatus</returns>
-        BatchStatus GetBatch(string batchName);
+        BatchStatus GetBatch(string batchName, int operationIndex = 0);
 
         /// <summary>
         /// Gets batch
@@ -78,16 +83,18 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of BatchStatus</returns>
-        ApiResponse<BatchStatus> GetBatchWithHttpInfo(string batchName);
+        ApiResponse<BatchStatus> GetBatchWithHttpInfo(string batchName, int operationIndex = 0);
         /// <summary>
         /// Gets batch job
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>JobStatus</returns>
-        JobStatus GetBatchJob(string batchName, string jobName);
+        JobStatus GetBatchJob(string batchName, string jobName, int operationIndex = 0);
 
         /// <summary>
         /// Gets batch job
@@ -98,14 +105,16 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of JobStatus</returns>
-        ApiResponse<JobStatus> GetBatchJobWithHttpInfo(string batchName, string jobName);
+        ApiResponse<JobStatus> GetBatchJobWithHttpInfo(string batchName, string jobName, int operationIndex = 0);
         /// <summary>
         /// Gets batches
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;BatchStatus&gt;</returns>
-        List<BatchStatus> GetBatches();
+        List<BatchStatus> GetBatches(int operationIndex = 0);
 
         /// <summary>
         /// Gets batches
@@ -114,15 +123,17 @@ namespace RadixJobClient.Api
         /// 
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;BatchStatus&gt;</returns>
-        ApiResponse<List<BatchStatus>> GetBatchesWithHttpInfo();
+        ApiResponse<List<BatchStatus>> GetBatchesWithHttpInfo(int operationIndex = 0);
         /// <summary>
         /// Stop batch
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Status</returns>
-        Status StopBatch(string batchName);
+        Status StopBatch(string batchName, int operationIndex = 0);
 
         /// <summary>
         /// Stop batch
@@ -132,16 +143,18 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Status</returns>
-        ApiResponse<Status> StopBatchWithHttpInfo(string batchName);
+        ApiResponse<Status> StopBatchWithHttpInfo(string batchName, int operationIndex = 0);
         /// <summary>
         /// Stop batch job
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Status</returns>
-        Status StopBatchJob(string batchName, string jobName);
+        Status StopBatchJob(string batchName, string jobName, int operationIndex = 0);
 
         /// <summary>
         /// Stop batch job
@@ -152,8 +165,9 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Status</returns>
-        ApiResponse<Status> StopBatchJobWithHttpInfo(string batchName, string jobName);
+        ApiResponse<Status> StopBatchJobWithHttpInfo(string batchName, string jobName, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -171,9 +185,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchCreation">Batch to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of BatchStatus</returns>
-        System.Threading.Tasks.Task<BatchStatus> CreateBatchAsync(BatchScheduleDescription batchCreation, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<BatchStatus> CreateBatchAsync(BatchScheduleDescription batchCreation, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Create batch
@@ -183,9 +198,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchCreation">Batch to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (BatchStatus)</returns>
-        System.Threading.Tasks.Task<ApiResponse<BatchStatus>> CreateBatchWithHttpInfoAsync(BatchScheduleDescription batchCreation, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<BatchStatus>> CreateBatchWithHttpInfoAsync(BatchScheduleDescription batchCreation, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         /// <summary>
         /// Delete batch
         /// </summary>
@@ -194,9 +210,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Status</returns>
-        System.Threading.Tasks.Task<Status> DeleteBatchAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Status> DeleteBatchAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Delete batch
@@ -206,9 +223,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Status)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Status>> DeleteBatchWithHttpInfoAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Status>> DeleteBatchWithHttpInfoAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         /// <summary>
         /// Gets batch
         /// </summary>
@@ -217,9 +235,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of BatchStatus</returns>
-        System.Threading.Tasks.Task<BatchStatus> GetBatchAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<BatchStatus> GetBatchAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Gets batch
@@ -229,9 +248,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (BatchStatus)</returns>
-        System.Threading.Tasks.Task<ApiResponse<BatchStatus>> GetBatchWithHttpInfoAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<BatchStatus>> GetBatchWithHttpInfoAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         /// <summary>
         /// Gets batch job
         /// </summary>
@@ -241,9 +261,10 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of JobStatus</returns>
-        System.Threading.Tasks.Task<JobStatus> GetBatchJobAsync(string batchName, string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<JobStatus> GetBatchJobAsync(string batchName, string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Gets batch job
@@ -254,9 +275,10 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (JobStatus)</returns>
-        System.Threading.Tasks.Task<ApiResponse<JobStatus>> GetBatchJobWithHttpInfoAsync(string batchName, string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<JobStatus>> GetBatchJobWithHttpInfoAsync(string batchName, string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         /// <summary>
         /// Gets batches
         /// </summary>
@@ -264,9 +286,10 @@ namespace RadixJobClient.Api
         /// 
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;BatchStatus&gt;</returns>
-        System.Threading.Tasks.Task<List<BatchStatus>> GetBatchesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<List<BatchStatus>> GetBatchesAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Gets batches
@@ -275,9 +298,10 @@ namespace RadixJobClient.Api
         /// 
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;BatchStatus&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<BatchStatus>>> GetBatchesWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<List<BatchStatus>>> GetBatchesWithHttpInfoAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         /// <summary>
         /// Stop batch
         /// </summary>
@@ -286,9 +310,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Status</returns>
-        System.Threading.Tasks.Task<Status> StopBatchAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Status> StopBatchAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Stop batch
@@ -298,9 +323,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Status)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Status>> StopBatchWithHttpInfoAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Status>> StopBatchWithHttpInfoAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         /// <summary>
         /// Stop batch job
         /// </summary>
@@ -310,9 +336,10 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Status</returns>
-        System.Threading.Tasks.Task<Status> StopBatchJobAsync(string batchName, string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Status> StopBatchJobAsync(string batchName, string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Stop batch job
@@ -323,9 +350,10 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Status)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Status>> StopBatchJobWithHttpInfoAsync(string batchName, string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Status>> StopBatchJobWithHttpInfoAsync(string batchName, string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -451,8 +479,9 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchCreation">Batch to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>BatchStatus</returns>
-        public BatchStatus CreateBatch(BatchScheduleDescription batchCreation)
+        public BatchStatus CreateBatch(BatchScheduleDescription batchCreation, int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<BatchStatus> localVarResponse = CreateBatchWithHttpInfo(batchCreation);
             return localVarResponse.Data;
@@ -463,12 +492,15 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchCreation">Batch to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of BatchStatus</returns>
-        public RadixJobClient.Client.ApiResponse<BatchStatus> CreateBatchWithHttpInfo(BatchScheduleDescription batchCreation)
+        public RadixJobClient.Client.ApiResponse<BatchStatus> CreateBatchWithHttpInfo(BatchScheduleDescription batchCreation, int operationIndex = 0)
         {
             // verify the required parameter 'batchCreation' is set
             if (batchCreation == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchCreation' when calling BatchApi->CreateBatch");
+            }
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -482,21 +514,32 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.Data = batchCreation;
+
+            localVarRequestOptions.Operation = "BatchApi.CreateBatch";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
             var localVarResponse = this.Client.Post<BatchStatus>("/batches", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("CreateBatch", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -507,11 +550,12 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchCreation">Batch to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of BatchStatus</returns>
-        public async System.Threading.Tasks.Task<BatchStatus> CreateBatchAsync(BatchScheduleDescription batchCreation, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<BatchStatus> CreateBatchAsync(BatchScheduleDescription batchCreation, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<BatchStatus> localVarResponse = await CreateBatchWithHttpInfoAsync(batchCreation, cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<BatchStatus> localVarResponse = await CreateBatchWithHttpInfoAsync(batchCreation, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -520,13 +564,16 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchCreation">Batch to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (BatchStatus)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<BatchStatus>> CreateBatchWithHttpInfoAsync(BatchScheduleDescription batchCreation, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<BatchStatus>> CreateBatchWithHttpInfoAsync(BatchScheduleDescription batchCreation, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
             // verify the required parameter 'batchCreation' is set
             if (batchCreation == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchCreation' when calling BatchApi->CreateBatch");
+            }
 
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -540,24 +587,34 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.Data = batchCreation;
 
+            localVarRequestOptions.Operation = "BatchApi.CreateBatch";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.PostAsync<BatchStatus>("/batches", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("CreateBatch", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -568,8 +625,9 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Status</returns>
-        public Status DeleteBatch(string batchName)
+        public Status DeleteBatch(string batchName, int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<Status> localVarResponse = DeleteBatchWithHttpInfo(batchName);
             return localVarResponse.Data;
@@ -580,12 +638,15 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Status</returns>
-        public RadixJobClient.Client.ApiResponse<Status> DeleteBatchWithHttpInfo(string batchName)
+        public RadixJobClient.Client.ApiResponse<Status> DeleteBatchWithHttpInfo(string batchName, int operationIndex = 0)
         {
             // verify the required parameter 'batchName' is set
             if (batchName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchName' when calling BatchApi->DeleteBatch");
+            }
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -598,21 +659,32 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("batchName", RadixJobClient.Client.ClientUtils.ParameterToString(batchName)); // path parameter
+
+            localVarRequestOptions.Operation = "BatchApi.DeleteBatch";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
             var localVarResponse = this.Client.Delete<Status>("/batches/{batchName}", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("DeleteBatch", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -623,11 +695,12 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Status</returns>
-        public async System.Threading.Tasks.Task<Status> DeleteBatchAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Status> DeleteBatchAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<Status> localVarResponse = await DeleteBatchWithHttpInfoAsync(batchName, cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<Status> localVarResponse = await DeleteBatchWithHttpInfoAsync(batchName, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -636,13 +709,16 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Status)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<Status>> DeleteBatchWithHttpInfoAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<Status>> DeleteBatchWithHttpInfoAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
             // verify the required parameter 'batchName' is set
             if (batchName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchName' when calling BatchApi->DeleteBatch");
+            }
 
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -655,24 +731,34 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("batchName", RadixJobClient.Client.ClientUtils.ParameterToString(batchName)); // path parameter
 
+            localVarRequestOptions.Operation = "BatchApi.DeleteBatch";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.DeleteAsync<Status>("/batches/{batchName}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("DeleteBatch", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -683,8 +769,9 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>BatchStatus</returns>
-        public BatchStatus GetBatch(string batchName)
+        public BatchStatus GetBatch(string batchName, int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<BatchStatus> localVarResponse = GetBatchWithHttpInfo(batchName);
             return localVarResponse.Data;
@@ -695,12 +782,15 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of BatchStatus</returns>
-        public RadixJobClient.Client.ApiResponse<BatchStatus> GetBatchWithHttpInfo(string batchName)
+        public RadixJobClient.Client.ApiResponse<BatchStatus> GetBatchWithHttpInfo(string batchName, int operationIndex = 0)
         {
             // verify the required parameter 'batchName' is set
             if (batchName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchName' when calling BatchApi->GetBatch");
+            }
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -713,21 +803,32 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("batchName", RadixJobClient.Client.ClientUtils.ParameterToString(batchName)); // path parameter
+
+            localVarRequestOptions.Operation = "BatchApi.GetBatch";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
             var localVarResponse = this.Client.Get<BatchStatus>("/batches/{batchName}", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetBatch", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -738,11 +839,12 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of BatchStatus</returns>
-        public async System.Threading.Tasks.Task<BatchStatus> GetBatchAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<BatchStatus> GetBatchAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<BatchStatus> localVarResponse = await GetBatchWithHttpInfoAsync(batchName, cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<BatchStatus> localVarResponse = await GetBatchWithHttpInfoAsync(batchName, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -751,13 +853,16 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (BatchStatus)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<BatchStatus>> GetBatchWithHttpInfoAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<BatchStatus>> GetBatchWithHttpInfoAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
             // verify the required parameter 'batchName' is set
             if (batchName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchName' when calling BatchApi->GetBatch");
+            }
 
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -770,24 +875,34 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("batchName", RadixJobClient.Client.ClientUtils.ParameterToString(batchName)); // path parameter
 
+            localVarRequestOptions.Operation = "BatchApi.GetBatch";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.GetAsync<BatchStatus>("/batches/{batchName}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetBatch", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -799,8 +914,9 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>JobStatus</returns>
-        public JobStatus GetBatchJob(string batchName, string jobName)
+        public JobStatus GetBatchJob(string batchName, string jobName, int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<JobStatus> localVarResponse = GetBatchJobWithHttpInfo(batchName, jobName);
             return localVarResponse.Data;
@@ -812,16 +928,21 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of JobStatus</returns>
-        public RadixJobClient.Client.ApiResponse<JobStatus> GetBatchJobWithHttpInfo(string batchName, string jobName)
+        public RadixJobClient.Client.ApiResponse<JobStatus> GetBatchJobWithHttpInfo(string batchName, string jobName, int operationIndex = 0)
         {
             // verify the required parameter 'batchName' is set
             if (batchName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchName' when calling BatchApi->GetBatchJob");
+            }
 
             // verify the required parameter 'jobName' is set
             if (jobName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling BatchApi->GetBatchJob");
+            }
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -834,22 +955,33 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("batchName", RadixJobClient.Client.ClientUtils.ParameterToString(batchName)); // path parameter
             localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
 
+            localVarRequestOptions.Operation = "BatchApi.GetBatchJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
             var localVarResponse = this.Client.Get<JobStatus>("/batches/{batchName}/jobs/{jobName}", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetBatchJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -861,11 +993,12 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of JobStatus</returns>
-        public async System.Threading.Tasks.Task<JobStatus> GetBatchJobAsync(string batchName, string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<JobStatus> GetBatchJobAsync(string batchName, string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<JobStatus> localVarResponse = await GetBatchJobWithHttpInfoAsync(batchName, jobName, cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<JobStatus> localVarResponse = await GetBatchJobWithHttpInfoAsync(batchName, jobName, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -875,17 +1008,22 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (JobStatus)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<JobStatus>> GetBatchJobWithHttpInfoAsync(string batchName, string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<JobStatus>> GetBatchJobWithHttpInfoAsync(string batchName, string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
             // verify the required parameter 'batchName' is set
             if (batchName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchName' when calling BatchApi->GetBatchJob");
+            }
 
             // verify the required parameter 'jobName' is set
             if (jobName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling BatchApi->GetBatchJob");
+            }
 
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -898,25 +1036,35 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("batchName", RadixJobClient.Client.ClientUtils.ParameterToString(batchName)); // path parameter
             localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
 
+            localVarRequestOptions.Operation = "BatchApi.GetBatchJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.GetAsync<JobStatus>("/batches/{batchName}/jobs/{jobName}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetBatchJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -926,8 +1074,9 @@ namespace RadixJobClient.Api
         /// Gets batches 
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;BatchStatus&gt;</returns>
-        public List<BatchStatus> GetBatches()
+        public List<BatchStatus> GetBatches(int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<List<BatchStatus>> localVarResponse = GetBatchesWithHttpInfo();
             return localVarResponse.Data;
@@ -937,8 +1086,9 @@ namespace RadixJobClient.Api
         /// Gets batches 
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;BatchStatus&gt;</returns>
-        public RadixJobClient.Client.ApiResponse<List<BatchStatus>> GetBatchesWithHttpInfo()
+        public RadixJobClient.Client.ApiResponse<List<BatchStatus>> GetBatchesWithHttpInfo(int operationIndex = 0)
         {
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -951,20 +1101,31 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
+
+            localVarRequestOptions.Operation = "BatchApi.GetBatches";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
             var localVarResponse = this.Client.Get<List<BatchStatus>>("/batches/", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetBatches", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -974,11 +1135,12 @@ namespace RadixJobClient.Api
         /// Gets batches 
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;BatchStatus&gt;</returns>
-        public async System.Threading.Tasks.Task<List<BatchStatus>> GetBatchesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<List<BatchStatus>> GetBatchesAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<List<BatchStatus>> localVarResponse = await GetBatchesWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<List<BatchStatus>> localVarResponse = await GetBatchesWithHttpInfoAsync(operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -986,9 +1148,10 @@ namespace RadixJobClient.Api
         /// Gets batches 
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;BatchStatus&gt;)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<List<BatchStatus>>> GetBatchesWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<List<BatchStatus>>> GetBatchesWithHttpInfoAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -1001,23 +1164,33 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
+
+            localVarRequestOptions.Operation = "BatchApi.GetBatches";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.GetAsync<List<BatchStatus>>("/batches/", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetBatches", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -1028,8 +1201,9 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Status</returns>
-        public Status StopBatch(string batchName)
+        public Status StopBatch(string batchName, int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<Status> localVarResponse = StopBatchWithHttpInfo(batchName);
             return localVarResponse.Data;
@@ -1040,12 +1214,15 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Status</returns>
-        public RadixJobClient.Client.ApiResponse<Status> StopBatchWithHttpInfo(string batchName)
+        public RadixJobClient.Client.ApiResponse<Status> StopBatchWithHttpInfo(string batchName, int operationIndex = 0)
         {
             // verify the required parameter 'batchName' is set
             if (batchName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchName' when calling BatchApi->StopBatch");
+            }
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -1058,21 +1235,32 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("batchName", RadixJobClient.Client.ClientUtils.ParameterToString(batchName)); // path parameter
+
+            localVarRequestOptions.Operation = "BatchApi.StopBatch";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
             var localVarResponse = this.Client.Post<Status>("/batches/{batchName}/stop", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("StopBatch", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -1083,11 +1271,12 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Status</returns>
-        public async System.Threading.Tasks.Task<Status> StopBatchAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Status> StopBatchAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<Status> localVarResponse = await StopBatchWithHttpInfoAsync(batchName, cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<Status> localVarResponse = await StopBatchWithHttpInfoAsync(batchName, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -1096,13 +1285,16 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Status)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<Status>> StopBatchWithHttpInfoAsync(string batchName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<Status>> StopBatchWithHttpInfoAsync(string batchName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
             // verify the required parameter 'batchName' is set
             if (batchName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchName' when calling BatchApi->StopBatch");
+            }
 
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -1115,24 +1307,34 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("batchName", RadixJobClient.Client.ClientUtils.ParameterToString(batchName)); // path parameter
 
+            localVarRequestOptions.Operation = "BatchApi.StopBatch";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.PostAsync<Status>("/batches/{batchName}/stop", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("StopBatch", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -1144,8 +1346,9 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Status</returns>
-        public Status StopBatchJob(string batchName, string jobName)
+        public Status StopBatchJob(string batchName, string jobName, int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<Status> localVarResponse = StopBatchJobWithHttpInfo(batchName, jobName);
             return localVarResponse.Data;
@@ -1157,16 +1360,21 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Status</returns>
-        public RadixJobClient.Client.ApiResponse<Status> StopBatchJobWithHttpInfo(string batchName, string jobName)
+        public RadixJobClient.Client.ApiResponse<Status> StopBatchJobWithHttpInfo(string batchName, string jobName, int operationIndex = 0)
         {
             // verify the required parameter 'batchName' is set
             if (batchName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchName' when calling BatchApi->StopBatchJob");
+            }
 
             // verify the required parameter 'jobName' is set
             if (jobName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling BatchApi->StopBatchJob");
+            }
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -1179,22 +1387,33 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("batchName", RadixJobClient.Client.ClientUtils.ParameterToString(batchName)); // path parameter
             localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
 
+            localVarRequestOptions.Operation = "BatchApi.StopBatchJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
             var localVarResponse = this.Client.Post<Status>("/batches/{batchName}/jobs/{jobName}/stop", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("StopBatchJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -1206,11 +1425,12 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Status</returns>
-        public async System.Threading.Tasks.Task<Status> StopBatchJobAsync(string batchName, string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Status> StopBatchJobAsync(string batchName, string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<Status> localVarResponse = await StopBatchJobWithHttpInfoAsync(batchName, jobName, cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<Status> localVarResponse = await StopBatchJobWithHttpInfoAsync(batchName, jobName, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -1220,17 +1440,22 @@ namespace RadixJobClient.Api
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="batchName">Name of batch</param>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Status)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<Status>> StopBatchJobWithHttpInfoAsync(string batchName, string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<Status>> StopBatchJobWithHttpInfoAsync(string batchName, string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
             // verify the required parameter 'batchName' is set
             if (batchName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'batchName' when calling BatchApi->StopBatchJob");
+            }
 
             // verify the required parameter 'jobName' is set
             if (jobName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling BatchApi->StopBatchJob");
+            }
 
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -1243,25 +1468,35 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("batchName", RadixJobClient.Client.ClientUtils.ParameterToString(batchName)); // path parameter
             localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
 
+            localVarRequestOptions.Operation = "BatchApi.StopBatchJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.PostAsync<Status>("/batches/{batchName}/jobs/{jobName}/stop", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("StopBatchJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;

@@ -29,7 +29,7 @@ namespace RadixJobClient.Model
     /// BatchScheduleDescription holds description about batch scheduling job
     /// </summary>
     [DataContract(Name = "BatchScheduleDescription")]
-    public partial class BatchScheduleDescription : IEquatable<BatchScheduleDescription>, IValidatableObject
+    public partial class BatchScheduleDescription : IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BatchScheduleDescription" /> class.
@@ -45,7 +45,8 @@ namespace RadixJobClient.Model
         public BatchScheduleDescription(string batchId = default(string), RadixJobComponentConfig defaultRadixJobComponentConfig = default(RadixJobComponentConfig), List<JobScheduleDescription> jobScheduleDescriptions = default(List<JobScheduleDescription>))
         {
             // to ensure "jobScheduleDescriptions" is required (not null)
-            if (jobScheduleDescriptions == null) {
+            if (jobScheduleDescriptions == null)
+            {
                 throw new ArgumentNullException("jobScheduleDescriptions is a required property for BatchScheduleDescription and cannot be null");
             }
             this.JobScheduleDescriptions = jobScheduleDescriptions;
@@ -57,6 +58,9 @@ namespace RadixJobClient.Model
         /// Defines a user defined ID of the batch.
         /// </summary>
         /// <value>Defines a user defined ID of the batch.</value>
+        /*
+        <example>&#39;batch-id-1&#39;</example>
+        */
         [DataMember(Name = "batchId", EmitDefaultValue = false)]
         public string BatchId { get; set; }
 
@@ -70,7 +74,7 @@ namespace RadixJobClient.Model
         /// JobScheduleDescriptions descriptions of jobs to schedule within the batch
         /// </summary>
         /// <value>JobScheduleDescriptions descriptions of jobs to schedule within the batch</value>
-        [DataMember(Name = "jobScheduleDescriptions", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "jobScheduleDescriptions", IsRequired = true, EmitDefaultValue = true)]
         public List<JobScheduleDescription> JobScheduleDescriptions { get; set; }
 
         /// <summary>
@@ -79,7 +83,7 @@ namespace RadixJobClient.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.Append("class BatchScheduleDescription {\n");
             sb.Append("  BatchId: ").Append(BatchId).Append("\n");
             sb.Append("  DefaultRadixJobComponentConfig: ").Append(DefaultRadixJobComponentConfig).Append("\n");
@@ -98,69 +102,11 @@ namespace RadixJobClient.Model
         }
 
         /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="input">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object input)
-        {
-            return this.Equals(input as BatchScheduleDescription);
-        }
-
-        /// <summary>
-        /// Returns true if BatchScheduleDescription instances are equal
-        /// </summary>
-        /// <param name="input">Instance of BatchScheduleDescription to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(BatchScheduleDescription input)
-        {
-            if (input == null)
-                return false;
-
-            return 
-                (
-                    this.BatchId == input.BatchId ||
-                    (this.BatchId != null &&
-                    this.BatchId.Equals(input.BatchId))
-                ) && 
-                (
-                    this.DefaultRadixJobComponentConfig == input.DefaultRadixJobComponentConfig ||
-                    (this.DefaultRadixJobComponentConfig != null &&
-                    this.DefaultRadixJobComponentConfig.Equals(input.DefaultRadixJobComponentConfig))
-                ) && 
-                (
-                    this.JobScheduleDescriptions == input.JobScheduleDescriptions ||
-                    this.JobScheduleDescriptions != null &&
-                    input.JobScheduleDescriptions != null &&
-                    this.JobScheduleDescriptions.SequenceEqual(input.JobScheduleDescriptions)
-                );
-        }
-
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                int hashCode = 41;
-                if (this.BatchId != null)
-                    hashCode = hashCode * 59 + this.BatchId.GetHashCode();
-                if (this.DefaultRadixJobComponentConfig != null)
-                    hashCode = hashCode * 59 + this.DefaultRadixJobComponentConfig.GetHashCode();
-                if (this.JobScheduleDescriptions != null)
-                    hashCode = hashCode * 59 + this.JobScheduleDescriptions.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        /// <summary>
         /// To validate all properties of the instance
         /// </summary>
         /// <param name="validationContext">Validation context</param>
         /// <returns>Validation Result</returns>
-        public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
             yield break;
         }

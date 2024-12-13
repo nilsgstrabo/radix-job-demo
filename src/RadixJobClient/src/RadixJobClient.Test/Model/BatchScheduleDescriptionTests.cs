@@ -14,7 +14,6 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-using RadixJobClient.Api;
 using RadixJobClient.Model;
 using RadixJobClient.Client;
 using System.Reflection;
@@ -55,6 +54,14 @@ namespace RadixJobClient.Test.Model
             //Assert.IsType<BatchScheduleDescription>(instance);
         }
 
+        /// <summary>
+        /// Test the property 'BatchId'
+        /// </summary>
+        [Fact]
+        public void BatchIdTest()
+        {
+            // TODO unit test for the property 'BatchId'
+        }
 
         /// <summary>
         /// Test the property 'DefaultRadixJobComponentConfig'
@@ -64,6 +71,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'DefaultRadixJobComponentConfig'
         }
+
         /// <summary>
         /// Test the property 'JobScheduleDescriptions'
         /// </summary>
@@ -72,7 +80,5 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'JobScheduleDescriptions'
         }
-
     }
-
 }

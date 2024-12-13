@@ -29,7 +29,7 @@ namespace RadixJobClient.Model
     /// PodStatus
     /// </summary>
     [DataContract(Name = "PodStatus")]
-    public partial class PodStatus : IEquatable<PodStatus>, IValidatableObject
+    public partial class PodStatus : IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PodStatus" /> class.
@@ -52,10 +52,11 @@ namespace RadixJobClient.Model
         /// <param name="restartCount">RestartCount count of restarts of a component container inside a pod.</param>
         /// <param name="startTime">The time at which the batch job&#39;s pod startedAt.</param>
         /// <param name="statusMessage">StatusMessage provides message describing the status of a component container inside a pod.</param>
-        public PodStatus(string containerStarted = default(string), string created = default(string), string endTime = default(string), int exitCode = default(int), string image = default(string), string imageId = default(string), string name = default(string), long podIndex = default(long), string reason = default(string), ReplicaStatus replicaStatus = default(ReplicaStatus), int restartCount = default(int), string startTime = default(string), string statusMessage = default(string))
+        public PodStatus(DateTime containerStarted = default(DateTime), DateTime created = default(DateTime), DateTime endTime = default(DateTime), int exitCode = default(int), string image = default(string), string imageId = default(string), string name = default(string), long podIndex = default(long), string reason = default(string), ReplicaStatus replicaStatus = default(ReplicaStatus), int restartCount = default(int), DateTime startTime = default(DateTime), string statusMessage = default(string))
         {
             // to ensure "name" is required (not null)
-            if (name == null) {
+            if (name == null)
+            {
                 throw new ArgumentNullException("name is a required property for PodStatus and cannot be null");
             }
             this.Name = name;
@@ -78,21 +79,21 @@ namespace RadixJobClient.Model
         /// </summary>
         /// <value>Container started timestamp</value>
         [DataMember(Name = "containerStarted", EmitDefaultValue = false)]
-        public string ContainerStarted { get; set; }
+        public DateTime ContainerStarted { get; set; }
 
         /// <summary>
         /// Created timestamp
         /// </summary>
         /// <value>Created timestamp</value>
         [DataMember(Name = "created", EmitDefaultValue = false)]
-        public string Created { get; set; }
+        public DateTime Created { get; set; }
 
         /// <summary>
         /// The time at which the batch job&#39;s pod finishedAt.
         /// </summary>
         /// <value>The time at which the batch job&#39;s pod finishedAt.</value>
         [DataMember(Name = "endTime", EmitDefaultValue = false)]
-        public string EndTime { get; set; }
+        public DateTime EndTime { get; set; }
 
         /// <summary>
         /// Exit status from the last termination of the container
@@ -105,6 +106,9 @@ namespace RadixJobClient.Model
         /// The image the container is running.
         /// </summary>
         /// <value>The image the container is running.</value>
+        /*
+        <example>radixdev.azurecr.io/app-server:cdgkg</example>
+        */
         [DataMember(Name = "image", EmitDefaultValue = false)]
         public string Image { get; set; }
 
@@ -112,6 +116,9 @@ namespace RadixJobClient.Model
         /// ImageID of the container&#39;s image.
         /// </summary>
         /// <value>ImageID of the container&#39;s image.</value>
+        /*
+        <example>radixdev.azurecr.io/app-server@sha256:d40cda01916ef63da3607c03785efabc56eb2fc2e0dab0726b1a843e9ded093f</example>
+        */
         [DataMember(Name = "imageId", EmitDefaultValue = false)]
         public string ImageId { get; set; }
 
@@ -119,7 +126,10 @@ namespace RadixJobClient.Model
         /// Pod name
         /// </summary>
         /// <value>Pod name</value>
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        /*
+        <example>server-78fc8857c4-hm76l</example>
+        */
+        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = true)]
         public string Name { get; set; }
 
         /// <summary>
@@ -154,7 +164,7 @@ namespace RadixJobClient.Model
         /// </summary>
         /// <value>The time at which the batch job&#39;s pod startedAt</value>
         [DataMember(Name = "startTime", EmitDefaultValue = false)]
-        public string StartTime { get; set; }
+        public DateTime StartTime { get; set; }
 
         /// <summary>
         /// StatusMessage provides message describing the status of a component container inside a pod
@@ -169,7 +179,7 @@ namespace RadixJobClient.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.Append("class PodStatus {\n");
             sb.Append("  ContainerStarted: ").Append(ContainerStarted).Append("\n");
             sb.Append("  Created: ").Append(Created).Append("\n");
@@ -198,132 +208,11 @@ namespace RadixJobClient.Model
         }
 
         /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="input">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object input)
-        {
-            return this.Equals(input as PodStatus);
-        }
-
-        /// <summary>
-        /// Returns true if PodStatus instances are equal
-        /// </summary>
-        /// <param name="input">Instance of PodStatus to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(PodStatus input)
-        {
-            if (input == null)
-                return false;
-
-            return 
-                (
-                    this.ContainerStarted == input.ContainerStarted ||
-                    (this.ContainerStarted != null &&
-                    this.ContainerStarted.Equals(input.ContainerStarted))
-                ) && 
-                (
-                    this.Created == input.Created ||
-                    (this.Created != null &&
-                    this.Created.Equals(input.Created))
-                ) && 
-                (
-                    this.EndTime == input.EndTime ||
-                    (this.EndTime != null &&
-                    this.EndTime.Equals(input.EndTime))
-                ) && 
-                (
-                    this.ExitCode == input.ExitCode ||
-                    this.ExitCode.Equals(input.ExitCode)
-                ) && 
-                (
-                    this.Image == input.Image ||
-                    (this.Image != null &&
-                    this.Image.Equals(input.Image))
-                ) && 
-                (
-                    this.ImageId == input.ImageId ||
-                    (this.ImageId != null &&
-                    this.ImageId.Equals(input.ImageId))
-                ) && 
-                (
-                    this.Name == input.Name ||
-                    (this.Name != null &&
-                    this.Name.Equals(input.Name))
-                ) && 
-                (
-                    this.PodIndex == input.PodIndex ||
-                    this.PodIndex.Equals(input.PodIndex)
-                ) && 
-                (
-                    this.Reason == input.Reason ||
-                    (this.Reason != null &&
-                    this.Reason.Equals(input.Reason))
-                ) && 
-                (
-                    this.ReplicaStatus == input.ReplicaStatus ||
-                    (this.ReplicaStatus != null &&
-                    this.ReplicaStatus.Equals(input.ReplicaStatus))
-                ) && 
-                (
-                    this.RestartCount == input.RestartCount ||
-                    this.RestartCount.Equals(input.RestartCount)
-                ) && 
-                (
-                    this.StartTime == input.StartTime ||
-                    (this.StartTime != null &&
-                    this.StartTime.Equals(input.StartTime))
-                ) && 
-                (
-                    this.StatusMessage == input.StatusMessage ||
-                    (this.StatusMessage != null &&
-                    this.StatusMessage.Equals(input.StatusMessage))
-                );
-        }
-
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                int hashCode = 41;
-                if (this.ContainerStarted != null)
-                    hashCode = hashCode * 59 + this.ContainerStarted.GetHashCode();
-                if (this.Created != null)
-                    hashCode = hashCode * 59 + this.Created.GetHashCode();
-                if (this.EndTime != null)
-                    hashCode = hashCode * 59 + this.EndTime.GetHashCode();
-                hashCode = hashCode * 59 + this.ExitCode.GetHashCode();
-                if (this.Image != null)
-                    hashCode = hashCode * 59 + this.Image.GetHashCode();
-                if (this.ImageId != null)
-                    hashCode = hashCode * 59 + this.ImageId.GetHashCode();
-                if (this.Name != null)
-                    hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.PodIndex.GetHashCode();
-                if (this.Reason != null)
-                    hashCode = hashCode * 59 + this.Reason.GetHashCode();
-                if (this.ReplicaStatus != null)
-                    hashCode = hashCode * 59 + this.ReplicaStatus.GetHashCode();
-                hashCode = hashCode * 59 + this.RestartCount.GetHashCode();
-                if (this.StartTime != null)
-                    hashCode = hashCode * 59 + this.StartTime.GetHashCode();
-                if (this.StatusMessage != null)
-                    hashCode = hashCode * 59 + this.StatusMessage.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        /// <summary>
         /// To validate all properties of the instance
         /// </summary>
         /// <param name="validationContext">Validation context</param>
         /// <returns>Validation Result</returns>
-        public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
             yield break;
         }

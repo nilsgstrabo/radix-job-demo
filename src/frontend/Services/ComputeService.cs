@@ -70,7 +70,7 @@ public class ComputeServiceBase : IComputeService
         return await _jobApi.CreateJobAsync(jobRequest);
     }
 
-    private RadixJobClient.Model.ResourceRequirements GetResources(JobResourceEnum memory, JobResourceEnum cpu) {
+    private RadixJobClient.Model.Resources GetResources(JobResourceEnum memory, JobResourceEnum cpu) {
         string memResource="";
         string cpuResource="";
 
@@ -114,7 +114,7 @@ public class ComputeServiceBase : IComputeService
             resource.Add("cpu", cpuResource);
         }
 
-        return new RadixJobClient.Model.ResourceRequirements() {
+        return new RadixJobClient.Model.Resources {
             Requests=resource,
             Limits=resource
         };
@@ -160,7 +160,7 @@ public class ComputeServiceBase : IComputeService
             Payload = payload,
             JobId = request.CustomJobName ?? "",
             BackoffLimit = request.BackoffLimit,
-            TimeLimitSeconds = request.TimelimitSeconds
+            TimeLimitSeconds = request.TimelimitSeconds,
         };
         
         if (request.Cpu!=JobResourceEnum.Default || request.Memory!=JobResourceEnum.Default) {

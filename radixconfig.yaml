@@ -72,6 +72,20 @@ spec:
             azure:
               clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
         - environment: qa
+          failurePolicy:
+            rules:
+              - action: FailJob
+                onExitCodes:
+                  operator: In
+                  values: [42]
+              - action: Count
+                onExitCodes:
+                  operator: In
+                  values: [1, 2, 3]
+              - action: Ignore
+                onExitCodes:
+                  operator: In
+                  values: [143]
           monitoring: true
           backoffLimit: 0
           readOnlyFileSystem: true

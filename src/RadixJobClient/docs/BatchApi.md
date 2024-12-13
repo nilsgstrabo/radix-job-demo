@@ -1,19 +1,18 @@
 # RadixJobClient.Api.BatchApi
 
-All URIs are relative to *http://localhost/api/v1*
+All URIs are relative to */api/v1*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**CreateBatch**](BatchApi.md#createbatch) | **POST** /batches | Create batch
-[**DeleteBatch**](BatchApi.md#deletebatch) | **DELETE** /batches/{batchName} | Delete batch
-[**GetBatch**](BatchApi.md#getbatch) | **GET** /batches/{batchName} | Gets batch
-[**GetBatchJob**](BatchApi.md#getbatchjob) | **GET** /batches/{batchName}/jobs/{jobName} | Gets batch job
-[**GetBatches**](BatchApi.md#getbatches) | **GET** /batches/ | Gets batches
-[**StopBatch**](BatchApi.md#stopbatch) | **POST** /batches/{batchName}/stop | Stop batch
-[**StopBatchJob**](BatchApi.md#stopbatchjob) | **POST** /batches/{batchName}/jobs/{jobName}/stop | Stop batch job
+| Method | HTTP request | Description |
+|--------|--------------|-------------|
+| [**CreateBatch**](BatchApi.md#createbatch) | **POST** /batches | Create batch |
+| [**DeleteBatch**](BatchApi.md#deletebatch) | **DELETE** /batches/{batchName} | Delete batch |
+| [**GetBatch**](BatchApi.md#getbatch) | **GET** /batches/{batchName} | Gets batch |
+| [**GetBatchJob**](BatchApi.md#getbatchjob) | **GET** /batches/{batchName}/jobs/{jobName} | Gets batch job |
+| [**GetBatches**](BatchApi.md#getbatches) | **GET** /batches/ | Gets batches |
+| [**StopBatch**](BatchApi.md#stopbatch) | **POST** /batches/{batchName}/stop | Stop batch |
+| [**StopBatchJob**](BatchApi.md#stopbatchjob) | **POST** /batches/{batchName}/jobs/{jobName}/stop | Stop batch job |
 
-
-<a name="createbatch"></a>
+<a id="createbatch"></a>
 # **CreateBatch**
 > BatchStatus CreateBatch (BatchScheduleDescription batchCreation)
 
@@ -34,7 +33,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new BatchApi(config);
             var batchCreation = new BatchScheduleDescription(); // BatchScheduleDescription | Batch to create
 
@@ -46,8 +45,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling BatchApi.CreateBatch: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling BatchApi.CreateBatch: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -55,11 +54,31 @@ namespace Example
 }
 ```
 
+#### Using the CreateBatchWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Create batch
+    ApiResponse<BatchStatus> response = apiInstance.CreateBatchWithHttpInfo(batchCreation);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling BatchApi.CreateBatchWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **batchCreation** | [**BatchScheduleDescription**](BatchScheduleDescription.md)| Batch to create | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **batchCreation** | [**BatchScheduleDescription**](BatchScheduleDescription.md) | Batch to create |  |
 
 ### Return type
 
@@ -86,7 +105,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="deletebatch"></a>
+<a id="deletebatch"></a>
 # **DeleteBatch**
 > Status DeleteBatch (string batchName)
 
@@ -107,9 +126,9 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new BatchApi(config);
-            var batchName = batchName_example;  // string | Name of batch
+            var batchName = "batchName_example";  // string | Name of batch
 
             try
             {
@@ -119,8 +138,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling BatchApi.DeleteBatch: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling BatchApi.DeleteBatch: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -128,11 +147,31 @@ namespace Example
 }
 ```
 
+#### Using the DeleteBatchWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Delete batch
+    ApiResponse<Status> response = apiInstance.DeleteBatchWithHttpInfo(batchName);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling BatchApi.DeleteBatchWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **batchName** | **string**| Name of batch | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **batchName** | **string** | Name of batch |  |
 
 ### Return type
 
@@ -157,7 +196,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="getbatch"></a>
+<a id="getbatch"></a>
 # **GetBatch**
 > BatchStatus GetBatch (string batchName)
 
@@ -178,9 +217,9 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new BatchApi(config);
-            var batchName = batchName_example;  // string | Name of batch
+            var batchName = "batchName_example";  // string | Name of batch
 
             try
             {
@@ -190,8 +229,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling BatchApi.GetBatch: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling BatchApi.GetBatch: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -199,11 +238,31 @@ namespace Example
 }
 ```
 
+#### Using the GetBatchWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets batch
+    ApiResponse<BatchStatus> response = apiInstance.GetBatchWithHttpInfo(batchName);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling BatchApi.GetBatchWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **batchName** | **string**| Name of batch | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **batchName** | **string** | Name of batch |  |
 
 ### Return type
 
@@ -228,7 +287,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="getbatchjob"></a>
+<a id="getbatchjob"></a>
 # **GetBatchJob**
 > JobStatus GetBatchJob (string batchName, string jobName)
 
@@ -249,10 +308,10 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new BatchApi(config);
-            var batchName = batchName_example;  // string | Name of batch
-            var jobName = jobName_example;  // string | Name of job
+            var batchName = "batchName_example";  // string | Name of batch
+            var jobName = "jobName_example";  // string | Name of job
 
             try
             {
@@ -262,8 +321,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling BatchApi.GetBatchJob: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling BatchApi.GetBatchJob: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -271,12 +330,32 @@ namespace Example
 }
 ```
 
+#### Using the GetBatchJobWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets batch job
+    ApiResponse<JobStatus> response = apiInstance.GetBatchJobWithHttpInfo(batchName, jobName);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling BatchApi.GetBatchJobWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **batchName** | **string**| Name of batch | 
- **jobName** | **string**| Name of job | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **batchName** | **string** | Name of batch |  |
+| **jobName** | **string** | Name of job |  |
 
 ### Return type
 
@@ -301,7 +380,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="getbatches"></a>
+<a id="getbatches"></a>
 # **GetBatches**
 > List&lt;BatchStatus&gt; GetBatches ()
 
@@ -322,7 +401,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new BatchApi(config);
 
             try
@@ -333,8 +412,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling BatchApi.GetBatches: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling BatchApi.GetBatches: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -342,9 +421,28 @@ namespace Example
 }
 ```
 
+#### Using the GetBatchesWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets batches
+    ApiResponse<List<BatchStatus>> response = apiInstance.GetBatchesWithHttpInfo();
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling BatchApi.GetBatchesWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 This endpoint does not need any parameter.
-
 ### Return type
 
 [**List&lt;BatchStatus&gt;**](BatchStatus.md)
@@ -367,7 +465,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="stopbatch"></a>
+<a id="stopbatch"></a>
 # **StopBatch**
 > Status StopBatch (string batchName)
 
@@ -388,9 +486,9 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new BatchApi(config);
-            var batchName = batchName_example;  // string | Name of batch
+            var batchName = "batchName_example";  // string | Name of batch
 
             try
             {
@@ -400,8 +498,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling BatchApi.StopBatch: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling BatchApi.StopBatch: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -409,11 +507,31 @@ namespace Example
 }
 ```
 
+#### Using the StopBatchWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Stop batch
+    ApiResponse<Status> response = apiInstance.StopBatchWithHttpInfo(batchName);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling BatchApi.StopBatchWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **batchName** | **string**| Name of batch | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **batchName** | **string** | Name of batch |  |
 
 ### Return type
 
@@ -439,7 +557,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="stopbatchjob"></a>
+<a id="stopbatchjob"></a>
 # **StopBatchJob**
 > Status StopBatchJob (string batchName, string jobName)
 
@@ -460,10 +578,10 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new BatchApi(config);
-            var batchName = batchName_example;  // string | Name of batch
-            var jobName = jobName_example;  // string | Name of job
+            var batchName = "batchName_example";  // string | Name of batch
+            var jobName = "jobName_example";  // string | Name of job
 
             try
             {
@@ -473,8 +591,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling BatchApi.StopBatchJob: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling BatchApi.StopBatchJob: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -482,12 +600,32 @@ namespace Example
 }
 ```
 
+#### Using the StopBatchJobWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Stop batch job
+    ApiResponse<Status> response = apiInstance.StopBatchJobWithHttpInfo(batchName, jobName);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling BatchApi.StopBatchJobWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **batchName** | **string**| Name of batch | 
- **jobName** | **string**| Name of job | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **batchName** | **string** | Name of batch |  |
+| **jobName** | **string** | Name of job |  |
 
 ### Return type
 

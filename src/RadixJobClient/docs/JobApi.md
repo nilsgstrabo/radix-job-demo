@@ -1,17 +1,16 @@
 # RadixJobClient.Api.JobApi
 
-All URIs are relative to *http://localhost/api/v1*
+All URIs are relative to */api/v1*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**CreateJob**](JobApi.md#createjob) | **POST** /jobs | Create job
-[**DeleteJob**](JobApi.md#deletejob) | **DELETE** /jobs/{jobName} | Delete job
-[**GetJob**](JobApi.md#getjob) | **GET** /jobs/{jobName} | Gets job
-[**GetJobs**](JobApi.md#getjobs) | **GET** /jobs/ | Gets jobs
-[**StopJob**](JobApi.md#stopjob) | **POST** /jobs/{jobName}/stop | Stop job
+| Method | HTTP request | Description |
+|--------|--------------|-------------|
+| [**CreateJob**](JobApi.md#createjob) | **POST** /jobs | Create job |
+| [**DeleteJob**](JobApi.md#deletejob) | **DELETE** /jobs/{jobName} | Delete job |
+| [**GetJob**](JobApi.md#getjob) | **GET** /jobs/{jobName} | Gets job |
+| [**GetJobs**](JobApi.md#getjobs) | **GET** /jobs/ | Gets jobs |
+| [**StopJob**](JobApi.md#stopjob) | **POST** /jobs/{jobName}/stop | Stop job |
 
-
-<a name="createjob"></a>
+<a id="createjob"></a>
 # **CreateJob**
 > JobStatus CreateJob (JobScheduleDescription jobCreation)
 
@@ -32,7 +31,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new JobApi(config);
             var jobCreation = new JobScheduleDescription(); // JobScheduleDescription | Job to create
 
@@ -44,8 +43,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling JobApi.CreateJob: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling JobApi.CreateJob: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -53,11 +52,31 @@ namespace Example
 }
 ```
 
+#### Using the CreateJobWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Create job
+    ApiResponse<JobStatus> response = apiInstance.CreateJobWithHttpInfo(jobCreation);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling JobApi.CreateJobWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **jobCreation** | [**JobScheduleDescription**](JobScheduleDescription.md)| Job to create | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **jobCreation** | [**JobScheduleDescription**](JobScheduleDescription.md) | Job to create |  |
 
 ### Return type
 
@@ -84,7 +103,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="deletejob"></a>
+<a id="deletejob"></a>
 # **DeleteJob**
 > Status DeleteJob (string jobName)
 
@@ -105,9 +124,9 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new JobApi(config);
-            var jobName = jobName_example;  // string | Name of job
+            var jobName = "jobName_example";  // string | Name of job
 
             try
             {
@@ -117,8 +136,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling JobApi.DeleteJob: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling JobApi.DeleteJob: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -126,11 +145,31 @@ namespace Example
 }
 ```
 
+#### Using the DeleteJobWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Delete job
+    ApiResponse<Status> response = apiInstance.DeleteJobWithHttpInfo(jobName);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling JobApi.DeleteJobWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **jobName** | **string**| Name of job | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **jobName** | **string** | Name of job |  |
 
 ### Return type
 
@@ -155,7 +194,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="getjob"></a>
+<a id="getjob"></a>
 # **GetJob**
 > JobStatus GetJob (string jobName)
 
@@ -176,9 +215,9 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new JobApi(config);
-            var jobName = jobName_example;  // string | Name of job
+            var jobName = "jobName_example";  // string | Name of job
 
             try
             {
@@ -188,8 +227,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling JobApi.GetJob: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling JobApi.GetJob: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -197,11 +236,31 @@ namespace Example
 }
 ```
 
+#### Using the GetJobWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets job
+    ApiResponse<JobStatus> response = apiInstance.GetJobWithHttpInfo(jobName);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling JobApi.GetJobWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **jobName** | **string**| Name of job | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **jobName** | **string** | Name of job |  |
 
 ### Return type
 
@@ -226,7 +285,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="getjobs"></a>
+<a id="getjobs"></a>
 # **GetJobs**
 > List&lt;JobStatus&gt; GetJobs ()
 
@@ -247,7 +306,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new JobApi(config);
 
             try
@@ -258,8 +317,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling JobApi.GetJobs: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling JobApi.GetJobs: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -267,9 +326,28 @@ namespace Example
 }
 ```
 
+#### Using the GetJobsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets jobs
+    ApiResponse<List<JobStatus>> response = apiInstance.GetJobsWithHttpInfo();
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling JobApi.GetJobsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 This endpoint does not need any parameter.
-
 ### Return type
 
 [**List&lt;JobStatus&gt;**](JobStatus.md)
@@ -292,7 +370,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="stopjob"></a>
+<a id="stopjob"></a>
 # **StopJob**
 > Status StopJob (string jobName)
 
@@ -313,9 +391,9 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost/api/v1";
+            config.BasePath = "/api/v1";
             var apiInstance = new JobApi(config);
-            var jobName = jobName_example;  // string | Name of job
+            var jobName = "jobName_example";  // string | Name of job
 
             try
             {
@@ -325,8 +403,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling JobApi.StopJob: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling JobApi.StopJob: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -334,11 +412,31 @@ namespace Example
 }
 ```
 
+#### Using the StopJobWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Stop job
+    ApiResponse<Status> response = apiInstance.StopJobWithHttpInfo(jobName);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling JobApi.StopJobWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **jobName** | **string**| Name of job | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **jobName** | **string** | Name of job |  |
 
 ### Return type
 
