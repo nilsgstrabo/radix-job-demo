@@ -95,7 +95,7 @@ namespace RadixJobClient.Model
         /*
         <example>Waiting</example>
         */
-        [DataMember(Name = "status", EmitDefaultValue = false)]
+        [DataMember(Name = "status", EmitDefaultValue = true)]
         public StatusEnum? Status { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="BatchEvent" /> class.
@@ -122,7 +122,7 @@ namespace RadixJobClient.Model
         /// <param name="started">Started timestamp.</param>
         /// <param name="status">Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed.</param>
         /// <param name="updated">Updated timestamp when the status was updated.</param>
-        public BatchEvent(string deploymentName = default(string), string batchId = default(string), string batchName = default(string), string batchType = default(string), DateTime created = default(DateTime), DateTime ended = default(DateTime), string varEvent = default(string), int failed = default(int), string jobId = default(string), List<JobStatus> jobStatuses = default(List<JobStatus>), string message = default(string), string name = default(string), List<PodStatus> podStatuses = default(List<PodStatus>), string restart = default(string), DateTime started = default(DateTime), StatusEnum? status = default(StatusEnum?), DateTime updated = default(DateTime))
+        public BatchEvent(string deploymentName = default(string), string batchId = default(string), string batchName = default(string), string batchType = default(string), DateTimeOffset created = default(DateTimeOffset), DateTimeOffset ended = default(DateTimeOffset), string varEvent = default(string), int failed = default(int), string jobId = default(string), List<JobStatus> jobStatuses = default(List<JobStatus>), string message = default(string), string name = default(string), List<PodStatus> podStatuses = default(List<PodStatus>), string restart = default(string), DateTimeOffset started = default(DateTimeOffset), StatusEnum? status = default(StatusEnum?), DateTimeOffset updated = default(DateTimeOffset))
         {
             // to ensure "varEvent" is required (not null)
             if (varEvent == null)
@@ -157,7 +157,7 @@ namespace RadixJobClient.Model
         /// DeploymentName for this batch
         /// </summary>
         /// <value>DeploymentName for this batch</value>
-        [DataMember(Name = "DeploymentName", EmitDefaultValue = false)]
+        [DataMember(Name = "DeploymentName", EmitDefaultValue = true)]
         public string DeploymentName { get; set; }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace RadixJobClient.Model
         /*
         <example>&#39;batch-id-1&#39;</example>
         */
-        [DataMember(Name = "batchId", EmitDefaultValue = false)]
+        [DataMember(Name = "batchId", EmitDefaultValue = true)]
         public string BatchId { get; set; }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace RadixJobClient.Model
         /*
         <example>&#39;batch1&#39;</example>
         */
-        [DataMember(Name = "batchName", EmitDefaultValue = false)]
+        [DataMember(Name = "batchName", EmitDefaultValue = true)]
         public string BatchName { get; set; }
 
         /// <summary>
@@ -187,22 +187,22 @@ namespace RadixJobClient.Model
         /*
         <example>&quot;job&quot;</example>
         */
-        [DataMember(Name = "batchType", EmitDefaultValue = false)]
+        [DataMember(Name = "batchType", EmitDefaultValue = true)]
         public string BatchType { get; set; }
 
         /// <summary>
         /// Created timestamp
         /// </summary>
         /// <value>Created timestamp</value>
-        [DataMember(Name = "created", EmitDefaultValue = false)]
-        public DateTime Created { get; set; }
+        [DataMember(Name = "created", EmitDefaultValue = true)]
+        public DateTimeOffset Created { get; set; }
 
         /// <summary>
         /// Ended timestamp
         /// </summary>
         /// <value>Ended timestamp</value>
-        [DataMember(Name = "ended", EmitDefaultValue = false)]
-        public DateTime Ended { get; set; }
+        [DataMember(Name = "ended", EmitDefaultValue = true)]
+        public DateTimeOffset Ended { get; set; }
 
         /// <summary>
         /// Gets or Sets Event
@@ -214,7 +214,7 @@ namespace RadixJobClient.Model
         /// The number of times the container for the job has failed. +optional
         /// </summary>
         /// <value>The number of times the container for the job has failed. +optional</value>
-        [DataMember(Name = "failed", EmitDefaultValue = false)]
+        [DataMember(Name = "failed", EmitDefaultValue = true)]
         public int Failed { get; set; }
 
         /// <summary>
@@ -224,14 +224,14 @@ namespace RadixJobClient.Model
         /*
         <example>&#39;job1&#39;</example>
         */
-        [DataMember(Name = "jobId", EmitDefaultValue = false)]
+        [DataMember(Name = "jobId", EmitDefaultValue = true)]
         public string JobId { get; set; }
 
         /// <summary>
         /// JobStatuses of the jobs in the batch
         /// </summary>
         /// <value>JobStatuses of the jobs in the batch</value>
-        [DataMember(Name = "jobStatuses", EmitDefaultValue = false)]
+        [DataMember(Name = "jobStatuses", EmitDefaultValue = true)]
         public List<JobStatus> JobStatuses { get; set; }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace RadixJobClient.Model
         /*
         <example>&quot;Error occurred&quot;</example>
         */
-        [DataMember(Name = "message", EmitDefaultValue = false)]
+        [DataMember(Name = "message", EmitDefaultValue = true)]
         public string Message { get; set; }
 
         /// <summary>
@@ -258,29 +258,29 @@ namespace RadixJobClient.Model
         /// PodStatuses for each pod of the job
         /// </summary>
         /// <value>PodStatuses for each pod of the job</value>
-        [DataMember(Name = "podStatuses", EmitDefaultValue = false)]
+        [DataMember(Name = "podStatuses", EmitDefaultValue = true)]
         public List<PodStatus> PodStatuses { get; set; }
 
         /// <summary>
         /// Timestamp of the job restart, if applied. +optional
         /// </summary>
         /// <value>Timestamp of the job restart, if applied. +optional</value>
-        [DataMember(Name = "restart", EmitDefaultValue = false)]
+        [DataMember(Name = "restart", EmitDefaultValue = true)]
         public string Restart { get; set; }
 
         /// <summary>
         /// Started timestamp
         /// </summary>
         /// <value>Started timestamp</value>
-        [DataMember(Name = "started", EmitDefaultValue = false)]
-        public DateTime Started { get; set; }
+        [DataMember(Name = "started", EmitDefaultValue = true)]
+        public DateTimeOffset Started { get; set; }
 
         /// <summary>
         /// Updated timestamp when the status was updated
         /// </summary>
         /// <value>Updated timestamp when the status was updated</value>
-        [DataMember(Name = "updated", EmitDefaultValue = false)]
-        public DateTime Updated { get; set; }
+        [DataMember(Name = "updated", EmitDefaultValue = true)]
+        public DateTimeOffset Updated { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

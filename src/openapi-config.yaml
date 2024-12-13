@@ -2,3 +2,6 @@ additionalProperties:
   targetFramework: net8.0
   packageName: RadixJobClient
   netCoreProjectFile: true
+  useDateTimeOffset: true
+  nullableReferenceTypes: true
+  optionalEmitDefaultValues: true
