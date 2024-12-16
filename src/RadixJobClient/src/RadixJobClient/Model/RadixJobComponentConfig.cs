@@ -54,39 +54,39 @@ namespace RadixJobClient.Model
         /// BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s.
         /// </summary>
         /// <value>BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s.</value>
-        [DataMember(Name = "backoffLimit", EmitDefaultValue = true)]
+        [DataMember(Name = "backoffLimit", EmitDefaultValue = false)]
         public int BackoffLimit { get; set; }
 
         /// <summary>
         /// Gets or Sets FailurePolicy
         /// </summary>
-        [DataMember(Name = "failurePolicy", EmitDefaultValue = true)]
+        [DataMember(Name = "failurePolicy", EmitDefaultValue = false)]
         public FailurePolicy FailurePolicy { get; set; }
 
         /// <summary>
         /// ImageTagName defines the image tag name to use for the job image
         /// </summary>
         /// <value>ImageTagName defines the image tag name to use for the job image</value>
-        [DataMember(Name = "imageTagName", EmitDefaultValue = true)]
+        [DataMember(Name = "imageTagName", EmitDefaultValue = false)]
         public string ImageTagName { get; set; }
 
         /// <summary>
         /// Gets or Sets Node
         /// </summary>
-        [DataMember(Name = "node", EmitDefaultValue = true)]
+        [DataMember(Name = "node", EmitDefaultValue = false)]
         public Node Node { get; set; }
 
         /// <summary>
         /// Gets or Sets Resources
         /// </summary>
-        [DataMember(Name = "resources", EmitDefaultValue = true)]
+        [DataMember(Name = "resources", EmitDefaultValue = false)]
         public Resources Resources { get; set; }
 
         /// <summary>
         /// TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s.
         /// </summary>
         /// <value>TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s.</value>
-        [DataMember(Name = "timeLimitSeconds", EmitDefaultValue = true)]
+        [DataMember(Name = "timeLimitSeconds", EmitDefaultValue = false)]
         public long TimeLimitSeconds { get; set; }
 
         /// <summary>

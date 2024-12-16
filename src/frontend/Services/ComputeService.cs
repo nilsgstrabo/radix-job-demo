@@ -60,8 +60,11 @@ public class ComputeServiceBase : IComputeService
     public async Task<List<JobStatus>> GetJobs()
     {
         var jobs = await _jobApi.GetJobsAsync();
-        _logger.LogInformation("Got {0} jobs", jobs.Count);
-        return jobs;
+        _logger.LogInformation("Got {0} jobs", jobs?.Count);
+        if (jobs==null) {
+            _logger.LogInformation("jobs is null");
+        }
+        return jobs ?? [];
     }
 
     public async Task<RadixJobClient.Model.JobStatus> CreateJob(JobRequest request)

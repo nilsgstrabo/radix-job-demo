@@ -78,28 +78,28 @@ namespace RadixJobClient.Model
         /// Container started timestamp
         /// </summary>
         /// <value>Container started timestamp</value>
-        [DataMember(Name = "containerStarted", EmitDefaultValue = true)]
+        [DataMember(Name = "containerStarted", EmitDefaultValue = false)]
         public DateTimeOffset ContainerStarted { get; set; }
 
         /// <summary>
         /// Created timestamp
         /// </summary>
         /// <value>Created timestamp</value>
-        [DataMember(Name = "created", EmitDefaultValue = true)]
+        [DataMember(Name = "created", EmitDefaultValue = false)]
         public DateTimeOffset Created { get; set; }
 
         /// <summary>
         /// The time at which the batch job&#39;s pod finishedAt.
         /// </summary>
         /// <value>The time at which the batch job&#39;s pod finishedAt.</value>
-        [DataMember(Name = "endTime", EmitDefaultValue = true)]
+        [DataMember(Name = "endTime", EmitDefaultValue = false)]
         public DateTimeOffset EndTime { get; set; }
 
         /// <summary>
         /// Exit status from the last termination of the container
         /// </summary>
         /// <value>Exit status from the last termination of the container</value>
-        [DataMember(Name = "exitCode", EmitDefaultValue = true)]
+        [DataMember(Name = "exitCode", EmitDefaultValue = false)]
         public int ExitCode { get; set; }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace RadixJobClient.Model
         /*
         <example>radixdev.azurecr.io/app-server:cdgkg</example>
         */
-        [DataMember(Name = "image", EmitDefaultValue = true)]
+        [DataMember(Name = "image", EmitDefaultValue = false)]
         public string Image { get; set; }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace RadixJobClient.Model
         /*
         <example>radixdev.azurecr.io/app-server@sha256:d40cda01916ef63da3607c03785efabc56eb2fc2e0dab0726b1a843e9ded093f</example>
         */
-        [DataMember(Name = "imageId", EmitDefaultValue = true)]
+        [DataMember(Name = "imageId", EmitDefaultValue = false)]
         public string ImageId { get; set; }
 
         /// <summary>
@@ -136,41 +136,41 @@ namespace RadixJobClient.Model
         /// The index of the pod in the re-starts
         /// </summary>
         /// <value>The index of the pod in the re-starts</value>
-        [DataMember(Name = "podIndex", EmitDefaultValue = true)]
+        [DataMember(Name = "podIndex", EmitDefaultValue = false)]
         public long PodIndex { get; set; }
 
         /// <summary>
         /// A brief CamelCase message indicating details about why the job is in this phase
         /// </summary>
         /// <value>A brief CamelCase message indicating details about why the job is in this phase</value>
-        [DataMember(Name = "reason", EmitDefaultValue = true)]
+        [DataMember(Name = "reason", EmitDefaultValue = false)]
         public string Reason { get; set; }
 
         /// <summary>
         /// Gets or Sets ReplicaStatus
         /// </summary>
-        [DataMember(Name = "replicaStatus", EmitDefaultValue = true)]
+        [DataMember(Name = "replicaStatus", EmitDefaultValue = false)]
         public ReplicaStatus ReplicaStatus { get; set; }
 
         /// <summary>
         /// RestartCount count of restarts of a component container inside a pod
         /// </summary>
         /// <value>RestartCount count of restarts of a component container inside a pod</value>
-        [DataMember(Name = "restartCount", EmitDefaultValue = true)]
+        [DataMember(Name = "restartCount", EmitDefaultValue = false)]
         public int RestartCount { get; set; }
 
         /// <summary>
         /// The time at which the batch job&#39;s pod startedAt
         /// </summary>
         /// <value>The time at which the batch job&#39;s pod startedAt</value>
-        [DataMember(Name = "startTime", EmitDefaultValue = true)]
+        [DataMember(Name = "startTime", EmitDefaultValue = false)]
         public DateTimeOffset StartTime { get; set; }
 
         /// <summary>
         /// StatusMessage provides message describing the status of a component container inside a pod
         /// </summary>
         /// <value>StatusMessage provides message describing the status of a component container inside a pod</value>
-        [DataMember(Name = "statusMessage", EmitDefaultValue = true)]
+        [DataMember(Name = "statusMessage", EmitDefaultValue = false)]
         public string StatusMessage { get; set; }
 
         /// <summary>

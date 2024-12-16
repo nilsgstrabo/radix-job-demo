@@ -53,7 +53,7 @@ namespace RadixJobClient.Model
         /*
         <example>404</example>
         */
-        [DataMember(Name = "code", EmitDefaultValue = true)]
+        [DataMember(Name = "code", EmitDefaultValue = false)]
         public long Code { get; set; }
 
         /// <summary>
@@ -63,13 +63,13 @@ namespace RadixJobClient.Model
         /*
         <example>job job123 is not found</example>
         */
-        [DataMember(Name = "message", EmitDefaultValue = true)]
+        [DataMember(Name = "message", EmitDefaultValue = false)]
         public string Message { get; set; }
 
         /// <summary>
         /// Gets or Sets Reason
         /// </summary>
-        [DataMember(Name = "reason", EmitDefaultValue = true)]
+        [DataMember(Name = "reason", EmitDefaultValue = false)]
         public string Reason { get; set; }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace RadixJobClient.Model
         /*
         <example>Failure</example>
         */
-        [DataMember(Name = "status", EmitDefaultValue = true)]
+        [DataMember(Name = "status", EmitDefaultValue = false)]
         public string VarStatus { get; set; }
 
         /// <summary>

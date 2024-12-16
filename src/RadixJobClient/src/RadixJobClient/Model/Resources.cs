@@ -45,13 +45,13 @@ namespace RadixJobClient.Model
         /// <summary>
         /// Gets or Sets Limits
         /// </summary>
-        [DataMember(Name = "limits", EmitDefaultValue = true)]
+        [DataMember(Name = "limits", EmitDefaultValue = false)]
         public Dictionary<string, string> Limits { get; set; }
 
         /// <summary>
         /// Gets or Sets Requests
         /// </summary>
-        [DataMember(Name = "requests", EmitDefaultValue = true)]
+        [DataMember(Name = "requests", EmitDefaultValue = false)]
         public Dictionary<string, string> Requests { get; set; }
 
         /// <summary>

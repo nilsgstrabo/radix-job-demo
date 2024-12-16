@@ -46,14 +46,14 @@ namespace RadixJobClient.Model
         /// Defines rules for allowed GPU types.
         /// </summary>
         /// <value>Defines rules for allowed GPU types.</value>
-        [DataMember(Name = "gpu", EmitDefaultValue = true)]
+        [DataMember(Name = "gpu", EmitDefaultValue = false)]
         public string Gpu { get; set; }
 
         /// <summary>
         /// Defines minimum number of required GPUs.
         /// </summary>
         /// <value>Defines minimum number of required GPUs.</value>
-        [DataMember(Name = "gpuCount", EmitDefaultValue = true)]
+        [DataMember(Name = "gpuCount", EmitDefaultValue = false)]
         public string GpuCount { get; set; }
 
         /// <summary>

@@ -4,4 +4,4 @@ additionalProperties:
   netCoreProjectFile: true
   useDateTimeOffset: true
   nullableReferenceTypes: true
-  optionalEmitDefaultValues: true
+  # optionalEmitDefaultValues: true

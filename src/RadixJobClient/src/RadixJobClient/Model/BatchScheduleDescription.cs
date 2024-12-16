@@ -61,13 +61,13 @@ namespace RadixJobClient.Model
         /*
         <example>&#39;batch-id-1&#39;</example>
         */
-        [DataMember(Name = "batchId", EmitDefaultValue = true)]
+        [DataMember(Name = "batchId", EmitDefaultValue = false)]
         public string BatchId { get; set; }
 
         /// <summary>
         /// Gets or Sets DefaultRadixJobComponentConfig
         /// </summary>
-        [DataMember(Name = "defaultRadixJobComponentConfig", EmitDefaultValue = true)]
+        [DataMember(Name = "defaultRadixJobComponentConfig", EmitDefaultValue = false)]
         public RadixJobComponentConfig DefaultRadixJobComponentConfig { get; set; }
 
         /// <summary>
