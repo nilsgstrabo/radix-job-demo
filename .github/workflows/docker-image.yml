@@ -46,14 +46,14 @@ jobs:
       #       -d '{"secretValue":"12345"}' \
       #       -H 'Authorization: Bearer ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}'            
       - name: List apps
-        uses: equinor/radix-github-actions@v1
+        uses: equinor/radix-github-actions@update-rx-version-1-24-1
         with:
           args: >
             get
             application
             --context development
       - name: Get app
-        uses: equinor/radix-github-actions@v1
+        uses: equinor/radix-github-actions@update-rx-version-1-24-1
         with:
           args: >
             get
@@ -61,7 +61,7 @@ jobs:
             --application radix-job-demo
             --context development
       - name: Restart qa env
-        uses: equinor/radix-github-actions@v1
+        uses: equinor/radix-github-actions@update-rx-version-1-24-1
         with:
           args: >
             restart
