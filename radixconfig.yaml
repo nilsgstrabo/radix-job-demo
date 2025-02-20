@@ -171,6 +171,8 @@ spec:
           port: 6002
       publicPort: http
       readOnlyFileSystem: true
+      ingressConfiguration:
+        - stickysessions
       runtime:
         architecture: amd64
       variables:
