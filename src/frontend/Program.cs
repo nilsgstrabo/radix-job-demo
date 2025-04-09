@@ -8,8 +8,8 @@ builder.WebHost.ConfigureKestrel(k=>k.AllowSynchronousIO=true);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR(c=>{
-    c.KeepAliveInterval=System.TimeSpan.FromSeconds(15);
-    c.ClientTimeoutInterval=System.TimeSpan.FromSeconds(30);
+    c.KeepAliveInterval=System.TimeSpan.FromSeconds(1000);
+    c.ClientTimeoutInterval=System.TimeSpan.FromSeconds(1000);
 });
 
 builder.Services.AddSingleton<INotificationHubService, NotificationHubService>();

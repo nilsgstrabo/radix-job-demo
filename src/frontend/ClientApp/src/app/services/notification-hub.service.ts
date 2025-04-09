@@ -28,8 +28,8 @@ export class NotificationHubService {
             .withAutomaticReconnect()
             .build();
 
-        this.connection.serverTimeoutInMilliseconds=30*1000;
-        this.connection.keepAliveIntervalInMilliseconds=2*1000;
+        this.connection.serverTimeoutInMilliseconds=1000*1000;
+        this.connection.keepAliveIntervalInMilliseconds=1000*1000;
     }
 
     private startConnection() {

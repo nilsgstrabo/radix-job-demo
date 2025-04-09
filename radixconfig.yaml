@@ -184,8 +184,8 @@ spec:
       network:
         ingress:
           public:
-            proxyReadTimeout: 30
-            proxySendTimeout: 30
+            proxyReadTimeout: 1800
+            proxySendTimeout: 1800
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
