@@ -47,9 +47,12 @@ func handle(w http.ResponseWriter, r *http.Request) {
 			sleep = n
 		}
 	}
-	fmt.Printf("writing %v KB and sleeping %v seconds between each KB", responseKb, sleep)
+	fmt.Printf("writing %v KB and sleeping %v seconds between each KB\n", responseKb, sleep)
 	for range responseKb {
-		w.Write([]byte(strings.Repeat(responsePart, 16)))
+		_, err := w.Write([]byte(strings.Repeat(responsePart, 16)))
+		if err != nil {
+			fmt.Printf("error: %v\n", err)
+		}
 		w.(http.Flusher).Flush()
 		time.Sleep(time.Duration(sleep) * time.Second)
 	}
