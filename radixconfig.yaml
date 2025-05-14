@@ -10,7 +10,7 @@ spec:
     component: server
   build:
     useBuildKit: true
-    useBuildCache: false
+    useBuildCache: true
     secrets:
       - SECRET1
   environments:
