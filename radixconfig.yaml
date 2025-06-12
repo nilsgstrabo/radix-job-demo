@@ -211,7 +211,7 @@ spec:
       runtime:
         architecture: amd64
       image: bitnami/redis:{imageTagName}
-      imageTagName: "7.4.2"
+      imageTagName: "8.0.2"
       alwaysPullImageOnDeploy: true
       ports:
         - name: redis
