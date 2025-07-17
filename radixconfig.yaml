@@ -71,6 +71,7 @@ spec:
             azure:
               clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
         - environment: qa
+          command: []
           # failurePolicy:
           #   rules:
           #     - action: FailJob
