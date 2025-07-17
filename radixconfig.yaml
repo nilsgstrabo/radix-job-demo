@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=file:///home/nst/go/src/github.com/equinor/radix-operator/json-schema/radixapplication.json
-
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
@@ -23,6 +21,7 @@ spec:
   jobs:
     - name: "compute"
       src: "compute"
+      command: []
       schedulerPort: 8080
       timeLimitSeconds: 3600
       backoffLimit: 0
@@ -91,6 +90,7 @@ spec:
           readOnlyFileSystem: true
     - name: "compute1"
       src: "compute"
+     
       schedulerPort: 8080
       timeLimitSeconds: 3600
       backoffLimit: 0
