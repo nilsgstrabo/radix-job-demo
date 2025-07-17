@@ -22,6 +22,7 @@ spec:
     - name: "compute"
       src: "compute"
       command: []
+      args: []
       schedulerPort: 8080
       timeLimitSeconds: 3600
       backoffLimit: 3
