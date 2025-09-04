@@ -7,10 +7,8 @@ spec:
     environment: qa
     component: server
   build:
-    useBuildKit: true
-    useBuildCache: true
-    secrets:
-      - SECRET1
+    useBuildKit: false
+    useBuildCache: false
   environments:
     - name: qa
       build:

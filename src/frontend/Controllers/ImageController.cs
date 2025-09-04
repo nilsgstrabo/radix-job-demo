@@ -42,6 +42,7 @@ namespace frontend.Controllers
         [HttpGet("{imageId}")]
         public IActionResult GetImage(int imageId)
         {
+
             try
             {
                 var path = _configuration["COMPUTE_IMAGE_PATH"];
