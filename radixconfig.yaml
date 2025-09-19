@@ -25,7 +25,8 @@ spec:
       timeLimitSeconds: 3600
       backoffLimit: 3
       runtime:
-        architecture: amd64
+        # architecture: amd64
+        nodeType: gpu-nvidia-1-v1
       notifications:
         webhook: http://server:6001/api/notification/compute1
       # failurePolicy:
@@ -125,12 +126,12 @@ spec:
             azure:
               clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
     - name: "compute2"
-      src: "compute"
+      image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda12.5.0
       schedulerPort: 8080
       timeLimitSeconds: 300
       backoffLimit: 0
       runtime:
-        architecture: amd64
+        nodeType: gpu-nvidia-1-v1
       payload:
         path: "/compute/args"
       identity:
