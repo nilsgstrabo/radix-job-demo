@@ -45,9 +45,14 @@ spec:
       #         values: [20,21,22]
       readOnlyFileSystem: true
       resources:
+        limits:
+          cpu: 50m
+          memory: 100Mi
+          nvidia.com/gpu: "1"
         requests:
           cpu: 50m
           memory: 100Mi
+          nvidia.com/gpu: "1"
       ports:
         - name: http
           port: 9999
