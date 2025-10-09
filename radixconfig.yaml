@@ -199,9 +199,7 @@ spec:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
           scope: openid email profile offline_access
-          sessionStoreType: redis
-          redisStore:
-            connectionUrl: redis://redis:6379
+          sessionStoreType: systemManaged
       resources:
         requests:
           memory: "200M"
@@ -213,21 +211,5 @@ spec:
           path: /app/computeimages
           emptyDir:
             sizeLimit: 50M
-    - name: redis
-      runtime:
-        architecture: amd64
-      image: bitnami/redis:{imageTagName}
-      imageTagName: "8.0.2"
-      alwaysPullImageOnDeploy: true
-      ports:
-        - name: redis
-          port: 6379
-      secrets:
-        - REDIS_PASSWORD
-      resources:
-        requests:
-          memory: "100M"
-          cpu: "50m"
-        limits:
-          memory: "200M"
+
 
