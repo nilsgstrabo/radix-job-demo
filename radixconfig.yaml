@@ -25,8 +25,8 @@ spec:
       timeLimitSeconds: 3600
       backoffLimit: 3
       runtime:
-        # architecture: amd64
-        nodeType: gpu-nvidia-1-v1
+        architecture: amd64
+        # nodeType: gpu-nvidia-1-v1
       notifications:
         webhook: http://server:6001/api/notification/compute1
       # failurePolicy:
@@ -48,11 +48,9 @@ spec:
         limits:
           cpu: 50m
           memory: 100Mi
-          nvidia.com/gpu: "1"
         requests:
           cpu: 50m
           memory: 100Mi
-          nvidia.com/gpu: "1"
       ports:
         - name: http
           port: 9999
