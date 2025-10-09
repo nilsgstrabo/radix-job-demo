@@ -60,6 +60,19 @@ var basecolors []color.RGBA = []color.RGBA{
 
 func main() {
 
+	chSignal := make(chan os.Signal, 1)
+	signal.Notify(chSignal)
+
+	go func() {
+		for s := range chSignal {
+			logrus.Infof("received %s", s)
+			if s == syscall.SIGTERM {
+				logrus.Infof("respecting signal %q by terminating the job", s)
+				os.Exit(143)
+			}
+		}
+	}()
+
 	go startHttpServer()
 
 	ticker := time.NewTicker(time.Second)
@@ -106,8 +119,8 @@ func main() {
 		logrus.Panicf("error unmarshal config file: %v", err)
 	}
 
-	logrus.Infof("Config: %v", config)
-
+	logrus.Infof("Config: %+v", config)
+	fmt.Print()
 	mandelbrot := Mandelbrot{
 		Height:      config.Height,
 		Width:       config.Width,
@@ -175,7 +188,12 @@ func main() {
 	}
 
 	if config.Fail {
-		panic("job was configured to simulate panic")
+		logrus.Errorf("simulating failure")
+		exitCode := config.FailExitCode
+		if exitCode <= 0 {
+			exitCode = 1
+		}
+		os.Exit(exitCode)
 	}
 }
 

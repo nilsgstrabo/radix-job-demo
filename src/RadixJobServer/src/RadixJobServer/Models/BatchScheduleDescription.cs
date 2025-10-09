@@ -27,6 +27,14 @@ namespace RadixJobServer.Models
     public partial class BatchScheduleDescription : IEquatable<BatchScheduleDescription>
     {
         /// <summary>
+        /// Defines a user defined ID of the batch.
+        /// </summary>
+        /// <value>Defines a user defined ID of the batch.</value>
+        /* <example>&#39;batch-id-1&#39;</example> */
+        [DataMember(Name="batchId", EmitDefaultValue=false)]
+        public string BatchId { get; set; }
+
+        /// <summary>
         /// Gets or Sets DefaultRadixJobComponentConfig
         /// </summary>
         [DataMember(Name="defaultRadixJobComponentConfig", EmitDefaultValue=false)]
@@ -48,6 +56,7 @@ namespace RadixJobServer.Models
         {
             var sb = new StringBuilder();
             sb.Append("class BatchScheduleDescription {\n");
+            sb.Append("  BatchId: ").Append(BatchId).Append("\n");
             sb.Append("  DefaultRadixJobComponentConfig: ").Append(DefaultRadixJobComponentConfig).Append("\n");
             sb.Append("  JobScheduleDescriptions: ").Append(JobScheduleDescriptions).Append("\n");
             sb.Append("}\n");
@@ -60,7 +69,7 @@ namespace RadixJobServer.Models
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>
@@ -87,6 +96,11 @@ namespace RadixJobServer.Models
 
             return 
                 (
+                    BatchId == other.BatchId ||
+                    BatchId != null &&
+                    BatchId.Equals(other.BatchId)
+                ) && 
+                (
                     DefaultRadixJobComponentConfig == other.DefaultRadixJobComponentConfig ||
                     DefaultRadixJobComponentConfig != null &&
                     DefaultRadixJobComponentConfig.Equals(other.DefaultRadixJobComponentConfig)
@@ -109,6 +123,8 @@ namespace RadixJobServer.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
+                    if (BatchId != null)
+                    hashCode = hashCode * 59 + BatchId.GetHashCode();
                     if (DefaultRadixJobComponentConfig != null)
                     hashCode = hashCode * 59 + DefaultRadixJobComponentConfig.GetHashCode();
                     if (JobScheduleDescriptions != null)

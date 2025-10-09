@@ -67,10 +67,11 @@ namespace RadixJobServer
                         NamingStrategy = new CamelCaseNamingStrategy()
                     });
                 });
-
             services
                 .AddSwaggerGen(c =>
                 {
+                    c.EnableAnnotations(enableAnnotationsForInheritance: true, enableAnnotationsForPolymorphism: true);
+                    
                     c.SwaggerDoc("1.0.0", new OpenApiInfo
                     {
                         Title = "Radix job scheduler server.",
@@ -90,7 +91,7 @@ namespace RadixJobServer
                         Version = "1.0.0",
                     });
                     c.CustomSchemaIds(type => type.FriendlyId(true));
-                    c.IncludeXmlComments($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{Assembly.GetEntryAssembly().GetName().Name}.xml");
+                    c.IncludeXmlComments($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{Assembly.GetExecutingAssembly().GetName().Name}.xml");
                     // Sets the basePath property in the OpenAPI document generated
                     c.DocumentFilter<BasePathFilter>("/api/v1");
 

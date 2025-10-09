@@ -31,8 +31,9 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobCreation">Job to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>JobStatus</returns>
-        JobStatus CreateJob(JobScheduleDescription jobCreation);
+        JobStatus CreateJob(JobScheduleDescription jobCreation, int operationIndex = 0);
 
         /// <summary>
         /// Create job
@@ -42,15 +43,17 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobCreation">Job to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of JobStatus</returns>
-        ApiResponse<JobStatus> CreateJobWithHttpInfo(JobScheduleDescription jobCreation);
+        ApiResponse<JobStatus> CreateJobWithHttpInfo(JobScheduleDescription jobCreation, int operationIndex = 0);
         /// <summary>
         /// Delete job
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Status</returns>
-        Status DeleteJob(string jobName);
+        Status DeleteJob(string jobName, int operationIndex = 0);
 
         /// <summary>
         /// Delete job
@@ -60,15 +63,17 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Status</returns>
-        ApiResponse<Status> DeleteJobWithHttpInfo(string jobName);
+        ApiResponse<Status> DeleteJobWithHttpInfo(string jobName, int operationIndex = 0);
         /// <summary>
         /// Gets job
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>JobStatus</returns>
-        JobStatus GetJob(string jobName);
+        JobStatus GetJob(string jobName, int operationIndex = 0);
 
         /// <summary>
         /// Gets job
@@ -78,14 +83,16 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of JobStatus</returns>
-        ApiResponse<JobStatus> GetJobWithHttpInfo(string jobName);
+        ApiResponse<JobStatus> GetJobWithHttpInfo(string jobName, int operationIndex = 0);
         /// <summary>
         /// Gets jobs
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;JobStatus&gt;</returns>
-        List<JobStatus> GetJobs();
+        List<JobStatus> GetJobs(int operationIndex = 0);
 
         /// <summary>
         /// Gets jobs
@@ -94,15 +101,17 @@ namespace RadixJobClient.Api
         /// 
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;JobStatus&gt;</returns>
-        ApiResponse<List<JobStatus>> GetJobsWithHttpInfo();
+        ApiResponse<List<JobStatus>> GetJobsWithHttpInfo(int operationIndex = 0);
         /// <summary>
         /// Stop job
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Status</returns>
-        Status StopJob(string jobName);
+        Status StopJob(string jobName, int operationIndex = 0);
 
         /// <summary>
         /// Stop job
@@ -112,8 +121,9 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Status</returns>
-        ApiResponse<Status> StopJobWithHttpInfo(string jobName);
+        ApiResponse<Status> StopJobWithHttpInfo(string jobName, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -131,9 +141,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobCreation">Job to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of JobStatus</returns>
-        System.Threading.Tasks.Task<JobStatus> CreateJobAsync(JobScheduleDescription jobCreation, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<JobStatus> CreateJobAsync(JobScheduleDescription jobCreation, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Create job
@@ -143,9 +154,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobCreation">Job to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (JobStatus)</returns>
-        System.Threading.Tasks.Task<ApiResponse<JobStatus>> CreateJobWithHttpInfoAsync(JobScheduleDescription jobCreation, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<JobStatus>> CreateJobWithHttpInfoAsync(JobScheduleDescription jobCreation, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         /// <summary>
         /// Delete job
         /// </summary>
@@ -154,9 +166,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Status</returns>
-        System.Threading.Tasks.Task<Status> DeleteJobAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Status> DeleteJobAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Delete job
@@ -166,9 +179,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Status)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Status>> DeleteJobWithHttpInfoAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Status>> DeleteJobWithHttpInfoAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         /// <summary>
         /// Gets job
         /// </summary>
@@ -177,9 +191,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of JobStatus</returns>
-        System.Threading.Tasks.Task<JobStatus> GetJobAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<JobStatus> GetJobAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Gets job
@@ -189,9 +204,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (JobStatus)</returns>
-        System.Threading.Tasks.Task<ApiResponse<JobStatus>> GetJobWithHttpInfoAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<JobStatus>> GetJobWithHttpInfoAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         /// <summary>
         /// Gets jobs
         /// </summary>
@@ -199,9 +215,10 @@ namespace RadixJobClient.Api
         /// 
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;JobStatus&gt;</returns>
-        System.Threading.Tasks.Task<List<JobStatus>> GetJobsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<List<JobStatus>> GetJobsAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Gets jobs
@@ -210,9 +227,10 @@ namespace RadixJobClient.Api
         /// 
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;JobStatus&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<JobStatus>>> GetJobsWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<List<JobStatus>>> GetJobsWithHttpInfoAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         /// <summary>
         /// Stop job
         /// </summary>
@@ -221,9 +239,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Status</returns>
-        System.Threading.Tasks.Task<Status> StopJobAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Status> StopJobAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Stop job
@@ -233,9 +252,10 @@ namespace RadixJobClient.Api
         /// </remarks>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Status)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Status>> StopJobWithHttpInfoAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Status>> StopJobWithHttpInfoAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -361,8 +381,9 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobCreation">Job to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>JobStatus</returns>
-        public JobStatus CreateJob(JobScheduleDescription jobCreation)
+        public JobStatus CreateJob(JobScheduleDescription jobCreation, int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<JobStatus> localVarResponse = CreateJobWithHttpInfo(jobCreation);
             return localVarResponse.Data;
@@ -373,12 +394,15 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobCreation">Job to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of JobStatus</returns>
-        public RadixJobClient.Client.ApiResponse<JobStatus> CreateJobWithHttpInfo(JobScheduleDescription jobCreation)
+        public RadixJobClient.Client.ApiResponse<JobStatus> CreateJobWithHttpInfo(JobScheduleDescription jobCreation, int operationIndex = 0)
         {
             // verify the required parameter 'jobCreation' is set
             if (jobCreation == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobCreation' when calling JobApi->CreateJob");
+            }
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -392,21 +416,32 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.Data = jobCreation;
+
+            localVarRequestOptions.Operation = "JobApi.CreateJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
             var localVarResponse = this.Client.Post<JobStatus>("/jobs", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("CreateJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -417,11 +452,12 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobCreation">Job to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of JobStatus</returns>
-        public async System.Threading.Tasks.Task<JobStatus> CreateJobAsync(JobScheduleDescription jobCreation, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<JobStatus> CreateJobAsync(JobScheduleDescription jobCreation, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<JobStatus> localVarResponse = await CreateJobWithHttpInfoAsync(jobCreation, cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<JobStatus> localVarResponse = await CreateJobWithHttpInfoAsync(jobCreation, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -430,13 +466,16 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobCreation">Job to create</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (JobStatus)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<JobStatus>> CreateJobWithHttpInfoAsync(JobScheduleDescription jobCreation, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<JobStatus>> CreateJobWithHttpInfoAsync(JobScheduleDescription jobCreation, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
             // verify the required parameter 'jobCreation' is set
             if (jobCreation == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobCreation' when calling JobApi->CreateJob");
+            }
 
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -450,24 +489,34 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.Data = jobCreation;
 
+            localVarRequestOptions.Operation = "JobApi.CreateJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.PostAsync<JobStatus>("/jobs", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("CreateJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -478,8 +527,9 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Status</returns>
-        public Status DeleteJob(string jobName)
+        public Status DeleteJob(string jobName, int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<Status> localVarResponse = DeleteJobWithHttpInfo(jobName);
             return localVarResponse.Data;
@@ -490,12 +540,15 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Status</returns>
-        public RadixJobClient.Client.ApiResponse<Status> DeleteJobWithHttpInfo(string jobName)
+        public RadixJobClient.Client.ApiResponse<Status> DeleteJobWithHttpInfo(string jobName, int operationIndex = 0)
         {
             // verify the required parameter 'jobName' is set
             if (jobName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling JobApi->DeleteJob");
+            }
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -508,21 +561,32 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
+
+            localVarRequestOptions.Operation = "JobApi.DeleteJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
             var localVarResponse = this.Client.Delete<Status>("/jobs/{jobName}", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("DeleteJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -533,11 +597,12 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Status</returns>
-        public async System.Threading.Tasks.Task<Status> DeleteJobAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Status> DeleteJobAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<Status> localVarResponse = await DeleteJobWithHttpInfoAsync(jobName, cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<Status> localVarResponse = await DeleteJobWithHttpInfoAsync(jobName, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -546,13 +611,16 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Status)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<Status>> DeleteJobWithHttpInfoAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<Status>> DeleteJobWithHttpInfoAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
             // verify the required parameter 'jobName' is set
             if (jobName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling JobApi->DeleteJob");
+            }
 
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -565,24 +633,34 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
 
+            localVarRequestOptions.Operation = "JobApi.DeleteJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.DeleteAsync<Status>("/jobs/{jobName}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("DeleteJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -593,8 +671,9 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>JobStatus</returns>
-        public JobStatus GetJob(string jobName)
+        public JobStatus GetJob(string jobName, int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<JobStatus> localVarResponse = GetJobWithHttpInfo(jobName);
             return localVarResponse.Data;
@@ -605,12 +684,15 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of JobStatus</returns>
-        public RadixJobClient.Client.ApiResponse<JobStatus> GetJobWithHttpInfo(string jobName)
+        public RadixJobClient.Client.ApiResponse<JobStatus> GetJobWithHttpInfo(string jobName, int operationIndex = 0)
         {
             // verify the required parameter 'jobName' is set
             if (jobName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling JobApi->GetJob");
+            }
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -623,21 +705,32 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
+
+            localVarRequestOptions.Operation = "JobApi.GetJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
             var localVarResponse = this.Client.Get<JobStatus>("/jobs/{jobName}", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -648,11 +741,12 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of JobStatus</returns>
-        public async System.Threading.Tasks.Task<JobStatus> GetJobAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<JobStatus> GetJobAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<JobStatus> localVarResponse = await GetJobWithHttpInfoAsync(jobName, cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<JobStatus> localVarResponse = await GetJobWithHttpInfoAsync(jobName, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -661,13 +755,16 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (JobStatus)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<JobStatus>> GetJobWithHttpInfoAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<JobStatus>> GetJobWithHttpInfoAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
             // verify the required parameter 'jobName' is set
             if (jobName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling JobApi->GetJob");
+            }
 
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -680,24 +777,34 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
 
+            localVarRequestOptions.Operation = "JobApi.GetJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.GetAsync<JobStatus>("/jobs/{jobName}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -707,8 +814,9 @@ namespace RadixJobClient.Api
         /// Gets jobs 
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;JobStatus&gt;</returns>
-        public List<JobStatus> GetJobs()
+        public List<JobStatus> GetJobs(int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<List<JobStatus>> localVarResponse = GetJobsWithHttpInfo();
             return localVarResponse.Data;
@@ -718,8 +826,9 @@ namespace RadixJobClient.Api
         /// Gets jobs 
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;JobStatus&gt;</returns>
-        public RadixJobClient.Client.ApiResponse<List<JobStatus>> GetJobsWithHttpInfo()
+        public RadixJobClient.Client.ApiResponse<List<JobStatus>> GetJobsWithHttpInfo(int operationIndex = 0)
         {
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -732,20 +841,31 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
+
+            localVarRequestOptions.Operation = "JobApi.GetJobs";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
             var localVarResponse = this.Client.Get<List<JobStatus>>("/jobs/", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetJobs", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -755,11 +875,12 @@ namespace RadixJobClient.Api
         /// Gets jobs 
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;JobStatus&gt;</returns>
-        public async System.Threading.Tasks.Task<List<JobStatus>> GetJobsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<List<JobStatus>> GetJobsAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<List<JobStatus>> localVarResponse = await GetJobsWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<List<JobStatus>> localVarResponse = await GetJobsWithHttpInfoAsync(operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -767,9 +888,10 @@ namespace RadixJobClient.Api
         /// Gets jobs 
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;JobStatus&gt;)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<List<JobStatus>>> GetJobsWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<List<JobStatus>>> GetJobsWithHttpInfoAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -782,23 +904,33 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
+
+            localVarRequestOptions.Operation = "JobApi.GetJobs";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.GetAsync<List<JobStatus>>("/jobs/", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetJobs", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -809,8 +941,9 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Status</returns>
-        public Status StopJob(string jobName)
+        public Status StopJob(string jobName, int operationIndex = 0)
         {
             RadixJobClient.Client.ApiResponse<Status> localVarResponse = StopJobWithHttpInfo(jobName);
             return localVarResponse.Data;
@@ -821,12 +954,15 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Status</returns>
-        public RadixJobClient.Client.ApiResponse<Status> StopJobWithHttpInfo(string jobName)
+        public RadixJobClient.Client.ApiResponse<Status> StopJobWithHttpInfo(string jobName, int operationIndex = 0)
         {
             // verify the required parameter 'jobName' is set
             if (jobName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling JobApi->StopJob");
+            }
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
 
@@ -839,21 +975,32 @@ namespace RadixJobClient.Api
             };
 
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
+
+            localVarRequestOptions.Operation = "JobApi.StopJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
             var localVarResponse = this.Client.Post<Status>("/jobs/{jobName}/stop", localVarRequestOptions, this.Configuration);
-
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("StopJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;
@@ -864,11 +1011,12 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Status</returns>
-        public async System.Threading.Tasks.Task<Status> StopJobAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Status> StopJobAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            RadixJobClient.Client.ApiResponse<Status> localVarResponse = await StopJobWithHttpInfoAsync(jobName, cancellationToken).ConfigureAwait(false);
+            RadixJobClient.Client.ApiResponse<Status> localVarResponse = await StopJobWithHttpInfoAsync(jobName, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -877,13 +1025,16 @@ namespace RadixJobClient.Api
         /// </summary>
         /// <exception cref="RadixJobClient.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="jobName">Name of job</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Status)</returns>
-        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<Status>> StopJobWithHttpInfoAsync(string jobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<RadixJobClient.Client.ApiResponse<Status>> StopJobWithHttpInfoAsync(string jobName, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
             // verify the required parameter 'jobName' is set
             if (jobName == null)
+            {
                 throw new RadixJobClient.Client.ApiException(400, "Missing required parameter 'jobName' when calling JobApi->StopJob");
+            }
 
 
             RadixJobClient.Client.RequestOptions localVarRequestOptions = new RadixJobClient.Client.RequestOptions();
@@ -896,24 +1047,34 @@ namespace RadixJobClient.Api
                 "application/json"
             };
 
-
             var localVarContentType = RadixJobClient.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
 
             var localVarAccept = RadixJobClient.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
 
             localVarRequestOptions.PathParameters.Add("jobName", RadixJobClient.Client.ClientUtils.ParameterToString(jobName)); // path parameter
 
+            localVarRequestOptions.Operation = "JobApi.StopJob";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
 
             // make the HTTP request
-
             var localVarResponse = await this.AsynchronousClient.PostAsync<Status>("/jobs/{jobName}/stop", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("StopJob", localVarResponse);
-                if (_exception != null) throw _exception;
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
             }
 
             return localVarResponse;

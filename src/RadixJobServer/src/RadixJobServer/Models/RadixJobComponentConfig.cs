@@ -30,8 +30,14 @@ namespace RadixJobServer.Models
         /// BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s.
         /// </summary>
         /// <value>BackoffLimit defines attempts to restart job if it fails. Corresponds to BackoffLimit in K8s.</value>
-        [DataMember(Name="backoffLimit", EmitDefaultValue=false)]
+        [DataMember(Name="backoffLimit", EmitDefaultValue=true)]
         public int BackoffLimit { get; set; }
+
+        /// <summary>
+        /// Gets or Sets FailurePolicy
+        /// </summary>
+        [DataMember(Name="failurePolicy", EmitDefaultValue=false)]
+        public FailurePolicy FailurePolicy { get; set; }
 
         /// <summary>
         /// ImageTagName defines the image tag name to use for the job image
@@ -44,19 +50,19 @@ namespace RadixJobServer.Models
         /// Gets or Sets Node
         /// </summary>
         [DataMember(Name="node", EmitDefaultValue=false)]
-        public RadixNode Node { get; set; }
+        public Node Node { get; set; }
 
         /// <summary>
         /// Gets or Sets Resources
         /// </summary>
         [DataMember(Name="resources", EmitDefaultValue=false)]
-        public ResourceRequirements Resources { get; set; }
+        public Resources Resources { get; set; }
 
         /// <summary>
         /// TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s.
         /// </summary>
         /// <value>TimeLimitSeconds defines maximum job run time. Corresponds to ActiveDeadlineSeconds in K8s.</value>
-        [DataMember(Name="timeLimitSeconds", EmitDefaultValue=false)]
+        [DataMember(Name="timeLimitSeconds", EmitDefaultValue=true)]
         public long TimeLimitSeconds { get; set; }
 
         /// <summary>
@@ -68,6 +74,7 @@ namespace RadixJobServer.Models
             var sb = new StringBuilder();
             sb.Append("class RadixJobComponentConfig {\n");
             sb.Append("  BackoffLimit: ").Append(BackoffLimit).Append("\n");
+            sb.Append("  FailurePolicy: ").Append(FailurePolicy).Append("\n");
             sb.Append("  ImageTagName: ").Append(ImageTagName).Append("\n");
             sb.Append("  Node: ").Append(Node).Append("\n");
             sb.Append("  Resources: ").Append(Resources).Append("\n");
@@ -82,7 +89,7 @@ namespace RadixJobServer.Models
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>
@@ -112,6 +119,11 @@ namespace RadixJobServer.Models
                     BackoffLimit == other.BackoffLimit ||
                     
                     BackoffLimit.Equals(other.BackoffLimit)
+                ) && 
+                (
+                    FailurePolicy == other.FailurePolicy ||
+                    FailurePolicy != null &&
+                    FailurePolicy.Equals(other.FailurePolicy)
                 ) && 
                 (
                     ImageTagName == other.ImageTagName ||
@@ -147,6 +159,8 @@ namespace RadixJobServer.Models
                 // Suitable nullity checks etc, of course :)
                     
                     hashCode = hashCode * 59 + BackoffLimit.GetHashCode();
+                    if (FailurePolicy != null)
+                    hashCode = hashCode * 59 + FailurePolicy.GetHashCode();
                     if (ImageTagName != null)
                     hashCode = hashCode * 59 + ImageTagName.GetHashCode();
                     if (Node != null)

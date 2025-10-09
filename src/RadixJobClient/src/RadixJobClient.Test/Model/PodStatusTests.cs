@@ -14,7 +14,6 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-using RadixJobClient.Api;
 using RadixJobClient.Model;
 using RadixJobClient.Client;
 using System.Reflection;
@@ -55,7 +54,6 @@ namespace RadixJobClient.Test.Model
             //Assert.IsType<PodStatus>(instance);
         }
 
-
         /// <summary>
         /// Test the property 'ContainerStarted'
         /// </summary>
@@ -64,6 +62,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'ContainerStarted'
         }
+
         /// <summary>
         /// Test the property 'Created'
         /// </summary>
@@ -72,6 +71,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'Created'
         }
+
         /// <summary>
         /// Test the property 'EndTime'
         /// </summary>
@@ -80,6 +80,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'EndTime'
         }
+
         /// <summary>
         /// Test the property 'ExitCode'
         /// </summary>
@@ -88,6 +89,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'ExitCode'
         }
+
         /// <summary>
         /// Test the property 'Image'
         /// </summary>
@@ -96,6 +98,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'Image'
         }
+
         /// <summary>
         /// Test the property 'ImageId'
         /// </summary>
@@ -104,6 +107,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'ImageId'
         }
+
         /// <summary>
         /// Test the property 'Name'
         /// </summary>
@@ -112,6 +116,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'Name'
         }
+
         /// <summary>
         /// Test the property 'PodIndex'
         /// </summary>
@@ -120,6 +125,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'PodIndex'
         }
+
         /// <summary>
         /// Test the property 'Reason'
         /// </summary>
@@ -128,6 +134,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'Reason'
         }
+
         /// <summary>
         /// Test the property 'ReplicaStatus'
         /// </summary>
@@ -136,6 +143,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'ReplicaStatus'
         }
+
         /// <summary>
         /// Test the property 'RestartCount'
         /// </summary>
@@ -144,6 +152,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'RestartCount'
         }
+
         /// <summary>
         /// Test the property 'StartTime'
         /// </summary>
@@ -152,6 +161,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'StartTime'
         }
+
         /// <summary>
         /// Test the property 'StatusMessage'
         /// </summary>
@@ -160,7 +170,5 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'StatusMessage'
         }
-
     }
-
 }

@@ -9,6 +9,7 @@ using System.Runtime.Versioning;
 using Microsoft.Extensions.Hosting;
 using frontend.Hubs;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 
 
 
@@ -40,11 +41,14 @@ namespace frontend.Controllers
         {
             try
             {
-                var rdr=new StreamReader(this.Request.Body);
-                string b=await rdr.ReadToEndAsync();
-                _logger.LogInformation("Received POST job notification for compute on 6001");
-                _logger.LogInformation(b);
-                return StatusCode(200);    
+                var batch = await GetBatchEventAsync();
+                if(batch!=null) {
+                    _logger.LogInformation("Received batch event for compute1 on 6001: {0} - {1} - {2}", batch.Event, batch.Name, batch.Status);
+                } else {
+                    _logger.LogWarning("unable to read batch event from request");
+                }
+
+                return StatusCode(200);  
             }
             catch (System.Exception ex)
             {
@@ -59,10 +63,12 @@ namespace frontend.Controllers
         {
             try
             {
-                var rdr=new StreamReader(this.Request.Body);
-                string b=await rdr.ReadToEndAsync();
-                _logger.LogInformation("Received POST job notification for compute2 on 6002.");
-                _logger.LogInformation(b);
+                var batch = await GetBatchEventAsync();
+                if(batch!=null) {
+                    _logger.LogInformation("Received batch event for compute1 on 6001: {0} - {1} - {2}", batch.Event, batch.Name, batch.Status);
+                } else {
+                    _logger.LogWarning("unable to read batch event from request");
+                }
                 return StatusCode(200);    
             }
             catch (System.Exception ex)
@@ -71,5 +77,13 @@ namespace frontend.Controllers
                 return StatusCode(500);
             }
         }
+
+        private Task<BatchEvent?> GetBatchEventAsync() {
+            using StreamReader sr = new StreamReader(this.Request.Body);
+            using JsonTextReader reader = new JsonTextReader(sr);
+            var batch = new JsonSerializer().Deserialize<BatchEvent>(reader);
+            return Task.FromResult(batch);
+        }
+
     }
 }

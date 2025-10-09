@@ -36,6 +36,7 @@ public enum JobResourceEnum {
         public int BackoffLimit { get; set; }
         public long TimelimitSeconds { get; set; }
         public int JobCount { get; set; }
+        public int FailExitCode { get; set; }
     }
 
     public class MandelbrotCoord

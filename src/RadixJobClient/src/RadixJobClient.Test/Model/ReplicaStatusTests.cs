@@ -14,7 +14,6 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-using RadixJobClient.Api;
 using RadixJobClient.Model;
 using RadixJobClient.Client;
 using System.Reflection;
@@ -55,7 +54,6 @@ namespace RadixJobClient.Test.Model
             //Assert.IsType<ReplicaStatus>(instance);
         }
 
-
         /// <summary>
         /// Test the property 'Status'
         /// </summary>
@@ -64,7 +62,5 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'Status'
         }
-
     }
-
 }

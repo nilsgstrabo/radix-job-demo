@@ -61,7 +61,11 @@ namespace RadixJobServer.Controllers
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Status));
             string exampleJson = null;
-            exampleJson = "{\n  \"batchName\" : \"'batch1'\",\n  \"jobId\" : \"'job1'\",\n  \"created\" : \"2006-01-02T15:04:05Z\",\n  \"ended\" : \"2006-01-02T15:04:05Z\",\n  \"name\" : \"calculator\",\n  \"started\" : \"2006-01-02T15:04:05Z\",\n  \"message\" : \"\\"Error occurred\\"\",\n  \"status\" : \"Waiting\"\n}";
+            exampleJson = "{\n  \"batchName\" : \"'batch1'\",\n  \"DeploymentName\" : \"DeploymentName\",\n  \"restart\" : \"restart\",\n  \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"started\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"failed\" : 6,\n  \"batchId\" : \"'batch-id-1'\",\n  \"message\" : \"\\"Error occurred\\"\",\n  \"podStatuses\" : [ {\n    \"image\" : \"radixdev.azurecr.io/app-server:cdgkg\",\n    \"reason\" : \"reason\",\n    \"imageId\" : \"radixdev.azurecr.io/app-server@sha256:d40cda01916ef63da3607c03785efabc56eb2fc2e0dab0726b1a843e9ded093f\",\n    \"replicaStatus\" : {\n      \"status\" : \"Running\"\n    },\n    \"restartCount\" : 5,\n    \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"containerStarted\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"statusMessage\" : \"statusMessage\",\n    \"name\" : \"server-78fc8857c4-hm76l\",\n    \"exitCode\" : 1,\n    \"podIndex\" : 5,\n    \"startTime\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"endTime\" : \"2000-01-23T04:56:07.000+00:00\"\n  }, {\n    \"image\" : \"radixdev.azurecr.io/app-server:cdgkg\",\n    \"reason\" : \"reason\",\n    \"imageId\" : \"radixdev.azurecr.io/app-server@sha256:d40cda01916ef63da3607c03785efabc56eb2fc2e0dab0726b1a843e9ded093f\",\n    \"replicaStatus\" : {\n      \"status\" : \"Running\"\n    },\n    \"restartCount\" : 5,\n    \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"containerStarted\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"statusMessage\" : \"statusMessage\",\n    \"name\" : \"server-78fc8857c4-hm76l\",\n    \"exitCode\" : 1,\n    \"podIndex\" : 5,\n    \"startTime\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"endTime\" : \"2000-01-23T04:56:07.000+00:00\"\n  } ],\n  \"jobId\" : \"'job1'\",\n  \"ended\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"name\" : \"calculator\",\n  \"updated\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"status\" : \"Waiting\"\n}";
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<JobStatus>(exampleJson)
@@ -95,6 +99,8 @@ namespace RadixJobServer.Controllers
             // return StatusCode(500, default(Status));
             string exampleJson = null;
             exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<Status>(exampleJson)
@@ -127,7 +133,9 @@ namespace RadixJobServer.Controllers
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Status));
             string exampleJson = null;
-            exampleJson = "{\n  \"batchName\" : \"'batch1'\",\n  \"jobId\" : \"'job1'\",\n  \"created\" : \"2006-01-02T15:04:05Z\",\n  \"ended\" : \"2006-01-02T15:04:05Z\",\n  \"name\" : \"calculator\",\n  \"started\" : \"2006-01-02T15:04:05Z\",\n  \"message\" : \"\\"Error occurred\\"\",\n  \"status\" : \"Waiting\"\n}";
+            exampleJson = "{\n  \"batchName\" : \"'batch1'\",\n  \"DeploymentName\" : \"DeploymentName\",\n  \"restart\" : \"restart\",\n  \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"started\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"failed\" : 6,\n  \"batchId\" : \"'batch-id-1'\",\n  \"message\" : \"\\"Error occurred\\"\",\n  \"podStatuses\" : [ {\n    \"image\" : \"radixdev.azurecr.io/app-server:cdgkg\",\n    \"reason\" : \"reason\",\n    \"imageId\" : \"radixdev.azurecr.io/app-server@sha256:d40cda01916ef63da3607c03785efabc56eb2fc2e0dab0726b1a843e9ded093f\",\n    \"replicaStatus\" : {\n      \"status\" : \"Running\"\n    },\n    \"restartCount\" : 5,\n    \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"containerStarted\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"statusMessage\" : \"statusMessage\",\n    \"name\" : \"server-78fc8857c4-hm76l\",\n    \"exitCode\" : 1,\n    \"podIndex\" : 5,\n    \"startTime\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"endTime\" : \"2000-01-23T04:56:07.000+00:00\"\n  }, {\n    \"image\" : \"radixdev.azurecr.io/app-server:cdgkg\",\n    \"reason\" : \"reason\",\n    \"imageId\" : \"radixdev.azurecr.io/app-server@sha256:d40cda01916ef63da3607c03785efabc56eb2fc2e0dab0726b1a843e9ded093f\",\n    \"replicaStatus\" : {\n      \"status\" : \"Running\"\n    },\n    \"restartCount\" : 5,\n    \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"containerStarted\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"statusMessage\" : \"statusMessage\",\n    \"name\" : \"server-78fc8857c4-hm76l\",\n    \"exitCode\" : 1,\n    \"podIndex\" : 5,\n    \"startTime\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"endTime\" : \"2000-01-23T04:56:07.000+00:00\"\n  } ],\n  \"jobId\" : \"'job1'\",\n  \"ended\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"name\" : \"calculator\",\n  \"updated\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"status\" : \"Waiting\"\n}";
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<JobStatus>(exampleJson)
@@ -155,7 +163,8 @@ namespace RadixJobServer.Controllers
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Status));
             string exampleJson = null;
-            exampleJson = "{\n  \"batchName\" : \"'batch1'\",\n  \"jobId\" : \"'job1'\",\n  \"created\" : \"2006-01-02T15:04:05Z\",\n  \"ended\" : \"2006-01-02T15:04:05Z\",\n  \"name\" : \"calculator\",\n  \"started\" : \"2006-01-02T15:04:05Z\",\n  \"message\" : \"\\"Error occurred\\"\",\n  \"status\" : \"Waiting\"\n}";
+            exampleJson = "[ {\n  \"batchName\" : \"'batch1'\",\n  \"DeploymentName\" : \"DeploymentName\",\n  \"restart\" : \"restart\",\n  \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"started\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"failed\" : 6,\n  \"batchId\" : \"'batch-id-1'\",\n  \"message\" : \"\\"Error occurred\\"\",\n  \"podStatuses\" : [ {\n    \"image\" : \"radixdev.azurecr.io/app-server:cdgkg\",\n    \"reason\" : \"reason\",\n    \"imageId\" : \"radixdev.azurecr.io/app-server@sha256:d40cda01916ef63da3607c03785efabc56eb2fc2e0dab0726b1a843e9ded093f\",\n    \"replicaStatus\" : {\n      \"status\" : \"Running\"\n    },\n    \"restartCount\" : 5,\n    \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"containerStarted\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"statusMessage\" : \"statusMessage\",\n    \"name\" : \"server-78fc8857c4-hm76l\",\n    \"exitCode\" : 1,\n    \"podIndex\" : 5,\n    \"startTime\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"endTime\" : \"2000-01-23T04:56:07.000+00:00\"\n  }, {\n    \"image\" : \"radixdev.azurecr.io/app-server:cdgkg\",\n    \"reason\" : \"reason\",\n    \"imageId\" : \"radixdev.azurecr.io/app-server@sha256:d40cda01916ef63da3607c03785efabc56eb2fc2e0dab0726b1a843e9ded093f\",\n    \"replicaStatus\" : {\n      \"status\" : \"Running\"\n    },\n    \"restartCount\" : 5,\n    \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"containerStarted\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"statusMessage\" : \"statusMessage\",\n    \"name\" : \"server-78fc8857c4-hm76l\",\n    \"exitCode\" : 1,\n    \"podIndex\" : 5,\n    \"startTime\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"endTime\" : \"2000-01-23T04:56:07.000+00:00\"\n  } ],\n  \"jobId\" : \"'job1'\",\n  \"ended\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"name\" : \"calculator\",\n  \"updated\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"status\" : \"Waiting\"\n}, {\n  \"batchName\" : \"'batch1'\",\n  \"DeploymentName\" : \"DeploymentName\",\n  \"restart\" : \"restart\",\n  \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"started\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"failed\" : 6,\n  \"batchId\" : \"'batch-id-1'\",\n  \"message\" : \"\\"Error occurred\\"\",\n  \"podStatuses\" : [ {\n    \"image\" : \"radixdev.azurecr.io/app-server:cdgkg\",\n    \"reason\" : \"reason\",\n    \"imageId\" : \"radixdev.azurecr.io/app-server@sha256:d40cda01916ef63da3607c03785efabc56eb2fc2e0dab0726b1a843e9ded093f\",\n    \"replicaStatus\" : {\n      \"status\" : \"Running\"\n    },\n    \"restartCount\" : 5,\n    \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"containerStarted\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"statusMessage\" : \"statusMessage\",\n    \"name\" : \"server-78fc8857c4-hm76l\",\n    \"exitCode\" : 1,\n    \"podIndex\" : 5,\n    \"startTime\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"endTime\" : \"2000-01-23T04:56:07.000+00:00\"\n  }, {\n    \"image\" : \"radixdev.azurecr.io/app-server:cdgkg\",\n    \"reason\" : \"reason\",\n    \"imageId\" : \"radixdev.azurecr.io/app-server@sha256:d40cda01916ef63da3607c03785efabc56eb2fc2e0dab0726b1a843e9ded093f\",\n    \"replicaStatus\" : {\n      \"status\" : \"Running\"\n    },\n    \"restartCount\" : 5,\n    \"created\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"containerStarted\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"statusMessage\" : \"statusMessage\",\n    \"name\" : \"server-78fc8857c4-hm76l\",\n    \"exitCode\" : 1,\n    \"podIndex\" : 5,\n    \"startTime\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"endTime\" : \"2000-01-23T04:56:07.000+00:00\"\n  } ],\n  \"jobId\" : \"'job1'\",\n  \"ended\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"name\" : \"calculator\",\n  \"updated\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"status\" : \"Waiting\"\n} ]";
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<List<JobStatus>>(exampleJson)
@@ -169,6 +178,7 @@ namespace RadixJobServer.Controllers
         /// </summary>
         /// <param name="jobName">Name of job</param>
         /// <response code="200">Successful delete job</response>
+        /// <response code="400">Bad request</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Internal server error</response>
         [HttpPost]
@@ -176,6 +186,7 @@ namespace RadixJobServer.Controllers
         [ValidateModelState]
         [SwaggerOperation("StopJob")]
         [SwaggerResponse(statusCode: 200, type: typeof(Status), description: "Successful delete job")]
+        [SwaggerResponse(statusCode: 400, type: typeof(Status), description: "Bad request")]
         [SwaggerResponse(statusCode: 404, type: typeof(Status), description: "Not found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Status), description: "Internal server error")]
         public virtual IActionResult StopJob([FromRoute (Name = "jobName")][Required]string jobName)
@@ -183,11 +194,16 @@ namespace RadixJobServer.Controllers
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Status));
+            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(400, default(Status));
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(404, default(Status));
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Status));
             string exampleJson = null;
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
+            exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
             exampleJson = "{\n  \"reason\" : \"reason\",\n  \"code\" : 404,\n  \"message\" : \"job job123 is not found\",\n  \"status\" : \"Failure\"\n}";
             
             var example = exampleJson != null

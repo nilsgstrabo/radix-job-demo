@@ -2,12 +2,14 @@ using frontend.Hubs;
 using RadixJobClient.Api;
 using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.ConfigureKestrel(k=>k.AllowSynchronousIO=true);
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR(c=>{
-    c.KeepAliveInterval=System.TimeSpan.FromSeconds(15);
-    c.ClientTimeoutInterval=System.TimeSpan.FromSeconds(30);
+    c.KeepAliveInterval=System.TimeSpan.FromSeconds(5);
+    c.ClientTimeoutInterval=System.TimeSpan.FromSeconds(6);
 });
 
 builder.Services.AddSingleton<INotificationHubService, NotificationHubService>();

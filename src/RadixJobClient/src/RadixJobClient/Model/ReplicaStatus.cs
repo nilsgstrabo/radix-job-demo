@@ -29,12 +29,12 @@ namespace RadixJobClient.Model
     /// ReplicaStatus describes the status of a component container inside a pod
     /// </summary>
     [DataContract(Name = "ReplicaStatus")]
-    public partial class ReplicaStatus : IEquatable<ReplicaStatus>, IValidatableObject
+    public partial class ReplicaStatus : IValidatableObject
     {
         /// <summary>
-        /// Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state
+        /// Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state Stopped &#x3D; Job has been stopped
         /// </summary>
-        /// <value>Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state</value>
+        /// <value>Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state Stopped &#x3D; Job has been stopped</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StatusEnum
         {
@@ -78,16 +78,24 @@ namespace RadixJobClient.Model
             /// Enum Starting for value: Starting
             /// </summary>
             [EnumMember(Value = "Starting")]
-            Starting = 7
+            Starting = 7,
 
+            /// <summary>
+            /// Enum Stopped for value: Stopped
+            /// </summary>
+            [EnumMember(Value = "Stopped")]
+            Stopped = 8
         }
 
 
         /// <summary>
-        /// Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state
+        /// Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state Stopped &#x3D; Job has been stopped
         /// </summary>
-        /// <value>Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state</value>
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        /// <value>Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state Stopped &#x3D; Job has been stopped</value>
+        /*
+        <example>Running</example>
+        */
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = true)]
         public StatusEnum Status { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ReplicaStatus" /> class.
@@ -97,7 +105,7 @@ namespace RadixJobClient.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ReplicaStatus" /> class.
         /// </summary>
-        /// <param name="status">Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state (required).</param>
+        /// <param name="status">Status of the container Pending &#x3D; Container in Waiting state and the reason is ContainerCreating Failed &#x3D; Container is failed Failing &#x3D; Container is failed Running &#x3D; Container in Running state Succeeded &#x3D; Container in Succeeded state Terminated &#x3D; Container in Terminated state Stopped &#x3D; Job has been stopped (required).</param>
         public ReplicaStatus(StatusEnum status = default(StatusEnum))
         {
             this.Status = status;
@@ -109,7 +117,7 @@ namespace RadixJobClient.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.Append("class ReplicaStatus {\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("}\n");
@@ -126,52 +134,11 @@ namespace RadixJobClient.Model
         }
 
         /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="input">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object input)
-        {
-            return this.Equals(input as ReplicaStatus);
-        }
-
-        /// <summary>
-        /// Returns true if ReplicaStatus instances are equal
-        /// </summary>
-        /// <param name="input">Instance of ReplicaStatus to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(ReplicaStatus input)
-        {
-            if (input == null)
-                return false;
-
-            return 
-                (
-                    this.Status == input.Status ||
-                    this.Status.Equals(input.Status)
-                );
-        }
-
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                int hashCode = 41;
-                hashCode = hashCode * 59 + this.Status.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        /// <summary>
         /// To validate all properties of the instance
         /// </summary>
         /// <param name="validationContext">Validation context</param>
         /// <returns>Validation Result</returns>
-        public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
             yield break;
         }

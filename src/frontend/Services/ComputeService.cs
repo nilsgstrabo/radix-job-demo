@@ -28,7 +28,7 @@ public class ComputePayload
     public int Sleep { get; set; }
     public bool Fail { get; set; }
     public string StringVal { get; set; }
-    
+    public int FailExitCode { get; set; }
 
 }
 
@@ -59,7 +59,12 @@ public class ComputeServiceBase : IComputeService
 
     public async Task<List<JobStatus>> GetJobs()
     {
-        return await _jobApi.GetJobsAsync();
+        var jobs = await _jobApi.GetJobsAsync();
+        _logger.LogInformation("Got {0} jobs", jobs?.Count);
+        if (jobs==null) {
+            _logger.LogInformation("jobs is null");
+        }
+        return jobs ?? [];
     }
 
     public async Task<RadixJobClient.Model.JobStatus> CreateJob(JobRequest request)
@@ -70,7 +75,7 @@ public class ComputeServiceBase : IComputeService
         return await _jobApi.CreateJobAsync(jobRequest);
     }
 
-    private RadixJobClient.Model.ResourceRequirements GetResources(JobResourceEnum memory, JobResourceEnum cpu) {
+    private RadixJobClient.Model.Resources GetResources(JobResourceEnum memory, JobResourceEnum cpu) {
         string memResource="";
         string cpuResource="";
 
@@ -114,7 +119,7 @@ public class ComputeServiceBase : IComputeService
             resource.Add("cpu", cpuResource);
         }
 
-        return new RadixJobClient.Model.ResourceRequirements() {
+        return new RadixJobClient.Model.Resources {
             Requests=resource,
             Limits=resource
         };
@@ -131,7 +136,7 @@ public class ComputeServiceBase : IComputeService
             jobs.Add(jobRequest);
         }
 
-        var batchRequest=new BatchScheduleDescription(null, jobs);
+        var batchRequest=new BatchScheduleDescription("",null, jobs);
 
         _logger.LogInformation("Payload: {0}", request);
         return await _batchApi.CreateBatchAsync(batchRequest);
@@ -147,7 +152,8 @@ public class ComputeServiceBase : IComputeService
             Bottom = request.MandelbrotWindow.Bottom,
             Sleep = request.Sleep,
             Fail = request.Fail,
-            StringVal = "my escaped \" string {}"
+            StringVal = "my escaped \" string {}",
+            FailExitCode=request.FailExitCode,
         };
 
         var payload = JsonSerializer.Serialize<ComputePayload>(payloadObj, new JsonSerializerOptions
@@ -159,7 +165,7 @@ public class ComputeServiceBase : IComputeService
             Payload = payload,
             JobId = request.CustomJobName ?? "",
             BackoffLimit = request.BackoffLimit,
-            TimeLimitSeconds = request.TimelimitSeconds
+            TimeLimitSeconds = request.TimelimitSeconds,
         };
         
         if (request.Cpu!=JobResourceEnum.Default || request.Memory!=JobResourceEnum.Default) {

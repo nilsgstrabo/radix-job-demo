@@ -26,10 +26,10 @@ export class NotificationHubService {
         this.connection = new signalR.HubConnectionBuilder()
             .withUrl('/notificationhub')
             .withAutomaticReconnect()
-            .withKeepAliveInterval(10*1000)
-            .withServerTimeout(30*1000)
             .build();
-        // this.connection.serverTimeoutInMilliseconds=30*1000;
+
+        this.connection.serverTimeoutInMilliseconds=6*1000;
+        this.connection.keepAliveIntervalInMilliseconds=5*1000;
     }
 
     private startConnection() {

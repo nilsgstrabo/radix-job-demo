@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=file:///home/nst/go/src/github.com/equinor/radix-operator/json-schema/radixapplication.json
-
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
@@ -9,10 +7,8 @@ spec:
     environment: qa
     component: server
   build:
-    useBuildKit: true
+    useBuildKit: false
     useBuildCache: false
-    secrets:
-      - SECRET1
   environments:
     - name: qa
       build:
@@ -23,15 +19,35 @@ spec:
   jobs:
     - name: "compute"
       src: "compute"
+      command: []
+      args: []
       schedulerPort: 8080
       timeLimitSeconds: 3600
-      backoffLimit: 0
+      backoffLimit: 3
       runtime:
         architecture: amd64
+        # nodeType: gpu-nvidia-1-v1
       notifications:
         webhook: http://server:6001/api/notification/compute1
+      # failurePolicy:
+      #   rules:
+      #     - action: FailJob
+      #       onExitCodes:
+      #         operator: In
+      #         values: [1]
+      #     - action: Count
+      #       onExitCodes:
+      #         operator: In
+      #         values: [10,11]
+      #     - action: Ignore
+      #       onExitCodes:
+      #         operator: In
+      #         values: [20,21,22]
       readOnlyFileSystem: true
       resources:
+        limits:
+          cpu: 50m
+          memory: 100Mi
         requests:
           cpu: 50m
           memory: 100Mi
@@ -58,11 +74,27 @@ spec:
             azure:
               clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
         - environment: qa
+          command: []
+          # failurePolicy:
+          #   rules:
+          #     - action: FailJob
+          #       onExitCodes:
+          #         operator: In
+          #         values: [42]
+          #     - action: Count
+          #       onExitCodes:
+          #         operator: In
+          #         values: [1, 2, 3]
+          #     - action: Ignore
+          #       onExitCodes:
+          #         operator: In
+          #         values: [143]
           monitoring: true
           backoffLimit: 0
           readOnlyFileSystem: true
     - name: "compute1"
       src: "compute"
+     
       schedulerPort: 8080
       timeLimitSeconds: 3600
       backoffLimit: 0
@@ -97,12 +129,12 @@ spec:
             azure:
               clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
     - name: "compute2"
-      src: "compute"
+      image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda12.5.0
       schedulerPort: 8080
       timeLimitSeconds: 300
       backoffLimit: 0
       runtime:
-        architecture: amd64
+        nodeType: gpu-nvidia-1-v1
       payload:
         path: "/compute/args"
       identity:
@@ -127,10 +159,10 @@ spec:
       resources:
         requests:
           cpu: 10m
-          memory: 10Mi
+          memory: 20Mi
         limits:
           cpu: 10m
-          memory: 10Mi
+          memory: 20Mi
     - name: "server"
       src: src
       dockerfileName: Dockerfile.frontend
@@ -143,6 +175,8 @@ spec:
           port: 6002
       publicPort: http
       readOnlyFileSystem: true
+      ingressConfiguration:
+        - stickysessions
       runtime:
         architecture: amd64
       variables:
@@ -151,6 +185,11 @@ spec:
         JOB_SCHEDULER2: "http://compute2:8080"
         COMPUTE_IMAGE_PATH: "/app/computeimages"
         DOTNET_EnableDiagnostics: "0"
+      network:
+        ingress:
+          public:
+            proxyReadTimeout: 10
+            proxySendTimeout: 10
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
@@ -158,11 +197,7 @@ spec:
         oauth2:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
           scope: openid email profile offline_access
-          sessionStoreType: redis
-          redisStore:
-            connectionUrl: redis://redis:6379
-      ingressConfiguration:
-        - stickysessions
+          sessionStoreType: systemManaged
       resources:
         requests:
           memory: "200M"
@@ -174,21 +209,5 @@ spec:
           path: /app/computeimages
           emptyDir:
             sizeLimit: 50M
-    - name: redis
-      runtime:
-        architecture: amd64
-      image: bitnami/redis:{imageTagName}
-      imageTagName: "7.4.1"
-      alwaysPullImageOnDeploy: true
-      ports:
-        - name: redis
-          port: 6379
-      secrets:
-        - REDIS_PASSWORD
-      resources:
-        requests:
-          memory: "100M"
-          cpu: "50m"
-        limits:
-          memory: "200M"
+
 

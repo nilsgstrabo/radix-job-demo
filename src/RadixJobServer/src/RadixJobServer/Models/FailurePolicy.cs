@@ -21,22 +21,18 @@ using RadixJobServer.Converters;
 namespace RadixJobServer.Models
 { 
     /// <summary>
-    /// More info: https://www.radix.equinor.com/references/reference-radix-config/#resources-common
+    /// 
     /// </summary>
     [DataContract]
-    public partial class ResourceRequirements : IEquatable<ResourceRequirements>
+    public partial class FailurePolicy : IEquatable<FailurePolicy>
     {
         /// <summary>
-        /// Gets or Sets Limits
+        /// A list of failure policy rules. The rules are evaluated in order. Once a rule matches a job replica failure, the remaining of the rules are ignored. When no rule matches the failure, the default handling applies - the counter of failures is incremented and it is checked against the backoffLimit.
         /// </summary>
-        [DataMember(Name="limits", EmitDefaultValue=false)]
-        public Dictionary<string, string> Limits { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Requests
-        /// </summary>
-        [DataMember(Name="requests", EmitDefaultValue=false)]
-        public Dictionary<string, string> Requests { get; set; }
+        /// <value>A list of failure policy rules. The rules are evaluated in order. Once a rule matches a job replica failure, the remaining of the rules are ignored. When no rule matches the failure, the default handling applies - the counter of failures is incremented and it is checked against the backoffLimit.</value>
+        [Required]
+        [DataMember(Name="rules", EmitDefaultValue=false)]
+        public List<FailurePolicyRule> Rules { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -45,9 +41,8 @@ namespace RadixJobServer.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class ResourceRequirements {\n");
-            sb.Append("  Limits: ").Append(Limits).Append("\n");
-            sb.Append("  Requests: ").Append(Requests).Append("\n");
+            sb.Append("class FailurePolicy {\n");
+            sb.Append("  Rules: ").Append(Rules).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -58,7 +53,7 @@ namespace RadixJobServer.Models
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>
@@ -70,31 +65,25 @@ namespace RadixJobServer.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((ResourceRequirements)obj);
+            return obj.GetType() == GetType() && Equals((FailurePolicy)obj);
         }
 
         /// <summary>
-        /// Returns true if ResourceRequirements instances are equal
+        /// Returns true if FailurePolicy instances are equal
         /// </summary>
-        /// <param name="other">Instance of ResourceRequirements to be compared</param>
+        /// <param name="other">Instance of FailurePolicy to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(ResourceRequirements other)
+        public bool Equals(FailurePolicy other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
             return 
                 (
-                    Limits == other.Limits ||
-                    Limits != null &&
-                    other.Limits != null &&
-                    Limits.SequenceEqual(other.Limits)
-                ) && 
-                (
-                    Requests == other.Requests ||
-                    Requests != null &&
-                    other.Requests != null &&
-                    Requests.SequenceEqual(other.Requests)
+                    Rules == other.Rules ||
+                    Rules != null &&
+                    other.Rules != null &&
+                    Rules.SequenceEqual(other.Rules)
                 );
         }
 
@@ -108,10 +97,8 @@ namespace RadixJobServer.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (Limits != null)
-                    hashCode = hashCode * 59 + Limits.GetHashCode();
-                    if (Requests != null)
-                    hashCode = hashCode * 59 + Requests.GetHashCode();
+                    if (Rules != null)
+                    hashCode = hashCode * 59 + Rules.GetHashCode();
                 return hashCode;
             }
         }
@@ -119,12 +106,12 @@ namespace RadixJobServer.Models
         #region Operators
         #pragma warning disable 1591
 
-        public static bool operator ==(ResourceRequirements left, ResourceRequirements right)
+        public static bool operator ==(FailurePolicy left, FailurePolicy right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(ResourceRequirements left, ResourceRequirements right)
+        public static bool operator !=(FailurePolicy left, FailurePolicy right)
         {
             return !Equals(left, right);
         }

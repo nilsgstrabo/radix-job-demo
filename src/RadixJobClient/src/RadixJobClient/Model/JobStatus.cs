@@ -29,64 +29,72 @@ namespace RadixJobClient.Model
     /// JobStatus holds general information about job status
     /// </summary>
     [DataContract(Name = "JobStatus")]
-    public partial class JobStatus : IEquatable<JobStatus>, IValidatableObject
+    public partial class JobStatus : IValidatableObject
     {
         /// <summary>
-        /// Status of the job
+        /// Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed
         /// </summary>
-        /// <value>Status of the job</value>
+        /// <value>Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StatusEnum
         {
             /// <summary>
-            /// Enum Waiting for value: Waiting
-            /// </summary>
-            [EnumMember(Value = "Waiting")]
-            Waiting = 1,
-
-            /// <summary>
             /// Enum Running for value: Running
             /// </summary>
             [EnumMember(Value = "Running")]
-            Running = 2,
+            Running = 1,
 
             /// <summary>
             /// Enum Succeeded for value: Succeeded
             /// </summary>
             [EnumMember(Value = "Succeeded")]
-            Succeeded = 3,
-
-            /// <summary>
-            /// Enum Stopping for value: Stopping
-            /// </summary>
-            [EnumMember(Value = "Stopping")]
-            Stopping = 4,
-
-            /// <summary>
-            /// Enum Stopped for value: Stopped
-            /// </summary>
-            [EnumMember(Value = "Stopped")]
-            Stopped = 5,
+            Succeeded = 2,
 
             /// <summary>
             /// Enum Failed for value: Failed
             /// </summary>
             [EnumMember(Value = "Failed")]
-            Failed = 6,
+            Failed = 3,
 
             /// <summary>
-            /// Enum DeadlineExceeded for value: DeadlineExceeded
+            /// Enum Waiting for value: Waiting
             /// </summary>
-            [EnumMember(Value = "DeadlineExceeded")]
-            DeadlineExceeded = 7
+            [EnumMember(Value = "Waiting")]
+            Waiting = 4,
 
+            /// <summary>
+            /// Enum Stopping for value: Stopping
+            /// </summary>
+            [EnumMember(Value = "Stopping")]
+            Stopping = 5,
+
+            /// <summary>
+            /// Enum Stopped for value: Stopped
+            /// </summary>
+            [EnumMember(Value = "Stopped")]
+            Stopped = 6,
+
+            /// <summary>
+            /// Enum Active for value: Active
+            /// </summary>
+            [EnumMember(Value = "Active")]
+            Active = 7,
+
+            /// <summary>
+            /// Enum Completed for value: Completed
+            /// </summary>
+            [EnumMember(Value = "Completed")]
+            Completed = 8
         }
 
 
         /// <summary>
-        /// Status of the job
+        /// Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed
         /// </summary>
-        /// <value>Status of the job</value>
+        /// <value>Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed</value>
+        /*
+        <example>Waiting</example>
+        */
         [DataMember(Name = "status", EmitDefaultValue = false)]
         public StatusEnum? Status { get; set; }
         /// <summary>
@@ -97,42 +105,67 @@ namespace RadixJobClient.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="JobStatus" /> class.
         /// </summary>
+        /// <param name="deploymentName">DeploymentName for this batch.</param>
+        /// <param name="batchId">Defines a user defined ID of the batch..</param>
         /// <param name="batchName">BatchName Optional Batch ID of a job.</param>
-        /// <param name="created">Created timestamp (required).</param>
+        /// <param name="created">Created timestamp.</param>
         /// <param name="ended">Ended timestamp.</param>
+        /// <param name="failed">The number of times the container for the job has failed. +optional.</param>
         /// <param name="jobId">JobId Optional ID of a job.</param>
         /// <param name="message">Message, if any, of the job.</param>
         /// <param name="name">Name of the job (required).</param>
         /// <param name="podStatuses">PodStatuses for each pod of the job.</param>
+        /// <param name="restart">Timestamp of the job restart, if applied. +optional.</param>
         /// <param name="started">Started timestamp.</param>
-        /// <param name="status">Status of the job.</param>
+        /// <param name="status">Status of the job Running &#x3D; Job is running Succeeded &#x3D; Job has succeeded Failed &#x3D; Job has failed Waiting &#x3D; Job is waiting Stopping &#x3D; Job is stopping Stopped &#x3D; Job has been stopped Active &#x3D; Job is active Completed &#x3D; Job is completed.</param>
         /// <param name="updated">Updated timestamp when the status was updated.</param>
-        public JobStatus(string batchName = default(string), string created = default(string), string ended = default(string), string jobId = default(string), string message = default(string), string name = default(string), List<PodStatus> podStatuses = default(List<PodStatus>), string started = default(string), StatusEnum? status = default(StatusEnum?), string updated = default(string))
+        public JobStatus(string deploymentName = default(string), string batchId = default(string), string batchName = default(string), DateTimeOffset created = default(DateTimeOffset), DateTimeOffset ended = default(DateTimeOffset), int failed = default(int), string jobId = default(string), string message = default(string), string name = default(string), List<PodStatus> podStatuses = default(List<PodStatus>), string restart = default(string), DateTimeOffset started = default(DateTimeOffset), StatusEnum? status = default(StatusEnum?), DateTimeOffset updated = default(DateTimeOffset))
         {
-            // to ensure "created" is required (not null)
-            if (created == null) {
-                throw new ArgumentNullException("created is a required property for JobStatus and cannot be null");
-            }
-            this.Created = created;
             // to ensure "name" is required (not null)
-            if (name == null) {
+            if (name == null)
+            {
                 throw new ArgumentNullException("name is a required property for JobStatus and cannot be null");
             }
             this.Name = name;
+            this.DeploymentName = deploymentName;
+            this.BatchId = batchId;
             this.BatchName = batchName;
+            this.Created = created;
             this.Ended = ended;
+            this.Failed = failed;
             this.JobId = jobId;
             this.Message = message;
             this.PodStatuses = podStatuses;
+            this.Restart = restart;
             this.Started = started;
             this.Status = status;
             this.Updated = updated;
         }
 
         /// <summary>
+        /// DeploymentName for this batch
+        /// </summary>
+        /// <value>DeploymentName for this batch</value>
+        [DataMember(Name = "DeploymentName", EmitDefaultValue = false)]
+        public string DeploymentName { get; set; }
+
+        /// <summary>
+        /// Defines a user defined ID of the batch.
+        /// </summary>
+        /// <value>Defines a user defined ID of the batch.</value>
+        /*
+        <example>&#39;batch-id-1&#39;</example>
+        */
+        [DataMember(Name = "batchId", EmitDefaultValue = false)]
+        public string BatchId { get; set; }
+
+        /// <summary>
         /// BatchName Optional Batch ID of a job
         /// </summary>
         /// <value>BatchName Optional Batch ID of a job</value>
+        /*
+        <example>&#39;batch1&#39;</example>
+        */
         [DataMember(Name = "batchName", EmitDefaultValue = false)]
         public string BatchName { get; set; }
 
@@ -140,20 +173,30 @@ namespace RadixJobClient.Model
         /// Created timestamp
         /// </summary>
         /// <value>Created timestamp</value>
-        [DataMember(Name = "created", IsRequired = true, EmitDefaultValue = false)]
-        public string Created { get; set; }
+        [DataMember(Name = "created", EmitDefaultValue = false)]
+        public DateTimeOffset Created { get; set; }
 
         /// <summary>
         /// Ended timestamp
         /// </summary>
         /// <value>Ended timestamp</value>
         [DataMember(Name = "ended", EmitDefaultValue = false)]
-        public string Ended { get; set; }
+        public DateTimeOffset Ended { get; set; }
+
+        /// <summary>
+        /// The number of times the container for the job has failed. +optional
+        /// </summary>
+        /// <value>The number of times the container for the job has failed. +optional</value>
+        [DataMember(Name = "failed", EmitDefaultValue = false)]
+        public int Failed { get; set; }
 
         /// <summary>
         /// JobId Optional ID of a job
         /// </summary>
         /// <value>JobId Optional ID of a job</value>
+        /*
+        <example>&#39;job1&#39;</example>
+        */
         [DataMember(Name = "jobId", EmitDefaultValue = false)]
         public string JobId { get; set; }
 
@@ -161,6 +204,9 @@ namespace RadixJobClient.Model
         /// Message, if any, of the job
         /// </summary>
         /// <value>Message, if any, of the job</value>
+        /*
+        <example>&quot;Error occurred&quot;</example>
+        */
         [DataMember(Name = "message", EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -168,7 +214,10 @@ namespace RadixJobClient.Model
         /// Name of the job
         /// </summary>
         /// <value>Name of the job</value>
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        /*
+        <example>calculator</example>
+        */
+        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = true)]
         public string Name { get; set; }
 
         /// <summary>
@@ -179,18 +228,25 @@ namespace RadixJobClient.Model
         public List<PodStatus> PodStatuses { get; set; }
 
         /// <summary>
+        /// Timestamp of the job restart, if applied. +optional
+        /// </summary>
+        /// <value>Timestamp of the job restart, if applied. +optional</value>
+        [DataMember(Name = "restart", EmitDefaultValue = false)]
+        public string Restart { get; set; }
+
+        /// <summary>
         /// Started timestamp
         /// </summary>
         /// <value>Started timestamp</value>
         [DataMember(Name = "started", EmitDefaultValue = false)]
-        public string Started { get; set; }
+        public DateTimeOffset Started { get; set; }
 
         /// <summary>
         /// Updated timestamp when the status was updated
         /// </summary>
         /// <value>Updated timestamp when the status was updated</value>
         [DataMember(Name = "updated", EmitDefaultValue = false)]
-        public string Updated { get; set; }
+        public DateTimeOffset Updated { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -198,15 +254,19 @@ namespace RadixJobClient.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.Append("class JobStatus {\n");
+            sb.Append("  DeploymentName: ").Append(DeploymentName).Append("\n");
+            sb.Append("  BatchId: ").Append(BatchId).Append("\n");
             sb.Append("  BatchName: ").Append(BatchName).Append("\n");
             sb.Append("  Created: ").Append(Created).Append("\n");
             sb.Append("  Ended: ").Append(Ended).Append("\n");
+            sb.Append("  Failed: ").Append(Failed).Append("\n");
             sb.Append("  JobId: ").Append(JobId).Append("\n");
             sb.Append("  Message: ").Append(Message).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  PodStatuses: ").Append(PodStatuses).Append("\n");
+            sb.Append("  Restart: ").Append(Restart).Append("\n");
             sb.Append("  Started: ").Append(Started).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("  Updated: ").Append(Updated).Append("\n");
@@ -224,116 +284,11 @@ namespace RadixJobClient.Model
         }
 
         /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="input">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object input)
-        {
-            return this.Equals(input as JobStatus);
-        }
-
-        /// <summary>
-        /// Returns true if JobStatus instances are equal
-        /// </summary>
-        /// <param name="input">Instance of JobStatus to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(JobStatus input)
-        {
-            if (input == null)
-                return false;
-
-            return 
-                (
-                    this.BatchName == input.BatchName ||
-                    (this.BatchName != null &&
-                    this.BatchName.Equals(input.BatchName))
-                ) && 
-                (
-                    this.Created == input.Created ||
-                    (this.Created != null &&
-                    this.Created.Equals(input.Created))
-                ) && 
-                (
-                    this.Ended == input.Ended ||
-                    (this.Ended != null &&
-                    this.Ended.Equals(input.Ended))
-                ) && 
-                (
-                    this.JobId == input.JobId ||
-                    (this.JobId != null &&
-                    this.JobId.Equals(input.JobId))
-                ) && 
-                (
-                    this.Message == input.Message ||
-                    (this.Message != null &&
-                    this.Message.Equals(input.Message))
-                ) && 
-                (
-                    this.Name == input.Name ||
-                    (this.Name != null &&
-                    this.Name.Equals(input.Name))
-                ) && 
-                (
-                    this.PodStatuses == input.PodStatuses ||
-                    this.PodStatuses != null &&
-                    input.PodStatuses != null &&
-                    this.PodStatuses.SequenceEqual(input.PodStatuses)
-                ) && 
-                (
-                    this.Started == input.Started ||
-                    (this.Started != null &&
-                    this.Started.Equals(input.Started))
-                ) && 
-                (
-                    this.Status == input.Status ||
-                    this.Status.Equals(input.Status)
-                ) && 
-                (
-                    this.Updated == input.Updated ||
-                    (this.Updated != null &&
-                    this.Updated.Equals(input.Updated))
-                );
-        }
-
-        /// <summary>
-        /// Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                int hashCode = 41;
-                if (this.BatchName != null)
-                    hashCode = hashCode * 59 + this.BatchName.GetHashCode();
-                if (this.Created != null)
-                    hashCode = hashCode * 59 + this.Created.GetHashCode();
-                if (this.Ended != null)
-                    hashCode = hashCode * 59 + this.Ended.GetHashCode();
-                if (this.JobId != null)
-                    hashCode = hashCode * 59 + this.JobId.GetHashCode();
-                if (this.Message != null)
-                    hashCode = hashCode * 59 + this.Message.GetHashCode();
-                if (this.Name != null)
-                    hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.PodStatuses != null)
-                    hashCode = hashCode * 59 + this.PodStatuses.GetHashCode();
-                if (this.Started != null)
-                    hashCode = hashCode * 59 + this.Started.GetHashCode();
-                hashCode = hashCode * 59 + this.Status.GetHashCode();
-                if (this.Updated != null)
-                    hashCode = hashCode * 59 + this.Updated.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        /// <summary>
         /// To validate all properties of the instance
         /// </summary>
         /// <param name="validationContext">Validation context</param>
         /// <returns>Validation Result</returns>
-        public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
             yield break;
         }

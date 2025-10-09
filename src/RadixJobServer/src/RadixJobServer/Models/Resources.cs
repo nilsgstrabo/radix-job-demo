@@ -21,24 +21,22 @@ using RadixJobServer.Converters;
 namespace RadixJobServer.Models
 { 
     /// <summary>
-    /// RadixNode defines node attributes, where container should be scheduled
+    /// 
     /// </summary>
     [DataContract]
-    public partial class RadixNode : IEquatable<RadixNode>
+    public partial class Resources : IEquatable<Resources>
     {
         /// <summary>
-        /// Defines rules for allowed GPU types. More info: https://www.radix.equinor.com/references/reference-radix-config/#gpu +optional
+        /// Gets or Sets Limits
         /// </summary>
-        /// <value>Defines rules for allowed GPU types. More info: https://www.radix.equinor.com/references/reference-radix-config/#gpu +optional</value>
-        [DataMember(Name="gpu", EmitDefaultValue=false)]
-        public string Gpu { get; set; }
+        [DataMember(Name="limits", EmitDefaultValue=false)]
+        public Dictionary<string, string> Limits { get; set; }
 
         /// <summary>
-        /// Defines minimum number of required GPUs. +optional
+        /// Gets or Sets Requests
         /// </summary>
-        /// <value>Defines minimum number of required GPUs. +optional</value>
-        [DataMember(Name="gpuCount", EmitDefaultValue=false)]
-        public string GpuCount { get; set; }
+        [DataMember(Name="requests", EmitDefaultValue=false)]
+        public Dictionary<string, string> Requests { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -47,9 +45,9 @@ namespace RadixJobServer.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class RadixNode {\n");
-            sb.Append("  Gpu: ").Append(Gpu).Append("\n");
-            sb.Append("  GpuCount: ").Append(GpuCount).Append("\n");
+            sb.Append("class Resources {\n");
+            sb.Append("  Limits: ").Append(Limits).Append("\n");
+            sb.Append("  Requests: ").Append(Requests).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -60,7 +58,7 @@ namespace RadixJobServer.Models
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>
@@ -72,29 +70,31 @@ namespace RadixJobServer.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((RadixNode)obj);
+            return obj.GetType() == GetType() && Equals((Resources)obj);
         }
 
         /// <summary>
-        /// Returns true if RadixNode instances are equal
+        /// Returns true if Resources instances are equal
         /// </summary>
-        /// <param name="other">Instance of RadixNode to be compared</param>
+        /// <param name="other">Instance of Resources to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(RadixNode other)
+        public bool Equals(Resources other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
             return 
                 (
-                    Gpu == other.Gpu ||
-                    Gpu != null &&
-                    Gpu.Equals(other.Gpu)
+                    Limits == other.Limits ||
+                    Limits != null &&
+                    other.Limits != null &&
+                    Limits.SequenceEqual(other.Limits)
                 ) && 
                 (
-                    GpuCount == other.GpuCount ||
-                    GpuCount != null &&
-                    GpuCount.Equals(other.GpuCount)
+                    Requests == other.Requests ||
+                    Requests != null &&
+                    other.Requests != null &&
+                    Requests.SequenceEqual(other.Requests)
                 );
         }
 
@@ -108,10 +108,10 @@ namespace RadixJobServer.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (Gpu != null)
-                    hashCode = hashCode * 59 + Gpu.GetHashCode();
-                    if (GpuCount != null)
-                    hashCode = hashCode * 59 + GpuCount.GetHashCode();
+                    if (Limits != null)
+                    hashCode = hashCode * 59 + Limits.GetHashCode();
+                    if (Requests != null)
+                    hashCode = hashCode * 59 + Requests.GetHashCode();
                 return hashCode;
             }
         }
@@ -119,12 +119,12 @@ namespace RadixJobServer.Models
         #region Operators
         #pragma warning disable 1591
 
-        public static bool operator ==(RadixNode left, RadixNode right)
+        public static bool operator ==(Resources left, Resources right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(RadixNode left, RadixNode right)
+        public static bool operator !=(Resources left, Resources right)
         {
             return !Equals(left, right);
         }

@@ -14,7 +14,6 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-using RadixJobClient.Api;
 using RadixJobClient.Model;
 using RadixJobClient.Client;
 using System.Reflection;
@@ -55,6 +54,23 @@ namespace RadixJobClient.Test.Model
             //Assert.IsType<BatchStatus>(instance);
         }
 
+        /// <summary>
+        /// Test the property 'DeploymentName'
+        /// </summary>
+        [Fact]
+        public void DeploymentNameTest()
+        {
+            // TODO unit test for the property 'DeploymentName'
+        }
+
+        /// <summary>
+        /// Test the property 'BatchId'
+        /// </summary>
+        [Fact]
+        public void BatchIdTest()
+        {
+            // TODO unit test for the property 'BatchId'
+        }
 
         /// <summary>
         /// Test the property 'BatchName'
@@ -64,6 +80,16 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'BatchName'
         }
+
+        /// <summary>
+        /// Test the property 'BatchType'
+        /// </summary>
+        [Fact]
+        public void BatchTypeTest()
+        {
+            // TODO unit test for the property 'BatchType'
+        }
+
         /// <summary>
         /// Test the property 'Created'
         /// </summary>
@@ -72,6 +98,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'Created'
         }
+
         /// <summary>
         /// Test the property 'Ended'
         /// </summary>
@@ -80,6 +107,16 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'Ended'
         }
+
+        /// <summary>
+        /// Test the property 'Failed'
+        /// </summary>
+        [Fact]
+        public void FailedTest()
+        {
+            // TODO unit test for the property 'Failed'
+        }
+
         /// <summary>
         /// Test the property 'JobId'
         /// </summary>
@@ -88,6 +125,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'JobId'
         }
+
         /// <summary>
         /// Test the property 'JobStatuses'
         /// </summary>
@@ -96,6 +134,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'JobStatuses'
         }
+
         /// <summary>
         /// Test the property 'Message'
         /// </summary>
@@ -104,6 +143,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'Message'
         }
+
         /// <summary>
         /// Test the property 'Name'
         /// </summary>
@@ -112,6 +152,25 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'Name'
         }
+
+        /// <summary>
+        /// Test the property 'PodStatuses'
+        /// </summary>
+        [Fact]
+        public void PodStatusesTest()
+        {
+            // TODO unit test for the property 'PodStatuses'
+        }
+
+        /// <summary>
+        /// Test the property 'Restart'
+        /// </summary>
+        [Fact]
+        public void RestartTest()
+        {
+            // TODO unit test for the property 'Restart'
+        }
+
         /// <summary>
         /// Test the property 'Started'
         /// </summary>
@@ -120,6 +179,7 @@ namespace RadixJobClient.Test.Model
         {
             // TODO unit test for the property 'Started'
         }
+
         /// <summary>
         /// Test the property 'Status'
         /// </summary>
@@ -129,6 +189,13 @@ namespace RadixJobClient.Test.Model
             // TODO unit test for the property 'Status'
         }
 
+        /// <summary>
+        /// Test the property 'Updated'
+        /// </summary>
+        [Fact]
+        public void UpdatedTest()
+        {
+            // TODO unit test for the property 'Updated'
+        }
     }
-
 }

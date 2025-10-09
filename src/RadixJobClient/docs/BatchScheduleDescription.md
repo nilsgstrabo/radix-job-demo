@@ -5,6 +5,7 @@ BatchScheduleDescription holds description about batch scheduling job
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**BatchId** | **string** | Defines a user defined ID of the batch. | [optional] 
 **DefaultRadixJobComponentConfig** | [**RadixJobComponentConfig**](RadixJobComponentConfig.md) |  | [optional] 
 **JobScheduleDescriptions** | [**List&lt;JobScheduleDescription&gt;**](JobScheduleDescription.md) | JobScheduleDescriptions descriptions of jobs to schedule within the batch | 
 

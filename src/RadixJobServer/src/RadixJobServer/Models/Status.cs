@@ -30,13 +30,15 @@ namespace RadixJobServer.Models
         /// Suggested HTTP return code for this status, 0 if not set.
         /// </summary>
         /// <value>Suggested HTTP return code for this status, 0 if not set.</value>
-        [DataMember(Name="code", EmitDefaultValue=false)]
+        /* <example>404</example> */
+        [DataMember(Name="code", EmitDefaultValue=true)]
         public long Code { get; set; }
 
         /// <summary>
         /// A human-readable description of the status of this operation.
         /// </summary>
         /// <value>A human-readable description of the status of this operation.</value>
+        /* <example>job job123 is not found</example> */
         [DataMember(Name="message", EmitDefaultValue=false)]
         public string Message { get; set; }
 
@@ -50,8 +52,9 @@ namespace RadixJobServer.Models
         /// Status of the operation. One of: \&quot;Success\&quot; or \&quot;Failure\&quot;.
         /// </summary>
         /// <value>Status of the operation. One of: \&quot;Success\&quot; or \&quot;Failure\&quot;.</value>
+        /* <example>Failure</example> */
         [DataMember(Name="status", EmitDefaultValue=false)]
-        public string _Status { get; set; }
+        public string VarStatus { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -64,7 +67,7 @@ namespace RadixJobServer.Models
             sb.Append("  Code: ").Append(Code).Append("\n");
             sb.Append("  Message: ").Append(Message).Append("\n");
             sb.Append("  Reason: ").Append(Reason).Append("\n");
-            sb.Append("  _Status: ").Append(_Status).Append("\n");
+            sb.Append("  VarStatus: ").Append(VarStatus).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -75,7 +78,7 @@ namespace RadixJobServer.Models
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>
@@ -117,9 +120,9 @@ namespace RadixJobServer.Models
                     Reason.Equals(other.Reason)
                 ) && 
                 (
-                    _Status == other._Status ||
-                    _Status != null &&
-                    _Status.Equals(other._Status)
+                    VarStatus == other.VarStatus ||
+                    VarStatus != null &&
+                    VarStatus.Equals(other.VarStatus)
                 );
         }
 
@@ -139,8 +142,8 @@ namespace RadixJobServer.Models
                     hashCode = hashCode * 59 + Message.GetHashCode();
                     if (Reason != null)
                     hashCode = hashCode * 59 + Reason.GetHashCode();
-                    if (_Status != null)
-                    hashCode = hashCode * 59 + _Status.GetHashCode();
+                    if (VarStatus != null)
+                    hashCode = hashCode * 59 + VarStatus.GetHashCode();
                 return hashCode;
             }
         }
