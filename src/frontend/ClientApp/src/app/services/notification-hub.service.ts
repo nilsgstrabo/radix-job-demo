@@ -28,7 +28,7 @@ export class NotificationHubService {
             .withAutomaticReconnect()
             .build();
 
-        this.connection.serverTimeoutInMilliseconds=6*1000;
+        this.connection.serverTimeoutInMilliseconds=10*1000;
         this.connection.keepAliveIntervalInMilliseconds=5*1000;
     }
 
