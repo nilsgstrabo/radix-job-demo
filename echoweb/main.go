@@ -56,16 +56,16 @@ func handle(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	fmt.Printf("writing %v KB and sleeping %v between each KB\n", responseKb, sleep)
-	for range responseKb {
+	for i := range responseKb {
 		_, err := w.Write([]byte(strings.Repeat(responsePart, 16)))
 		if err != nil {
 			fmt.Printf("error: %v\n", err)
 		}
 		w.(http.Flusher).Flush()
-		fmt.Printf("#%v: flushing and waiting for %v\n", responseKb, sleep)
+		fmt.Printf("#%v: flushing and waiting for %v\n", i, sleep)
 		time.Sleep(sleep)
 	}
-	fmt.Print("Done")
+	fmt.Println("Done")
 	w.Write([]byte("\nI'm all done\n"))
 }
 
