@@ -64,6 +64,7 @@ func handle(w http.ResponseWriter, r *http.Request) {
 		w.(http.Flusher).Flush()
 		time.Sleep(time.Duration(sleep) * time.Second)
 	}
+	w.Write([]byte("I'm all done\n"))
 }
 
 func init() {
