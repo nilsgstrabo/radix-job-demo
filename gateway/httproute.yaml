@@ -19,6 +19,8 @@ spec:
         - path:
             type: PathPrefix
             value: /
+      timeouts:
+        request: 2s
       backendRefs:
         - group: ""
           kind: Service
@@ -53,7 +55,7 @@ spec:
       #   cookieConfig:
       #     lifetimeType: Permanent
       timeouts:
-        request: 10s
+        backendRequest: 10s
       backendRefs:
         - group: ""
           kind: Service

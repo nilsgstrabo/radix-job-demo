@@ -60,6 +60,7 @@ func handle(w http.ResponseWriter, r *http.Request) {
 		_, err := w.Write([]byte(strings.Repeat(responsePart, 16)))
 		if err != nil {
 			fmt.Printf("error: %v\n", err)
+			return
 		}
 		w.(http.Flusher).Flush()
 		fmt.Printf("#%v: flushing and waiting for %v\n", i, sleep)
