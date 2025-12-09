@@ -38,7 +38,7 @@ func handle(w http.ResponseWriter, r *http.Request) {
 			initialSleep = time.Duration(n) * time.Second
 		}
 	}
-	fmt.Printf("sleeping for %v seconds before response\n", initialSleep)
+	fmt.Printf("sleeping for %v before response\n", initialSleep)
 	time.Sleep(initialSleep)
 	w.WriteHeader(200)
 	w.Write([]byte("all good\n"))
@@ -49,22 +49,24 @@ func handle(w http.ResponseWriter, r *http.Request) {
 			responseKb = n
 		}
 	}
-	sleep := 0
+	sleep := 0 * time.Second
 	if v := r.URL.Query().Get("sleep"); len(v) > 0 {
 		if n, err := strconv.Atoi(v); err == nil {
-			sleep = n
+			sleep = time.Duration(n) * time.Second
 		}
 	}
-	fmt.Printf("writing %v KB and sleeping %v seconds between each KB\n", responseKb, sleep)
+	fmt.Printf("writing %v KB and sleeping %v between each KB\n", responseKb, sleep)
 	for range responseKb {
 		_, err := w.Write([]byte(strings.Repeat(responsePart, 16)))
 		if err != nil {
 			fmt.Printf("error: %v\n", err)
 		}
 		w.(http.Flusher).Flush()
-		time.Sleep(time.Duration(sleep) * time.Second)
+		fmt.Printf("#%v: flushing and waiting for %v\n", responseKb, sleep)
+		time.Sleep(sleep)
 	}
-	w.Write([]byte("I'm all done\n"))
+	fmt.Print("Done")
+	w.Write([]byte("\nI'm all done\n"))
 }
 
 func init() {
