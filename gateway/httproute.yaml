@@ -19,8 +19,6 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      timeouts:
-        request: 2s
       backendRefs:
         - group: ""
           kind: Service
@@ -54,8 +52,6 @@ spec:
       #   sessionName: Ssession-A
       #   cookieConfig:
       #     lifetimeType: Permanent
-      timeouts:
-        backendRequest: 10s
       backendRefs:
         - group: ""
           kind: Service
