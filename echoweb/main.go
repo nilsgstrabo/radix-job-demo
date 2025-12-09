@@ -38,7 +38,8 @@ func handle(w http.ResponseWriter, r *http.Request) {
 			initialSleep = time.Duration(n) * time.Second
 		}
 	}
-	fmt.Printf("sleeping for %v seconds before response", initialSleep)
+	fmt.Printf("sleeping for %v seconds before response\n", initialSleep)
+	time.Sleep(initialSleep)
 	w.WriteHeader(200)
 	w.Write([]byte("all good\n"))
 
