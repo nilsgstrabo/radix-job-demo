@@ -268,5 +268,10 @@ spec:
           memory: 100M
       secrets:
         - REDIS_PASSWORD
+      volumeMounts:
+        - name: data
+          path: /data
+          emptyDir:
+            sizeLimit: 100M
 
 
