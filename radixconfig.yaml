@@ -242,6 +242,7 @@ spec:
         OAUTH2_PROXY_COOKIE_SAMESITE: lax
         OAUTH2_PROXY_REDIRECT_URL: /oauth2/callback
         OAUTH2_PROXY_EMAIL_DOMAINS: "*"
+        OAUTH2_PROXY_UPSTREAMS: http://server:5000
     - name: oauth-redis
       image: docker.io/redis:8.2.2-alpine3.22
       ports:
