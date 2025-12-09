@@ -28,10 +28,17 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	if codeStr := r.URL.Query().Get("code"); len(codeStr) > 0 {
 		if code, err := strconv.Atoi(codeStr); err == nil {
 			w.WriteHeader(code)
-			w.Write([]byte(fmt.Sprintf("Returned code %v", code)))
+			fmt.Fprintf(w, "Returned code %v", code)
 			return
 		}
 	}
+	initialSleep := 0 * time.Second
+	if v := r.URL.Query().Get("initialsleep"); len(v) > 0 {
+		if n, err := strconv.Atoi(v); err == nil {
+			initialSleep = time.Duration(n) * time.Second
+		}
+	}
+	fmt.Printf("sleeping for %v seconds before response", initialSleep)
 	w.WriteHeader(200)
 	w.Write([]byte("all good\n"))
 
