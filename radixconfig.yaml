@@ -5,7 +5,7 @@ metadata:
 spec:
   dnsAppAlias:
     environment: qa
-    component: oauth-proxy
+    component: server
   build:
     useBuildKit: false
     useBuildCache: false
