@@ -174,7 +174,7 @@ spec:
           port: 6001
         - name: notif2
           port: 6002
-      # publicPort: http
+      publicPort: http
       readOnlyFileSystem: true
       ingressConfiguration:
         - stickysessions
@@ -195,11 +195,11 @@ spec:
       identity:
         azure:
           clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-      # authentication:
-      #   oauth2:
-      #     clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-      #     scope: openid email profile offline_access
-      #     sessionStoreType: systemManaged
+      authentication:
+        oauth2:
+          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+          scope: openid email profile offline_access
+          sessionStoreType: systemManaged
       resources:
         requests:
           memory: "200M"
@@ -211,69 +211,5 @@ spec:
           path: /app/computeimages
           emptyDir:
             sizeLimit: 50M
-    - name: oauth-proxy
-      image: quay.io/oauth2-proxy/oauth2-proxy:v7.12.0
-      ports:
-        - name: http
-          port: 4180
-      publicPort: http
-      resources:
-        requests:
-          cpu: 10m
-          memory: 100M
-        limits:
-          cpu: 100m
-          memory: 100M
-      secrets:
-        - OAUTH2_PROXY_COOKIE_SECRET
-        - OAUTH2_PROXY_CLIENT_SECRET
-        - OAUTH2_PROXY_REDIS_PASSWORD
-      variables:
-        OAUTH2_PROXY_PROVIDER: oidc
-        OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
-        OAUTH2_PROXY_SKIP_CLAIMS_FROM_PROFILE_URL: "true"
-        OAUTH2_PROXY_HTTP_ADDRESS: http://:4180
-        OAUTH2_PROXY_CLIENT_ID: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-        OAUTH2_PROXY_SCOPE: openid email profile offline_access
-        OAUTH2_PROXY_SESSION_STORE_TYPE: redis
-        OAUTH2_PROXY_REDIS_CONNECTION_URL: redis://oauth-redis:6379
-        OAUTH2_PROXY_OIDC_ISSUER_URL: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0
-        OAUTH2_PROXY_INSECURE_OIDC_SKIP_NONCE: "false"
-        OAUTH2_PROXY_COOKIE_SAMESITE: lax
-        OAUTH2_PROXY_REDIRECT_URL: /oauth2/callback
-        OAUTH2_PROXY_EMAIL_DOMAINS: "*"
-        OAUTH2_PROXY_UPSTREAMS: http://server:5000
-    - name: oauth-redis
-      image: docker.io/redis:8.2.2-alpine3.22
-      ports:
-        - name: redis
-          port: 6379
-      runAsUser: 1001
-      args:
-        - redis-server
-        - --save
-        - 3600 1 300 100 60 10000
-        - --dir
-        - /data
-        - --appendonly
-        - "yes"
-        - --protected-mode
-        - "yes"
-        - --requirepass
-        - $(REDIS_PASSWORD)
-      resources:
-        requests:
-          cpu: 10m
-          memory: 100M
-        limits:
-          cpu: 100m
-          memory: 100M
-      secrets:
-        - REDIS_PASSWORD
-      volumeMounts:
-        - name: data
-          path: /data
-          emptyDir:
-            sizeLimit: 100M
-
+    
 
