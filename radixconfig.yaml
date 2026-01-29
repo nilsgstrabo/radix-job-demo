@@ -2,6 +2,8 @@ apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
   name: radix-job-demo
+  annotations:
+    radix.equinor.com/preview-oauth2-proxy-mode: "dev,qa"  
 spec:
   dnsAppAlias:
     environment: qa
