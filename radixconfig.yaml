@@ -204,7 +204,7 @@ spec:
           sessionStoreType: systemManaged
       resources:
         requests:
-          memory: "200M"
+          memory: "201M"
           cpu: "50m"
         limits:
           memory: "500M"
