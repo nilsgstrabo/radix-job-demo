@@ -130,24 +130,24 @@ spec:
           identity:
             azure:
               clientId: b96d264b-7053-4465-a4a7-32be5b0fec49
-    - name: "compute2"
-      src: "compute"
-      # image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda12.5.0
-      schedulerPort: 8080
-      timeLimitSeconds: 300
-      backoffLimit: 0
-      # runtime:
-      #   nodeType: gpu-nvidia-1-v1
-      payload:
-        path: "/compute/args"
-      identity:
-        azure:
-          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
-      variables:
-        COMPUTE_CONFIG: "/compute/args/payload"
-        CALLBACK_ON_COMPLETE_URL: "http://server:5000"
-        SQL_SERVER_NAME: "fed-test.database.windows.net"
-        SQL_DATABASE_NAME: "fed-test"
+    # - name: "compute2"
+    #   src: "compute"
+    #   # image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda12.5.0
+    #   schedulerPort: 8080
+    #   timeLimitSeconds: 300
+    #   backoffLimit: 0
+    #   # runtime:
+    #   #   nodeType: gpu-nvidia-1-v1
+    #   payload:
+    #     path: "/compute/args"
+    #   identity:
+    #     azure:
+    #       clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+    #   variables:
+    #     COMPUTE_CONFIG: "/compute/args/payload"
+    #     CALLBACK_ON_COMPLETE_URL: "http://server:5000"
+    #     SQL_SERVER_NAME: "fed-test.database.windows.net"
+    #     SQL_DATABASE_NAME: "fed-test"
   components:
     - name: echo
       src: echoweb
