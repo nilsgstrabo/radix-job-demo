@@ -41,6 +41,12 @@ namespace frontend.Hubs
             _logger.LogInformation(0,"Hub connection closed");
             return Task.CompletedTask;
         }
+
+        public Task ReceiveTimerMessage(string message)
+        {
+            _logger.LogInformation("Timer message received from client: {Message}", message);
+            return Task.CompletedTask;
+        }
  
     }
 

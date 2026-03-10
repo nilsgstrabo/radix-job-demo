@@ -16,10 +16,13 @@ export class NotificationHubService {
     private timeChangedSubject = new Subject<ImageChanged>();
     timeChanged = this.timeChangedSubject.asObservable();
 
+    private timerInterval?: number;
+
     constructor() {
         this.createConnection();
         this.registerServerEvents();
         this.startConnection();
+        this.startTimer();
     }
 
     private createConnection() {
@@ -39,6 +42,7 @@ export class NotificationHubService {
     private registerServerEvents(): void {
         this.connection?.onclose((e)=> {
             console.log(new Date().toLocaleString() ,'connection closed');
+            this.stopTimer();
             // this.startConnection();
         })
         this.connection?.onreconnecting((e)=> {
@@ -46,11 +50,26 @@ export class NotificationHubService {
         });
         this.connection?.onreconnected((id)=> {
             console.log(new Date().toLocaleString() ,'reconnected', id);
+            this.startTimer();
         });
         this.connection?.on('imageChanged', (img) => this.imageChangedSubject.next(img));
         this.connection?.on('timeChanged', (img) => this.timeChangedSubject.next(img));
     }
 
+    private startTimer(): void {
+        this.stopTimer();
+        this.timerInterval = window.setInterval(() => {
+            const message = `Timer ping at ${new Date().toISOString()}`;
+            this.connection?.invoke('ReceiveTimerMessage', message)
+                .catch(err => console.error('Error sending timer message:', err));
+        }, 5000); // Send message every 10 seconds
+    }
 
+    private stopTimer(): void {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = undefined;
+        }
+    }
 
 }
