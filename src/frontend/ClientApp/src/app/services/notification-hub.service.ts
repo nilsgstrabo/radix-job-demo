@@ -27,7 +27,10 @@ export class NotificationHubService {
 
     private createConnection() {
         this.connection = new signalR.HubConnectionBuilder()
-            .withUrl('/notificationhub', signalR.HttpTransportType.WebSockets)
+            .withUrl('/notificationhub', {
+                skipNegotiation: true,
+                transport: signalR.HttpTransportType.WebSockets,
+            })
             .build();
 
         this.connection.serverTimeoutInMilliseconds=10*1000;
