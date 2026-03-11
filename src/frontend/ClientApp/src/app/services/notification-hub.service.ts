@@ -44,8 +44,8 @@ export class NotificationHubService {
     private registerServerEvents(): void {
         this.connection?.onclose((e)=> {
             console.log(new Date().toLocaleString() ,'connection closed');
-            this.stopTimer();
             this.startConnection();
+            this.startTimer();
         })
         this.connection?.onreconnecting((e)=> {
             console.log(new Date().toLocaleString() ,'reconnecting', e);
