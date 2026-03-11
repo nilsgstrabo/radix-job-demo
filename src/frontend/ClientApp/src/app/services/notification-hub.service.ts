@@ -45,7 +45,7 @@ export class NotificationHubService {
         this.connection?.onclose((e)=> {
             console.log(new Date().toLocaleString() ,'connection closed');
             this.stopTimer();
-            // this.startConnection();
+            this.startConnection();
         })
         this.connection?.onreconnecting((e)=> {
             console.log(new Date().toLocaleString() ,'reconnecting', e);
