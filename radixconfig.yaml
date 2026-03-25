@@ -20,6 +20,7 @@ spec:
         from: release
   jobs:
     - name: "compute"
+      safeToRestart: true
       src: "compute"
       command: []
       args: []
