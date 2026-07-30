@@ -16,19 +16,24 @@ export class NotificationHubService {
     private timeChangedSubject = new Subject<ImageChanged>();
     timeChanged = this.timeChangedSubject.asObservable();
 
+    private timerInterval?: number;
+
     constructor() {
         this.createConnection();
         this.registerServerEvents();
         this.startConnection();
+        this.startTimer();
     }
 
     private createConnection() {
         this.connection = new signalR.HubConnectionBuilder()
-            .withUrl('/notificationhub')
-            .withAutomaticReconnect()
+            .withUrl('/notificationhub', {
+                skipNegotiation: true,
+                transport: signalR.HttpTransportType.WebSockets,
+            })
             .build();
 
-        this.connection.serverTimeoutInMilliseconds=6*1000;
+        this.connection.serverTimeoutInMilliseconds=10*1000;
         this.connection.keepAliveIntervalInMilliseconds=5*1000;
     }
 
@@ -39,18 +44,34 @@ export class NotificationHubService {
     private registerServerEvents(): void {
         this.connection?.onclose((e)=> {
             console.log(new Date().toLocaleString() ,'connection closed');
-            // this.startConnection();
+            this.startConnection();
+            this.startTimer();
         })
         this.connection?.onreconnecting((e)=> {
             console.log(new Date().toLocaleString() ,'reconnecting', e);
         });
         this.connection?.onreconnected((id)=> {
             console.log(new Date().toLocaleString() ,'reconnected', id);
+            this.startTimer();
         });
         this.connection?.on('imageChanged', (img) => this.imageChangedSubject.next(img));
         this.connection?.on('timeChanged', (img) => this.timeChangedSubject.next(img));
     }
 
+    private startTimer(): void {
+        this.stopTimer();
+        this.timerInterval = window.setInterval(() => {
+            const message = `Timer ping at ${new Date().toISOString()}`;
+            this.connection?.invoke('ReceiveTimerMessage', message)
+                .catch(err => console.error('Error sending timer message:', err));
+        }, 5000); // Send message every 10 seconds
+    }
 
+    private stopTimer(): void {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = undefined;
+        }
+    }
 
 }
