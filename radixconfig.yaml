@@ -60,9 +60,9 @@ spec:
         portName: metrics2
       payload:
         path: "/compute/args"
-      identity:
-        azure:
-          clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
+      # identity:
+      #   azure:
+      #     clientId: 5e48ca1f-a2bf-4dec-b96d-bbf8ce69f9f6
       variables:
         COMPUTE_CONFIG: "/compute/args/payload"
         CALLBACK_ON_COMPLETE_URL: "http://server:5000"
