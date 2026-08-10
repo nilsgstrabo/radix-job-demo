@@ -80,6 +80,9 @@ public class ComputeServiceBase : IComputeService
         string cpuResource="";
 
         switch(memory) {
+            case JobResourceEnum.TooHigh:
+                memResource="200Gi";
+                break;
             case JobResourceEnum.High:
                 memResource="1000Mi";
                 break;
@@ -95,6 +98,9 @@ public class ComputeServiceBase : IComputeService
         }
 
         switch(cpu) {
+            case JobResourceEnum.TooHigh:
+                cpuResource="100";
+                break;
             case JobResourceEnum.High:
                 cpuResource="1";
                 break;
