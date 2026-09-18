@@ -1,7 +1,7 @@
 # Radix Job Demo
 
 
-A simple demo app to show how jobs can be used in Radix.
+A simple demo app to show how jobs can be used in Radix
 
 Regenerate Job Scheduler client:
 ```
